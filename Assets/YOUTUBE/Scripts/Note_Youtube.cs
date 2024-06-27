@@ -15,12 +15,12 @@ public class Note_Youtube : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb.velocity = new Vector2(0, -speed);
+        rb.velocity = new Vector2(0, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        transform.position = new Vector2(transform.position.x - 10 * Time.deltaTime, 0);
     }
 }

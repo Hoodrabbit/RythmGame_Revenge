@@ -3,47 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Threading.Tasks;
+using System.IO.Pipes;
+using System.Runtime.Serialization;
 
-int hello;
 public class Activator : MonoBehaviour
 {
-    public enum Mode
-    {
-        None,
-        PlayMode,
-        DebugMode
-    }
-    
-    
-    public Mode Game_Mode;
+    //GameManager gameState;
     public KeyCode key;
     bool active = false;
     GameObject note;
     public static float PlayTime;
     public List<float> songtimes = new List<float>();
 
-
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        switch (Game_Mode)
+        switch (GameManager.Instance.state)
         {
-            case Mode.None:
+            case GameState.None:
                 break;
-            case Mode.PlayMode:
+            case GameState.Play_Mode:
                 if (Input.GetKeyDown(key))
                 {
-                    
+
                 }
                 break;
-            case Mode.DebugMode:
+            case GameState.Debug_Mode:
                 PlayTime += Time.deltaTime;
                 if (Input.GetKeyDown(key))
                 {
@@ -59,71 +51,78 @@ public class Activator : MonoBehaviour
     }
 
 
-   
+
 
     private async void OnApplicationQuit()
     {
-        if(Game_Mode == Mode.DebugMode) 
+        //Debug.Log(Application.dataPath);
+        if (GameManager.Instance.state == GameState.Debug_Mode)
         {
             Debug.Log("test");
             await SaveNoteTimesToFile();
         }
-        
+
     }
 
     private async Task SaveNoteTimesToFile()
     {
-        string directoryPath = "SaveNoteData";
+
+        string directoryPath = Application.dataPath + "\\NOTEDATA_Folder";
         string filePath = Path.Combine(directoryPath, "NoteData.txt");
 
-        if(!Directory.Exists(directoryPath)) 
+        if (!Directory.Exists(directoryPath))
         {
-            Directory.CreateDirectory (directoryPath);
+            Debug.Log("디렉토리가 없어요");
+            Directory.CreateDirectory(directoryPath);
         }
 
         List<string> lines = new List<string>();
 
-        //lines.Add(songtimes.Count.ToString());
+        lines.Add(songtimes.Count.ToString());
 
-        foreach(var line in songtimes)
+        foreach (var line in songtimes)
         {
-            lines.Add(line.ToString()) ;
+            //Debug.Log("실행됨");
+            lines.Add(line.ToString());
         }
+        
 
-        await Task.Run(() =>
+        if (File.Exists(filePath))
         {
-            File.WriteAllLines(filePath, lines);            
-            //파일 닫기 기능 넣기
-        });
 
-        //if(File.Exists(filePath))
-        //{
-        //    FileStream fileStream = File.OpenWrite(filePath);
-        //}
-        //else
-        //{
-        //    FileStream fileStream = File.Create(filePath);
-        //    fileStream.Write()
+            StreamWriter writer = File.CreateText(filePath);
 
-        //}
+            foreach(string s in lines)
+            {
+               
+                writer.WriteLine(s);
+            }
+            writer.Close();
+        }
+        else
+        {
+            FileStream fileStream = File.Create(filePath);
+            StreamWriter fileWriter = new StreamWriter(fileStream);
+            foreach (string s in lines)
+            {
+                fileWriter.WriteLine(s);
+            }
+            fileWriter.Close();
 
+        }
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-        if(collision.gameObject.CompareTag("Note"))
+
+        if (collision.gameObject.CompareTag("Note"))
         {
             active = true;
             note = collision.gameObject;
-            //Destroy(collision.gameObject);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         active = false;
-        
     }
-
 }
