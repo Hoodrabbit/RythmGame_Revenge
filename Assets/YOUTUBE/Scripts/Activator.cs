@@ -14,11 +14,13 @@ public class Activator : MonoBehaviour
     GameObject note;
     public static float PlayTime;
     public List<float> songtimes = new List<float>();
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
+        Debug.Log("PlayTime : " + PlayTime);
     }
 
     // Update is called once per frame
@@ -30,9 +32,18 @@ public class Activator : MonoBehaviour
             case GameState.None:
                 break;
             case GameState.Play_Mode:
+                PlayTime += Time.deltaTime;
                 if (Input.GetKeyDown(key))
                 {
-
+                    if(note != null)
+                    {
+                        Debug.Log("내가 눌러서 작동");
+                        note.SetActive(false);
+                        audioSource.Play();
+                        songtimes.Add(PlayTime);
+                        
+                    }
+                    
                 }
                 break;
             case GameState.Debug_Mode:
@@ -41,6 +52,7 @@ public class Activator : MonoBehaviour
                 {
                     //Destroy(note);
                     songtimes.Add(PlayTime);
+                    audioSource.Play();
                 }
                 break;
             default:

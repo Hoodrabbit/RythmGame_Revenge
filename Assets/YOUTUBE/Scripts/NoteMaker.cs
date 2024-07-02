@@ -15,21 +15,23 @@ public class NoteMaker : MonoBehaviour
     int NoteCount;
 
     public GameObject Note;
-
+    GameObject Notes;
 
     // Start is called before the first frame update
     void Start()
     {
+        Notes = new GameObject("Notes");
+        Notes.transform.position = Vector3.zero;
         if(GameManager.Instance.state == GameState.Play_Mode)
         {
             NoteCount = Int32.Parse(NoteParsing.ReadLine());
             for (int i = 0; i < NoteCount; i++)
             {
                 Instantiate(Note,
-                            new Vector2(float.Parse(NoteParsing.ReadLine()) + 10 * (i + 1), 0),
-                            Quaternion.identity);
+                            new Vector2(float.Parse(NoteParsing.ReadLine()) * (10)+2.53f/*오프셋*/, 
+                            0),
+                            Quaternion.identity,Notes.transform);
             }
-            //여기에서 리스트 내의 인덱스 갯수 체크해서 그만큼 생성시켜주도록    
         }
 
     }
