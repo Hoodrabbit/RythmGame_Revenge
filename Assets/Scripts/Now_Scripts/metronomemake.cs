@@ -23,7 +23,7 @@ public class metronomemake : MonoBehaviour
     {
         Timecheck += Time.deltaTime;
 
-        if (Timecheck >= stdBPM / MusicBPM) 
+        if (Timecheck >= 3 + stdBPM / MusicBPM) 
         {
             metro.PlayOneShot(metro.clip);
             transform.Rotate(Vector3.back * 45f);
