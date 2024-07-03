@@ -740,7 +740,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: aaa9c6af078feba408cd646ee0e36881, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -880,6 +880,10 @@ PrefabInstance:
     - target: {fileID: 1243323239750590963, guid: 9a886578cda9b0f4183a2c0fcb8c2a5d, type: 3}
       propertyPath: m_Name
       value: Activator
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116433054856165561, guid: 9a886578cda9b0f4183a2c0fcb8c2a5d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4136202061583734310, guid: 9a886578cda9b0f4183a2c0fcb8c2a5d, type: 3}
       propertyPath: Game_Mode
