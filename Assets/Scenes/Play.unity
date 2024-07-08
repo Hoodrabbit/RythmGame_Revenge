@@ -742,8 +742,10 @@ MonoBehaviour:
   MusicBPM: 128
   stdBPM: 60
   metro: {fileID: 1292894802}
+  Song: {fileID: 0}
   Timecheck: 0
   mysr: {fileID: 0}
+  songtimes: []
 --- !u!4 &1292894804
 Transform:
   m_ObjectHideFlags: 0
@@ -1022,7 +1024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39f617fa8ffc5f4f9a6c6e030e81d90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 2
+  state: 3
   MainAudio: {fileID: 1857500011}
 --- !u!4 &1972501437
 Transform:

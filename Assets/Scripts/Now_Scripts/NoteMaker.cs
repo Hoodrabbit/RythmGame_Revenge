@@ -28,7 +28,7 @@ public class NoteMaker : MonoBehaviour
             for (int i = 0; i < NoteCount; i++)
             {
                 Instantiate(Note,
-                            new Vector2(float.Parse(NoteParsing.ReadLine()) * (10)+2.53f/*오프셋*/, 
+                            new Vector2(float.Parse(NoteParsing.ReadLine()) * (10) - 0.0436521739130443f/*오프셋*/, 
                             0),
                             Quaternion.identity,Notes.transform);
             }
