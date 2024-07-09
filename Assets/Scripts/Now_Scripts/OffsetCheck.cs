@@ -57,7 +57,7 @@ public class OffsetCheck : MonoBehaviour
                 Debug.Log(aa);
                 Offsetimes.Add(aa);
             }
-
+            
             StartdspTIme = AudioSettings.dspTime;
 
             

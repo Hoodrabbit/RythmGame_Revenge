@@ -32,8 +32,8 @@ public class metronomemake : MonoBehaviour
         Timecheck = 0;
         oneBeatTime = stdBPM / MusicBPM;
         bitPerSec = MusicBPM / stdBPM;
-        NextBeatTime = oneBeatTime * Song.clip.frequency;
-
+        //NextBeatTime = oneBeatTime * Song.clip.frequency;
+        NextBeatTime = 1.526;
         Debug.Log(stdBPM / MusicBPM);
         mysr = GetComponent<Transform>();
 
@@ -43,14 +43,22 @@ public class metronomemake : MonoBehaviour
 
     private void Update()
     {
-        if (Song.timeSamples >= NextBeatTime)
+        while (GameManager.Instance.ClipLength() >= NextBeatTime)
         {
-            CurdspTime = AudioSettings.dspTime;
-            Debug.Log(CurdspTime - StartdspTIme);
-            songtimes.Add(CurdspTime - StartdspTIme);
-            StartCoroutine(PlayMetronome());
-            //StartdspTIme = AudioSettings.dspTime;
+            songtimes.Add(NextBeatTime);
+
+            NextBeatTime += oneBeatTime;
         }
+
+
+        //if (Song.timeSamples+3f >= NextBeatTime)
+        //{
+        //    CurdspTime = AudioSettings.dspTime;
+        //    Debug.Log(CurdspTime - StartdspTIme);
+        //    songtimes.Add(CurdspTime - StartdspTIme);
+        //    StartCoroutine(PlayMetronome());
+        //    //StartdspTIme = AudioSettings.dspTime;
+        //}
 
 
 

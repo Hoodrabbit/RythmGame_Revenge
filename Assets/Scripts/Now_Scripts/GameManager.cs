@@ -8,16 +8,24 @@ public class GameManager : Singleton<GameManager>
 {
     public GameState state = GameState.None;
     public AudioSource MainAudio;
-
+    public AudioClip[] audioClips;
     public void Start()
     {
         double CurDspTime = AudioSettings.dspTime;
 
-        MainAudio.PlayScheduled(CurDspTime + 3f); //3초뒤에 노래 시작
+        //MainAudio.PlayScheduled(CurDspTime); 
+
+
+    }
+    public float ClipLength()
+    {
+        return MainAudio.clip.length;
     }
 
-
 }
+
+
+
 
 public enum GameState
 {
