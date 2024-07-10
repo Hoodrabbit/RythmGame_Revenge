@@ -19,8 +19,14 @@ public class Note_Youtube : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.position = new Vector2(transform.position.x - 10 * Time.deltaTime, 0);
+        if(transform.position.x <= -5 && GameManager.Instance.MainAudio.isPlaying == false)
+        {
+            Debug.Log("작동안함");
+            GameManager.Instance.PlayMusic();
+        }
+
+        transform.position = new Vector2(transform.position.x - speed * Time.fixedDeltaTime, 0);
     }
 }

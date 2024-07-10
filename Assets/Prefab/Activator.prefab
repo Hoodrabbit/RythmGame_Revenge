@@ -12,14 +12,14 @@ GameObject:
   - component: {fileID: 5486980634918585950}
   - component: {fileID: 9100929674747968052}
   - component: {fileID: 4116433054856165561}
-  - component: {fileID: 2832560821642852087}
+  - component: {fileID: 1561892968051393444}
   m_Layer: 0
   m_Name: Activator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6497890707546813625
 Transform:
   m_ObjectHideFlags: 0
@@ -218,7 +218,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2832560821642852087
+--- !u!114 &1561892968051393444
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,9 +227,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1243323239750590963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30389c5f1a75db343977bfc4bb14f02d, type: 3}
+  m_Script: {fileID: 11500000, guid: d02d9d58f906a8e4ea919e1c67569a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: 102
+  key: 106
   note: {fileID: 0}
   songtimes: []

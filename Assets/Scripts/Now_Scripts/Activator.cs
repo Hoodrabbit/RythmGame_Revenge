@@ -81,7 +81,7 @@ public class Activator : MonoBehaviour
     {
 
         string directoryPath = Application.dataPath + "\\NOTEDATA_Folder";
-        string filePath = Path.Combine(directoryPath, "NoteData.txt");
+        string filePath = Path.Combine(directoryPath, "RainyDayNoteData.txt");
 
         if (!Directory.Exists(directoryPath))
         {

@@ -8,7 +8,7 @@ using System;
 public class NoteMaker : MonoBehaviour
 {
     static string NoteDataFolder = Application.dataPath + "\\NOTEDATA_Folder";
-    static string NoteDataPath = Path.Combine(NoteDataFolder, "NoteData.txt");
+    static string NoteDataPath = Path.Combine(NoteDataFolder, "RainyDayNoteData.txt");
 
 
     StreamReader NoteParsing = new StreamReader(NoteDataPath);

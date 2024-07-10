@@ -22,6 +22,17 @@ public class GameManager : Singleton<GameManager>
         return MainAudio.clip.length;
     }
 
+    public void PlayMusic()
+    {
+        MainAudio.PlayScheduled(AudioSettings.dspTime);
+    }
+
+    public void StopMusic()
+    {
+        MainAudio.Pause();
+    }
+
+
 }
 
 
