@@ -31,6 +31,7 @@ public class SongSelect_DropDown : MonoBehaviour
     void GetValue(int Value)
     {
         songSelect.SongAudio.clip = songSelect.audioClips[Value];
+        MusicManager.Instance.SetMusic(Value);
         songSelect.SongAudio.PlayScheduled(0);
     }
 

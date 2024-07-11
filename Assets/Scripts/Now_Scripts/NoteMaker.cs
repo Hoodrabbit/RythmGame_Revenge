@@ -7,8 +7,12 @@ using System;
 
 public class NoteMaker : MonoBehaviour
 {
+    static string NoteTxt = GameManager.Instance.musicInfo.NoteFileDirection;
+    //이렇게 하면 되려나
+
+
     static string NoteDataFolder = Application.dataPath + "\\NOTEDATA_Folder";
-    static string NoteDataPath = Path.Combine(NoteDataFolder, "RainyDayNoteData.txt");
+    static string NoteDataPath = Path.Combine(NoteDataFolder, NoteTxt);
 
 
     StreamReader NoteParsing = new StreamReader(NoteDataPath);

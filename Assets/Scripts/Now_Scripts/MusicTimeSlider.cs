@@ -12,7 +12,7 @@ public class MusicTimeSlider : MonoBehaviour
     {
         m_Cam = Camera.main.GetComponent<Transform>();
         slider = GetComponent<Slider>();
-        slider.maxValue = GameManager.Instance.MainAudio.clip.length;
+        slider.maxValue = GameManager.Instance.musicInfo.Music.length;
         slider.onValueChanged.AddListener(delegate { SetMusicTime(); });
     }
 
@@ -29,7 +29,7 @@ public class MusicTimeSlider : MonoBehaviour
         {
             if(slider.value <= slider.maxValue)
             {
-                Debug.Log(NoteParent.GetDistance() / GameManager.Instance.MainAudio.clip.length);
+                //Debug.Log(NoteParent.GetDistance() / GameManager.Instance.MainAudio.clip.length);
                 GameManager.Instance.MainAudio.time = slider.value;
                 NoteParent.transform.position = new Vector3(-slider.value * (NoteParent.GetDistance()/ GameManager.Instance.MainAudio.clip.length), 0, 0);
             }

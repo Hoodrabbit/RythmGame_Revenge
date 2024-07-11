@@ -20,11 +20,13 @@ public class BarNote : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        NowBPM = GameManager.Instance.musicInfo.BPM;
+        StdBPM = 60;
         float NextBeat = StdBPM/ NowBPM;
         int count = 0;
         Debug.Log(NextBeat);
-        Debug.Log(GameManager.Instance.MainAudio.clip.length);
-        while (GameManager.Instance.MainAudio.clip.length > TTime)
+        //Debug.Log(GameManager.Instance.MainAudio.clip.length);
+        while (GameManager.Instance.musicInfo.Music.length > TTime)
         {
 
             if (first == false)
