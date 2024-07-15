@@ -52,11 +52,13 @@ public class Note_Edit : MonoBehaviour
             {
                 if(Pos.y > 0)
                 {
-                    Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y+2), Quaternion.identity, hit[i].transform.parent);
+                    GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y+2), Quaternion.identity, hit[i].transform.parent);
+                    DataManager.Instance.EditNotes.Add(AddNote);    
                 }
                 else
                 {
-                    Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y - 2), Quaternion.identity, hit[i].transform.parent);
+                    GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y - 2), Quaternion.identity, hit[i].transform.parent);
+                    DataManager.Instance.EditNotes.Add(AddNote);
                 }
                 
             }
