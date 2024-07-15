@@ -24,7 +24,7 @@ public class Note_Youtube : MonoBehaviour
         if(transform.position.x <= -5 && GameManager.Instance.MainAudio.isPlaying == false)
         {
             Debug.Log("작동안함");
-            GameManager.Instance.PlayMusic();
+            //GameManager.Instance.PlayMusic();
         }
 
         transform.position = new Vector2(transform.position.x - speed * Time.fixedDeltaTime, 0);

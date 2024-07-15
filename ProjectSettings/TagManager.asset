@@ -8,6 +8,8 @@ TagManager:
   - Up
   - Down
   - TimingCheck
+  - NotePlace
+  - Note_Edit
   layers:
   - Default
   - TransparentFX
@@ -44,4 +46,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Note
+    uniqueID: 1863733135
+    locked: 0
+  - name: UI
+    uniqueID: 626425845
     locked: 0

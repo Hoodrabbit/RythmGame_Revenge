@@ -12,7 +12,7 @@ public class MusicTimeSlider : MonoBehaviour
     {
         m_Cam = Camera.main.GetComponent<Transform>();
         slider = GetComponent<Slider>();
-        slider.maxValue = GameManager.Instance.musicInfo.Music.length;
+        slider.maxValue = (int)GameManager.Instance.musicInfo.Music.length+1;
         slider.onValueChanged.AddListener(delegate { SetMusicTime(); });
     }
 
