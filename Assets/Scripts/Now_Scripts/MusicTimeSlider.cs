@@ -6,7 +6,6 @@ public class MusicTimeSlider : MonoBehaviour
 {
     Transform m_Cam;
     Slider slider;
-    public BarNote NoteParent;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +19,6 @@ public class MusicTimeSlider : MonoBehaviour
     void Update()
     {
         SetValue();
-        
     }
 
     void SetMusicTime()
@@ -31,7 +29,8 @@ public class MusicTimeSlider : MonoBehaviour
             {
                 //Debug.Log(NoteParent.GetDistance() / GameManager.Instance.MainAudio.clip.length);
                 GameManager.Instance.MainAudio.time = slider.value;
-                NoteParent.transform.position = new Vector3(-slider.value * (NoteParent.GetDistance()/ GameManager.Instance.MainAudio.clip.length), 0, 0);
+                Transform NPpos = EditManager.Instance.NoteParent.transform;
+                NPpos.position = new Vector3(-slider.value * (EditManager.Instance.NoteParent.GetDistance()/ GameManager.Instance.MainAudio.clip.length), 0, 0);
             }
             
         }
@@ -43,9 +42,8 @@ public class MusicTimeSlider : MonoBehaviour
         if (GameManager.Instance.MainAudio.isPlaying == true)
         {
             slider.value = GameManager.Instance.MainAudio.time;
-            NoteParent.transform.position = new Vector3(-slider.value * (NoteParent.GetDistance() / GameManager.Instance.MainAudio.clip.length), 0, 0);
+            Transform NPpos = EditManager.Instance.NoteParent.transform;
+            NPpos.position = new Vector3(-slider.value * (EditManager.Instance.NoteParent.GetDistance() / GameManager.Instance.MainAudio.clip.length), 0, 0);
         }
     }
-
-
 }

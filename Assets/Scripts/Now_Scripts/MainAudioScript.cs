@@ -22,6 +22,12 @@ public class MainAudioScript : MonoBehaviour
     {
         audioSource.clip = GameManager.Instance.musicInfo.Music;
         GameManager.Instance.SetAudio(audioSource);
+
+        if(GameManager.Instance.state == GameState.Play_Mode)
+        {
+            GameManager.Instance.PlayMusic();
+        }
+        
     }
 
 }

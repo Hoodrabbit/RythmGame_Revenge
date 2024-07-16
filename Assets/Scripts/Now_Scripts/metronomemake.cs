@@ -77,8 +77,11 @@ public class metronomemake : MonoBehaviour
 
     private async Task SaveNoteTimesToFile()
     {
-
+#if UNITY_EDITOR
         string directoryPath = Application.dataPath + "\\NOTEDATA_Folder";
+#else
+        string directoryPath = Application.streamingAssetsPath + "\\NOTEDATA_Folder";
+#endif
         string filePath = Path.Combine(directoryPath, "NoteData.txt");
 
         if (!Directory.Exists(directoryPath))

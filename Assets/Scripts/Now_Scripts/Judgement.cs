@@ -23,38 +23,38 @@ public class Judgement : MonoBehaviour
     void Update()
     {
 
-        switch (GameManager.Instance.state)
-        {
-            case GameState.None:
-                break;
-            case GameState.Play_Mode:
-                PlayTime += Time.deltaTime;
-                if (Input.GetKeyDown(key))
-                {
-                    if (note != null)
-                    {
-                        Debug.Log("내가 눌러서 작동");
-                        note.SetActive(false);
-                        note = null;
-                        audioSource.Play();
-                        songtimes.Add(PlayTime);
+        //switch (GameManager.Instance.state)
+        //{
+        //    case GameState.None:
+        //        break;
+        //    case GameState.Play_Mode:
+        //        PlayTime += Time.deltaTime;
+        //        if (Input.GetKeyDown(key))
+        //        {
+        //            if (note != null)
+        //            {
+        //                Debug.Log("내가 눌러서 작동");
+        //                note.SetActive(false);
+        //                note = null;
+        //                audioSource.Play();
+        //                songtimes.Add(PlayTime);
 
-                    }
+        //            }
 
-                }
-                break;
-            case GameState.Debug_Mode:
-                PlayTime += Time.deltaTime;
-                if (Input.GetKeyDown(key))
-                {
-                    //Destroy(note);
-                    songtimes.Add(PlayTime);
-                    audioSource.Play();
-                }
-                break;
-            default:
-                break;
-        }
+        //        }
+        //        break;
+        //    case GameState.Debug_Mode:
+        //        PlayTime += Time.deltaTime;
+        //        if (Input.GetKeyDown(key))
+        //        {
+        //            //Destroy(note);
+        //            songtimes.Add(PlayTime);
+        //            audioSource.Play();
+        //        }
+        //        break;
+        //    default:
+        //        break;
+        //}
 
 
     }

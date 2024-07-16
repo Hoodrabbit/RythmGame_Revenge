@@ -7,7 +7,12 @@ using System.IO;
 
 public class NoteParsing : MonoBehaviour
 {
+#if UNITY_EDITOR
     StreamReader Notenote = new StreamReader(Application.dataPath + "/NoteInfo_test.txt");
+#else
+        StreamReader Notenote = new StreamReader(Application.streamingAssetsPath + "/NoteInfo_test.txt");
+#endif
+
     string sheetText;
     string[] TextSplit;
     public int num = 0;

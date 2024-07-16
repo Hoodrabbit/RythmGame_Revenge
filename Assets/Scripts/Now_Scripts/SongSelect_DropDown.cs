@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class SongSelect_DropDown : MonoBehaviour
 {
+    //여기 options 데이터 관리 이렇게 하지말고 다르게 해야함
+
+
+
     Dropdown dropdown;
     bool IsCheck = false;
     SongSelect songSelect;

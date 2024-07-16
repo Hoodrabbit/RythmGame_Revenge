@@ -104,7 +104,11 @@ public class OffsetCheck : MonoBehaviour
     private async Task SaveNoteTimesToFile(double sum)
     {
 
+#if UNITY_EDITOR
         string directoryPath = Application.dataPath + "\\NOTEDATA_Folder";
+#else
+        string directoryPath = Application. streamingAssetsPath + "\\NOTEDATA_Folder";
+#endif
         string filePath = Path.Combine(directoryPath, "OffSetData.txt");
 
         if (!Directory.Exists(directoryPath))

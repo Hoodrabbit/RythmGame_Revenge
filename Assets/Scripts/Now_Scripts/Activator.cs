@@ -80,7 +80,11 @@ public class Activator : MonoBehaviour
     private async Task SaveNoteTimesToFile()
     {
 
+#if UNITY_EDITOR
         string directoryPath = Application.dataPath + "\\NOTEDATA_Folder";
+#else
+        string directoryPath = Application. streamingAssetsPath + "\\NOTEDATA_Folder";
+#endif
         string filePath = Path.Combine(directoryPath, "RainyDayNoteData.txt");
 
         if (!Directory.Exists(directoryPath))

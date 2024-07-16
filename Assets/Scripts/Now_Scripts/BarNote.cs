@@ -61,7 +61,7 @@ public class BarNote : MonoBehaviour
             }
             else
             {
-                GameObject NNote = Instantiate(ContanierNote, new Vector3(0, 0, 0), Quaternion.identity, transform);
+                GameObject NNote = Instantiate(ContanierNote, new Vector3(transform.position.x, 0, 0), Quaternion.identity, transform);
                 CNote.Add(NNote);
                 count++;
                 first = false;

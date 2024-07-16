@@ -19,9 +19,23 @@ public class GameManager : Singleton<GameManager>
         double CurDspTime = AudioSettings.dspTime;
         MusicManager.Instance.SetMusic(0);
         //MainAudio.PlayScheduled(CurDspTime); 
+        //if(state == GameState.Play_Mode)
+        //{
+        //    DataManager.Instance.LoadNote();
+        //    MainAudio.PlayScheduled(CurDspTime);
+        //}
+
 
 
     }
+
+
+    public void PlayMusic()
+    {
+        DataManager.Instance.LoadNote();
+        MainAudio.PlayScheduled(AudioSettings.dspTime+3f);
+    }
+
 
     public void SetAudio(AudioSource audio)
     {
