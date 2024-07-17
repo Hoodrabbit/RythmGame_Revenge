@@ -22,6 +22,21 @@ public class Judgement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(key))
+        {
+            if (note != null)
+            {
+                Debug.Log("내가 눌러서 작동");
+                note.SetActive(false);
+                note = null;
+                audioSource.Play();
+                songtimes.Add(PlayTime);
+
+            }
+
+        }
+
+
 
         //switch (GameManager.Instance.state)
         //{
@@ -65,6 +80,7 @@ public class Judgement : MonoBehaviour
         if (collision.gameObject.CompareTag("Note"))
         {
             active = true;
+
             note = collision.gameObject;
         }
     }

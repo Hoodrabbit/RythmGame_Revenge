@@ -8,9 +8,9 @@ using System.IO;
 public class NoteParsing : MonoBehaviour
 {
 #if UNITY_EDITOR
-    StreamReader Notenote = new StreamReader(Application.dataPath + "/NoteInfo_test.txt");
+    StreamReader Notenote = new StreamReader(Application.dataPath + "/NoteInfoAll_test.txt");
 #else
-        StreamReader Notenote = new StreamReader(Application.streamingAssetsPath + "/NoteInfo_test.txt");
+        StreamReader Notenote = new StreamReader(Application.streamingAssetsPath + "/NoteInfoAll_test.txt");
 #endif
 
     string sheetText;
@@ -37,7 +37,7 @@ public class NoteParsing : MonoBehaviour
         {
             sheetText = Notenote.ReadLine();
 
-            if (sheetText.Equals("[NoteInfo]"))
+            if (sheetText.Equals("[NoteInfoAll]"))
             {
                 while (!Notenote.EndOfStream)
                 {

@@ -15,7 +15,7 @@ public class Note_Youtube : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb.velocity = new Vector2(0, 0);
+        //rb.velocity = new Vector2(0, 0);
     }
 
     // Update is called once per frame
@@ -27,6 +27,6 @@ public class Note_Youtube : MonoBehaviour
             //GameManager.Instance.PlayMusic();
         }
 
-        transform.position = new Vector2(transform.position.x - speed * Time.fixedDeltaTime, 0);
+        transform.position = new Vector2(transform.position.x - speed * Time.fixedDeltaTime, transform.position.y);
     }
 }

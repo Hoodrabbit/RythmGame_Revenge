@@ -8,17 +8,33 @@ using System.Runtime.Serialization;
 using System.Linq;
 using System;
 
-public class NotePosition //찍은 노트에 대한 정보를 담아 줄 클래스
+
+public class NoteInfoPos
 {
-    public GameObject Note;
     public float xpos; // 노트의 X 값(에디터 상 정보이기 때문에 나중에 실제 게임 씬에서는 해당 데이터에 추가로 오프셋이나 속도에 따라 위치를 조절할 수 있음
     public int HeightValue; //노트 높이 번호로 저장받아서 나중에 불러올 때는 그 번호에 따라 Y값을 특정 값으로 할당시킴
 
-    public NotePosition(GameObject Note, float x, int h)
+    public NoteInfoPos(float x, int h)
     {
-        this.Note = Note;
         xpos = x;
         HeightValue = h;
+    }
+
+
+
+}
+
+
+public class NoteInfoAll //찍은 노트에 대한 정보를 담아 줄 클래스
+{
+    public GameObject Note;
+    public NoteInfoPos notePos;
+    
+
+    public NoteInfoAll(GameObject Note, float x, int h)
+    {
+        this.Note = Note;
+        notePos = new NoteInfoPos(x, h);
     }
 
 
@@ -38,7 +54,7 @@ public class DataManager : Singleton<DataManager>
 #endif
     string NoteDataPath = Path.Combine(NoteDataFolder, GameManager.Instance.musicInfo.NoteFileDirection);
 
-    public List<NotePosition> EditNotes = new List<NotePosition>();
+    public List<NoteInfoAll> EditNotes = new List<NoteInfoAll>();
 
 
 
@@ -69,7 +85,7 @@ public class DataManager : Singleton<DataManager>
 
     public void SaveNote()
     {
-        EditNotes = EditNotes.OrderBy(N => N.xpos).ToList();
+        EditNotes = EditNotes.OrderBy(N => N.notePos.xpos).ToList();
 
         if (File.Exists(NoteDataPath))
         {
@@ -80,10 +96,10 @@ public class DataManager : Singleton<DataManager>
             ListNullCheck();
             writer.WriteLine(EditNotes.Count);
 
-            foreach (NotePosition np in EditNotes)
+            foreach (NoteInfoAll np in EditNotes)
             {
 
-                writer.WriteLine($"{np.xpos} , {np.HeightValue}");
+                writer.WriteLine($"{np.notePos.xpos} , {np.notePos.HeightValue}");
             }
             writer.Close();
         }
@@ -95,9 +111,9 @@ public class DataManager : Singleton<DataManager>
 
             fileWriter.WriteLine(EditNotes.Count);
 
-            foreach (NotePosition np in EditNotes)
+            foreach (NoteInfoAll np in EditNotes)
             {
-                fileWriter.WriteLine($"{np.xpos} , {np.HeightValue}");
+                fileWriter.WriteLine($"{np.notePos.xpos} , {np.notePos.HeightValue}");
             }
             fileWriter.Close();
 

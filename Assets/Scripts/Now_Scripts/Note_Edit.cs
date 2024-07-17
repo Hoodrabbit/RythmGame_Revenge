@@ -68,7 +68,7 @@ public class Note_Edit : MonoBehaviour
                     //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가
 
 
-                    DataManager.Instance.EditNotes.Add(new NotePosition(AddNote, RealXpos, 1));    
+                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 1));    
                 }
                 else
                 {
@@ -77,7 +77,7 @@ public class Note_Edit : MonoBehaviour
                     float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                     //위와 동일 
 
-                    DataManager.Instance.EditNotes.Add(new NotePosition(AddNote, RealXpos, 2)) ;
+                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 2)) ;
                 }
                 
             }
@@ -114,7 +114,7 @@ public class Note_Edit : MonoBehaviour
     //    //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가
 
 
-    //    DataManager.Instance.EditNotes.Add(new NotePosition(RealXpos, 1));
+    //    DataManager.Instance.EditNotes.Add(new NoteInfoAll(RealXpos, 1));
     //}
 
     //public void MakeNote(float xpos, int height)
@@ -126,7 +126,7 @@ public class Note_Edit : MonoBehaviour
 
     //        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
-    //        DataManager.Instance.EditNotes.Add(new NotePosition(RealXpos, 1));
+    //        DataManager.Instance.EditNotes.Add(new NoteInfoAll(RealXpos, 1));
     //    }
     //    else if(height == 2) 
     //    {
@@ -134,7 +134,7 @@ public class Note_Edit : MonoBehaviour
 
     //        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
-    //        DataManager.Instance.EditNotes.Add(new NotePosition(RealXpos, 1));
+    //        DataManager.Instance.EditNotes.Add(new NoteInfoAll(RealXpos, 1));
 
 
     //    }

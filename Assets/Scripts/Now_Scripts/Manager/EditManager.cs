@@ -25,7 +25,7 @@ public class EditManager : Singleton<EditManager>
 
 
             //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NotePosition(AddNote, RealXpos, height));
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height));
         }
         else if (height == 2)
         {
@@ -34,7 +34,7 @@ public class EditManager : Singleton<EditManager>
             float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
             //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NotePosition(AddNote, RealXpos, height));
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height));
 
 
         }
