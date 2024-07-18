@@ -7,6 +7,7 @@ public enum Scene_Type
 {
     SelectSong,
     NoteEdit,
+    OffsetMode,
     Play
 };
 
@@ -26,6 +27,13 @@ public class SceneManagerEX : Singleton<SceneManagerEX>
     {
         
     }
+
+    public void GoOffsetScene()
+    {
+        GameManager.Instance.state = GameState.Offset_Mode;
+        SceneManager.LoadScene("Offset");
+    }
+
 
     public void ChangeScene()
     {
