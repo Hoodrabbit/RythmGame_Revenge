@@ -20,6 +20,7 @@ public class Note_Edit : MonoBehaviour
 
     void Update()
     {
+        //¿¬µ¿µÊ
         Vector2 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = new Vector3(MousePos.x, MousePos.y, 0);
 
