@@ -35,6 +35,12 @@ public class SceneManagerEX : Singleton<SceneManagerEX>
     }
 
 
+    public void GoSelectSongScene()
+    {
+        GameManager.Instance.state = GameState.None;
+        SceneManager.LoadScene("SelectSong");
+    }
+
     public void ChangeScene()
     {
         SceneManager.LoadScene((int)scene_T);

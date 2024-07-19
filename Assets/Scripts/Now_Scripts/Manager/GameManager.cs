@@ -28,7 +28,10 @@ public class GameManager : Singleton<GameManager>
 
 
     }
-
+    public void PlayMusicOnly()
+    {
+        MainAudio.PlayScheduled(AudioSettings.dspTime + 3f);
+    }
 
     public void PlayMusic()
     {

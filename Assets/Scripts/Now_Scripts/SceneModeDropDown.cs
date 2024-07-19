@@ -26,17 +26,16 @@ public class SceneModeDropDown : MonoBehaviour
             GameManager.Instance.state = GameState.Debug_Mode;
             SceneManagerEX.Instance.scene_T = Scene_Type.NoteEdit;
         }
-        else if(Value == 1)
-        {
-            GameManager.Instance.state = GameState.Play_Mode;
-            SceneManagerEX.Instance.scene_T = Scene_Type.Play;
-        }
-        else if (Value == 2)
+        else if (Value == 1)
         {
             GameManager.Instance.state = GameState.Offset_Mode;
             SceneManagerEX.Instance.scene_T = Scene_Type.OffsetMode;
         }
-
+        else if (Value == 2)
+        {
+            GameManager.Instance.state = GameState.Play_Mode;
+            SceneManagerEX.Instance.scene_T = Scene_Type.Play;
+        }
     }
 
 

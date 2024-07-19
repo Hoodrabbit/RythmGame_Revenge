@@ -11,10 +11,11 @@ public class metronomemake : MonoBehaviour
     public float MusicBPM;
     public float stdBPM;
 
-    public AudioSource metro;
     public AudioSource Song;
     public float Timecheck;
-    public Transform mysr;
+
+    public GameObject OffsetNote;
+    public List<GameObject> OffsetNotes;
 
     public List<double> songtimes = new List<double>();
 
@@ -29,15 +30,31 @@ public class metronomemake : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         Timecheck = 0;
         oneBeatTime = stdBPM / MusicBPM;
         bitPerSec = MusicBPM / stdBPM;
         //NextBeatTime = oneBeatTime * Song.clip.frequency;
-        NextBeatTime = 1.526;
+        //NextBeatTime = 1.526;
         Debug.Log(stdBPM / MusicBPM);
-        mysr = GetComponent<Transform>();
 
-        StartdspTIme = AudioSettings.dspTime +3f;
+        StartdspTIme = AudioSettings.dspTime + 3f;
+        int i = 0;
+        while(i<4)
+        {
+            int j=0;
+            if (i >1)
+            {
+                j = 1;
+            }
+            
+
+            OffsetNotes.Add(Instantiate(OffsetNote,new Vector2(-4 - i * 0.8f, 0 ), quaternion.identity, transform));
+            Debug.Log((float)oneBeatTime);
+            i++;
+        }
+
+       
 
     }
 
@@ -142,16 +159,6 @@ public class metronomemake : MonoBehaviour
     //    }
     //}
 
-    IEnumerator PlayMetronome()
-    {
-
-        metro.PlayOneShot(metro.clip);
-        beatPerSample = oneBeatTime * Song.clip.frequency;
-        NextBeatTime += beatPerSample;
-
-        yield return null;
-
-    }
 
 
 

@@ -9,7 +9,18 @@ public class MainAudioScript : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        InitalAudio();
+
+        if(GameManager.Instance.state != GameState.Offset_Mode)
+        {
+            InitalAudio();
+        }
+        else
+        {
+            InitalAudio();
+            GameManager.Instance.PlayMusicOnly();
+        }
+
+        
     }
 
     // Update is called once per frame
@@ -20,7 +31,12 @@ public class MainAudioScript : MonoBehaviour
 
     void InitalAudio()
     {
-        audioSource.clip = GameManager.Instance.musicInfo.Music;
+        if(GameManager.Instance.state != GameState.Offset_Mode) 
+        {
+            audioSource.clip = GameManager.Instance.musicInfo.Music;
+        }
+        
+        
         GameManager.Instance.SetAudio(audioSource);
 
         if(GameManager.Instance.state == GameState.Play_Mode)

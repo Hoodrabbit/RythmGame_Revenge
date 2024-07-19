@@ -7,7 +7,7 @@ using System.IO;
 
 public class OffsetCheck : MonoBehaviour
 {
-    public AudioSource Main120BPM;
+    public AudioSource MainSound;
 
     public float MusicBPM;
     public float StdBPM;
@@ -31,36 +31,38 @@ public class OffsetCheck : MonoBehaviour
         //Timecheck = 0;
         oneBeatTime = StdBPM / MusicBPM;
         bitPerSec = MusicBPM / StdBPM;
-        NextBeatTime = oneBeatTime * Main120BPM.clip.frequency;
+        NextBeatTime = oneBeatTime * MainSound.clip.frequency;
 
         Debug.Log(StdBPM / MusicBPM);
         //mysr = GetComponent<Transform>();
 
-        StartdspTIme = 0f;
+        StartdspTIme = 3f;
         //Debug.Log(StartdspTIme);
     }
 
     private void Update()
     {
-        if(AudioSettings.dspTime - StartdspTIme > 0.5)
+        //if(AudioSettings.dspTime - StartdspTIme > 0.5)
+        //{
+        //    //이거 메트로놈 다시 시작될때 기준으로 설정해줘야함
+        //    StartdspTIme = AudioSettings.dspTime;
+        //}
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            //이거 메트로놈 다시 시작될때 기준으로 설정해줘야함
-            StartdspTIme = AudioSettings.dspTime;
-        }
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            //0.5
-            CurdspTime = AudioSettings.dspTime;
-            if(StartdspTIme != 0)
-            {
-                aa = CurdspTime - StartdspTIme;
-                Debug.Log(aa);
-                Offsetimes.Add(aa);
-            }
-            
-            StartdspTIme = AudioSettings.dspTime;
+            Offsetimes.Add(aa);
 
-            
+            ////0.5
+            //CurdspTime = AudioSettings.dspTime;
+            //if (StartdspTIme != 0)
+            //{
+            //    aa = CurdspTime - StartdspTIme;
+            //    Debug.Log(aa);
+            //    Offsetimes.Add(aa);
+            //}
+
+            //StartdspTIme = AudioSettings.dspTime;
+
+
 
         }
 
@@ -140,14 +142,14 @@ public class OffsetCheck : MonoBehaviour
 
 
 
-    IEnumerator MetroNome()
-    {
-        //Main120BPM.PlayOneShot(Main120BPM.clip);
-        beatPerSample = oneBeatTime * Main120BPM.clip.frequency;
-        NextBeatTime += beatPerSample;
+    //IEnumerator MetroNome()
+    //{
+    //    //MainSound.PlayOneShot(MainSound.clip);
+    //    beatPerSample = oneBeatTime * MainSound.clip.frequency;
+    //    NextBeatTime += beatPerSample;
 
-        yield return null;
-    }
+    //    yield return null;
+    //}
 
 
 
