@@ -12,18 +12,20 @@ public class PlayManager : Singleton<PlayManager>
 
     public void PlayScene_NoteMaker(float xpos, int heightnum)
     {
-        //Notes.Add(Instantiate(xpos));//내일 할거임
+        //일단 다시 만들어야 하기 때문에 주석처리함
 
-        NotePos = new NoteInfoPos(xpos + 1*3 * 6-5, heightnum);
+        ////Notes.Add(Instantiate(xpos));//내일 할거임
 
-        if(NotePos.HeightValue ==1)
-        {
-            Notes.Add(Instantiate(Note, new Vector3(NotePos.xpos, 2), Quaternion.identity));
-        }
-        else
-        {
-            Notes.Add(Instantiate(Note, new Vector3(NotePos.xpos, -2), Quaternion.identity));
-        }
+        //NotePos = new NoteInfoPos(xpos + 1*3 * 6-5, heightnum); 
+
+        //if(NotePos.HeightValue ==1)
+        //{
+        //    Notes.Add(Instantiate(Note, new Vector3(NotePos.xpos, 2), Quaternion.identity));
+        //}
+        //else
+        //{
+        //    Notes.Add(Instantiate(Note, new Vector3(NotePos.xpos, -2), Quaternion.identity));
+        //}
 
         
 

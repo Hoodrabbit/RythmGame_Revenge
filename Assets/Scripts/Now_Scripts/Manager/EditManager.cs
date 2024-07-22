@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static TreeEditor.TreeEditorHelper;
 
 public class EditManager : Singleton<EditManager>
 {
@@ -14,7 +15,7 @@ public class EditManager : Singleton<EditManager>
         return NoteParent.transform.position.x;
     }
 
-    public void MakeNote(float xpos, int height)
+    public void MakeNote(float xpos, int height, int noteType, int longNoteLength)
     {
         //나중에 번호에 따른 수치 값 조정을 원활하게 할 수 있도록 따로 값으로 만들어놔야 할 것 같음
         if (height == 1)
@@ -25,7 +26,7 @@ public class EditManager : Singleton<EditManager>
 
 
             //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height));
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height,noteType,longNoteLength));
         }
         else if (height == 2)
         {
@@ -34,7 +35,7 @@ public class EditManager : Singleton<EditManager>
             float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
             //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height));
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height,noteType,longNoteLength));
 
 
         }

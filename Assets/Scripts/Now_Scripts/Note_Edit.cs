@@ -69,7 +69,7 @@ public class Note_Edit : MonoBehaviour
                     //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가
 
 
-                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 1));    
+                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 1,1,0));    
                 }
                 else
                 {
@@ -78,7 +78,7 @@ public class Note_Edit : MonoBehaviour
                     float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                     //위와 동일 
 
-                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 2)) ;
+                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 2,1,0)) ;
                 }
                 
             }
