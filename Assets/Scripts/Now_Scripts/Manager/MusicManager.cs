@@ -8,7 +8,7 @@ public class MusicManager : Singleton<MusicManager>
 
     public void SetMusic(int value)
     {
-        Debug.Log(value);
+        //Debug.Log(value);
         GameManager.Instance.musicInfo = musicInfos[value];
     }
 

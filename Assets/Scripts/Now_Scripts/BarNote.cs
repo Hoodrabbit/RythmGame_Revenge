@@ -25,7 +25,7 @@ public class BarNote : MonoBehaviour
         StdBPM = 60;
         float NextBeat = StdBPM/ NowBPM/4;
         int count = 0;//현재 박자 수 체크용 멤버 변수
-        Debug.Log(NextBeat);
+        //Debug.Log(NextBeat);
         //Debug.Log(GameManager.Instance.MainAudio.clip.length);
         while (GameManager.Instance.musicInfo.Music.length > TTime)
         {
@@ -67,11 +67,11 @@ public class BarNote : MonoBehaviour
                 first = false;
             }
         }
-        Debug.Log(TTime);
+        //Debug.Log(TTime);
 
         Distance = CNote[CNote.Count - 1].transform.position.x;
 
-        Debug.Log(Distance);
+        //Debug.Log(Distance);
     }
 
     // Update is called once per frame

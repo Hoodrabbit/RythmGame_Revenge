@@ -15,15 +15,15 @@ public class NoteInfoPos
     public int HeightValue; //노트 높이 번호로 저장받아서 나중에 불러올 때는 그 번호에 따라 Y값을 특정 값으로 할당시킴
     //신규추가
     public int NoteType; //노트의 종류에 대한 정보를 저장받을 변수   (1 : 기본 , 2 : 롱 노트, 3 : 특수 노트가 될 예정 여기에서 더 추가 될 수 있음)
-    public int LongNoteLength; //롱노트의 길이를 체크해줄 변수(정확히는 시작과 끝) (롱노트 종류가 아닌 경우 전부 0이고 롱노트일 때 1이 시작 2가 끝을 체크해줌)
+    public int LongNoteStartEndCheck; //롱노트의 길이를 체크해줄 변수(정확히는 시작과 끝) (롱노트 종류가 아닌 경우 전부 0이고 롱노트일 때 1이 시작 2가 끝을 체크해줌)
 
 
-    public NoteInfoPos(float x, int h, int noteType, int longNoteLength)
+    public NoteInfoPos(float x, int h, int noteType, int LongNoteStartEndCheck)
     {
         xpos = x;
         HeightValue = h;
         NoteType = noteType;
-        LongNoteLength = longNoteLength;
+        this.LongNoteStartEndCheck = LongNoteStartEndCheck;
     }
 
 
@@ -37,10 +37,10 @@ public class NoteInfoAll //찍은 노트에 대한 정보를 담아 줄 클래스
     public NoteInfoPos notePos;
     
 
-    public NoteInfoAll(GameObject Note, float x, int h, int noteType, int longNoteLength)
+    public NoteInfoAll(GameObject Note, float x, int h, int noteType, int LongNoteStartEndCheck)
     {
         this.Note = Note;
-        notePos = new NoteInfoPos(x, h, noteType, longNoteLength);
+        notePos = new NoteInfoPos(x, h, noteType, LongNoteStartEndCheck);
     }
 
 
@@ -105,7 +105,7 @@ public class DataManager : Singleton<DataManager>
             foreach (NoteInfoAll np in EditNotes)
             {
 
-                writer.WriteLine($"{np.notePos.xpos} , {np.notePos.HeightValue}, {np.notePos.NoteType}, {np.notePos.LongNoteLength}");
+                writer.WriteLine($"{np.notePos.xpos} , {np.notePos.HeightValue}, {np.notePos.NoteType}, {np.notePos.LongNoteStartEndCheck}");
             }
             writer.Close();
         }
@@ -119,7 +119,7 @@ public class DataManager : Singleton<DataManager>
 
             foreach (NoteInfoAll np in EditNotes)
             {
-                fileWriter.WriteLine($"{np.notePos.xpos} , {np.notePos.HeightValue}, {np.notePos.NoteType}, {np.notePos.LongNoteLength}");
+                fileWriter.WriteLine($"{np.notePos.xpos} , {np.notePos.HeightValue}, {np.notePos.NoteType}, {np.notePos.LongNoteStartEndCheck}");
             }
             fileWriter.Close();
 
@@ -157,7 +157,7 @@ public class DataManager : Singleton<DataManager>
 
         for (int i = 0; i < NoteCount; i++)
         {
-            float xpos; int heightnum; int NoteType; int LongNoteLength; 
+            float xpos; int heightnum; int NoteType; int LongNoteStartEndCheck; 
             
             string LineText; //파싱한 노트 정보를 저장받을 문자열
             
@@ -167,10 +167,10 @@ public class DataManager : Singleton<DataManager>
             xpos = float.Parse(split_Text[0]);
             heightnum = Int32.Parse(split_Text[1]);
             NoteType = Int32.Parse(split_Text[2]);
-            LongNoteLength = Int32.Parse(split_Text[3]);
+            LongNoteStartEndCheck = Int32.Parse(split_Text[3]);
 
             if (GameManager.Instance.state != GameState.Play_Mode)
-                EditManager.Instance.MakeNote(xpos + EditManager.Instance.GetNPXpos(), heightnum, NoteType, LongNoteLength);
+                EditManager.Instance.MakeNote(xpos + EditManager.Instance.GetNPXpos(), heightnum, NoteType, LongNoteStartEndCheck);
             else
             {
                 //PlayManager.Instance.PlayScene_NoteMaker( xpos,heightnum); 공사중

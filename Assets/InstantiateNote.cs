@@ -76,7 +76,7 @@ public class InstantiateNote : MonoBehaviour
                         float RealXpos = LongNote.transform.position.x - EditManager.Instance.GetNPXpos();
                         //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가
 
-                        //DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 1, 1, 0));
+                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, 1, 2, 1));
                     }
                     else
                     {
@@ -87,6 +87,11 @@ public class InstantiateNote : MonoBehaviour
                                 Tail.transform.position = new Vector2(hit[i].transform.position.x, HeadPos.y); //꼬리 위치 지정
 
                                 TailOn = false; //다시 머리 생성해주기 위해 false로 값 변경
+
+                                float RealXpos = Tail.transform.position.x - EditManager.Instance.GetNPXpos();
+
+                                DataManager.Instance.EditNotes.Add(new NoteInfoAll(Tail, RealXpos, 1, 2, 2));
+
                             }
 
                         }
@@ -108,7 +113,7 @@ public class InstantiateNote : MonoBehaviour
 
                         float RealXpos = LongNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
-                        //DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 2, 1, 0));
+                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, 2, 2, 1));
 
 
                     }
@@ -116,11 +121,16 @@ public class InstantiateNote : MonoBehaviour
                     {
                         if (Tail != null)
                         {
+                            //Debug.Log("가끔씩 안됨");
                             if (hit[i].transform.position.x > HeadPos.x) //기본적으로 꼬리는 머리보다 앞에 있거나 같은 위치에 있으면 안되기 때문에 해당 조건을 설정해줌
                             {
                                 Tail.transform.position = new Vector2(hit[i].transform.position.x, HeadPos.y); //꼬리 위치 지정
 
                                 TailOn = false; //다시 머리 생성해주기 위해 false로 값 변경
+
+                                float RealXpos = Tail.transform.position.x - EditManager.Instance.GetNPXpos();
+
+                                DataManager.Instance.EditNotes.Add(new NoteInfoAll(Tail, RealXpos, 2, 2, 2));
                             }
 
                         }

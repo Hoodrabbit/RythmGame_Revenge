@@ -11,6 +11,10 @@ public class Note_Edit : MonoBehaviour
 {
     public RaycastHit2D[] hit;
     public GameObject Note;
+
+    
+
+
     //고정, 노트 설치 모드(실제로 이 노트가 설치되는 것이 아니라 별개의 다른 노트가 설치됨
     enum Edit_Note_State
     {
