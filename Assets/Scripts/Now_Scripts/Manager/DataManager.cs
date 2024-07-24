@@ -58,7 +58,7 @@ public class DataManager : Singleton<DataManager>
 #else
         static string NoteDataFolder = Application.streamingAssetsPath + "\\NOTEDATA_Folder";
 #endif
-    string NoteDataPath = Path.Combine(NoteDataFolder, GameManager.Instance.musicInfo.NoteFileDirection);
+    string NoteDataPath;
 
     public List<NoteInfoAll> EditNotes = new List<NoteInfoAll>();
 
@@ -71,6 +71,7 @@ public class DataManager : Singleton<DataManager>
         {
             Directory.CreateDirectory(NoteDataFolder);
         }
+        NoteDataPath = Path.Combine(NoteDataFolder, GameManager.Instance.musicInfo.NoteFileDirection);
     }
 
 

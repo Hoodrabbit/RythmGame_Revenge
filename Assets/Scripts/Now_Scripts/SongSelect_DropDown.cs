@@ -13,13 +13,16 @@ public class SongSelect_DropDown : MonoBehaviour
     Dropdown dropdown;
     bool IsCheck = false;
     SongSelect songSelect;
-
+    public 
 
     void Start()
     {
         dropdown = GetComponent<Dropdown>();
         dropdown.onValueChanged.AddListener(GetValue);
         songSelect = FindObjectOfType<SongSelect>();
+
+        dropdown.options.Clear();
+        dropdown.AddOptions(MusicManager.Instance.MusicNameList());
     }
 
     // Update is called once per frame

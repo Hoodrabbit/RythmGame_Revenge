@@ -12,5 +12,33 @@ public class MusicManager : Singleton<MusicManager>
         GameManager.Instance.musicInfo = musicInfos[value];
     }
 
+    public List<AudioClip> musicClipList()
+    {
+        List<AudioClip> audioClips = new List<AudioClip>();
+
+        foreach (var music in musicInfos)
+        {
+            audioClips.Add(music.Music);
+        }
+
+        return audioClips;
+
+
+    }
+
+    public List<string>MusicNameList()
+    {
+        List<string> MusicNames = new List<string>();
+
+        foreach(var music in musicInfos)
+        {
+            MusicNames.Add(music.Music_Name);
+        }
+
+
+
+        return MusicNames;
+    }
+
 
 }

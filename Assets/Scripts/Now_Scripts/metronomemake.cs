@@ -42,11 +42,11 @@ public class metronomemake : MonoBehaviour
         int i = 0;
         while(i<4)
         {
-            int j=0;
-            if (i >1)
-            {
-                j = 1;
-            }
+            //int j=0;
+            //if (i >1)
+            //{
+            //    j = 1;
+            //}
             
 
             OffsetNotes.Add(Instantiate(OffsetNote,new Vector2(-4 - i * 0.8f, 0 ), quaternion.identity, transform));

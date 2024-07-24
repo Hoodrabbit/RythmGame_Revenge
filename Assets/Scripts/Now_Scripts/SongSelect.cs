@@ -6,12 +6,13 @@ using UnityEngine;
 
 public class SongSelect : MonoBehaviour
 {
-    public AudioClip[] audioClips;
+    public List<AudioClip> audioClips;
     public AudioSource SongAudio;
     public float Volume;
 
     public void Awake()
     {
+        audioClips = MusicManager.Instance.musicClipList();
         SongAudio = GetComponent<AudioSource>();
     }
 
