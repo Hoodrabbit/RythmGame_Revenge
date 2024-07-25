@@ -1122,7 +1122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d14dae9ad4a6714b9f80c27af9c6683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Note: {fileID: 5612370883487808057, guid: ac4072381bc49fa4b8dc130cfb4725ad, type: 3}
+  NoteTypes:
+  - {fileID: 5612370883487808057, guid: ac4072381bc49fa4b8dc130cfb4725ad, type: 3}
+  - {fileID: 7824795879292237692, guid: 145152b0028b73447a057cbc17b803c9, type: 3}
   Notes: []
 --- !u!4 &1267583159
 Transform:
@@ -1320,10 +1322,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MusicBPM: 128
   stdBPM: 60
-  metro: {fileID: 1292894802}
   Song: {fileID: 0}
   Timecheck: 0
-  mysr: {fileID: 0}
+  OffsetNote: {fileID: 0}
+  OffsetNotes: []
   songtimes: []
 --- !u!4 &1292894804
 Transform:

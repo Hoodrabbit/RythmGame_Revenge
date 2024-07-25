@@ -50,7 +50,7 @@ public class EditManager : Singleton<EditManager>
 
     }
 
-    void NormalNote(float xpos, int height, int noteType, int LongNoteStartEndCheck)
+    public void NormalNote(float xpos, int height, int noteType, int LongNoteStartEndCheck)
     {
         if (height == 1)
         {
@@ -75,7 +75,7 @@ public class EditManager : Singleton<EditManager>
         }
     }
 
-    void LongNote(float xpos, int height, int noteType, int LongNoteStartEndCheck)
+    public void LongNote(float xpos, int height, int noteType, int LongNoteStartEndCheck)
     {
         LongNoteInternalMethod(xpos, height, noteType, LongNoteStartEndCheck);
     }

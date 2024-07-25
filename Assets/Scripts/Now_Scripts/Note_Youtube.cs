@@ -10,6 +10,7 @@ public class Note_Youtube : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        speed = GameManager.Instance.speed;
     }
 
     // Start is called before the first frame update

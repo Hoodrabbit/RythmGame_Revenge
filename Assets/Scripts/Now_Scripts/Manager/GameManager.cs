@@ -44,7 +44,7 @@ public class GameManager : Singleton<GameManager>
     public void PlayMusic()
     {
         DataManager.Instance.LoadNote();
-        MainAudio.PlayScheduled(AudioSettings.dspTime);
+        MainAudio.PlayScheduled(AudioSettings.dspTime + 3f);
         
         
     }

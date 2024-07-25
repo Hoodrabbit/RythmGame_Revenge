@@ -174,7 +174,7 @@ public class DataManager : Singleton<DataManager>
                 EditManager.Instance.MakeNote(xpos + EditManager.Instance.GetNPXpos(), heightnum, NoteType, LongNoteStartEndCheck);
             else
             {
-                //PlayManager.Instance.PlayScene_NoteMaker( xpos,heightnum); °ø»çÁß
+                PlayManager.Instance.PlayScene_NoteMaker( xpos,heightnum, NoteType, LongNoteStartEndCheck);
             }
         
         }
