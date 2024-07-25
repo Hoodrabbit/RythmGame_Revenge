@@ -15,7 +15,7 @@ public class MusicTimeSlider : MonoBehaviour
     {
         m_Cam = Camera.main.GetComponent<Transform>();
         slider = GetComponent<Slider>();
-        slider.maxValue = GameManager.Instance.musicInfo.Music.length+1;
+        slider.maxValue = GameManager.Instance.musicInfo.Music.length;
         slider.onValueChanged.AddListener(delegate { SetMusicTime(); });
 
         NowSongTime =GetComponentInChildren<TextMeshProUGUI>();
@@ -38,7 +38,7 @@ public class MusicTimeSlider : MonoBehaviour
                 //Debug.Log(NoteParent.GetDistance() / GameManager.Instance.MainAudio.clip.length);
                 GameManager.Instance.MainAudio.time = slider.value;
                 Transform NPpos = EditManager.Instance.NoteParent.transform;
-                NPpos.position = new Vector3(-slider.value * (EditManager.Instance.NoteParent.GetDistance() / ((int)(GameManager.Instance.MainAudio.clip.length) + 1)), 0, 0); //이상한 부분
+                NPpos.position = new Vector3(-slider.value * GameManager.Instance.speed, 0, 0); //이상한 부분
             }
 
             
@@ -58,9 +58,9 @@ public class MusicTimeSlider : MonoBehaviour
         if (GameManager.Instance.MainAudio.isPlaying == true)
         {
             //Debug.Log(GameManager.Instance.MainAudio.timeSamples/GameManager.Instance.MainAudio.clip.frequency);
-            slider.value = GameManager.Instance.MainAudio.time;
+            slider.value = (float)GameManager.Instance.MainAudio.timeSamples / GameManager.Instance.MainAudio.clip.frequency;
             Transform NPpos = EditManager.Instance.NoteParent.transform;
-            NPpos.position = new Vector3(-slider.value * (EditManager.Instance.NoteParent.GetDistance() / ((int)(GameManager.Instance.MainAudio.clip.length) + 1)), 0, 0);
+            NPpos.position = new Vector3(-slider.value * GameManager.Instance.speed , 0, 0);
             //NPpos.position = new Vector3(-(float)(AudioSettings.dspTime - GameManager.Instance.StartDspTime() ) * (EditManager.Instance.NoteParent.GetDistance() / ((int)(GameManager.Instance.MainAudio.clip.length) + 1)), 0, 0);
             // / GameManager.Instance.MainAudio.clip.length
 
