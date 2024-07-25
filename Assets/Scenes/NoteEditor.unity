@@ -2857,7 +2857,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3547,12 +3547,16 @@ MonoBehaviour:
   MinutenessContanierNote2: {fileID: 5612370883487808057, guid: 0607ef95125a8be4088675d05b32054f, type: 3}
   MinutenessContanierNote4: {fileID: 5612370883487808057, guid: 0de7fe810692a0949b606ed5cbf19c27, type: 3}
   MinutenessContanierNote8: {fileID: 5612370883487808057, guid: ac4ebcd18e7e8f447ab513351ac97a1b, type: 3}
+  Barrrr: {fileID: 5612370883487808057, guid: 8aed8b8bc5042f8499385212c9b06e5b, type: 3}
   TTime: 0
   NowBPM: 78
   StdBPM: 60
-  speed: 20
+  speed: 8
+  OffsetTime: 0
   CNote: []
-  UnActiveNote: []
+  UnActiveNote_2: []
+  UnActiveNote_4: []
+  UnActiveNote_8: []
 --- !u!1 &1588663951
 GameObject:
   m_ObjectHideFlags: 0
@@ -4020,7 +4024,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9c239d975a07e7c4bb41b0c0ac1caaa7, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0

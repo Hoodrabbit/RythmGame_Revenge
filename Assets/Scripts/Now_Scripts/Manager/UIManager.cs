@@ -6,7 +6,7 @@ public class UIManager : Singleton<UIManager>
 {
     public void PlayMusic()
     {
-        GameManager.Instance.MainAudio.PlayScheduled(AudioSettings.dspTime);
+        GameManager.Instance.PlayMusicOnly();
     }
 
     public void StopMusic()

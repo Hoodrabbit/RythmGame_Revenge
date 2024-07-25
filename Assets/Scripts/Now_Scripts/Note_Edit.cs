@@ -100,8 +100,6 @@ public class Note_Edit : MonoBehaviour
                 if (hit[i].collider.CompareTag("Note"))
                 {
                     Destroy(hit[i].transform.gameObject);
-
-
                 }
                 i++;
             }

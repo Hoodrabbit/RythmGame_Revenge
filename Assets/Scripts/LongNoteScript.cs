@@ -58,7 +58,10 @@ public class LongNoteScript : MonoBehaviour
             //Debug.Log("연결 성공");
         }
         
-
+        if(Body.gameObject ==null || Tail.gameObject ==null)
+        {
+            Destroy(gameObject);
+        }
         
     }
 

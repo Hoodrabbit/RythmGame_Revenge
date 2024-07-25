@@ -158,9 +158,8 @@ public class InstantiateNote : MonoBehaviour
 
                 if (hit[i].collider.CompareTag("Note"))
                 {
-
-                    //롱노트인 경우 조건 다르게 적용시켜줘야함
-                    //Destroy(hit[i].transform.gameObject);
+                    Transform LongNote = hit[i].collider.transform;
+                    Destroy(LongNote.gameObject);
 
 
                 }

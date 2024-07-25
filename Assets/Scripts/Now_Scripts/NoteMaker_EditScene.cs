@@ -9,6 +9,8 @@ public class NoteMaker_EditScene : MonoBehaviour
     GameObject Note_Normal;
     GameObject Note_Long;
 
+    bool Already_Using = false;
+
     public void Start()
     {
         NoteMakerButton = GetComponent<Button>();
@@ -22,19 +24,49 @@ public class NoteMaker_EditScene : MonoBehaviour
     {
         //생성해주는 노트가 없을 때는 노트를 생성해주는 기능
         //반대로 있을 때는 노트를 제거해주는 기능(꺼주는 기능)
-        if(Note_Normal == null)
+
+
+        if (Note_Normal == null)
         {
-            Note_Normal = Instantiate(Normal, new Vector3(0,0,0), Quaternion.identity);
-        }
-        else
-        {
-            if(Note_Normal.activeSelf == true)
+
+            if(!Already_Using)
             {
-                Note_Normal.SetActive(false);
+                Note_Normal = Instantiate(Normal, new Vector3(0, 0, 0), Quaternion.identity);
+                Already_Using = true;
             }
             else
             {
-                Note_Normal.SetActive(true);
+                Note_Long.SetActive(false);
+                Note_Normal = Instantiate(Normal, new Vector3(0, 0, 0), Quaternion.identity);
+                Already_Using = true;
+            }
+            
+        }
+        else
+        {
+            if (Note_Normal.activeSelf == true)
+            {
+                Note_Normal.SetActive(false);
+                Already_Using = false;
+            }
+            else
+            {
+
+                if (Already_Using)
+                {
+                    Note_Long.SetActive(false);
+                    Note_Normal.SetActive(true);
+                    Already_Using = true;
+                }
+                else
+                {
+                    Note_Normal.SetActive(true);
+                    Already_Using = true;
+                }
+
+
+
+
             }
         }
     }
@@ -45,17 +77,43 @@ public class NoteMaker_EditScene : MonoBehaviour
 
         if (Note_Long == null)
         {
-            Note_Long = Instantiate(Long, new Vector3(0, 0, 0), Quaternion.identity);
+
+            if (!Already_Using)
+            {
+                Note_Long = Instantiate(Long, new Vector3(0, 0, 0), Quaternion.identity);
+                Already_Using = true;
+            }
+            else
+            {
+                Note_Normal.SetActive(false);
+                Note_Long = Instantiate(Long, new Vector3(0, 0, 0), Quaternion.identity);
+                Already_Using = true;
+            }
+
+
+            
         }
         else
         {
             if (Note_Long.activeSelf == true)
             {
                 Note_Long.SetActive(false);
+                Already_Using = false;
             }
             else
             {
-                Note_Long.SetActive(true);
+                if (Already_Using)
+                {
+                    Note_Normal.SetActive(false);
+                    Note_Long.SetActive(true);
+                    Already_Using = true;
+                }
+                else
+                {
+                    Note_Long.SetActive(true);
+                    Already_Using = true;
+                }
+
             }
         }
     }

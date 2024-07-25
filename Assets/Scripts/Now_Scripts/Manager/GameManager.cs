@@ -3,9 +3,16 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     public GameState state = GameState.None;
+    
     public AudioSource MainAudio;
+    
     public MusicInfo musicInfo;
-    public float speed = 3f; //나중에 이거 다른 매니저에다가 옮길 변수 아직 안 옮김
+
+    public int speed = 10; //나중에 이거 다른 매니저에다가 옮길 변수 아직 안 옮김
+
+    double startDSPtimeValue;
+    double CurDspTimeValue; //노래가 시작된 순간의 dsptime 체크용 변수
+
 
     protected override void Awake()
     {
@@ -16,7 +23,7 @@ public class GameManager : Singleton<GameManager>
 
     public void Start()
     {
-        double CurDspTime = AudioSettings.dspTime;
+        
         MusicManager.Instance.SetMusic(0);
         //MainAudio.PlayScheduled(CurDspTime); 
         //if(state == GameState.Play_Mode)
@@ -30,13 +37,16 @@ public class GameManager : Singleton<GameManager>
     }
     public void PlayMusicOnly()
     {
-        MainAudio.PlayScheduled(AudioSettings.dspTime + 3f);
+        startDSPtimeValue = AudioSettings.dspTime;
+        MainAudio.PlayScheduled(AudioSettings.dspTime);
     }
 
     public void PlayMusic()
     {
         DataManager.Instance.LoadNote();
-        MainAudio.PlayScheduled(AudioSettings.dspTime+3f);
+        MainAudio.PlayScheduled(AudioSettings.dspTime);
+        
+        
     }
 
 
@@ -50,7 +60,15 @@ public class GameManager : Singleton<GameManager>
         return MainAudio.clip.length;
     }
 
+    public double StartDspTime()
+    {
+        return startDSPtimeValue;
+    }
 
+    public float GetBPS()
+    {
+        return 60 /musicInfo.BPM;
+    }
 
 
 }

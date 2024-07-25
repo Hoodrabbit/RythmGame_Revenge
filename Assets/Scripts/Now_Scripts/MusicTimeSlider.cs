@@ -38,7 +38,7 @@ public class MusicTimeSlider : MonoBehaviour
                 //Debug.Log(NoteParent.GetDistance() / GameManager.Instance.MainAudio.clip.length);
                 GameManager.Instance.MainAudio.time = slider.value;
                 Transform NPpos = EditManager.Instance.NoteParent.transform;
-                NPpos.position = new Vector3(-slider.value * (EditManager.Instance.NoteParent.GetDistance()/ ((int)(GameManager.Instance.MainAudio.clip.length)+1)), 0, 0); //이상한 부분
+                NPpos.position = new Vector3(-slider.value * (EditManager.Instance.NoteParent.GetDistance() / ((int)(GameManager.Instance.MainAudio.clip.length) + 1)), 0, 0); //이상한 부분
             }
 
             
@@ -61,6 +61,7 @@ public class MusicTimeSlider : MonoBehaviour
             slider.value = GameManager.Instance.MainAudio.time;
             Transform NPpos = EditManager.Instance.NoteParent.transform;
             NPpos.position = new Vector3(-slider.value * (EditManager.Instance.NoteParent.GetDistance() / ((int)(GameManager.Instance.MainAudio.clip.length) + 1)), 0, 0);
+            //NPpos.position = new Vector3(-(float)(AudioSettings.dspTime - GameManager.Instance.StartDspTime() ) * (EditManager.Instance.NoteParent.GetDistance() / ((int)(GameManager.Instance.MainAudio.clip.length) + 1)), 0, 0);
             // / GameManager.Instance.MainAudio.clip.length
 
         }
