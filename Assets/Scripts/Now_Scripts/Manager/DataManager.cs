@@ -54,7 +54,7 @@ public class DataManager : Singleton<DataManager>
 {
     //파일 관리를 해줄 스크립트 게임 매니저의 스크립터블에서 파일 주소를 뽑아옴
 #if UNITY_EDITOR
-    static string NoteDataFolder = Application.dataPath + "\\NOTEDATA_Folder";
+    static string NoteDataFolder = Application.streamingAssetsPath + "\\NOTEDATA_Folder";
 #else
         static string NoteDataFolder = Application.streamingAssetsPath + "\\NOTEDATA_Folder";
 #endif

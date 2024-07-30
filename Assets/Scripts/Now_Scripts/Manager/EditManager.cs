@@ -73,6 +73,26 @@ public class EditManager : Singleton<EditManager>
 
 
         }
+        else if (height == 3) 
+        {
+            GameObject AddNote = Instantiate(NormalNote_Obj, new Vector3(xpos, 6), Quaternion.identity, EditManager.Instance.NoteParent.transform);
+
+            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+            //height 부분 나중에 바꿀거임
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));    
+        }
+        else
+        {
+            GameObject AddNote = Instantiate(NormalNote_Obj, new Vector3(xpos, -6), Quaternion.identity, EditManager.Instance.NoteParent.transform);
+
+            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+            //height 부분 나중에 바꿀거임
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
+        }
+
+
     }
 
     public void LongNote(float xpos, int height, int noteType, int LongNoteStartEndCheck)

@@ -85,6 +85,19 @@ public class PlayManager : Singleton<PlayManager>
 
 
         }
+        else if (height == 3)
+        {
+            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed - 5, height, noteType, LongNoteStartEndCheck);
+            Notes.Add(Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, 6), Quaternion.identity));
+        }
+        else
+        {
+            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed - 5, height, noteType, LongNoteStartEndCheck);
+            Notes.Add(Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, -6), Quaternion.identity));
+        }
+
+
+
     }
 
     void LongNote(float xpos, int height, int noteType, int LongNoteStartEndCheck)

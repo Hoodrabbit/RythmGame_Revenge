@@ -42,23 +42,23 @@ public class BarNote : MonoBehaviour
     {
         NowBPM = GameManager.Instance.musicInfo.BPM;
         StdBPM = 60;
-        NextBeat = StdBPM / NowBPM / Beat * 100000000;
-        Debug.Log(NextBeat);
+        NextBeat = StdBPM / NowBPM / Beat;
+        //Debug.Log(NextBeat);
         speed = GameManager.Instance.speed;
         //Debug.Log(NextBeat);
         //Debug.Log(GameManager.Instance.MainAudio.clip.length);
         if (GameManager.Instance.musicInfo.Music.length % GameManager.Instance.GetBPS() == 0)
         {
-            Debug.Log(GameManager.Instance.musicInfo.Music.length);
-            Debug.Log(GameManager.Instance.GetBPS());
-            Debug.Log(NextBeat);
+            //Debug.Log(GameManager.Instance.musicInfo.Music.length);
+            //Debug.Log(GameManager.Instance.GetBPS());
+            //Debug.Log(NextBeat);
 
             Devide = true;
         }
         else
         {
-            Debug.Log(GameManager.Instance.musicInfo.Music.length);
-            Debug.Log(GameManager.Instance.GetBPS());
+            //Debug.Log(GameManager.Instance.musicInfo.Music.length);
+            //Debug.Log(GameManager.Instance.GetBPS());
         }
 
 
@@ -78,13 +78,13 @@ public class BarNote : MonoBehaviour
     public void MakeBar()
     {
 
-        while (GameManager.Instance.musicInfo.Music.length >= TTime / 100000000)
+        while (GameManager.Instance.musicInfo.Music.length >= TTime)
         {
             if (first == false)
             {
                 if (count % 2 == 0 && count != Beat / 2 && count != 0 && Beat > count)
                 {
-                    GameObject NNote = Instantiate(MinutenessContanierNote4, new Vector3(transform.position.x + (TTime + NextBeat) / 100000000 * speed, 0, 0), Quaternion.identity, transform);
+                    GameObject NNote = Instantiate(MinutenessContanierNote4, new Vector3(transform.position.x + (TTime + NextBeat) * speed, 0, 0), Quaternion.identity, transform);
                     CNote.Add(NNote);
                     UnActiveNote_4.Add(NNote);
                     TTime += NextBeat;
@@ -94,7 +94,7 @@ public class BarNote : MonoBehaviour
                 }
                 else if (count % 2 != 0)
                 {
-                    GameObject NNote = Instantiate(MinutenessContanierNote8, new Vector3(transform.position.x + (TTime + NextBeat)/ 100000000 * speed, 0, 0), Quaternion.identity, transform);
+                    GameObject NNote = Instantiate(MinutenessContanierNote8, new Vector3(transform.position.x + (TTime + NextBeat)* speed, 0, 0), Quaternion.identity, transform);
                     CNote.Add(NNote);
                     UnActiveNote_8.Add(NNote);
                     TTime += NextBeat;
@@ -104,7 +104,7 @@ public class BarNote : MonoBehaviour
                 }
                 else if (count == Beat / 2)
                 {
-                    GameObject NNote = Instantiate(MinutenessContanierNote2, new Vector3(transform.position.x + (TTime + NextBeat) / 100000000 * speed, 0, 0), Quaternion.identity, transform);
+                    GameObject NNote = Instantiate(MinutenessContanierNote2, new Vector3(transform.position.x + (TTime + NextBeat) * speed, 0, 0), Quaternion.identity, transform);
                     CNote.Add(NNote);
                     UnActiveNote_2.Add(NNote);
                     TTime += NextBeat;
@@ -114,7 +114,7 @@ public class BarNote : MonoBehaviour
                 }
                 else if (count >= Beat)
                 {
-                    GameObject NNote = Instantiate(ContanierNote, new Vector3(transform.position.x + (TTime + NextBeat) / 100000000 * speed, 0, 0), Quaternion.identity, transform);
+                    GameObject NNote = Instantiate(ContanierNote, new Vector3(transform.position.x + (TTime + NextBeat) * speed, 0, 0), Quaternion.identity, transform);
                     CNote.Add(NNote);
                     TTime += NextBeat;
                     count = 1;
@@ -140,14 +140,14 @@ public class BarNote : MonoBehaviour
         
         MakeBar();
 
-        while (GameManager.Instance.musicInfo.Music.length+NextBeat >= TTime / 100000000 || End==false)
+        while (GameManager.Instance.musicInfo.Music.length+NextBeat >= TTime || End==false)
         {
             //OffsetTime = NextBeat / 20;
             if (first == false)
             {
                 if (count % 2 == 0 && count != Beat / 2 && count != 0 && Beat > count)
                 {
-                    GameObject NNote = Instantiate(Barrrr, new Vector3(transform.position.x + (TTime + NextBeat) / 100000000 * speed, 0, 0), Quaternion.identity, transform);
+                    GameObject NNote = Instantiate(Barrrr, new Vector3(transform.position.x + (TTime + NextBeat) * speed, 0, 0), Quaternion.identity, transform);
                     CNote.Add(NNote);
                     UnActiveNote_4.Add(NNote);
                     TTime += NextBeat;
@@ -157,7 +157,7 @@ public class BarNote : MonoBehaviour
                 }
                 else if (count % 2 != 0)
                 {
-                    GameObject NNote = Instantiate(Barrrr, new Vector3(transform.position.x + (TTime + NextBeat) / 100000000 * speed, 0, 0), Quaternion.identity, transform);
+                    GameObject NNote = Instantiate(Barrrr, new Vector3(transform.position.x + (TTime + NextBeat) * speed, 0, 0), Quaternion.identity, transform);
                     CNote.Add(NNote);
                     UnActiveNote_8.Add(NNote);
                     TTime += NextBeat;
@@ -172,7 +172,7 @@ public class BarNote : MonoBehaviour
                 }
                 else if (count == Beat / 2)
                 {
-                    GameObject NNote = Instantiate(Barrrr, new Vector3(transform.position.x + (TTime + NextBeat) / 100000000 * speed, 0, 0), Quaternion.identity, transform);
+                    GameObject NNote = Instantiate(Barrrr, new Vector3(transform.position.x + (TTime + NextBeat) * speed, 0, 0), Quaternion.identity, transform);
                     CNote.Add(NNote);
                     UnActiveNote_2.Add(NNote);
                     TTime += NextBeat;
@@ -182,7 +182,7 @@ public class BarNote : MonoBehaviour
                 }
                 else if (count >= Beat)
                 {
-                    GameObject NNote = Instantiate(Barrrr, new Vector3(transform.position.x + (TTime + NextBeat) / 100000000 * speed, 0, 0), Quaternion.identity, transform);
+                    GameObject NNote = Instantiate(Barrrr, new Vector3(transform.position.x + (TTime + NextBeat) * speed, 0, 0), Quaternion.identity, transform);
                     CNote.Add(NNote);
                     TTime += NextBeat;
                     count = 1;

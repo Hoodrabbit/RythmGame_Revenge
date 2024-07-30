@@ -65,7 +65,20 @@ public class Note_Edit : MonoBehaviour
 
             if (hit[i].collider.CompareTag("NotePlace") && Checkduplication == false)
             {
-                if(Pos.y > 0)
+
+                //3
+                if(Pos.y >4)
+                {
+                    GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y +6), Quaternion.identity, hit[i].transform.parent);
+
+                    float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+                    //困客 悼老 
+
+                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 3, 1, 0));
+                }
+
+                //1
+                else if(Pos.y < 3 &&Pos.y > 0)
                 {
                     GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y+2), Quaternion.identity, hit[i].transform.parent);
 
@@ -75,7 +88,9 @@ public class Note_Edit : MonoBehaviour
 
                     DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 1,1,0));    
                 }
-                else
+
+                //2
+                else if (Pos.y > -3 && Pos.y < 0)
                 {
                     GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y - 2), Quaternion.identity, hit[i].transform.parent);
 
@@ -83,6 +98,17 @@ public class Note_Edit : MonoBehaviour
                     //困客 悼老 
 
                     DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 2,1,0)) ;
+                }
+
+                //4
+                else
+                {
+                    GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y - 6), Quaternion.identity, hit[i].transform.parent);
+
+                    float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+                    //困客 悼老 
+
+                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 4, 1, 0));
                 }
                 
             }
