@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,6 +32,7 @@ public class SceneManagerEX : Singleton<SceneManagerEX>
     public void GoOffsetScene()
     {
         GameManager.Instance.state = GameState.Offset_Mode;
+        
         SceneManager.LoadScene("Offset");
     }
 

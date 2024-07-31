@@ -12,6 +12,7 @@ public class SceneModeDropDown : MonoBehaviour
     {
         dropdown = GetComponent<Dropdown>();
         dropdown.onValueChanged.AddListener(GetValue);
+        dropdown.value = GameManager.Instance.GetSceneModeValue();
     }
 
     void GetValue(int Value)
@@ -20,10 +21,13 @@ public class SceneModeDropDown : MonoBehaviour
         //드롭다운에서 선택한 버튼에 따라서 옮길 씬을 정할 수 있음
         //바꿀 때마다 해당 메서드가 실행됨 
 
+        GameManager.Instance.SetSceneModeValue(Value);
+
         Debug.Log("작동됬어요");
         if(Value == 0)
         {
             GameManager.Instance.state = GameState.Debug_Mode;
+            
             SceneManagerEX.Instance.scene_T = Scene_Type.NoteEdit;
         }
         else if (Value == 1)

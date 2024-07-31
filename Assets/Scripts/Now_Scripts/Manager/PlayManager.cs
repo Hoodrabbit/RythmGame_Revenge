@@ -9,6 +9,8 @@ public class PlayManager : Singleton<PlayManager>
     public List<GameObject> Notes;
     public NoteInfoPos NotePos;
 
+    public ComboSystem combosystem;
+
     Queue<LongNoteScript> UnCompleteLongNoteQueue = new Queue<LongNoteScript>();
 
 
@@ -57,6 +59,16 @@ public class PlayManager : Singleton<PlayManager>
 
 
 
+    }
+
+    public void HitNote()
+    {
+        combosystem.HitNote();
+    }
+
+    public void MissNote()
+    {
+        combosystem.MissNote();
     }
 
 

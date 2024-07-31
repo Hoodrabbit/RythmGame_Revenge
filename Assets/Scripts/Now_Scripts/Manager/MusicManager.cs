@@ -10,6 +10,7 @@ public class MusicManager : Singleton<MusicManager>
     {
         //Debug.Log(value);
         GameManager.Instance.musicInfo = musicInfos[value];
+        GameManager.Instance.SetSongValue(value);
     }
 
     public List<AudioClip> musicClipList()

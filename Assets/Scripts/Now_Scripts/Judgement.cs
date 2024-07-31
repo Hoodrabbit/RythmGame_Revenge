@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build;
 using UnityEngine;
 
 public class Judgement : MonoBehaviour
@@ -8,6 +9,7 @@ public class Judgement : MonoBehaviour
 
     public GameObject note;
     bool active = false;
+    bool longnotePress = false;
     public static float PlayTime;
     public List<float> songtimes = new List<float>();
     AudioSource audioSource;
@@ -26,14 +28,28 @@ public class Judgement : MonoBehaviour
         {
             if (note != null)
             {
-                Debug.Log("내가 눌러서 작동");
-                note.SetActive(false);
-                note = null;
-                audioSource.Play();
-                songtimes.Add(PlayTime);
+                LongNoteScript aa = note.GetComponent<LongNoteScript>();
 
+                if (aa == null && longnotePress == false)
+                {
+                   
+                    //Debug.Log("내가 눌러서 작동");
+                    note.SetActive(false);
+                    note = null;
+                    audioSource.Play();
+                    songtimes.Add(PlayTime);
+                    PlayManager.Instance.HitNote();
+                }
+                else
+                {
+                    Debug.Log("작동하나요");
+                    aa.StopHeadPos(transform.position);
+                    longnotePress = true;
+
+                }
+                
             }
-
+            //미스는 다른 방식으로
         }
 
 
@@ -82,7 +98,12 @@ public class Judgement : MonoBehaviour
             active = true;
 
             note = collision.gameObject;
+
+
+
         }
+
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)

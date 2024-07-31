@@ -9,6 +9,7 @@ public class LongNoteScript : MonoBehaviour
     //일단 어떻게 될 지 궁금하니까 놔둬보고 해보는 걸로
     public GameObject Tail;
 
+    Note_Youtube n_Y;
 
     SpriteRenderer Body_SR;
 
@@ -29,7 +30,7 @@ public class LongNoteScript : MonoBehaviour
 
     public void Update()
     {
-        if (IsConnect== false)
+        if (IsConnect == false)
         {
             if (transform.position.x < Tail.transform.position.x)
             {
@@ -48,22 +49,62 @@ public class LongNoteScript : MonoBehaviour
             }
             else
             {
-                //Debug.Log("어디에서 오류 남");
-                //잘못된 경우
-                //Destroy(gameObject);
+                if (transform.position.x == Tail.transform.position.x)
+                {
+                    newWidth = Vector3.Distance(transform.position, Tail.transform.position);
+
+                    if (Body_SR.drawMode == SpriteDrawMode.Sliced || Body_SR.drawMode == SpriteDrawMode.Tiled)
+                    {
+                        // 현재 SpriteRenderer의 size를 가져와서 width만 변경
+                        Vector2 newSize = Body_SR.size;
+                        newSize.x = newWidth;
+                        Body_SR.size = newSize;
+
+                    }
+                }
             }
         }
         else
         {
-            //Debug.Log("연결 성공");
+           
+                if (transform.position.x >= Tail.transform.position.x)
+                {
+                    Debug.Log("꺼짐");
+                    gameObject.SetActive(false);
+
+                }
+                else
+                {
+                    newWidth = Vector3.Distance(transform.position, Tail.transform.position);
+
+                    if (Body_SR.drawMode == SpriteDrawMode.Sliced || Body_SR.drawMode == SpriteDrawMode.Tiled)
+                    {
+                        // 현재 SpriteRenderer의 size를 가져와서 width만 변경
+                        Vector2 newSize = Body_SR.size;
+                        newSize.x = newWidth;
+                        Body_SR.size = newSize;
+
+                    }
+                }
+            
         }
-        
-        if(Body.gameObject ==null || Tail.gameObject ==null)
+
+        if (Body.gameObject == null || Tail.gameObject == null)
         {
             Destroy(gameObject);
         }
-        
+
     }
+
+    public void StopHeadPos(Vector3 judgepos)
+    {
+        transform.position = judgepos;
+        n_Y = GetComponent<Note_Youtube>();
+        n_Y.enabled = false;
+        Tail.GetComponent<Note_Youtube>().enabled = true;
+    }
+
+
 
 
 

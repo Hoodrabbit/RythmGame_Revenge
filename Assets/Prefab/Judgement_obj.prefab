@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5659897459224609914}
   - component: {fileID: 2335027740271546215}
-  - component: {fileID: 2809431064631886298}
+  - component: {fileID: 8982161567800402618}
   - component: {fileID: 708377394431780246}
   - component: {fileID: 8963176180577193336}
   m_Layer: 0
@@ -87,8 +87,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &2809431064631886298
-CircleCollider2D:
+--- !u!61 &8982161567800402618
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -116,12 +116,22 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!82 &708377394431780246
 AudioSource:
   m_ObjectHideFlags: 0
@@ -230,6 +240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30389c5f1a75db343977bfc4bb14f02d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: 106
+  key: 102
   note: {fileID: 0}
   songtimes: []

@@ -23,6 +23,7 @@ public class SongSelect_DropDown : MonoBehaviour
 
         dropdown.options.Clear();
         dropdown.AddOptions(MusicManager.Instance.MusicNameList());
+        dropdown.value = GameManager.Instance.GetSongValue();
     }
 
     // Update is called once per frame

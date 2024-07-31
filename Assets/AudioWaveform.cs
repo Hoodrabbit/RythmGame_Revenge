@@ -6,7 +6,7 @@ public class AudioWaveform : MonoBehaviour
     public AudioSource audioSource;
     //public RectTransform WaveFormRect;
     
-    //public Image image;
+    public Image image;
 
     AudioClip audioClip;
 
@@ -20,10 +20,9 @@ public class AudioWaveform : MonoBehaviour
     void Start()
     {
 
-        
-        audioClip = audioSource.clip;
-        //image = GetComponent<Image>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        audioClip = GameManager.Instance.musicInfo.Music;
+        image = GetComponent<Image>();
+        //spriteRenderer = GetComponent<SpriteRenderer>();
         
         //WaveFormRect = GetComponent<RectTransform>();
 
@@ -35,13 +34,12 @@ public class AudioWaveform : MonoBehaviour
 
         //WaveFormRect.sizeDelta = new Vector2(width, height);
 
-        transform.localScale = new Vector2(100, 1);
-        transform.position = new Vector2(50, 0);
+        transform.localScale = new Vector2(1, 3);
         //spriteRenderer = GetComponent<SpriteRenderer>();
         Texture2D texWav = GetWaveform();
 
-
-        spriteRenderer.sprite = Sprite.Create(texWav, new Rect(0, 0, width, height), new Vector2(0f,0f));
+        Rect rect = new Rect(Vector2.zero, new Vector2(width, height));
+        image.sprite = Sprite.Create(texWav, rect, Vector2.zero);
         
         //float[] samples = new float[audioClip.samples * audioClip.channels];
         //audioClip.GetData(samples, 0);
