@@ -41,7 +41,7 @@ public class GameManager : Singleton<GameManager>
     public void PlayMusicOnly()
     {
         startDSPtimeValue = AudioSettings.dspTime;
-        MainAudio.PlayScheduled(AudioSettings.dspTime);
+        MainAudio.PlayScheduled(AudioSettings.dspTime + MainAudio.time);
     }
 
     public void PlayMusic()

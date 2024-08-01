@@ -11,6 +11,7 @@ public class LongNoteScript : MonoBehaviour
 
     Note_Youtube n_Y;
 
+    SpriteRenderer HeadSR;
     SpriteRenderer Body_SR;
 
     public float newWidth = 3f; //시작과 끝의 길이
@@ -21,11 +22,15 @@ public class LongNoteScript : MonoBehaviour
 
     public bool IsConnect = false;
 
+    BoxCollider2D HeadCollider;
+
 
     public void Start()
     {
         initialScale = Body.transform.localScale;
+        HeadSR = GetComponent<SpriteRenderer>();
         Body_SR = Body.GetComponent<SpriteRenderer>();
+        HeadCollider = GetComponent<BoxCollider2D>();
     }
 
     public void Update()
@@ -104,8 +109,23 @@ public class LongNoteScript : MonoBehaviour
         Tail.GetComponent<Note_Youtube>().enabled = true;
     }
 
+    public void CancelStopHeadPos()
+    {
+        if (n_Y != null)
+        {
+            n_Y.enabled = true;
+            Tail.GetComponent<Note_Youtube>().enabled = false;
+            UnenabledLongNote();
+        }
+    }
 
+    public void UnenabledLongNote()
+    {
+        //아예 판정선에서 누르지 못했을 경우도 발동해줘야함
 
+        HeadCollider.enabled = false;
+        HeadSR.color = new Color(159, 0, 255, 50);
+    }
 
 
 }

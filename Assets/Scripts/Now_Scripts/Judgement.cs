@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build;
 using UnityEngine;
 
 public class Judgement : MonoBehaviour
@@ -9,16 +8,21 @@ public class Judgement : MonoBehaviour
 
     public GameObject note;
     bool active = false;
-    bool longnotePress = false;
+    
+    public bool longnotePress = false;
+    float pressTime = 0;
+
+
     public static float PlayTime;
     public List<float> songtimes = new List<float>();
     AudioSource audioSource;
-
+    LongNoteScript aa;
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         Debug.Log("PlayTime : " + PlayTime);
+        Debug.Log(GameManager.Instance.GetBPS());
     }
 
     // Update is called once per frame
@@ -26,9 +30,9 @@ public class Judgement : MonoBehaviour
     {
         if (Input.GetKeyDown(key))
         {
-            if (note != null)
+            if (active == true)
             {
-                LongNoteScript aa = note.GetComponent<LongNoteScript>();
+                aa = note.GetComponent<LongNoteScript>();
 
                 if (aa == null && longnotePress == false)
                 {
@@ -49,10 +53,41 @@ public class Judgement : MonoBehaviour
                 }
                 
             }
+
+           
+
+
             //미스는 다른 방식으로
         }
 
+        if(Input.GetKeyUp(key))
+        {
+            if(longnotePress == true)
+            {
+                longnotePress = false;
+                aa.CancelStopHeadPos();
 
+                //떼는 순간 완전히 찾지 못하도록 해야 될 것 같음
+
+                //active = false;
+            }
+
+
+        }
+        if (longnotePress == true)
+        {
+            pressTime += Time.deltaTime;
+
+            if (pressTime >= GameManager.Instance.GetBPS()/2)
+            {
+                PlayManager.Instance.HitNote();
+                pressTime -= GameManager.Instance.GetBPS()/2;
+            }
+            //노래의 16비트마다 콤보 증가시키기
+
+            //if()
+
+        }
 
         //switch (GameManager.Instance.state)
         //{
