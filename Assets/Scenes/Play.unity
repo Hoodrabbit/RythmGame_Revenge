@@ -1036,6 +1036,7 @@ MonoBehaviour:
   - {fileID: 7824795879292237692, guid: 145152b0028b73447a057cbc17b803c9, type: 3}
   Notes: []
   combosystem: {fileID: 592358998}
+  Note_Parent: {fileID: 1951870327}
 --- !u!4 &1267583159
 Transform:
   m_ObjectHideFlags: 0
@@ -1315,7 +1316,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 9
+  orthographic size: 11
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

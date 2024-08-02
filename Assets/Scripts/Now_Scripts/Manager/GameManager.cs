@@ -92,6 +92,11 @@ public class GameManager : Singleton<GameManager>
         return 60 / musicInfo.BPM;
     }
 
+    
+
+
+
+
 
 }
 

@@ -13,6 +13,8 @@ public class EditManager : Singleton<EditManager>
     Queue<LongNoteScript> UnCompleteLongNoteQueue = new Queue<LongNoteScript>(); //아직 꼬리위치가 제대로 할당되지 않은 롱노트를 쉽게 관리하기 위해 만들어줌
 
 
+
+
     public float GetNPXpos()
     {
         return NoteParent.transform.position.x;

@@ -7,6 +7,8 @@ public class InstantiateNote : MonoBehaviour
 {
     public RaycastHit2D[] hit;
 
+    BarNote barNote;
+
     public GameObject Head;
     public GameObject Tail;
 
@@ -15,7 +17,10 @@ public class InstantiateNote : MonoBehaviour
     public bool TailOn = false;
 
 
-
+    public void Awake()
+    {
+        barNote = FindObjectOfType<BarNote>();
+    }
 
 
     public void Update()
@@ -65,7 +70,7 @@ public class InstantiateNote : MonoBehaviour
 
                         GameObject LongNote; //생성한 노트에 대한 정보를 잠시 사용해야 해서 만들어준 오브젝트입니다. 나중에는 아마도 list에다가 정보를 전부 저장할 것 같네요.
 
-                        LongNote = Instantiate(Head, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y + 2), Quaternion.identity, hit[i].transform.parent); //머리 생성
+                        LongNote = Instantiate(Head, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y + 2), Quaternion.identity, barNote.RhythmNote.transform); //머리 생성
 
                         HeadPos = new Vector2(LongNote.transform.position.x, LongNote.transform.position.y); //머리 위치 할당
 
@@ -103,7 +108,7 @@ public class InstantiateNote : MonoBehaviour
                     {
                         GameObject LongNote; //생성한 노트에 대한 정보를 잠시 사용해야 해서 만들어준 오브젝트입니다. 나중에는 아마도 list에다가 정보를 전부 저장할 것 같네요.
 
-                        LongNote = Instantiate(Head, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y - 2), Quaternion.identity, hit[i].transform.parent); //머리 생성
+                        LongNote = Instantiate(Head, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y - 2), Quaternion.identity, barNote.RhythmNote.transform); //머리 생성
 
                         HeadPos = new Vector2(LongNote.transform.position.x, LongNote.transform.position.y); //머리 위치 할당
 
@@ -159,7 +164,11 @@ public class InstantiateNote : MonoBehaviour
                 if (hit[i].collider.CompareTag("Note"))
                 {
                     Transform LongNote = hit[i].collider.transform;
-                    Destroy(LongNote.gameObject);
+                    LongNoteScript longNoteScript = LongNote.parent.GetComponent<LongNoteScript>();
+                    if (longNoteScript != null)
+                    {
+                        Destroy(longNoteScript.gameObject);
+                    }
 
 
                 }

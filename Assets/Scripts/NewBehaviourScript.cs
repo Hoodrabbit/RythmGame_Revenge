@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    public double StartDspTime;
-    public double CurDspTime;
+    public float fixedWidth = 10f; // 고정할 너비
 
-    public AudioSource mainaudio;
-
-
-    private void Start()
+    void Start()
     {
-        StartDspTime = AudioSettings.dspTime;
-        Debug.Log(StartDspTime);
-
-        Debug.Log(mainaudio.timeSamples);
-
+        AdjustCamera();
     }
 
     void Update()
     {
-       CurDspTime = AudioSettings.dspTime;
+        AdjustCamera(); // 윈도우 크기 변경 시 동적으로 조정이 필요하면 이 라인 유지
+    }
 
-        Debug.Log((float)mainaudio.timeSamples / mainaudio.clip.frequency + "      ,       " + mainaudio.time);
-
-        //Debug.Log(CurDspTime);
-
-
-
+    void AdjustCamera()
+    {
+        Camera camera = GetComponent<Camera>();
+        if (camera.orthographic)
+        {
+            float screenAspect = (float)Screen.width / (float)Screen.height;
+            float orthographicSize = fixedWidth / screenAspect / 2f;
+            camera.orthographicSize = orthographicSize;
+        }
+        else
+        {
+            Debug.LogWarning("Camera is not Orthographic");
+        }
     }
 }

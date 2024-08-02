@@ -12,7 +12,7 @@ public class Note_Edit : MonoBehaviour
     public RaycastHit2D[] hit;
     public GameObject Note;
 
-    
+    BarNote barNote;
 
 
     //고정, 노트 설치 모드(실제로 이 노트가 설치되는 것이 아니라 별개의 다른 노트가 설치됨
@@ -21,6 +21,12 @@ public class Note_Edit : MonoBehaviour
         Lock,
         Set
     }
+
+    public void Awake()
+    {
+        barNote = FindObjectOfType<BarNote>();
+    }
+
 
     void Update()
     {
@@ -69,7 +75,7 @@ public class Note_Edit : MonoBehaviour
                 //3
                 if(Pos.y >4)
                 {
-                    GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y +6), Quaternion.identity, hit[i].transform.parent);
+                    GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y +6), Quaternion.identity, barNote.RhythmNote.transform);
 
                     float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                     //위와 동일 
@@ -80,7 +86,7 @@ public class Note_Edit : MonoBehaviour
                 //1
                 else if(Pos.y < 3 &&Pos.y > 0)
                 {
-                    GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y+2), Quaternion.identity, hit[i].transform.parent);
+                    GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y+2), Quaternion.identity, barNote.RhythmNote.transform);
 
                     float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                     //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가
@@ -92,7 +98,7 @@ public class Note_Edit : MonoBehaviour
                 //2
                 else if (Pos.y > -3 && Pos.y < 0)
                 {
-                    GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y - 2), Quaternion.identity, hit[i].transform.parent);
+                    GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y - 2), Quaternion.identity, barNote.RhythmNote.transform);
 
                     float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                     //위와 동일 
@@ -103,7 +109,7 @@ public class Note_Edit : MonoBehaviour
                 //4
                 else
                 {
-                    GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y - 6), Quaternion.identity, hit[i].transform.parent);
+                    GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y - 6), Quaternion.identity, barNote.RhythmNote.transform);
 
                     float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                     //위와 동일 

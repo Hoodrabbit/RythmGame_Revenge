@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 203114860}
   - component: {fileID: 203114859}
   - component: {fileID: 203114862}
+  - component: {fileID: 203114863}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -396,6 +397,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &203114863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203114858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46dd9dad37c3f3a448dff98a098085ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fixedWidth: 30
 --- !u!1 &768049681
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,9 +597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1060207608}
   - component: {fileID: 1060207607}
-  - component: {fileID: 1060207606}
   - component: {fileID: 1060207609}
-  - component: {fileID: 1060207610}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -593,21 +605,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1060207606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1060207605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d7d02bce12992b48a863a8c27eb394a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 203114862}
-  width: 2028
-  height: 32
 --- !u!120 &1060207607
 LineRenderer:
   serializedVersion: 2
@@ -779,21 +776,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1060207610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1060207605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46dd9dad37c3f3a448dff98a098085ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartDspTime: 0
-  CurDspTime: 0
-  mainaudio: {fileID: 203114862}
 --- !u!1 &1482171734
 GameObject:
   m_ObjectHideFlags: 0

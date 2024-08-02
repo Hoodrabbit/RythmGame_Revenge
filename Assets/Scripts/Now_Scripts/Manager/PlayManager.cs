@@ -11,6 +11,9 @@ public class PlayManager : Singleton<PlayManager>
 
     public ComboSystem combosystem;
 
+
+    public GameObject Note_Parent;
+
     Queue<LongNoteScript> UnCompleteLongNoteQueue = new Queue<LongNoteScript>();
 
 
@@ -77,7 +80,7 @@ public class PlayManager : Singleton<PlayManager>
         if (height == 1)
         {
             NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed - 5, height, noteType , LongNoteStartEndCheck);
-            Notes.Add(Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, 2), Quaternion.identity));
+            Notes.Add(Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, 2), Quaternion.identity, Note_Parent.transform));
 
             //float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
@@ -88,7 +91,7 @@ public class PlayManager : Singleton<PlayManager>
         else if (height == 2)
         {
             NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed - 5, height, noteType, LongNoteStartEndCheck);
-            Notes.Add(Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, -2), Quaternion.identity));
+            Notes.Add(Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, -2), Quaternion.identity, Note_Parent.transform));
 
             //float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
@@ -100,12 +103,12 @@ public class PlayManager : Singleton<PlayManager>
         else if (height == 3)
         {
             NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed - 5, height, noteType, LongNoteStartEndCheck);
-            Notes.Add(Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, 6), Quaternion.identity));
+            Notes.Add(Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, 6), Quaternion.identity, Note_Parent.transform));
         }
         else
         {
             NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed - 5, height, noteType, LongNoteStartEndCheck);
-            Notes.Add(Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, -6), Quaternion.identity));
+            Notes.Add(Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, -6), Quaternion.identity, Note_Parent.transform));
         }
 
 
@@ -136,7 +139,7 @@ public class PlayManager : Singleton<PlayManager>
         if (LongNoteStartEndCheck == 1)
         {
             NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed - 5, height, noteType, LongNoteStartEndCheck);
-            LongNote = Instantiate(NoteTypes[1], new Vector3(NotePos.xpos, ypos), Quaternion.identity);
+            LongNote = Instantiate(NoteTypes[1], new Vector3(NotePos.xpos, ypos), Quaternion.identity, Note_Parent.transform);
 
             Notes.Add(LongNote);
             
