@@ -1473,7 +1473,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: NOTE_EDIT_MODE
+  m_Text: 
 --- !u!222 &796172959
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2006,13 +2006,7 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options:
-    - m_Text: NOTE_EDIT_MODE
-      m_Image: {fileID: 0}
-    - m_Text: OFFSET_MODE
-      m_Image: {fileID: 0}
-    - m_Text: GAME_MODE
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

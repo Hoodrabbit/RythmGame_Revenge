@@ -152,6 +152,12 @@ public class EditManager : Singleton<EditManager>
     }
 
 
+    public void ChangeScreenSize()
+    {
+        NoteParent.ExpandScreen();
+    }
+
+
 
 
 }

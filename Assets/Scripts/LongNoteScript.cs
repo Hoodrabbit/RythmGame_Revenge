@@ -9,7 +9,7 @@ public class LongNoteScript : MonoBehaviour
     //일단 어떻게 될 지 궁금하니까 놔둬보고 해보는 걸로
     public GameObject Tail;
 
-    Note_Youtube n_Y;
+    Note n_Y;
 
     SpriteRenderer HeadSR;
     SpriteRenderer Body_SR;
@@ -104,9 +104,9 @@ public class LongNoteScript : MonoBehaviour
     public void StopHeadPos(Vector3 judgepos)
     {
         transform.position = judgepos;
-        n_Y = GetComponent<Note_Youtube>();
+        n_Y = GetComponent<Note>();
         n_Y.enabled = false;
-        Tail.GetComponent<Note_Youtube>().enabled = true;
+        Tail.GetComponent<Note>().enabled = true;
     }
 
     public void CancelStopHeadPos()
@@ -114,7 +114,7 @@ public class LongNoteScript : MonoBehaviour
         if (n_Y != null)
         {
             n_Y.enabled = true;
-            Tail.GetComponent<Note_Youtube>().enabled = false;
+            Tail.GetComponent<Note>().enabled = false;
             UnenabledLongNote();
         }
     }

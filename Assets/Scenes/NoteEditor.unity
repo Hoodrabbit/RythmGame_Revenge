@@ -545,9 +545,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1568515963}
-        m_TargetAssemblyTypeName: BarNote, Assembly-CSharp
-        m_MethodName: ExpandScreen
+      - m_Target: {fileID: 1170068055}
+        m_TargetAssemblyTypeName: NoteMaker_EditScene, Assembly-CSharp
+        m_MethodName: Instantiate_ExpandCheckerLine
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -894,6 +894,7 @@ GameObject:
   - component: {fileID: 269977241}
   - component: {fileID: 269977240}
   - component: {fileID: 269977239}
+  - component: {fileID: 269977243}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -986,6 +987,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &269977243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269977238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa77c50c9f63bb24db60699d3f3d8124, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &344891341
 GameObject:
   m_ObjectHideFlags: 0
@@ -1404,19 +1417,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1441828138265736002, guid: ebfa21deba8ae8d498521a15d8ad3fed, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9999725
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1441828138265736002, guid: ebfa21deba8ae8d498521a15d8ad3fed, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1441828138265736002, guid: ebfa21deba8ae8d498521a15d8ad3fed, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1441828138265736002, guid: ebfa21deba8ae8d498521a15d8ad3fed, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.007413111
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1441828138265736002, guid: ebfa21deba8ae8d498521a15d8ad3fed, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1436,7 +1449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1441828138265736002, guid: ebfa21deba8ae8d498521a15d8ad3fed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -0.849
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4495170931407118504, guid: ebfa21deba8ae8d498521a15d8ad3fed, type: 3}
       propertyPath: m_Name
@@ -3112,7 +3125,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 40}
+  m_SizeDelta: {x: 20, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &898193993
 MonoBehaviour:
@@ -3134,7 +3147,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 815cca58878c19f44b63b85085b8668b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b97f73684a8652f40aca93588f9431d1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3210,7 +3223,7 @@ SpriteRenderer:
   m_SortingLayerID: 1863733135
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7c845353772f0c24f84e1aa56ac09fd0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b97f73684a8652f40aca93588f9431d1, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3231,7 +3244,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3558,8 +3571,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 377dff507ca73574481c9aa14825a3d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Normal: {fileID: 5612370883487808057, guid: dd0487d97f60888438aa0fd5e497b285, type: 3}
-  Long: {fileID: 8318142524779963939, guid: 89e853da2dcac4a4fa4e13ac1c03d2d7, type: 3}
+  MakerObjList_Prefab:
+  - {fileID: 5612370883487808057, guid: dd0487d97f60888438aa0fd5e497b285, type: 3}
+  - {fileID: 8318142524779963939, guid: 89e853da2dcac4a4fa4e13ac1c03d2d7, type: 3}
+  - {fileID: 5612370883487808057, guid: a243f94f95704934b83d8869d4769ef4, type: 3}
+  MakerObjList: []
 --- !u!1 &1239833983
 GameObject:
   m_ObjectHideFlags: 0
@@ -3863,6 +3879,7 @@ MonoBehaviour:
   NowBPM: 78
   StdBPM: 60
   speed: 8
+  CameraSize: 15
   OffsetTime: 0
   CNote: []
   UnActiveNote_2: []
