@@ -14,6 +14,7 @@ public class EditManager : Singleton<EditManager>
 
     [Header("특수 노트들")]
     public GameObject ExpandLine_Obj;
+    public GameObject GhostNote_Obj;
 
 
 
@@ -49,7 +50,7 @@ public class EditManager : Singleton<EditManager>
                 break;
 
             case 3:
-                
+                GhostNote(xpos, height, noteType, LongNoteStartEndCheck);
 
                 break;
 
@@ -123,7 +124,48 @@ public class EditManager : Singleton<EditManager>
             DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
     }
 
+    public void GhostNote(float xpos, int height, int noteType, int LongNoteStartEndCheck)
+    {
+        if (height == 1)
+        {
+            GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, 2), Quaternion.identity, EditManager.Instance.NoteParent.transform);
 
+            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+
+            //height 부분 나중에 바꿀거임
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
+        }
+        else if (height == 2)
+        {
+            GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, -2), Quaternion.identity, EditManager.Instance.NoteParent.transform);
+
+            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+            //height 부분 나중에 바꿀거임
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
+
+
+        }
+        else if (height == 3)
+        {
+            GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, 6), Quaternion.identity, EditManager.Instance.NoteParent.transform);
+
+            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+            //height 부분 나중에 바꿀거임
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
+        }
+        else
+        {
+            GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, -6), Quaternion.identity, EditManager.Instance.NoteParent.transform);
+
+            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+            //height 부분 나중에 바꿀거임
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
+        }
+    }
 
 
     //롱노트 내부 메서드 따로 분리함

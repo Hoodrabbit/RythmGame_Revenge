@@ -19,7 +19,7 @@ public class NoteMaker_EditScene : MonoBehaviour
     GameObject Note_Normal;
     GameObject Note_Long;
     GameObject ExpandCheckerLineMaker;
-
+    GameObject Ghost_Note;
 
     bool Already_Using = false;
 
@@ -38,6 +38,7 @@ public class NoteMaker_EditScene : MonoBehaviour
         Note_Normal = MakerObjList[0];
         Note_Long = MakerObjList[1];
         ExpandCheckerLineMaker = MakerObjList[2];
+        Ghost_Note = MakerObjList[3];
 
 
 
@@ -126,6 +127,32 @@ public class NoteMaker_EditScene : MonoBehaviour
             Already_Using = false;
         }
        
+    }
+
+    public void Instantiate_GhostNote()
+    {
+        ////생성해주는 노트가 없을 때는 노트를 생성해주는 기능
+        ////반대로 있을 때는 노트를 제거해주는 기능(꺼주는 기능)
+
+        if (Ghost_Note.activeSelf == false)
+        {
+            if (!Already_Using)
+            {
+                Ghost_Note.SetActive(true);
+            }
+            else
+            {
+                TurnOffMaker();
+                Ghost_Note.SetActive(true);
+            }
+            Already_Using = true;
+        }
+        else
+        {
+            Ghost_Note.SetActive(false);
+            Already_Using = false;
+        }
+
     }
 
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static TreeEditor.TreeEditorHelper;
 
 //플레이씬을 관리하는 싱글톤
 public class PlayManager : Singleton<PlayManager>
@@ -40,7 +41,7 @@ public class PlayManager : Singleton<PlayManager>
                 break;
 
             case 3:
-
+                GhostNote(xpos, heightnum, noteType, LongNoteStartEndCheck);
 
                 break;
 
@@ -189,6 +190,45 @@ public class PlayManager : Singleton<PlayManager>
 
     }
 
+    public void GhostNote(float xpos, int height, int noteType, int LongNoteStartEndCheck)
+    {
+        if (height == 1)
+        {
+            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck);
+            Notes.Add(Instantiate(NoteTypes[3], new Vector3(NotePos.xpos, 2), Quaternion.identity, Note_Parent.transform));
+
+            //float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+
+            //height 부분 나중에 바꿀거임
+            //Notes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
+        }
+        else if (height == 2)
+        {
+            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck);
+            Notes.Add(Instantiate(NoteTypes[3], new Vector3(NotePos.xpos, -2), Quaternion.identity, Note_Parent.transform));
+
+            //float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+            ////height 부분 나중에 바꿀거임
+            //DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
+
+
+        }
+        else if (height == 3)
+        {
+            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck);
+            Notes.Add(Instantiate(NoteTypes[3], new Vector3(NotePos.xpos, 6), Quaternion.identity, Note_Parent.transform));
+        }
+        else
+        {
+            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck);
+            Notes.Add(Instantiate(NoteTypes[3], new Vector3(NotePos.xpos, -6), Quaternion.identity, Note_Parent.transform));
+        }
+
+    }
+
+
     public void ControlHidingJudjement()
     {
         foreach (var obj in HidingJudgementObj)
@@ -203,6 +243,8 @@ public class PlayManager : Singleton<PlayManager>
             }
         }
     }
+
+
 
 
 }
