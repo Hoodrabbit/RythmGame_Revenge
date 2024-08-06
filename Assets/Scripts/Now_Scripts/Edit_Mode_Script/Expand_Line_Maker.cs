@@ -24,7 +24,7 @@ public class Expand_Line_Maker : NoteMakerBase
                 float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                 //위와 동일 
 
-                //DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 3, 1, 0));
+                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 0, 0, 0));
 
             }
             i++;
@@ -40,12 +40,9 @@ public class Expand_Line_Maker : NoteMakerBase
 
                 if (hit[i].collider.CompareTag("ExpandLine"))
                 {
-                    Transform LongNote = hit[i].collider.transform;
-                    LongNoteScript longNoteScript = LongNote.parent.GetComponent<LongNoteScript>();
-                    if (longNoteScript != null)
-                    {
-                        Destroy(longNoteScript.gameObject);
-                    }
+
+                    Destroy(hit[i].collider.gameObject);
+                    
 
 
                 }

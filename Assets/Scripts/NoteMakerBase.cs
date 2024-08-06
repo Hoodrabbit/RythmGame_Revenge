@@ -27,6 +27,7 @@ public class NoteMakerBase : MonoBehaviour
 
         if (Input.GetMouseButton(1))
         {
+            //Debug.Log("제거모드");
             AreaCheck(transform.position, true);
         }
     }

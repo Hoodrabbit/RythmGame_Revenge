@@ -7,8 +7,15 @@ public class EditManager : Singleton<EditManager>
     //각종 에딧씬에서 필요한 기능들을 모아놓음 
     public BarNote NoteParent;
 
+
+    [Header("일반 노트")]
     public GameObject NormalNote_Obj;
     public GameObject LongNote_Obj;
+
+    [Header("특수 노트들")]
+    public GameObject ExpandLine_Obj;
+
+
 
     Queue<LongNoteScript> UnCompleteLongNoteQueue = new Queue<LongNoteScript>(); //아직 꼬리위치가 제대로 할당되지 않은 롱노트를 쉽게 관리하기 위해 만들어줌
 
@@ -26,6 +33,10 @@ public class EditManager : Singleton<EditManager>
 
         switch (noteType)
         {
+            case 0:
+                ExpandLine(xpos, height, noteType, LongNoteStartEndCheck);
+                break;
+
             case 1:
 
                 NormalNote(xpos, height, noteType, LongNoteStartEndCheck);
@@ -101,6 +112,19 @@ public class EditManager : Singleton<EditManager>
     {
         LongNoteInternalMethod(xpos, height, noteType, LongNoteStartEndCheck);
     }
+
+    public void ExpandLine(float xpos, int height, int noteType, int LongNoteStartEndCheck)
+    {
+            GameObject AddNote = Instantiate(ExpandLine_Obj, new Vector3(xpos, 0), Quaternion.identity, EditManager.Instance.NoteParent.transform);
+
+            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+            //height 부분 나중에 바꿀거임
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
+    }
+
+
+
 
     //롱노트 내부 메서드 따로 분리함
     void LongNoteInternalMethod(float xpos, int height, int noteType, int LongNoteStartEndCheck)

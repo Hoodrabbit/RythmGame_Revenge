@@ -27,10 +27,10 @@ public class MainAudioScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            ExpandScreen();
-        }
+        //if(Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    ExpandScreen();
+        //}
     }
 
     public void ExpandScreen()
@@ -56,7 +56,7 @@ public class MainAudioScript : MonoBehaviour
         {
             CurrentTime += Time.deltaTime;
 
-            float CurrentValue = Mathf.Lerp(10, CameraSize, CurrentTime / 0.8f);
+            float CurrentValue = Mathf.Lerp(10, CameraSize, CurrentTime / 0.5f);
             float CurrentSize = Mathf.Lerp(1, 2, CurrentTime / 5f);
 
 
@@ -78,7 +78,7 @@ public class MainAudioScript : MonoBehaviour
         {
             CurrentTime += Time.deltaTime;
 
-            float CurrentValue = Mathf.Lerp(CameraSize, 10, CurrentTime / 0.8f);
+            float CurrentValue = Mathf.Lerp(CameraSize, 10, CurrentTime / 0.5f);
             float CurrentSize = Mathf.Lerp(2, 1, CurrentTime / 5f);
 
 

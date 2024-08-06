@@ -16,6 +16,9 @@ public class LongNoteColliderAdjust : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //transform.position = new Vector2(spriteRenderer.size.x / 2, transform.position.y);
+
+
         bodyCollider.offset = new Vector2(spriteRenderer.size.x/2, 0);
         bodyCollider.size = new Vector2(spriteRenderer.size.x,transform.localScale.y);
     }

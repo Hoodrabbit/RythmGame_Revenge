@@ -1034,6 +1034,7 @@ MonoBehaviour:
   NoteTypes:
   - {fileID: 5612370883487808057, guid: ac4072381bc49fa4b8dc130cfb4725ad, type: 3}
   - {fileID: 7824795879292237692, guid: 145152b0028b73447a057cbc17b803c9, type: 3}
+  - {fileID: 5612370883487808057, guid: 7e3035fecd12ae340b78ac052546547a, type: 3}
   Notes: []
   combosystem: {fileID: 592358998}
   Note_Parent: {fileID: 1951870327}
@@ -1120,7 +1121,7 @@ SpriteRenderer:
   m_Size: {x: 0.4, y: 1.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!82 &1292894802
@@ -1341,7 +1342,7 @@ Transform:
   m_GameObject: {fileID: 1857500007}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 13, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1514,7 +1515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5659897459224609914, guid: 043fee36ccdedaf4bbf031bdf0423eaa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5659897459224609914, guid: 043fee36ccdedaf4bbf031bdf0423eaa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1575,7 +1576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5659897459224609914, guid: 043fee36ccdedaf4bbf031bdf0423eaa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5659897459224609914, guid: 043fee36ccdedaf4bbf031bdf0423eaa, type: 3}
       propertyPath: m_LocalPosition.y
