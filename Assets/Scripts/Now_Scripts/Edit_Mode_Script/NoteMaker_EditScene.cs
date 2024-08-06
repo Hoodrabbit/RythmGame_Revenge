@@ -60,45 +60,72 @@ public class NoteMaker_EditScene : MonoBehaviour
     {
         ////생성해주는 노트가 없을 때는 노트를 생성해주는 기능
         ////반대로 있을 때는 노트를 제거해주는 기능(꺼주는 기능)
-        if(!Already_Using)
+        
+        if (Note_Normal.activeSelf == false)
         {
-            Note_Normal.SetActive(true);
+            if (!Already_Using)
+            {
+                Note_Normal.SetActive(true);
+            }
+            else
+            {
+                TurnOffMaker();
+                Note_Normal.SetActive(true);
+            }
+            Already_Using = true;
         }
         else
         {
-            TurnOffMaker();
-            Note_Normal.SetActive(true);
+            Note_Normal.SetActive(false);
+            Already_Using = false;
         }
-        Already_Using = true;
+        
     }
 
     public void Instantiate_LongNote()
     {
-        if (!Already_Using)
+        if(Note_Long.activeSelf == false) 
         {
-            Note_Long.SetActive(true);
+            if (!Already_Using)
+            {
+                Note_Long.SetActive(true);
+            }
+            else
+            {
+                TurnOffMaker();
+                Note_Long.SetActive(true);
+            }
+            Already_Using = true;
         }
         else
         {
-            TurnOffMaker();
-            Note_Long.SetActive(true);
+            Note_Long.SetActive(false);
+            Already_Using = false;
         }
-        Already_Using = true;
+        
     }
 
     public void Instantiate_ExpandCheckerLine()
     {
-
-        if (!Already_Using)
+        if(ExpandCheckerLineMaker.activeSelf == false)
         {
-            ExpandCheckerLineMaker.SetActive(true);
+            if (!Already_Using)
+            {
+                ExpandCheckerLineMaker.SetActive(true);
+            }
+            else
+            {
+                TurnOffMaker();
+                ExpandCheckerLineMaker.SetActive(true);
+            }
+            Already_Using = true;
         }
         else
         {
-            TurnOffMaker();
-            ExpandCheckerLineMaker.SetActive(true);
+            ExpandCheckerLineMaker.SetActive(false);
+            Already_Using = false;
         }
-        Already_Using = true;
+       
     }
 
 

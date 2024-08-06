@@ -14,6 +14,8 @@ public class PlayManager : Singleton<PlayManager>
 
     public GameObject Note_Parent;
 
+    public GameObject[] HidingJudgementObj;
+
     Queue<LongNoteScript> UnCompleteLongNoteQueue = new Queue<LongNoteScript>();
 
 
@@ -187,7 +189,20 @@ public class PlayManager : Singleton<PlayManager>
 
     }
 
-
+    public void ControlHidingJudjement()
+    {
+        foreach (var obj in HidingJudgementObj)
+        {
+            if(obj.activeSelf == false)
+            {
+                obj.SetActive(true);
+            }
+            else
+            {
+                obj.SetActive(false);
+            }
+        }
+    }
 
 
 }

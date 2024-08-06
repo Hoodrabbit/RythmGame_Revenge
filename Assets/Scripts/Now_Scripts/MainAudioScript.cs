@@ -50,13 +50,13 @@ public class MainAudioScript : MonoBehaviour
 
     IEnumerator CameraSizeUP()
     {
-        int CameraSize = 15;
+        int CameraSize = 13;
         float CurrentTime = 0f;
         while (Camera.main.orthographicSize < CameraSize)
         {
             CurrentTime += Time.deltaTime;
 
-            float CurrentValue = Mathf.Lerp(10, CameraSize, CurrentTime / 0.5f);
+            float CurrentValue = Mathf.Lerp(9, CameraSize, CurrentTime / 0.3f);
             float CurrentSize = Mathf.Lerp(1, 2, CurrentTime / 5f);
 
 
@@ -72,13 +72,13 @@ public class MainAudioScript : MonoBehaviour
 
     IEnumerator CameraSizeDown()
     {
-        int CameraSize = 15;
+        int CameraSize = 13;
         float CurrentTime = 0f;
-        while (Camera.main.orthographicSize > 10)
+        while (Camera.main.orthographicSize > 9)
         {
             CurrentTime += Time.deltaTime;
 
-            float CurrentValue = Mathf.Lerp(CameraSize, 10, CurrentTime / 0.5f);
+            float CurrentValue = Mathf.Lerp(CameraSize, 9, CurrentTime / 0.3f);
             float CurrentSize = Mathf.Lerp(2, 1, CurrentTime / 5f);
 
 

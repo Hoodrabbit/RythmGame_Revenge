@@ -30,7 +30,9 @@ public class Expand_Line : MonoBehaviour
         {
             if (transform.position.x <= 0 && Activate == false)
             {
+
                 Camera.main.GetComponent<MainAudioScript>().ExpandScreen();
+                PlayManager.Instance.ControlHidingJudjement();
                 Activate = true;
 
             }
