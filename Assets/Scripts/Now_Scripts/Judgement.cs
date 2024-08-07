@@ -5,6 +5,7 @@ using UnityEngine;
 public class Judgement : MonoBehaviour
 {
     public KeyCode key;
+    public KeyCode key2;
 
     public GameObject note;
     bool active = false;
@@ -28,7 +29,7 @@ public class Judgement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(key))
+        if (Input.GetKeyDown(key) || Input.GetKeyDown(key2))
         {
             if (active == true)
             {

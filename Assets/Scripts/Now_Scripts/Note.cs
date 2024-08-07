@@ -30,4 +30,14 @@ public class Note : MonoBehaviour
 
         transform.position = new Vector2(transform.position.x - speed * Time.fixedDeltaTime, transform.position.y);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Finish"))
+        {
+            PlayManager.Instance.MissNote();
+        }
+    }
+
+
 }

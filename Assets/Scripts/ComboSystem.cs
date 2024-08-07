@@ -36,7 +36,7 @@ public class ComboSystem : MonoBehaviour
 
     public void MissNote()
     {
-        Combo--;
+        Combo = 0;
     }
 
 

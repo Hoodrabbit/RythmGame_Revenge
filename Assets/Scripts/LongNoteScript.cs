@@ -123,7 +123,7 @@ public class LongNoteScript : MonoBehaviour
     {
         //아예 판정선에서 누르지 못했을 경우도 발동해줘야함
 
-        HeadCollider.enabled = false;
+        //HeadCollider.enabled = false;
         HeadSR.color = new Color(159, 0, 255, 50);
     }
 
