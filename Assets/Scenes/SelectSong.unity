@@ -579,7 +579,7 @@ MonoBehaviour:
   state: 0
   MainAudio: {fileID: 1857500011}
   musicInfo: {fileID: 0}
-  speed: 10
+  speed: 20
 --- !u!4 &253143167
 Transform:
   m_ObjectHideFlags: 0
@@ -915,7 +915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicInfos:
   - {fileID: 11400000, guid: b6f2f42524d7a1d4187fa25b79f18036, type: 2}
-  - {fileID: 11400000, guid: 22ca39b69f36fc54d980676787b489b5, type: 2}
+  - {fileID: 11400000, guid: 98109872cba5fd64bbb022445a1fc858, type: 2}
   - {fileID: 11400000, guid: 43aa493efb67cef46a4b09c6cd599b70, type: 2}
   - {fileID: 11400000, guid: 2efd5920b38022f4f8ebcfde6645ac7e, type: 2}
   - {fileID: 11400000, guid: 76a6160b6e8b0ec42a1b1c96d9629b90, type: 2}
@@ -927,6 +927,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1910e0fe40830f448b7f28cee23fdfe1, type: 2}
   - {fileID: 11400000, guid: 96ea36af686ce72429c1044d1e18bf5b, type: 2}
   - {fileID: 11400000, guid: e4bbfd1c29b1c114e9a00f4a633345b3, type: 2}
+  - {fileID: 11400000, guid: 22ca39b69f36fc54d980676787b489b5, type: 2}
   - {fileID: 11400000, guid: 1d6ed2ddb75fcc74d8561ee159ce464e, type: 2}
 --- !u!4 &488901979
 Transform:

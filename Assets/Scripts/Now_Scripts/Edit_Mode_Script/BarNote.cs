@@ -25,7 +25,7 @@ public class BarNote : MonoBehaviour
     public float StdBPM;
     public int speed;
 
-    public int CameraSize = 15;
+    public int CameraSize = 13;
 
 
     public float OffsetTime = 0;

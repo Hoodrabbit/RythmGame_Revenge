@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MainAudioScript : MonoBehaviour
 {
+    int CameraSize = 13;
+
     public AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
@@ -35,7 +37,7 @@ public class MainAudioScript : MonoBehaviour
 
     public void ExpandScreen()
     {
-        if (Camera.main.orthographicSize < 15)
+        if (Camera.main.orthographicSize < CameraSize)
         {
             StartCoroutine(CameraSizeUP());
         }
@@ -50,7 +52,7 @@ public class MainAudioScript : MonoBehaviour
 
     IEnumerator CameraSizeUP()
     {
-        int CameraSize = 13;
+        //int CameraSize = 13;
         float CurrentTime = 0f;
         while (Camera.main.orthographicSize < CameraSize)
         {
@@ -72,7 +74,7 @@ public class MainAudioScript : MonoBehaviour
 
     IEnumerator CameraSizeDown()
     {
-        int CameraSize = 13;
+        //int CameraSize = 13;
         float CurrentTime = 0f;
         while (Camera.main.orthographicSize > 9)
         {
