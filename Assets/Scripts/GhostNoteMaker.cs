@@ -34,7 +34,7 @@ public class GhostNoteMaker : NoteMakerBase
                     float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                     //위와 동일 
 
-                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 3, 3, 0));
+                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 3, 3, 0, (double)RealXpos / 10));
                 }
 
                 //1
@@ -46,7 +46,7 @@ public class GhostNoteMaker : NoteMakerBase
                     //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가
 
 
-                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 1, 3, 0));
+                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 1, 3, 0, (double)RealXpos / 10));
                 }
 
                 //2
@@ -57,7 +57,7 @@ public class GhostNoteMaker : NoteMakerBase
                     float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                     //위와 동일 
 
-                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 2, 3, 0));
+                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 2, 3, 0, (double)RealXpos / 10));
                 }
 
                 //4
@@ -68,7 +68,7 @@ public class GhostNoteMaker : NoteMakerBase
                     float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                     //위와 동일 
 
-                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 4, 3, 0));
+                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 4, 3, 0, (double)RealXpos / 10));
                 }
 
             }

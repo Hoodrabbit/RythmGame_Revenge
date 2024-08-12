@@ -49,7 +49,7 @@ public class Long_Note_Maker : NoteMakerBase
                         float RealXpos = LongNote.transform.position.x - EditManager.Instance.GetNPXpos();
                         //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가
 
-                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, 1, 2, 1));
+                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, 1, 2, 1, (double)RealXpos / 10));
                     }
                     else
                     {
@@ -63,7 +63,7 @@ public class Long_Note_Maker : NoteMakerBase
 
                                 float RealXpos = Tail.transform.position.x - EditManager.Instance.GetNPXpos();
 
-                                DataManager.Instance.EditNotes.Add(new NoteInfoAll(Tail, RealXpos, 1, 2, 2));
+                                DataManager.Instance.EditNotes.Add(new NoteInfoAll(Tail, RealXpos, 1, 2, 2, (double)RealXpos / 10));
 
                             }
 
@@ -86,7 +86,7 @@ public class Long_Note_Maker : NoteMakerBase
 
                         float RealXpos = LongNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
-                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, 2, 2, 1));
+                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, 2, 2, 1, (double)RealXpos / 10));
 
 
                     }
@@ -103,7 +103,7 @@ public class Long_Note_Maker : NoteMakerBase
 
                                 float RealXpos = Tail.transform.position.x - EditManager.Instance.GetNPXpos();
 
-                                DataManager.Instance.EditNotes.Add(new NoteInfoAll(Tail, RealXpos, 2, 2, 2));
+                                DataManager.Instance.EditNotes.Add(new NoteInfoAll(Tail, RealXpos, 2, 2, 2, (double)RealXpos / 10));
                             }
 
                         }

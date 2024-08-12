@@ -23,7 +23,7 @@ public class SceneModeDropDown : MonoBehaviour
 
         GameManager.Instance.SetSceneModeValue(Value);
 
-        Debug.Log("작동됬어요");
+        //Debug.Log("작동됬어요");
         if(Value == 0)
         {
             GameManager.Instance.state = GameState.Debug_Mode;

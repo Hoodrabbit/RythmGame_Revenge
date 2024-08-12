@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Judgement : MonoBehaviour
 {
@@ -8,22 +9,32 @@ public class Judgement : MonoBehaviour
     public KeyCode key2;
 
     public GameObject note;
+
+    public List<Note> notes;
+
+    public List<JudgeMentDummy> JudgeMentsColliders;
+
     bool active = false;
-    
+
     public bool longnotePress = false;
     float pressTime = 0;
 
+    //public string txt;
+    public TMP_Text judgeText;
+
+
 
     public static float PlayTime;
-    public List<float> songtimes = new List<float>();
+    public List<double> songtimes = new List<double>();
     AudioSource audioSource;
     LongNoteScript aa;
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        Debug.Log("PlayTime : " + PlayTime);
+        //Debug.Log("PlayTime : " + PlayTime);
         Debug.Log(GameManager.Instance.GetBPS());
+        // InitalizeJudgeMents();
     }
 
     // Update is called once per frame
@@ -31,44 +42,97 @@ public class Judgement : MonoBehaviour
     {
         if (Input.GetKeyDown(key) || Input.GetKeyDown(key2))
         {
-            if (active == true)
+
+            if (notes.Count > 0)
             {
-                aa = note.GetComponent<LongNoteScript>();
+                foreach (Note note in notes)
+                {
+                    //Debug.Log(Mathf.Abs((float)(note.SongTime - GameManager.Instance.MainAudio.time)));
 
-                if (aa == null && longnotePress == false)
-                {
-                   
-                    //Debug.Log("³»°¡ ´­·¯¼­ ÀÛµ¿");
-                    note.SetActive(false);
-                    note = null;
-                    audioSource.Play();
-                    songtimes.Add(PlayTime);
-                    PlayManager.Instance.HitNote();
-                }
-                else
-                {
-                    Debug.Log("ÀÛµ¿ÇÏ³ª¿ä");
-                    aa.StopHeadPos(transform.position);
-                    longnotePress = true;
+                    
+                    ManageJudgeMent(Mathf.Abs((float)(note.SongTime - GameManager.Instance.MainAudio.time)));
+                    
+
+                    
 
                 }
-                
+
+
             }
 
-           
 
 
-            //¹Ì½º´Â ´Ù¸¥ ¹æ½ÄÀ¸·Î
+
+
+            //foreach(var judgementCollider in JudgeMentsColliders)
+            //{
+            //    judgementCollider.bboxcollider2D.enabled = true;
+            //    if(judgementCollider.GetState() != JudgeMentState.Null)
+            //    {
+            //        txt = judgementCollider.GetState().ToString();
+            //        Debug.Log(txt);
+            //        if(judgementCollider.IsLongNote())
+            //        {
+            //            Debug.Log("ë¡±ë…¸íŠ¸ì—ìš”");
+            //            longnotePress = true;
+            //        }
+            //        else
+            //        {
+            //            foreach (var obj in JudgeMentsColliders)
+            //            {
+            //                if (obj.bboxcollider2D.enabled == true)
+            //                {
+            //                    obj.bboxcollider2D.enabled = false;
+            //                }
+            //            }
+            //            break;
+            //        }
+            //    }
+
+
+            // }
+
+
+
+
+            //if (active == true)
+            //{
+            //    aa = note.GetComponent<LongNoteScript>();
+
+            //    if (aa == null && longnotePress == false)
+            //    {
+
+            //        //Debug.Log("ë‚´ê°€ ëˆŒëŸ¬ì„œ ì‘ë™");
+            //        note.SetActive(false);
+            //        note = null;
+            //        audioSource.Play();
+            //        songtimes.Add(GameManager.Instance.MainAudio.time);
+            //        PlayManager.Instance.HitNote();
+            //    }
+            //    else
+            //    {
+            //        Debug.Log("ì‘ë™í•˜ë‚˜ìš”");
+            //        aa.StopHeadPos(transform.position);
+            //        longnotePress = true;
+            //        songtimes.Add(GameManager.Instance.MainAudio.time);
+            //    }
+
+            //}
+
+
+
+
+            //ë¯¸ìŠ¤ëŠ” ë‹¤ë¥¸ ë°©ì‹ìœ¼ë¡œ
         }
 
-        if(Input.GetKeyUp(key))
+        if (Input.GetKeyUp(key))
         {
-            if(longnotePress == true)
+            if (longnotePress == true)
             {
                 longnotePress = false;
                 aa.CancelStopHeadPos();
-
-                //¶¼´Â ¼ø°£ ¿ÏÀüÈ÷ Ã£Áö ¸øÇÏµµ·Ï ÇØ¾ß µÉ °Í °°À½
+                pressTime = 0;
+                //ë–¼ëŠ” ìˆœê°„ ì™„ì „íˆ ì°¾ì§€ ëª»í•˜ë„ë¡ í•´ì•¼ ë  ê²ƒ ê°™ìŒ
 
                 //active = false;
             }
@@ -79,12 +143,12 @@ public class Judgement : MonoBehaviour
         {
             pressTime += Time.deltaTime;
 
-            if (pressTime >= GameManager.Instance.GetBPS()/2)
+            if (pressTime >= GameManager.Instance.GetBPS() / 2)
             {
                 PlayManager.Instance.HitNote();
-                pressTime -= GameManager.Instance.GetBPS()/2;
+                pressTime -= GameManager.Instance.GetBPS() / 2;
             }
-            //³ë·¡ÀÇ 16ºñÆ®¸¶´Ù ÄŞº¸ Áõ°¡½ÃÅ°±â
+            //ë…¸ë˜ì˜ 16ë¹„íŠ¸ë§ˆë‹¤ ì½¤ë³´ ì¦ê°€ì‹œí‚¤ê¸°
 
             //if()
 
@@ -100,7 +164,7 @@ public class Judgement : MonoBehaviour
         //        {
         //            if (note != null)
         //            {
-        //                Debug.Log("³»°¡ ´­·¯¼­ ÀÛµ¿");
+        //                Debug.Log("ë‚´ê°€ ëˆŒëŸ¬ì„œ ì‘ë™");
         //                note.SetActive(false);
         //                note = null;
         //                audioSource.Play();
@@ -126,14 +190,39 @@ public class Judgement : MonoBehaviour
 
     }
 
+
+    public void ManageJudgeMent(float time)
+    {
+        Debug.Log(time);
+        if (time <= 0.05)
+        {
+            judgeText.text = "Perfect";
+            Debug.Log("Perfect");
+        }
+        else if(time <= 0.13 && time >0.05)
+        {
+            judgeText.text = "Great";
+            Debug.Log("Great");
+        }
+        else if(time > 0.13)
+        {
+            judgeText.text = "";
+            //Debug.Log("Miss");
+            //ë¯¸ìŠ¤ê°€ ì¼ì–´ë‚˜ë©´ ì¼ì • ì‹œê°„ í›„ ë¬´ì¡°ê±´ ë°”ë¡œ êº¼ì ¸ì•¼ í•¨ ì•„ë‹ˆë©´ ë¯¸ìŠ¤ í‘œì‹œê°€ ì•„ì˜ˆ ì•ˆëœ¸
+        }
+    }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
         if (collision.gameObject.CompareTag("Note"))
         {
-            active = true;
+            //active = true;
 
-            note = collision.gameObject;
+            notes.Add(collision.gameObject.GetComponent<Note>());
+
+            //note = collision.gameObject;
 
 
 
@@ -144,7 +233,32 @@ public class Judgement : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        active = false;
+        if (collision.gameObject.CompareTag("Note"))
+        {
+            //active = true;
+
+            notes.RemoveAt(0);
+            //ì œì¼ ì²˜ìŒ ë…¸íŠ¸ë¶€í„° ì‚¬ë¼ì ¸ì•¼ í•˜ê¸° ë•Œë¬¸ì— ì‘ë™ë¨
+
+
+            //note = collision.gameObject;
+
+
+
+        }
     }
+
+    void InitalizeJudgeMents()
+    {
+        foreach (var obj in JudgeMentsColliders)
+        {
+            if (obj.bboxcollider2D.enabled == true)
+            {
+                obj.bboxcollider2D.enabled = false;
+            }
+        }
+    }
+
+
 
 }

@@ -62,7 +62,7 @@ public class MainAudioScript : MonoBehaviour
             float CurrentSize = Mathf.Lerp(1, 2, CurrentTime / 5f);
 
 
-            Debug.Log("작동");
+            //Debug.Log("작동");
             Camera.main.orthographicSize = CurrentValue;
             //transform.localScale = new Vector2(CurrentSize, CurrentSize);
 
@@ -84,7 +84,7 @@ public class MainAudioScript : MonoBehaviour
             float CurrentSize = Mathf.Lerp(2, 1, CurrentTime / 5f);
 
 
-            Debug.Log("작동");
+            //Debug.Log("작동");
             Camera.main.orthographicSize = CurrentValue;
             //transform.localScale = new Vector2(CurrentSize, CurrentSize);
 

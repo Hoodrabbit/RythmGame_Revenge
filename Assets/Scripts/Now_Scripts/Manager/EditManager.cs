@@ -28,29 +28,29 @@ public class EditManager : Singleton<EditManager>
         return NoteParent.transform.position.x;
     }
 
-    public void MakeNote(float xpos, int height, int noteType, int LongNoteStartEndCheck)
+    public void MakeNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
     {
         //나중에 번호에 따른 수치 값 조정을 원활하게 할 수 있도록 따로 값으로 만들어놔야 할 것 같음
 
         switch (noteType)
         {
             case 0:
-                ExpandLine(xpos, height, noteType, LongNoteStartEndCheck);
+                ExpandLine(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 break;
 
             case 1:
 
-                NormalNote(xpos, height, noteType, LongNoteStartEndCheck);
+                NormalNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 break;
 
             case 2:
 
-                LongNote(xpos, height, noteType, LongNoteStartEndCheck);
+                LongNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 //Debug.Log("작동은 하나");
                 break;
 
             case 3:
-                GhostNote(xpos, height, noteType, LongNoteStartEndCheck);
+                GhostNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
 
                 break;
 
@@ -60,11 +60,11 @@ public class EditManager : Singleton<EditManager>
                 break;
         }
 
-        
+
 
     }
 
-    public void NormalNote(float xpos, int height, int noteType, int LongNoteStartEndCheck)
+    public void NormalNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
     {
         if (height == 1)
         {
@@ -74,7 +74,7 @@ public class EditManager : Singleton<EditManager>
 
 
             //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
         }
         else if (height == 2)
         {
@@ -83,18 +83,18 @@ public class EditManager : Singleton<EditManager>
             float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
             //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
 
 
         }
-        else if (height == 3) 
+        else if (height == 3)
         {
             GameObject AddNote = Instantiate(NormalNote_Obj, new Vector3(xpos, 6), Quaternion.identity, EditManager.Instance.NoteParent.transform);
 
             float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
             //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));    
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
         }
         else
         {
@@ -103,127 +103,127 @@ public class EditManager : Singleton<EditManager>
             float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
             //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
         }
 
 
     }
 
-    public void LongNote(float xpos, int height, int noteType, int LongNoteStartEndCheck)
+    public void LongNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
     {
-        LongNoteInternalMethod(xpos, height, noteType, LongNoteStartEndCheck);
+        LongNoteInternalMethod(xpos, height, noteType, LongNoteStartEndCheck, (double)xpos / 10);
     }
 
-    public void ExpandLine(float xpos, int height, int noteType, int LongNoteStartEndCheck)
+    public void ExpandLine(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
     {
-            GameObject AddNote = Instantiate(ExpandLine_Obj, new Vector3(xpos, 0), Quaternion.identity, EditManager.Instance.NoteParent.transform);
+        GameObject AddNote = Instantiate(ExpandLine_Obj, new Vector3(xpos, 0), Quaternion.identity, EditManager.Instance.NoteParent.transform);
 
-            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
-            //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
+        //height 부분 나중에 바꿀거임
+        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
     }
-
-    public void GhostNote(float xpos, int height, int noteType, int LongNoteStartEndCheck)
-    {
-        if (height == 1)
+        public void GhostNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
         {
-            GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, 2), Quaternion.identity, EditManager.Instance.NoteParent.transform);
-
-            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
-
-
-            //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
-        }
-        else if (height == 2)
-        {
-            GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, -2), Quaternion.identity, EditManager.Instance.NoteParent.transform);
-
-            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
-
-            //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
-
-
-        }
-        else if (height == 3)
-        {
-            GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, 6), Quaternion.identity, EditManager.Instance.NoteParent.transform);
-
-            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
-
-            //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
-        }
-        else
-        {
-            GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, -6), Quaternion.identity, EditManager.Instance.NoteParent.transform);
-
-            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
-
-            //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
-        }
-    }
-
-
-    //롱노트 내부 메서드 따로 분리함
-    void LongNoteInternalMethod(float xpos, int height, int noteType, int LongNoteStartEndCheck)
-    {
-        int ypos = 0;
-        switch (height) 
-        {
-            case 1:
-                ypos = 2;
-                break;
-
-            case 2:
-                ypos = -2;
-                break;
-        }
-
-        GameObject LongNote;
-        if (LongNoteStartEndCheck == 1)
-        {
-            LongNote = Instantiate(LongNote_Obj, new Vector3(xpos, ypos), Quaternion.identity, EditManager.Instance.NoteParent.transform);
-            UnCompleteLongNoteQueue.Enqueue(LongNote.GetComponent<LongNoteScript>());
-
-            float RealXpos = LongNote.transform.position.x - EditManager.Instance.GetNPXpos();
-
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, height, noteType, LongNoteStartEndCheck));
-        }
-        else if (LongNoteStartEndCheck == 2)
-        {
-            Queue<LongNoteScript> newLongNoteQueue = new Queue<LongNoteScript>();
-            foreach (var head in UnCompleteLongNoteQueue)
+            if (height == 1)
             {
-                if (head.transform.position.y == ypos) //줄 번호가 1일 경우 2의 위치임
-                {
-                    head.Tail.transform.position = new Vector3(xpos, head.transform.position.y);
+                GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, 2), Quaternion.identity, EditManager.Instance.NoteParent.transform);
 
-                    float RealXpos = head.Tail.transform.position.x - EditManager.Instance.GetNPXpos();
+                float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
-                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(head.Tail, RealXpos, height, noteType, LongNoteStartEndCheck));
-                }
-                else
-                {
-                    newLongNoteQueue.Enqueue(head); //해당 조건을 만족하지 않는 큐만 따로 추가함
-                }
+
+                //height 부분 나중에 바꿀거임
+                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+            }
+            else if (height == 2)
+            {
+                GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, -2), Quaternion.identity, EditManager.Instance.NoteParent.transform);
+
+                float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+                //height 부분 나중에 바꿀거임
+                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+
 
             }
-            UnCompleteLongNoteQueue = newLongNoteQueue;
+            else if (height == 3)
+            {
+                GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, 6), Quaternion.identity, EditManager.Instance.NoteParent.transform);
 
+                float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+                //height 부분 나중에 바꿀거임
+                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+            }
+            else
+            {
+                GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, -6), Quaternion.identity, EditManager.Instance.NoteParent.transform);
+
+                float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+                //height 부분 나중에 바꿀거임
+                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+            }
         }
-    }
 
 
-    public void ChangeScreenSize()
-    {
-        NoteParent.ExpandScreen();
-    }
+        //롱노트 내부 메서드 따로 분리함
+        void LongNoteInternalMethod(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+        {
+            int ypos = 0;
+            switch (height)
+            {
+                case 1:
+                    ypos = 2;
+                    break;
+
+                case 2:
+                    ypos = -2;
+                    break;
+            }
+
+            GameObject LongNote;
+            if (LongNoteStartEndCheck == 1)
+            {
+                LongNote = Instantiate(LongNote_Obj, new Vector3(xpos, ypos), Quaternion.identity, EditManager.Instance.NoteParent.transform);
+                UnCompleteLongNoteQueue.Enqueue(LongNote.GetComponent<LongNoteScript>());
+
+                float RealXpos = LongNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+                DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)LongNote.transform.localPosition.x / 10));
+            }
+            else if (LongNoteStartEndCheck == 2)
+            {
+                Queue<LongNoteScript> newLongNoteQueue = new Queue<LongNoteScript>();
+                foreach (var head in UnCompleteLongNoteQueue)
+                {
+                    if (head.transform.position.y == ypos) //줄 번호가 1일 경우 2의 위치임
+                    {
+                        head.Tail.transform.position = new Vector3(xpos, head.transform.position.y);
+
+                        float RealXpos = head.Tail.transform.position.x - EditManager.Instance.GetNPXpos();
+
+                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(head.Tail, RealXpos, height, noteType, LongNoteStartEndCheck, (double)(head.transform.position.x + head.Tail.transform.localPosition.x) / 10));
+                    }
+                    else
+                    {
+                        newLongNoteQueue.Enqueue(head); //해당 조건을 만족하지 않는 큐만 따로 추가함
+                    }
+
+                }
+                UnCompleteLongNoteQueue = newLongNoteQueue;
+
+            }
+        }
+
+
+        public void ChangeScreenSize()
+        {
+            NoteParent.ExpandScreen();
+        }
 
 
 
 
+    
 }

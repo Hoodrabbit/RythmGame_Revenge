@@ -7,6 +7,10 @@ public class Note : MonoBehaviour
     Rigidbody2D rb;
     public float speed;
 
+    public double SongTime;
+
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -39,5 +43,9 @@ public class Note : MonoBehaviour
         }
     }
 
+    public void SetSongTime(double songTime)
+    {
+        SongTime = songTime;
+    }
 
 }
