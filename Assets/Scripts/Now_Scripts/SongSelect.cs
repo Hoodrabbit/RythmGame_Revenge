@@ -12,8 +12,9 @@ public class SongSelect : MonoBehaviour
 
     public void Awake()
     {
-        audioClips = MusicManager.Instance.musicClipList();
+        //audioClips = MusicManager.Instance.musicClipList();
         SongAudio = GetComponent<AudioSource>();
+        AudioManager.Instance.SetAudio(this);
     }
 
     public void Start()

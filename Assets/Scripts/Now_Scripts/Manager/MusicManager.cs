@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MusicManager : Singleton<MusicManager>
 {
     public List<MusicInfo> musicInfos;
+
+    
+
 
     public void SetMusic(int value)
     {
@@ -12,6 +16,21 @@ public class MusicManager : Singleton<MusicManager>
         GameManager.Instance.musicInfo = musicInfos[value];
         GameManager.Instance.SetSongValue(value);
     }
+
+    public void SetMusic(MusicInfo musicInfo)
+    {
+        //Debug.Log(value);
+        GameManager.Instance.musicInfo = musicInfo;
+        GameManager.Instance.SetSongValue(musicInfo);
+
+        //songSelect.SongAudio.clip = songSelect.audioClips[Value];
+        //MusicManager.Instance.SetMusic(Value);
+        //songSelect.SongAudio.PlayScheduled(0);
+
+
+    }
+
+
 
     public List<AudioClip> musicClipList()
     {

@@ -61,6 +61,12 @@ public class GameManager : Singleton<GameManager>
         SongValue = num;
     }
 
+    public void SetSongValue(MusicInfo musicInfo)
+    {
+        //SongValue = num;
+    }
+
+
     public int GetSceneModeValue()
     {
         return SceneModeValue;
