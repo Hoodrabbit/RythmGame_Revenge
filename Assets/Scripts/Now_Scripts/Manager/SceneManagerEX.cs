@@ -4,13 +4,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum Scene_Type
-{
-    SelectSong,
-    NoteEdit,
-    OffsetMode,
-    Play
-};
 
 public class SceneManagerEX : Singleton<SceneManagerEX>
 {

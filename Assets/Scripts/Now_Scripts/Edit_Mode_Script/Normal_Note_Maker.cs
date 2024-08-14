@@ -11,12 +11,6 @@ public class Normal_Note_Maker : NoteMakerBase
 {
     public GameObject Note;
 
-    //고정, 노트 설치 모드(실제로 이 노트가 설치되는 것이 아니라 별개의 다른 노트가 설치됨
-    enum Edit_Note_State
-    {
-        Lock,
-        Set
-    }
     //클릭했을 때의 해당 영역을 체크해서 해당 영역이 노트를 설치해도 되는 환경인지 확인하고 만약 아니라면 로그로 해당 영역에 잘못된 곳입니다. 라고 출력함
     //마찬가지로 해당 영역을 체크했을 때 해당 영역에 노트가 이미 있다면 노트가 이미 존재하다고 로그로 띄워주기
     //위의 경우를 통과했을 경우 노트를 해당 영역에 생성시켜주기+리스트에도 넣어줌(아니면 노트를 저장해줄 때 해당 노트를 리스트에 차례대로 넣고 하는 방법도 괜찮음)
@@ -34,55 +28,115 @@ public class Normal_Note_Maker : NoteMakerBase
             {
                 Checkduplication = true;
                 Debug.Log("중복입니다.");
+
+                Note n = hit[i].collider.GetComponent<Note>();
+                int num = (int)n.GetNoteType() + 1;
+                
+                if(num > 2)
+                {
+                    num = 0;
+                }
+                
+                Destroy(hit[i].transform.gameObject);
+
+                //무조건 변경할 예정
+                ////
+                int j =0;
+                while (j < hit.Length)
+                {
+                    //Debug.Log("돌아가나요"); Debug.Log(num);
+
+                    if (hit[j].collider.CompareTag("NotePlace"))
+                    {
+                        if (Pos.y > 0)
+                        {
+                            GameObject AddNote = Instantiate(Note, new Vector3(hit[j].transform.position.x, hit[j].transform.position.y + 2), Quaternion.identity, barNote.RhythmNote.transform);
+                            Note nnote = AddNote.GetComponent<Note>();
+                            nnote.SetNoteType(num);
+                            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+                            //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가
+
+
+                            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 1, 1, 0, (double)RealXpos / GameManager.Instance.speed, num));
+                            break;
+                        }
+
+
+                        else if (Pos.y < 0)
+                        {
+                            GameObject AddNote = Instantiate(Note, new Vector3(hit[j].transform.position.x, hit[j].transform.position.y - 2), Quaternion.identity, barNote.RhythmNote.transform);
+                            Note nnote = AddNote.GetComponent<Note>();
+
+                            nnote.SetNoteType(num);
+
+
+                            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+                            //위와 동일 
+
+                            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 2, 1, 0, (double)RealXpos / GameManager.Instance.speed, num));
+                            break;
+                        }
+                    }
+                    j++;
+                }
+
+                ////
+
+
+                break;
             }
 
             if (hit[i].collider.CompareTag("NotePlace") && Checkduplication == false)
             {
 
-                //3
-                if(Pos.y >4)
+
+                if(Pos.y < 3 &&Pos.y > 0)
                 {
-                    GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y +6), Quaternion.identity, barNote.RhythmNote.transform);
+                    RaycastHit2D[] NextHit;
+                    Vector3 NotePos = new Vector3(hit[i].transform.position.x, hit[i].transform.position.y + 2);
+                    NextHit = Physics2D.RaycastAll(NotePos, transform.forward, 10);
 
-                    float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
-                    //위와 동일 
+                    for(int k = 0; k < NextHit.Length; k++)
+                    {
+                        if (NextHit[i].collider.CompareTag("Note"))
+                        {
+                            break;
+                        }
 
-                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 3, 1, 0, (double)RealXpos / 10));
-                }
-
-                //1
-                else if(Pos.y < 3 &&Pos.y > 0)
-                {
+                    }
                     GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y+2), Quaternion.identity, barNote.RhythmNote.transform);
 
                     float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                     //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가
 
 
-                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 1,1,0, (double)RealXpos / 10));    
+                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 1,1,0, (double)RealXpos / GameManager.Instance.speed));    
                 }
 
                 //2
                 else if (Pos.y > -3 && Pos.y < 0)
                 {
+                    RaycastHit2D[] NextHit;
+                    Vector3 NotePos = new Vector3(hit[i].transform.position.x, hit[i].transform.position.y - 2);
+                    NextHit = Physics2D.RaycastAll(NotePos, transform.forward, 10);
+
+                    for (int k = 0; k < NextHit.Length; k++)
+                    {
+                        if (NextHit[i].collider.CompareTag("Note"))
+                        {
+                            break;
+                        }
+
+                    }
+
                     GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y - 2), Quaternion.identity, barNote.RhythmNote.transform);
 
                     float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                     //위와 동일 
 
-                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 2,1,0, (double)RealXpos / 10)) ;
+                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 2,1,0, (double)RealXpos / GameManager.Instance.speed)) ;
                 }
 
-                //4
-                else
-                {
-                    GameObject AddNote = Instantiate(Note, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y - 6), Quaternion.identity, barNote.RhythmNote.transform);
-
-                    float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
-                    //위와 동일 
-
-                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 4, 1, 0, (double)RealXpos / 10));
-                }
                 
             }
             i++;

@@ -1,8 +1,10 @@
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 public class MusicSelectPanel : MonoBehaviour
@@ -17,19 +19,32 @@ public class MusicSelectPanel : MonoBehaviour
 
     public List<MusicInfo> slotList_Sorting = new List<MusicInfo>();
 
+    public static Action SlotClicked;
+
+    //public GameObject Left;
+    //public GameObject Right;
+
+    public GameObject SelectDetailPanel;
+
+
 
     float pressTime = 0;
-    public float HoldTime = 0.5f;
+    public float HoldTime = 0.2f;
 
-    bool KeyHold = false;
+    public bool KeyHold = false;
 
     Vector2 NextPos;
 
 
+    
+
+
     private void Start()
     {
-        musicCount = MusicManager.Instance.musicInfos.Count;
+        //SelectDetailPanel = GameObject.Find("SelectDetailPanel");
 
+        musicCount = MusicManager.Instance.musicInfos.Count;
+        SlotClicked += OpenDetailPanel;
         MusicSlotPanelAnimator = GetComponent<Animator>();
         NextPos = new Vector2(600, 0);
         int median = musicCount / 2;
@@ -38,6 +53,13 @@ public class MusicSelectPanel : MonoBehaviour
         for (int i = 0; i < musicCount; i++)
         {
             MusicSlot MusicSlot_ = Instantiate(MusicImage, transform).GetComponent<MusicSlot>();
+
+            if (i == medianValue - 1 || i == medianValue || i == medianValue + 1)
+            {
+               
+            }
+
+
             RectTransform rectT = MusicSlot_.GetComponent<RectTransform>();
 
             int indexOffset = (i - (medianValue));
@@ -67,6 +89,11 @@ public class MusicSelectPanel : MonoBehaviour
         //}
     }
 
+    private void OnDestroy()
+    {
+        SlotClicked -= OpenDetailPanel;
+    }
+
     private void Update()
     {
 
@@ -76,8 +103,15 @@ public class MusicSelectPanel : MonoBehaviour
             pressTime += Time.deltaTime;
             if (pressTime > HoldTime)
             {
+
                 KeyHold = true;
-                MusicSlotPanelAnimator.SetBool("Left", true);
+     
+                        SlotChangedLeft();
+                
+
+                //MusicSlotPanelAnimator.SetBool("Left", true);
+               // SlotChangedLeft();
+                pressTime -=HoldTime;
             }
             else
             {
@@ -94,7 +128,12 @@ public class MusicSelectPanel : MonoBehaviour
             if (pressTime > HoldTime)
             {
                 KeyHold = true;
-               MusicSlotPanelAnimator.SetBool("Right", true);
+
+                        SlotChangedRight();
+                pressTime -= HoldTime;
+
+                // MusicSlotPanelAnimator.SetBool("Right", true);
+                // SlotChangedRight();
             }
             else
             {
@@ -107,15 +146,18 @@ public class MusicSelectPanel : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.A))
         {
-            if(KeyHold == false)
+            if (KeyHold == false)
             {
-               StartCoroutine(Decrease());
+
+
+                SlotChangedLeft();
                 
+                // SlotChangedLeft();
             }
             else
             {
-                MusicSlotPanelAnimator.SetBool("Left", false);
-               
+             //   MusicSlotPanelAnimator.SetBool("Left", false);
+
 
                 if (KeyHold == true)
                 {
@@ -124,18 +166,25 @@ public class MusicSelectPanel : MonoBehaviour
             }
             pressTime = 0;
 
-
+          //if (MusicSlotPanelAnimator.GetBool("Left"))
+          //  {
+          //      StopAllCoroutines();
+          //  }
 
         }
         if (Input.GetKeyUp(KeyCode.D))
         {
             if (KeyHold == false)
             {
-                StartCoroutine(Increase());
+
+                       SlotChangedRight();
+                
+                // StartCoroutine(Increase());
+                //SlotChangedRight();
             }
             else
             {
-               MusicSlotPanelAnimator.SetBool("Right", false);
+             //   MusicSlotPanelAnimator.SetBool("Right", false);
 
 
                 if (KeyHold == true)
@@ -145,14 +194,24 @@ public class MusicSelectPanel : MonoBehaviour
             }
             pressTime = 0;
 
-
+            //if(MusicSlotPanelAnimator.GetBool("Right"))
+            //{
+            //    StopAllCoroutines();
+            //}
 
 
         }
-       
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            CloseDetailPanel();
+        }
+
+
+
     }
 
-
+   
 
 
     //현재 노래 슬롯을 체크해서 반으로 나눈다음에 노래가 몇곡 정도 있는지 체크해서 정렬해주기
@@ -229,31 +288,75 @@ public class MusicSelectPanel : MonoBehaviour
 
 
 
-    public void DecreaseValue()
+    public void SlotChangedRight()
     {
-        NowSelect--;
-        if (NowSelect < 0)
-        {
-            NowSelect = musicCount - 1;
-        }
+        //MusicSlotPanelAnimator.SetTrigger("Changed");
+        //if (MusicSlotPanelAnimator.GetCurrentAnimatorStateInfo(0).IsName("MusicSlotChange") == true)
+        //{
+        //    Debug.Log("check");
+        //    if (MusicSlotPanelAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >0f)
+        //    {
+                NowSelect--;
+                if (NowSelect < 0)
+                {
+                    NowSelect = musicCount - 1;
+                }
 
-        SortingMusic(NowSelect);
-        AudioManager.Instance.SetValue(MusicSlots[medianValue].musicInfo);
-        Debug.Log(NowSelect);
+                SortingMusic(NowSelect);
+                AudioManager.Instance.SetValue(MusicSlots[medianValue].musicInfo);
+                MusicManager.Instance.SetMusic(MusicSlots[medianValue].musicInfo);
+                Debug.Log(NowSelect);
+
+
+
+        //    }
+        //}
+
+
+
+
+       
     }
 
-    public void IncreaseValue()
+    public void SlotChangedLeft()
     {
+        //MusicSlotPanelAnimator.SetTrigger("Changed");
+        //if (MusicSlotPanelAnimator.GetCurrentAnimatorStateInfo(0).IsName("MusicSlotChange") == true)
+        //{
+        //    Debug.Log("check");
+        //    if (MusicSlotPanelAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >0f)
+        //    {
         NowSelect++;
         if (NowSelect > musicCount - 1)
         {
             NowSelect = 0;
         }
         SortingMusic(NowSelect);
-        AudioManager.Instance.SetValue(MusicSlots[medianValue].musicInfo);
-        Debug.Log(NowSelect);
+                AudioManager.Instance.SetValue(MusicSlots[medianValue].musicInfo);
+                Debug.Log(NowSelect);
+
+
+
+        //    }
+        //}
+
+
+
+
+       
     }
 
+    void OpenDetailPanel()
+    {
+        SelectDetailPanel.SetActive(true);
+    }
 
+    void CloseDetailPanel()
+    {
+        if(SelectDetailPanel.activeSelf == true)
+        {
+            SelectDetailPanel.SetActive(false);
+        }
+    }
 
 }

@@ -28,19 +28,19 @@ public class EditManager : Singleton<EditManager>
         return NoteParent.transform.position.x;
     }
 
-    public void MakeNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    public void MakeNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType=0)
     {
         //나중에 번호에 따른 수치 값 조정을 원활하게 할 수 있도록 따로 값으로 만들어놔야 할 것 같음
 
         switch (noteType)
         {
             case 0:
-                ExpandLine(xpos, height, noteType, LongNoteStartEndCheck, songtime);
+                //ExpandLine(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 break;
 
             case 1:
 
-                NormalNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
+                NormalNote(xpos, height, noteType, LongNoteStartEndCheck, songtime,enemyType);
                 break;
 
             case 2:
@@ -64,66 +64,69 @@ public class EditManager : Singleton<EditManager>
 
     }
 
-    public void NormalNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    public void NormalNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
     {
+        GameObject AddNote = Instantiate(NormalNote_Obj, EditManager.Instance.NoteParent.RhythmNote.transform);
+
+
         if (height == 1)
         {
-            GameObject AddNote = Instantiate(NormalNote_Obj, new Vector3(xpos, 2), Quaternion.identity, EditManager.Instance.NoteParent.transform);
+            AddNote.transform.position = new Vector3(xpos, 2);
+            AddNote.GetComponent<Note>().SetNoteType(enemyType);
+
 
             float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
 
             //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed, enemyType));
         }
         else if (height == 2)
         {
-            GameObject AddNote = Instantiate(NormalNote_Obj, new Vector3(xpos, -2), Quaternion.identity, EditManager.Instance.NoteParent.transform);
-
+            AddNote.transform.position = new Vector3(xpos, -2);
+            AddNote.GetComponent<Note>().SetNoteType(enemyType);
             float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
             //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed, enemyType));
 
 
         }
-        else if (height == 3)
-        {
-            GameObject AddNote = Instantiate(NormalNote_Obj, new Vector3(xpos, 6), Quaternion.identity, EditManager.Instance.NoteParent.transform);
+        //else if (height == 3)
+        //{
+        //    AddNote.transform.position = new Vector3(xpos, 6);
 
-            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+        //    float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+        //    AddNote.GetComponent<Note>().SetNoteType(enemyType);
+        //    //height 부분 나중에 바꿀거임
+        //    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+        //}
+        //else
+        //{
+        //    AddNote.transform.position = new Vector3(xpos, -6);
+        //    AddNote.GetComponent<Note>().SetNoteType(enemyType);
+        //    float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
-            //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
-        }
-        else
-        {
-            GameObject AddNote = Instantiate(NormalNote_Obj, new Vector3(xpos, -6), Quaternion.identity, EditManager.Instance.NoteParent.transform);
-
-            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
-
-            //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
-        }
-
-
+        //    //height 부분 나중에 바꿀거임
+        //    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+        //}
     }
 
-    public void LongNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    public void LongNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime,int enemyType= 0)
     {
         LongNoteInternalMethod(xpos, height, noteType, LongNoteStartEndCheck, (double)xpos / 10);
     }
 
-    public void ExpandLine(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
-    {
-        GameObject AddNote = Instantiate(ExpandLine_Obj, new Vector3(xpos, 0), Quaternion.identity, EditManager.Instance.NoteParent.transform);
+    //public void ExpandLine(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    //{
+    //    GameObject AddNote = Instantiate(ExpandLine_Obj, new Vector3(xpos, 0), Quaternion.identity, EditManager.Instance.NoteParent.transform);
 
-        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+    //    float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
-        //height 부분 나중에 바꿀거임
-        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
-    }
-        public void GhostNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    //    //height 부분 나중에 바꿀거임
+    //    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+    //}
+        public void GhostNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
         {
             if (height == 1)
             {
@@ -133,7 +136,7 @@ public class EditManager : Singleton<EditManager>
 
 
                 //height 부분 나중에 바꿀거임
-                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
             }
             else if (height == 2)
             {
@@ -142,7 +145,7 @@ public class EditManager : Singleton<EditManager>
                 float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
                 //height 부분 나중에 바꿀거임
-                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
 
 
             }
@@ -153,7 +156,7 @@ public class EditManager : Singleton<EditManager>
                 float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
                 //height 부분 나중에 바꿀거임
-                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
             }
             else
             {
@@ -162,7 +165,7 @@ public class EditManager : Singleton<EditManager>
                 float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
                 //height 부분 나중에 바꿀거임
-                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
             }
         }
 
@@ -190,7 +193,7 @@ public class EditManager : Singleton<EditManager>
 
                 float RealXpos = LongNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
-                DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)LongNote.transform.localPosition.x / 10));
+                DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)LongNote.transform.localPosition.x / GameManager.Instance.speed));
             }
             else if (LongNoteStartEndCheck == 2)
             {
@@ -203,7 +206,7 @@ public class EditManager : Singleton<EditManager>
 
                         float RealXpos = head.Tail.transform.position.x - EditManager.Instance.GetNPXpos();
 
-                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(head.Tail, RealXpos, height, noteType, LongNoteStartEndCheck, (double)(head.transform.position.x + head.Tail.transform.localPosition.x) / 10));
+                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(head.Tail, RealXpos, height, noteType, LongNoteStartEndCheck, (double)(head.transform.position.x + head.Tail.transform.localPosition.x) / GameManager.Instance.speed));
                     }
                     else
                     {

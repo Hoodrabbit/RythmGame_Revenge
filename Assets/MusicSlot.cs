@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using System;
 
 public class MusicSlot : MonoBehaviour, IPointerClickHandler
 {
@@ -12,11 +13,32 @@ public class MusicSlot : MonoBehaviour, IPointerClickHandler
     public Image image;
     public TMP_Text text;
 
+    public Action Clicked;
+
+    int num;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        //Clicked += MusicSelectPanel.SlotClicked;
         //image = GetComponent<Image>();
     }
+
+    private void OnEnable()
+    {
+        //Debug.Log("구독시작");
+        Clicked += MusicSelectPanel.SlotClicked;
+    }
+
+    
+
+    private void OnDestroy()
+    {
+       // Debug.Log("구독해제");
+        Clicked -= MusicSelectPanel.SlotClicked;
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -29,10 +51,14 @@ public class MusicSlot : MonoBehaviour, IPointerClickHandler
         musicInfo = music;
         image.sprite = musicInfo.MusicSprite;
         text.text = musicInfo.Music_Name;
+
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Clicked?.Invoke();
+
+
         //음악 이걸로 변경
         if (musicInfo != null)
         {

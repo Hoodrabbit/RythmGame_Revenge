@@ -48,6 +48,9 @@ public class BarNote : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        EditManager.Instance.NoteParent = this;
+
+
         NowBPM = GameManager.Instance.musicInfo.BPM;
         StdBPM = 60;
         NextBeat = StdBPM / NowBPM / Beat;
@@ -82,6 +85,37 @@ public class BarNote : MonoBehaviour
 
 
     }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            ChangeSpeed();
+        }
+    }
+
+    void ChangeSpeed()
+    {
+        TTime = 0;
+
+        first = true;
+
+        foreach (GameObject obj in CNote) 
+        {
+            if(first == false)
+            {
+                obj.transform.position = new Vector3(transform.position.x + (TTime + NextBeat) * GameManager.Instance.speed, 0, 0);
+                TTime += NextBeat;
+            }
+            else
+            {
+                obj.transform.position = new Vector3(transform.position.x, 0, 0);
+                first = false;
+            }
+            
+        }
+    }
+
 
     public void MakeBar()
     {

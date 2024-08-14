@@ -20,7 +20,7 @@ public class PlayManager : Singleton<PlayManager>
     Queue<LongNoteScript> UnCompleteLongNoteQueue = new Queue<LongNoteScript>();
 
 
-    public void PlayScene_NoteMaker(float xpos, int heightnum, int noteType, int LongNoteStartEndCheck, double songtime )
+    public void PlayScene_NoteMaker(float xpos, int heightnum, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0 )
     {
 
         switch (noteType)
@@ -31,7 +31,7 @@ public class PlayManager : Singleton<PlayManager>
 
             case 1:
 
-                NormalNote(xpos, heightnum, noteType, LongNoteStartEndCheck, songtime);
+                NormalNote(xpos, heightnum, noteType, LongNoteStartEndCheck, songtime, enemyType);
                 break;
 
             case 2:
@@ -82,7 +82,7 @@ public class PlayManager : Singleton<PlayManager>
     }
 
 
-    void NormalNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    void NormalNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType)
     {
         GameObject Note_Instantiate;
 
@@ -91,6 +91,7 @@ public class PlayManager : Singleton<PlayManager>
             NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType , LongNoteStartEndCheck, songtime);
             Note_Instantiate = Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, 2), Quaternion.identity, Note_Parent.transform);
             Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
+            Note_Instantiate.GetComponent<Note>().SetNoteType(enemyType);
             Notes.Add(Note_Instantiate);
 
             //float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
@@ -104,6 +105,7 @@ public class PlayManager : Singleton<PlayManager>
             NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
             Note_Instantiate = Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, -2), Quaternion.identity, Note_Parent.transform);
             Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
+            Note_Instantiate.GetComponent<Note>().SetNoteType(enemyType);
             Notes.Add(Note_Instantiate);
 
             //float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
@@ -158,6 +160,7 @@ public class PlayManager : Singleton<PlayManager>
             NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
             LongNote = Instantiate(NoteTypes[1], new Vector3(NotePos.xpos, ypos), Quaternion.identity, Note_Parent.transform);
             LongNote.GetComponent<Note>().SetSongTime(songtime);
+            Debug.Log(songtime + " 몇초대인가요");
             Notes.Add(LongNote);
             
             UnCompleteLongNoteQueue.Enqueue(LongNote.GetComponent<LongNoteScript>());

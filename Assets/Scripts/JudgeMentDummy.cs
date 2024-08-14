@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum JudgeMentState
+public enum GlobalEnum
 { 
     Perfect,
     
