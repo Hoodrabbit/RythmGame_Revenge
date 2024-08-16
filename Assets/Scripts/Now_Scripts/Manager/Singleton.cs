@@ -8,6 +8,8 @@ public class Singleton<T> : MonoBehaviour where T : Component
 
     protected virtual void Awake()
     {
+        //DontDestroyOnLoad(gameObject);
+
         if (Instance != null)
         {
             Destroy(this.gameObject);

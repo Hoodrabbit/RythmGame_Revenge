@@ -17,13 +17,21 @@ public class NoteInfoPos
     public int NoteType; //노트의 종류에 대한 정보를 저장받을 변수   (0 : 화면 전환 노트(칠 수 없음 아니면 칠 수 있게 만들수도?)1 : 기본 , 2 : 롱 노트, 3 : 유령노트 특수 노트가 될 예정 여기에서 더 추가 될 수 있음)
     public int LongNoteStartEndCheck; //롱노트의 길이를 체크해줄 변수(정확히는 시작과 끝) (롱노트 종류가 아닌 경우 전부 0이고 롱노트일 때 1이 시작 2가 끝을 체크해줌)
 
+    public double SongTime; //찍은 노트에 해당하는 노래의 시간
 
-    public NoteInfoPos(float x, int h, int noteType, int LongNoteStartEndCheck)
+    public int EnemyType = 0; // 적의 음률 상태(특이 케이스)를 통해서 기존의 무기 상태로는 공격이 불가능함 무시되기 때문에 무기를 변경하여 노트를 쳐야 함
+
+
+
+    public NoteInfoPos(float x, int h, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
     {
         xpos = x;
         HeightValue = h;
         NoteType = noteType;
         this.LongNoteStartEndCheck = LongNoteStartEndCheck;
+        SongTime = songtime;
+        EnemyType = enemyType;
+    
     }
 
 
@@ -37,10 +45,10 @@ public class NoteInfoAll //찍은 노트에 대한 정보를 담아 줄 클래스
     public NoteInfoPos notePos;
     
 
-    public NoteInfoAll(GameObject Note, float x, int h, int noteType, int LongNoteStartEndCheck)
+    public NoteInfoAll(GameObject Note, float x, int h, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
     {
         this.Note = Note;
-        notePos = new NoteInfoPos(x, h, noteType, LongNoteStartEndCheck);
+        notePos = new NoteInfoPos(x, h, noteType, LongNoteStartEndCheck, songtime, enemyType);
     }
 
 
@@ -106,7 +114,7 @@ public class DataManager : Singleton<DataManager>
             foreach (NoteInfoAll np in EditNotes)
             {
 
-                writer.WriteLine($"{np.notePos.xpos} , {np.notePos.HeightValue}, {np.notePos.NoteType}, {np.notePos.LongNoteStartEndCheck}");
+                writer.WriteLine($"{np.notePos.xpos} , {np.notePos.HeightValue}, {np.notePos.NoteType}, {np.notePos.LongNoteStartEndCheck}, {np.notePos.SongTime}, {np.notePos.EnemyType}");
             }
             writer.Close();
         }
@@ -120,7 +128,7 @@ public class DataManager : Singleton<DataManager>
 
             foreach (NoteInfoAll np in EditNotes)
             {
-                fileWriter.WriteLine($"{np.notePos.xpos} , {np.notePos.HeightValue}, {np.notePos.NoteType}, {np.notePos.LongNoteStartEndCheck}");
+                fileWriter.WriteLine($"{np.notePos.xpos} , {np.notePos.HeightValue}, {np.notePos.NoteType}, {np.notePos.LongNoteStartEndCheck}, {np.notePos.SongTime}, {np.notePos.EnemyType}");
             }
             fileWriter.Close();
 
@@ -158,7 +166,7 @@ public class DataManager : Singleton<DataManager>
 
         for (int i = 0; i < NoteCount; i++)
         {
-            float xpos; int heightnum; int NoteType; int LongNoteStartEndCheck; 
+            float xpos; int heightnum; int NoteType; int LongNoteStartEndCheck; double SongTime; int enemyType;
             
             string LineText; //파싱한 노트 정보를 저장받을 문자열
             
@@ -170,11 +178,26 @@ public class DataManager : Singleton<DataManager>
             NoteType = Int32.Parse(split_Text[2]);
             LongNoteStartEndCheck = Int32.Parse(split_Text[3]);
 
+            if (split_Text[4] != null)
+            {
+                SongTime = double.Parse(split_Text[4]);
+            }
+            else
+            SongTime = 0;
+
+            if (split_Text[5] != null) 
+            {
+                enemyType = Int32.Parse(split_Text[5]);
+            }
+            else
+            enemyType = 0;
+
+
             if (GameManager.Instance.state != GameState.Play_Mode)
-                EditManager.Instance.MakeNote(xpos + EditManager.Instance.GetNPXpos(), heightnum, NoteType, LongNoteStartEndCheck);
+                EditManager.Instance.MakeNote(xpos + EditManager.Instance.GetNPXpos(), heightnum, NoteType, LongNoteStartEndCheck, SongTime, enemyType);
             else
             {
-                PlayManager.Instance.PlayScene_NoteMaker( xpos,heightnum, NoteType, LongNoteStartEndCheck);
+                PlayManager.Instance.PlayScene_NoteMaker( xpos,heightnum, NoteType, LongNoteStartEndCheck, SongTime, enemyType);
             }
         
         }

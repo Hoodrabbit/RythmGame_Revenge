@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  SongTime: 0
+  Type: 0
 --- !u!1 &7824795879292237692
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,6 +221,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
+  SongTime: 0
+  Type: 0
 --- !u!61 &1459449232067111721
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -262,7 +266,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.7, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &-6234608832080989683
 Rigidbody2D:
@@ -412,9 +416,9 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.5, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 1.1711438, y: 1.1700001, z: 1.3212904, w: 1.1600001}
+    border: {x: 0.3434439, y: 0.3431085, z: 0.38747516, w: 0.34017593}
     pivot: {x: 0, y: 0.5}
-    oldSize: {x: 28.828154, y: 4.8}
+    oldSize: {x: 8.454003, y: 1.4076246}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 1

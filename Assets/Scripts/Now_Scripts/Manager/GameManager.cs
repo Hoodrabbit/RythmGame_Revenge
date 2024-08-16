@@ -20,7 +20,7 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this);
 
     }
 
@@ -60,6 +60,12 @@ public class GameManager : Singleton<GameManager>
     {
         SongValue = num;
     }
+
+    public void SetSongValue(MusicInfo musicInfo)
+    {
+       this.musicInfo = musicInfo;
+    }
+
 
     public int GetSceneModeValue()
     {
@@ -103,10 +109,3 @@ public class GameManager : Singleton<GameManager>
 
 
 
-public enum GameState
-{
-    None,
-    Offset_Mode,
-    Debug_Mode,
-    Play_Mode
-};

@@ -24,7 +24,7 @@ public class Expand_Line_Maker : NoteMakerBase
                 float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                 //위와 동일 
 
-                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 0, 0, 0));
+                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 0, 0, 0, (double)RealXpos / 10));
 
             }
             i++;
