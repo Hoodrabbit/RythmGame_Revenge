@@ -86,6 +86,12 @@ public class Note : MonoBehaviour
         return Type;
     }
 
+    public void MissNote()
+    {
+        SpriteRenderer SR = GetComponent<SpriteRenderer>();
 
+        SR.color = new Color(SR.color.r, SR.color.g, SR.color.b, 0.2f);
+
+    }
 
 }

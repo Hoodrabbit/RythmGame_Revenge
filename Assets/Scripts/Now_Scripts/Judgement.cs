@@ -36,6 +36,10 @@ public class Judgement : MonoBehaviour
     public List<double> songtimes = new List<double>();
     AudioSource audioSource;
     LongNoteScript LScript;
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,7 +96,7 @@ public class Judgement : MonoBehaviour
                         }
                         else
                         {
-                            note.gameObject.SetActive(false);
+                            note.MissNote();
                             Debug.Log("미스났어요" + +note.SongTime + "      " + GameManager.Instance.MainAudio.time);
                             PlayManager.Instance.MissNote();
                             break;
@@ -214,17 +218,17 @@ public class Judgement : MonoBehaviour
         }
         if (longnotePress == true)
         {
-            if (Vector2.Distance(LScript.transform.position, transform.position) <= 0.4f)
+            
+
+
+
+            if (LScript.Delete == false)
             {
-                LScript.StopHeadPos(transform.position);
+                if (Vector2.Distance(LScript.transform.position, transform.position) <= 0.4f)
+                {
+                    LScript.StopHeadPos(transform.position);
+                }
 
-                
-            }
-
-
-
-            if (LScript.gameObject.activeSelf == true)
-            {
                 pressTime += Time.deltaTime;
 
                 if (pressTime >= GameManager.Instance.GetBPS() / 2)

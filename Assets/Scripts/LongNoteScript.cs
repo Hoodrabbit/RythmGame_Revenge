@@ -24,6 +24,8 @@ public class LongNoteScript : MonoBehaviour
 
     BoxCollider2D HeadCollider;
 
+    public bool Delete = false;
+
 
     public void Start()
     {
@@ -96,14 +98,16 @@ public class LongNoteScript : MonoBehaviour
 
         if (Body.gameObject == null || Tail.gameObject == null)
         {
-            Destroy(gameObject);
+            Delete = true;
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
 
     }
 
     public void StopHeadPos(Vector3 judgepos)
     {
-        transform.position = judgepos;
+        Vector2.Lerp(transform.position, judgepos, Time.deltaTime * 10);
         n_Y = GetComponent<Note>();
         n_Y.enabled = false;
         Tail.GetComponent<Note>().enabled = true;
