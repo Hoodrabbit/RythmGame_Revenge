@@ -36,6 +36,10 @@ public class Judgement : MonoBehaviour
     public List<double> songtimes = new List<double>();
     AudioSource audioSource;
     LongNoteScript LScript;
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,7 +69,7 @@ public class Judgement : MonoBehaviour
 
                     if (note.Type == type || note.Type == NoteType.Normal)
                     {
-                        if (ManageJudgeMent(Mathf.Abs((float)(note.SongTime - GameManager.Instance.MainAudio.time))))
+                        if (ManageJudgeMent/*(Mathf.Abs((float)*/(note.SongTime - GameManager.Instance.MainAudio.time))
                         {
                             LScript = note.GetComponent<LongNoteScript>();
 
@@ -92,7 +96,7 @@ public class Judgement : MonoBehaviour
                         }
                         else
                         {
-                            note.gameObject.SetActive(false);
+                            note.MissNote();
                             Debug.Log("미스났어요" + +note.SongTime + "      " + GameManager.Instance.MainAudio.time);
                             PlayManager.Instance.MissNote();
                             break;
@@ -214,17 +218,17 @@ public class Judgement : MonoBehaviour
         }
         if (longnotePress == true)
         {
-            if (Vector2.Distance(LScript.transform.position, transform.position) <= 0.4f)
+            
+
+
+
+            if (LScript.Delete == false)
             {
-                LScript.StopHeadPos(transform.position);
+                if (Vector2.Distance(LScript.transform.position, transform.position) <= 0.4f)
+                {
+                    LScript.StopHeadPos(transform.position);
+                }
 
-                
-            }
-
-
-
-            if (LScript.gameObject.activeSelf == true)
-            {
                 pressTime += Time.deltaTime;
 
                 if (pressTime >= GameManager.Instance.GetBPS() / 2)
@@ -250,27 +254,67 @@ public class Judgement : MonoBehaviour
     }
 
 
-    public bool ManageJudgeMent(float time)
+    public bool ManageJudgeMent(double time)
     {
         Debug.Log(time);
-        if (time <= 0.05)
+        float f_time = Mathf.Abs((float)time);
+        if (f_time <= 0.05)
         {
-            judgeText.text = "Perfect";
-            Debug.Log("Perfect");
+
+
+            //정확한 판정을 켰을 경우
+            if (f_time <= 0.025)
+            {
+
+                judgeText.text = "Perfect";
+                Debug.Log("Perfect");
+
+            }
+            else
+            {
+
+                if (time > 0)
+            {
+                    judgeText.text = "Perfect\nEarly";
+                    //early
+                }
+                else
+                {
+                    judgeText.text = "Perfect\nLate";
+                    //late
+                }
+
+
+
+            }
+
+
+
+
+
+
+            //judgeText.text = "Perfect";
+            //Debug.Log("Perfect");
+
+
+
+
+
+
 
             return true;
 
         }
-        else if(time <= 0.13 && time >0.05)
+        else if(f_time <= 0.13 && f_time > 0.05)
         {
             judgeText.text = "Great";
             Debug.Log("Great");
 
             return true;
         }
-        else if(time > 0.15)
+        else if(f_time > 0.15)
         {
-            Debug.Log(time + "          " );
+            Debug.Log(f_time + "          " );
             judgeText.text = "Miss!";
 
             return false;

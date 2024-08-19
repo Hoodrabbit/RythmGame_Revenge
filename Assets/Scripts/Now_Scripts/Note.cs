@@ -33,7 +33,7 @@ public class Note : MonoBehaviour
         {
             if (transform.position.x <= -5 && GameManager.Instance.MainAudio.isPlaying == false)
             {
-                Debug.Log("ÀÛµ¿¾ÈÇÔ");
+                Debug.Log("ï¿½Ûµï¿½ï¿½ï¿½ï¿½ï¿½");
                 //GameManager.Instance.PlayMusic();
             }
 
@@ -86,6 +86,12 @@ public class Note : MonoBehaviour
         return Type;
     }
 
+    public void MissNote()
+    {
+        SpriteRenderer SR = GetComponent<SpriteRenderer>();
 
+        SR.color = new Color(SR.color.r, SR.color.g, SR.color.b, 0.2f);
+
+    }
 
 }

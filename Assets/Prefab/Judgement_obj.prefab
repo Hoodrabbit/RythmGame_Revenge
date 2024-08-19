@@ -546,7 +546,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 30070806679c6a346b3cdc5727dd70f5, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.6
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -644,6 +644,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: 102
   key2: 0
+  ChangeWeaponKey: 0
+  ChangeWeaponKey2: 0
+  ChangeWeaponKey3: 0
+  type: 0
   note: {fileID: 0}
   notes: []
   JudgeMentsColliders:
