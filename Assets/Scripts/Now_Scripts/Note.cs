@@ -39,6 +39,10 @@ public class Note : MonoBehaviour
 
             transform.position = new Vector2(transform.position.x - speed * Time.fixedDeltaTime, transform.position.y);
         }
+        else if(GameManager.Instance.state == GameState.Offset_Mode)
+        {
+            transform.position = new Vector2(transform.position.x + 10 * Time.fixedDeltaTime, transform.position.y);
+        }
 
         
     }

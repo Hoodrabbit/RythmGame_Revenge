@@ -3,6 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public interface IButton
+{
+    public void OnClick()
+    {
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
 public class Button_Expand : MonoBehaviour
 {
     Button btn;

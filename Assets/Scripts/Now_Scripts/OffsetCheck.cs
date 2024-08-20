@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 using System.IO;
 
 
+
+//4번째 악센트에 키를 누르기 
+
+
+
 public class OffsetCheck : MonoBehaviour
 {
     public AudioSource MainSound;
