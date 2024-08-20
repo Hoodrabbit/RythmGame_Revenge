@@ -58,7 +58,52 @@ public class Judgement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(key) || Input.GetKeyDown(key2))
+
+
+        //if (notes.Count > 0)
+        //{
+        //    foreach (Note note in notes)
+        //    { 
+        //        if(note.SongTime <= GameManager.Instance.MainAudio.time)
+        //        {
+        //            LScript = note.GetComponent<LongNoteScript>();
+
+        //            if (LScript == null)
+        //            {
+        //                note.HitNote();
+        //                audioSource.Play();
+        //                PlayManager.Instance.HitNote();
+        //                songtimes.Add(GameManager.Instance.MainAudio.time);
+        //                break;
+        //            }
+        //            else
+        //            {
+                        
+
+        //                if(longnotePress == false)
+        //                {
+        //                    audioSource.Play();
+        //                    songtimes.Add(GameManager.Instance.MainAudio.time);
+        //                }
+
+        //                longnotePress = true;
+        //                break;
+        //            }
+
+
+
+                    
+        //        }
+            
+            
+        //    }
+        //}
+
+
+
+
+
+                if (Input.GetKeyDown(key) || Input.GetKeyDown(key2))
         {
 
             if (notes.Count > 0)
@@ -75,21 +120,17 @@ public class Judgement : MonoBehaviour
 
                             if (LScript == null)
                             {
-                                note.gameObject.SetActive(false);
+                                note.HitNote();
                                 audioSource.Play();
-                                //        songtimes.Add(GameManager.Instance.MainAudio.time);
                                 PlayManager.Instance.HitNote();
-
+                                songtimes.Add(GameManager.Instance.MainAudio.time);
 
                             }
                             else
                             {
                                 audioSource.Play();
                                 longnotePress = true;
-
-                                //songtimes.Add(GameManager.Instance.MainAudio.time);
-
-
+                                songtimes.Add(GameManager.Instance.MainAudio.time);
                             }
 
                             break;
@@ -224,10 +265,9 @@ public class Judgement : MonoBehaviour
 
             if (LScript.Delete == false)
             {
-                if (Vector2.Distance(LScript.transform.position, transform.position) <= 0.4f)
-                {
+
                     LScript.StopHeadPos(transform.position);
-                }
+                
 
                 pressTime += Time.deltaTime;
 

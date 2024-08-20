@@ -77,9 +77,10 @@ public class LongNoteScript : MonoBehaviour
                 if (transform.position.x >= Tail.transform.position.x)
                 {
                     Debug.Log("²¨Áü");
-                    gameObject.SetActive(false);
+                Delete = true;
+                //gameObject.SetActive(false);
 
-                }
+            }
                 else
                 {
                     newWidth = Vector3.Distance(transform.position, Tail.transform.position);
@@ -96,9 +97,9 @@ public class LongNoteScript : MonoBehaviour
             
         }
 
-        if (Body.gameObject == null || Tail.gameObject == null)
+        if (Delete==true)
         {
-            Delete = true;
+            
             gameObject.SetActive(false);
             //Destroy(gameObject);
         }
@@ -107,7 +108,7 @@ public class LongNoteScript : MonoBehaviour
 
     public void StopHeadPos(Vector3 judgepos)
     {
-        Vector2.Lerp(transform.position, judgepos, Time.deltaTime * 10);
+        //Vector2.Lerp(transform.position, judgepos, Time.deltaTime * 10);
         n_Y = GetComponent<Note>();
         n_Y.enabled = false;
         Tail.GetComponent<Note>().enabled = true;

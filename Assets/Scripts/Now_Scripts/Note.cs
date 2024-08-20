@@ -86,6 +86,12 @@ public class Note : MonoBehaviour
         return Type;
     }
 
+
+    public void HitNote()
+    {
+        gameObject.SetActive(false);
+    }
+
     public void MissNote()
     {
         SpriteRenderer SR = GetComponent<SpriteRenderer>();

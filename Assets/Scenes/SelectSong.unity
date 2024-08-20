@@ -942,7 +942,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 233977437415333114, guid: 04db03415036c8d4385fe4dc57b9e1d0, type: 3}
       propertyPath: musicInfos.Array.size
-      value: 16
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 233977437415333114, guid: 04db03415036c8d4385fe4dc57b9e1d0, type: 3}
       propertyPath: musicInfos.Array.data[14]
@@ -952,6 +952,14 @@ PrefabInstance:
       propertyPath: musicInfos.Array.data[15]
       value: 
       objectReference: {fileID: 11400000, guid: 474201b60a8aefb479dd261b42f1be85, type: 2}
+    - target: {fileID: 233977437415333114, guid: 04db03415036c8d4385fe4dc57b9e1d0, type: 3}
+      propertyPath: musicInfos.Array.data[16]
+      value: 
+      objectReference: {fileID: 11400000, guid: a1c21256724fdb04d9a838709663d89a, type: 2}
+    - target: {fileID: 233977437415333114, guid: 04db03415036c8d4385fe4dc57b9e1d0, type: 3}
+      propertyPath: musicInfos.Array.data[17]
+      value: 
+      objectReference: {fileID: 11400000, guid: 231401117c4a58346b4236957af665c9, type: 2}
     - target: {fileID: 362310816479292416, guid: 04db03415036c8d4385fe4dc57b9e1d0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.6215775
