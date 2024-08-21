@@ -98,8 +98,20 @@ public class GameManager : Singleton<GameManager>
         return 60 / musicInfo.BPM;
     }
 
-    
 
+
+    public void UseDFJK()
+    {
+        //dfjk 키 선택
+
+        Debug.Log("DFJK 사용");
+    }
+
+    public void UseArrowKey()
+    {
+        //arrowkey 키 선택
+        Debug.Log("방향키 사용");
+    }
 
 
 

@@ -23,6 +23,8 @@ public class EditManager : Singleton<EditManager>
 
 
 
+
+
     public float GetNPXpos()
     {
         return NoteParent.transform.position.x;
@@ -126,7 +128,7 @@ public class EditManager : Singleton<EditManager>
     //    //height 부분 나중에 바꿀거임
     //    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
     //}
-        public void GhostNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
+    public void GhostNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
         {
             if (height == 1)
             {
@@ -171,7 +173,7 @@ public class EditManager : Singleton<EditManager>
 
 
         //롱노트 내부 메서드 따로 분리함
-        void LongNoteInternalMethod(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    void LongNoteInternalMethod(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
         {
             int ypos = 0;
             switch (height)
@@ -220,12 +222,15 @@ public class EditManager : Singleton<EditManager>
         }
 
 
-        public void ChangeScreenSize()
+    public void ChangeScreenSize()
         {
             NoteParent.ExpandScreen();
         }
 
-
+    public void ActivateBeatLine()
+    {
+        NoteParent.ActiveNote();
+    }
 
 
     

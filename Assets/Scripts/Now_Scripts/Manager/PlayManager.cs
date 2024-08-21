@@ -22,7 +22,7 @@ public class PlayManager : Singleton<PlayManager>
 
     public void PlayScene_NoteMaker(float xpos, int heightnum, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0 )
     {
-        xpos += GameManager.Instance.GetBPS();
+        //xpos += GameManager.Instance.GetBPS();
         switch (noteType)
         {
             case 0:

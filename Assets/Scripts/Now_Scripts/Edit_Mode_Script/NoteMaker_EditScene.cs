@@ -9,6 +9,9 @@ public class NoteMaker_EditScene : MonoBehaviour
     //public GameObject Long; //에딧 씬에서 사용할 노트
     //Button NoteMakerButton;
 
+    public static NoteMaker_EditScene instance;
+
+
     [Header("노트 만들어주는 메이커 오브젝트의 정보가 담긴 리스트")]
     public List<GameObject> MakerObjList_Prefab;
     //일반 노트, 롱노트, 등등등
@@ -25,6 +28,8 @@ public class NoteMaker_EditScene : MonoBehaviour
 
     public void Start()
     {
+        instance = this;
+
 
         foreach (GameObject obj in MakerObjList_Prefab) 
         { 
