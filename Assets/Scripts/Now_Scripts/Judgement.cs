@@ -19,6 +19,7 @@ public class Judgement : MonoBehaviour
     public GameObject note;
 
     public List<Note> notes;
+    Note LongNote;
 
     public List<JudgeMentDummy> JudgeMentsColliders;
 
@@ -59,12 +60,12 @@ public class Judgement : MonoBehaviour
     void Update()
     {
 
-
+        //오토모드 임시
         //if (notes.Count > 0)
         //{
         //    foreach (Note note in notes)
-        //    { 
-        //        if(note.SongTime <= GameManager.Instance.MainAudio.time)
+        //    {
+        //        if (note.SongTime == GameManager.Instance.MainAudio.time)
         //        {
         //            LScript = note.GetComponent<LongNoteScript>();
 
@@ -78,9 +79,9 @@ public class Judgement : MonoBehaviour
         //            }
         //            else
         //            {
-                        
 
-        //                if(longnotePress == false)
+
+        //                if (longnotePress == false)
         //                {
         //                    audioSource.Play();
         //                    songtimes.Add(GameManager.Instance.MainAudio.time);
@@ -92,10 +93,10 @@ public class Judgement : MonoBehaviour
 
 
 
-                    
+
         //        }
-            
-            
+
+
         //    }
         //}
 
@@ -103,7 +104,7 @@ public class Judgement : MonoBehaviour
 
 
 
-                if (Input.GetKeyDown(key) || Input.GetKeyDown(key2))
+        if (Input.GetKeyDown(key) || Input.GetKeyDown(key2))
         {
 
             if (notes.Count > 0)
@@ -114,7 +115,7 @@ public class Judgement : MonoBehaviour
 
                     if (note.Type == type || note.Type == NoteType.Normal)
                     {
-                        if (ManageJudgeMent/*(Mathf.Abs((float)*/(note.SongTime - GameManager.Instance.MainAudio.time))
+                        if (ManageJudgeMent((note.transform.position.x - transform.position.x)/GameManager.Instance.speed))/*(Mathf.Abs((float)*//*(note.SongTime - GameManager.Instance.MainAudio.time)*/
                         {
                             LScript = note.GetComponent<LongNoteScript>();
 
@@ -130,6 +131,7 @@ public class Judgement : MonoBehaviour
                             {
                                 audioSource.Play();
                                 longnotePress = true;
+                                LongNote = note;
                                 songtimes.Add(GameManager.Instance.MainAudio.time);
                             }
 
@@ -248,7 +250,9 @@ public class Judgement : MonoBehaviour
             if (longnotePress == true)
             {
                 longnotePress = false;
+                LongNote.SetAudioTime();
                 LScript.CancelStopHeadPos();
+                LongNote = null;
                 pressTime = 0;
                 //떼는 순간 완전히 찾지 못하도록 해야 될 것 같음
 
@@ -345,14 +349,14 @@ public class Judgement : MonoBehaviour
             return true;
 
         }
-        else if(f_time <= 0.13 && f_time > 0.05)
+        else if(f_time < 0.10 && f_time > 0.05)
         {
             judgeText.text = "Great";
             Debug.Log("Great");
 
             return true;
         }
-        else if(f_time > 0.15)
+        else if(f_time >= 0.1)
         {
             Debug.Log(f_time + "          " );
             judgeText.text = "Miss!";
@@ -374,7 +378,7 @@ public class Judgement : MonoBehaviour
             //active = true;
 
             notes.Add(collision.gameObject.GetComponent<Note>());
-
+            Debug.Log(collision.gameObject.GetComponent<Note>().SongTime - GameManager.Instance.MainAudio.time);
             //note = collision.gameObject;
 
 
@@ -389,7 +393,9 @@ public class Judgement : MonoBehaviour
         if (collision.gameObject.CompareTag("Note"))
         {
             //active = true;
+           
             //judgeText.text = "Miss!";
+           // notes[0].MissNote();
             notes.RemoveAt(0);
             //제일 처음 노트부터 사라져야 하기 때문에 작동됨
 

@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //�÷��̾��� �����ϴ� �̱���
 public class PlayManager : Singleton<PlayManager>
@@ -12,6 +13,7 @@ public class PlayManager : Singleton<PlayManager>
 
     public ComboSystem combosystem;
 
+    //public Image MusicTimeLeftLine;
 
     public GameObject Note_Parent;
 
@@ -228,7 +230,10 @@ public class PlayManager : Singleton<PlayManager>
         }
     }
 
-
+    public float SetLine()
+    {
+        return Mathf.Clamp(GameManager.Instance.MainAudio.time / GameManager.Instance.MainAudio.clip.length, 0f, 1f);
+    }
 
 
 }

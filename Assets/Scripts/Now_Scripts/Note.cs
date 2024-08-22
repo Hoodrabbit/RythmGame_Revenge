@@ -10,8 +10,10 @@ public class Note : MonoBehaviour
 
     public double SongTime;
 
-    public NoteType Type = NoteType.Normal;
+    public double AudioTime;
 
+    public NoteType Type = NoteType.Normal;
+    public float xpos;
 
 
     private void Awake()
@@ -24,20 +26,39 @@ public class Note : MonoBehaviour
     void Start()
     {
         //rb.velocity = new Vector2(0, 0);
+        //SongTime = AudioSettings.dspTime;
+        AudioTime = AudioSettings.dspTime;
+        xpos = transform.position.x;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+       // Debug.Log(AudioTime + " , " + (AudioSettings.dspTime - AudioTime));
+
+
+        if(transform.position.x <=0)
+        {
+            //Debug.Log(SongTime + "  ,  " + AudioSettings.dspTime);
+        }
+
+
         if (GameManager.Instance.state == GameState.Play_Mode)
         {
             if (transform.position.x <= -5 && GameManager.Instance.MainAudio.isPlaying == false)
             {
-                Debug.Log("�۵�����");
+                //Debug.Log("�۵�����");
                 //GameManager.Instance.PlayMusic();
             }
 
-            transform.position = new Vector2(transform.position.x - speed * Time.fixedDeltaTime, transform.position.y);
+            
+                transform.position = new Vector2(xpos - GameManager.Instance.speed*(float)(AudioSettings.dspTime - AudioTime), transform.position.y);
+                //AudioTime += AudioSettings.dspTime - AudioTime;
+            
+
+
+
+            
         }
         else if(GameManager.Instance.state == GameState.Offset_Mode)
         {
@@ -103,5 +124,13 @@ public class Note : MonoBehaviour
         SR.color = new Color(SR.color.r, SR.color.g, SR.color.b, 0.2f);
 
     }
+
+    public void SetAudioTime()
+    {
+        xpos = transform.position.x;
+        AudioTime = AudioSettings.dspTime;
+    }
+
+
 
 }

@@ -208,6 +208,7 @@ MonoBehaviour:
   initialScale: {x: 0, y: 0, z: 0}
   EndPos: {x: 0, y: 0, z: 0}
   IsConnect: 0
+  Delete: 0
 --- !u!114 &-3380430541989674350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,7 +267,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7, y: 1}
+  m_Size: {x: 0.1, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &-6234608832080989683
 Rigidbody2D:
@@ -276,7 +277,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7824795879292237692}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
