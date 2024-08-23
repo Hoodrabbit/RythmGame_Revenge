@@ -8,7 +8,7 @@ public class Long_Note_Maker : NoteMakerBase
     public GameObject Head;
     public GameObject Tail;
 
-    Vector2 HeadPos; //머리위치 측정해줌
+    Transform HeadPos; //머리위치 측정해줌
 
     public bool TailOn = false;
 
@@ -59,7 +59,7 @@ public class Long_Note_Maker : NoteMakerBase
 
                         LongNote = Instantiate(Head, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y + 2), Quaternion.identity, barNote.RhythmNote.transform); //머리 생성
 
-                        HeadPos = new Vector2(LongNote.transform.position.x, LongNote.transform.position.y); //머리 위치 할당
+                        HeadPos = LongNote.transform; //머리 위치 할당
 
                         Tail = LongNote.transform.GetChild(1).gameObject; //꼬리는 머리 오브젝트의 2번째 하위 오브젝트로 위치해 있기 때문에 이렇게 작성함
 
@@ -74,9 +74,9 @@ public class Long_Note_Maker : NoteMakerBase
                     {
                         if(Tail != null)
                         {
-                            if (hit[i].transform.position.x > HeadPos.x) //기본적으로 꼬리는 머리보다 앞에 있거나 같은 위치에 있으면 안되기 때문에 해당 조건을 설정해줌
+                            if (hit[i].transform.position.x > HeadPos.position.x) //기본적으로 꼬리는 머리보다 앞에 있거나 같은 위치에 있으면 안되기 때문에 해당 조건을 설정해줌
                             {
-                                Tail.transform.position = new Vector2(hit[i].transform.position.x, HeadPos.y); //꼬리 위치 지정
+                                Tail.transform.position = new Vector2(hit[i].transform.position.x, HeadPos.position.y); //꼬리 위치 지정
 
                                 TailOn = false; //다시 머리 생성해주기 위해 false로 값 변경
 
@@ -97,7 +97,7 @@ public class Long_Note_Maker : NoteMakerBase
 
                         LongNote = Instantiate(Head, new Vector3(hit[i].transform.position.x, hit[i].transform.position.y - 2), Quaternion.identity, barNote.RhythmNote.transform); //머리 생성
 
-                        HeadPos = new Vector2(LongNote.transform.position.x, LongNote.transform.position.y); //머리 위치 할당
+                        HeadPos = LongNote.transform; //머리 위치 할당
 
                         Tail = LongNote.transform.GetChild(1).gameObject; //꼬리는 머리 오브젝트의 2번째 하위 오브젝트로 위치해 있기 때문에 이렇게 작성함
 
@@ -113,10 +113,10 @@ public class Long_Note_Maker : NoteMakerBase
                     {
                         if (Tail != null)
                         {
-                            //Debug.Log("가끔씩 안됨");
-                            if (hit[i].transform.position.x > HeadPos.x) //기본적으로 꼬리는 머리보다 앞에 있거나 같은 위치에 있으면 안되기 때문에 해당 조건을 설정해줌
+
+                            if (hit[i].transform.position.x > HeadPos.position.x) //기본적으로 꼬리는 머리보다 앞에 있거나 같은 위치에 있으면 안되기 때문에 해당 조건을 설정해줌
                             {
-                                Tail.transform.position = new Vector2(hit[i].transform.position.x, HeadPos.y); //꼬리 위치 지정
+                                Tail.transform.position = new Vector2(hit[i].transform.position.x, HeadPos.position.y); //꼬리 위치 지정
 
                                 TailOn = false; //다시 머리 생성해주기 위해 false로 값 변경
 

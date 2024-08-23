@@ -9,7 +9,7 @@ public class OffsetUIController : MonoBehaviour
     public TMP_Text Offset_Value_T;
 
     public GameObject OffsetJudgeLine;
-
+    public GameObject OffsetNote;
 
     public static int OffsetValue = 0;
     int MaxValue = 500;
@@ -31,79 +31,117 @@ public class OffsetUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if(OffsetValue < MaxValue)
         {
-            PressTime += Time.deltaTime;
-            if (PressTime > 0.3f)
+            
+            if (Input.GetKey(KeyCode.RightArrow))
             {
-                PressTime_2nd += Time.deltaTime;
-                if (PressTime_2nd >= 0.05f)
+                PressTime += Time.deltaTime;
+                if (PressTime > 0.3f)
                 {
-                    OffsetValue -= 10;
-                    PressTime_2nd = 0f;
+                    PressTime_2nd += Time.deltaTime;
+                    if (PressTime_2nd >= 0.05f)
+                    {
+                        
+                        OffsetValue += 10;
+                        if(OffsetValue <= MaxValue)
+                        {
+                            OffsetJudgeLine.transform.position = new Vector3(OffsetJudgeLine.transform.position.x + 10/100f, 0);
+                        }
+                        else
+                        {
+                            OffsetJudgeLine.transform.position = new Vector3(OffsetJudgeLine.transform.position.x + (OffsetValue - MaxValue) / 100f, 0);
+                            OffsetValue -= OffsetValue - MaxValue;
+                        }
+                       
+                        PressTime_2nd = 0f;
+
+                    }
+
+                }
+                else
+                {
+                    //OffsetValue += 1;
+                    // PressTime = 0;
                 }
             }
-            else
+
+           
+
+            if (Input.GetKeyUp(KeyCode.RightArrow))
             {
-                //OffsetValue -= 1;
-                //PressTime = 0;
-            }
-        }
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            PressTime += Time.deltaTime;
-            if (PressTime > 0.3f)
-            {
-                PressTime_2nd += Time.deltaTime;
-                if (PressTime_2nd >= 0.05f)
+                if (PressTime <= 0.3f)
                 {
-                    OffsetValue += 10;
-                    PressTime_2nd = 0f;
+                    OffsetValue += 1;
+                    OffsetJudgeLine.transform.position = new Vector3(OffsetJudgeLine.transform.position.x + 0.01f, 0);
                 }
 
+                PressTime = 0;
             }
-            else
+        }
+
+        if(OffsetValue > MinValue)
+        {
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                //OffsetValue += 1;
-                // PressTime = 0;
-            }
-        }
+                PressTime += Time.deltaTime;
+                if (PressTime > 0.3f)
+                {
+                    PressTime_2nd += Time.deltaTime;
+                    if (PressTime_2nd >= 0.05f)
+                    {
+                        OffsetValue -= 10;
 
-        if (Input.GetKeyUp(KeyCode.LeftArrow))
-        {
-            if (PressTime <= 0.3f)
+                        if (OffsetValue >= MinValue)
+                        {
+                            OffsetJudgeLine.transform.position = new Vector3(OffsetJudgeLine.transform.position.x - 10/100f, 0);
+                        }
+                        else
+                        {
+                            OffsetJudgeLine.transform.position = new Vector3(OffsetJudgeLine.transform.position.x - (OffsetValue - MinValue) / 100f, 0);
+                            OffsetValue += OffsetValue - MinValue;
+                        }
+                        
+
+
+                       
+                        PressTime_2nd = 0f;
+                    }
+                }
+                else
+                {
+                    //OffsetValue -= 1;
+                    //PressTime = 0;
+                }
+            }
+            if (Input.GetKeyUp(KeyCode.LeftArrow))
             {
-                OffsetValue -= 1;
-
+                if (PressTime <= 0.3f)
+                {
+                    OffsetValue -= 1;
+                    OffsetJudgeLine.transform.position = new Vector3(OffsetJudgeLine.transform.position.x - 0.01f, 0);
+                }
+                PressTime = 0;
             }
-            PressTime = 0;
         }
-
-        if (Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            if (PressTime <= 0.3f)
-            {
-                OffsetValue += 1;
-
-            }
-
-            PressTime = 0;
-        }
-
-
-      if(OffsetValue > MaxValue)
-        {
-            OffsetValue = MaxValue;
-        }
-      else if (OffsetValue < MinValue) 
-        {
-            OffsetValue = MinValue;
-        }
+       
 
 
 
-        OffsetJudgeLine.transform.position = new Vector3((float)OffsetValue/1000 * GameManager.Instance.speed, OffsetJudgeLine.transform.position.y);
+
+
+      //  if (OffsetValue > MaxValue)
+      //  {
+      //      OffsetValue = MaxValue;
+      //  }
+      //else if (OffsetValue < MinValue) 
+      //  {
+      //      OffsetValue = MinValue;
+      //  }
+
+
+
+        //OffsetJudgeLine.transform.position = new Vector3((float)OffsetValue/1000 * GameManager.Instance.speed, OffsetJudgeLine.transform.position.y);
         Offset_Value_T.text = ((float)OffsetValue / 1000).ToString("F3");
     }
 }

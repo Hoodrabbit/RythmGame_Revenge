@@ -31,6 +31,16 @@ public class Note : MonoBehaviour
         xpos = transform.position.x;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            Instantiate(FindObjectOfType<OffsetUIController>().OffsetNote, new Vector3(xpos + 10 * (float)(AudioSettings.dspTime - AudioTime), 0), Quaternion.identity);
+        }
+
+    }
+
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -62,7 +72,18 @@ public class Note : MonoBehaviour
         }
         else if(GameManager.Instance.state == GameState.Offset_Mode)
         {
-            transform.position = new Vector2(transform.position.x + 10 * Time.fixedDeltaTime, transform.position.y);
+            if ((float)(AudioSettings.dspTime - AudioTime) >= 2.4f)
+            {
+                transform.position = new Vector3(xpos, 0);
+                AudioTime = AudioSettings.dspTime;
+            }
+
+
+            //transform.position = new Vector2(transform.position.x + 10 * Time.fixedDeltaTime, transform.position.y);
+            transform.position = new Vector2(xpos + 10 * (float)(AudioSettings.dspTime - AudioTime), transform.position.y);
+
+            
+
         }
 
         
