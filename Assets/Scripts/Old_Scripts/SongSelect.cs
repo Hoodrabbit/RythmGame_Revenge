@@ -12,12 +12,14 @@ public class SongSelect : MonoBehaviour
 
     public void Awake()
     {
-        
+       
     }
 
     public void Start()
     {//audioClips = MusicManager.Instance.musicClipList();
         SongAudio = GetComponent<AudioSource>();
+        GameManager.Instance.MainAudio = SongAudio;
+        SongAudio.clip = GameManager.Instance.musicInfo.Music;
         AudioManager.Instance.SetAudio(this);
         StartCoroutine(PreviewSong());
     }

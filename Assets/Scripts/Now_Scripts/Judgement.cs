@@ -21,7 +21,7 @@ public class Judgement : MonoBehaviour
     public List<Note> notes;
     Note LongNote;
 
-    public List<JudgeMentDummy> JudgeMentsColliders;
+    //public List<JudgeMentDummy> JudgeMentsColliders;
 
     bool active = false;
 
@@ -407,16 +407,16 @@ public class Judgement : MonoBehaviour
         }
     }
 
-    void InitalizeJudgeMents()
-    {
-        foreach (var obj in JudgeMentsColliders)
-        {
-            if (obj.bboxcollider2D.enabled == true)
-            {
-                obj.bboxcollider2D.enabled = false;
-            }
-        }
-    }
+    //void InitalizeJudgeMents()
+    //{
+    //    foreach (var obj in JudgeMentsColliders)
+    //    {
+    //        if (obj.bboxcollider2D.enabled == true)
+    //        {
+    //            obj.bboxcollider2D.enabled = false;
+    //        }
+    //    }
+    //}
 
 
 

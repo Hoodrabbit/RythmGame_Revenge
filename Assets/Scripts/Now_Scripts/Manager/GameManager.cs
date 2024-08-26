@@ -16,6 +16,8 @@ public class GameManager : Singleton<GameManager>
     int SongValue = 0;
     int SceneModeValue = 0;
 
+    public int NowSelectValue = 0; //임시로 여기서 선택한 곡 보관 나중에 다른 스크립트에서 옮길 예정
+
 
     protected override void Awake()
     {

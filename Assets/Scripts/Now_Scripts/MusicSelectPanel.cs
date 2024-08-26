@@ -80,9 +80,13 @@ public class MusicSelectPanel : MonoBehaviour
         RectTransform centerRect = transform.GetChild(medianValue).GetComponent<RectTransform>();
         centerRect.anchoredPosition = Vector2.zero;
 
-
+        if(GameManager.Instance.NowSelectValue != 0)
+        {
+            median = SetNowSelectValue();
+        }
         SortingMusic(median);
 
+        
         //foreach(var musicinfo in MusicManager.Instance.musicInfos.Count)
         //{
 
@@ -346,8 +350,21 @@ public class MusicSelectPanel : MonoBehaviour
        
     }
 
+    public int GetNowSelect()
+    {
+        return NowSelect;
+    }
+
+    public int SetNowSelectValue()
+    {
+        NowSelect = GameManager.Instance.NowSelectValue;
+        return GameManager.Instance.NowSelectValue;
+    }
+
+
     void OpenDetailPanel()
     {
+        GameManager.Instance.NowSelectValue = NowSelect;
         SelectDetailPanel.SetActive(true);
     }
 
