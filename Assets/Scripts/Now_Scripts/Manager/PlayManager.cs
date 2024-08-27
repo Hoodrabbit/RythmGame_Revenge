@@ -12,6 +12,7 @@ public class PlayManager : Singleton<PlayManager>
     public NoteInfoPos NotePos;
 
     public ComboSystem combosystem;
+    public ScoreSystem scoresystem;
 
     //public Image MusicTimeLeftLine;
 
@@ -76,6 +77,7 @@ public class PlayManager : Singleton<PlayManager>
     public void HitNote()
     {
         combosystem.HitNote();
+        scoresystem.IncreaseScore();
     }
 
     public void MissNote()
