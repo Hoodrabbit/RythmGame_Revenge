@@ -8,6 +8,9 @@ public class Judgement : MonoBehaviour
     public KeyCode key;
     public KeyCode key2;
 
+    public KeyCode Key3;
+
+
     public KeyCode ChangeWeaponKey;
     public KeyCode ChangeWeaponKey2;
     public KeyCode ChangeWeaponKey3;
@@ -104,7 +107,7 @@ public class Judgement : MonoBehaviour
 
 
 
-        if (Input.GetKeyDown(key) || Input.GetKeyDown(key2))
+        if (Input.GetKeyDown(key) || Input.GetKeyDown(key2) || Input.GetKeyDown(Key3))
         {
 
             if (notes.Count > 0)
@@ -115,7 +118,7 @@ public class Judgement : MonoBehaviour
 
                     if (note.Type == type || note.Type == NoteType.Normal)
                     {
-                        if (ManageJudgeMent((note.transform.position.x - transform.position.x)/GameManager.Instance.speed))/*(Mathf.Abs((float)*//*(note.SongTime - GameManager.Instance.MainAudio.time)*/
+                        if (ManageJudgeMent((note.transform.position.x+ GameManager.Instance.OffsetValue - transform.position.x)/GameManager.Instance.speed))/*(Mathf.Abs((float)*//*(note.SongTime - GameManager.Instance.MainAudio.time)*/
                         {
                             LScript = note.GetComponent<LongNoteScript>();
 

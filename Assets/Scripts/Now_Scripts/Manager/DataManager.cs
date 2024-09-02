@@ -114,7 +114,7 @@ public class DataManager : Singleton<DataManager>
             foreach (NoteInfoAll np in EditNotes)
             {
 
-                writer.WriteLine($"{np.notePos.xpos} , {np.notePos.HeightValue}, {np.notePos.NoteType}, {np.notePos.LongNoteStartEndCheck}, {np.notePos.SongTime}, {np.notePos.EnemyType}");
+                writer.WriteLine($"{np.notePos.xpos / GameManager.Instance.speed} , {np.notePos.HeightValue}, {np.notePos.NoteType}, {np.notePos.LongNoteStartEndCheck}, {np.notePos.SongTime}, {np.notePos.EnemyType}");
             }
             writer.Close();
         }
@@ -128,7 +128,7 @@ public class DataManager : Singleton<DataManager>
 
             foreach (NoteInfoAll np in EditNotes)
             {
-                fileWriter.WriteLine($"{np.notePos.xpos} , {np.notePos.HeightValue}, {np.notePos.NoteType}, {np.notePos.LongNoteStartEndCheck}, {np.notePos.SongTime}, {np.notePos.EnemyType}");
+                fileWriter.WriteLine($"{np.notePos.xpos / GameManager.Instance.speed} , {np.notePos.HeightValue}, {np.notePos.NoteType}, {np.notePos.LongNoteStartEndCheck}, {np.notePos.SongTime}, {np.notePos.EnemyType}");
             }
             fileWriter.Close();
 
@@ -194,10 +194,10 @@ public class DataManager : Singleton<DataManager>
 
 
             if (GameManager.Instance.state != GameState.Play_Mode)
-                EditManager.Instance.MakeNote(xpos + EditManager.Instance.GetNPXpos(), heightnum, NoteType, LongNoteStartEndCheck, SongTime, enemyType);
+                EditManager.Instance.MakeNote(xpos * GameManager.Instance.speed + EditManager.Instance.GetNPXpos() , heightnum, NoteType, LongNoteStartEndCheck, SongTime, enemyType);
             else
             {
-                PlayManager.Instance.PlayScene_NoteMaker( xpos,heightnum, NoteType, LongNoteStartEndCheck, SongTime, enemyType);
+                PlayManager.Instance.PlayScene_NoteMaker( xpos * GameManager.Instance.speed, heightnum, NoteType, LongNoteStartEndCheck, SongTime, enemyType);
             }
         
         }
