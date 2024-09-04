@@ -312,7 +312,7 @@ public class Judgement : MonoBehaviour
             //정확한 판정을 켰을 경우
             if (f_time <= 0.025)
             {
-
+                
                 judgeText.text = "Perfect";
                 Debug.Log("Perfect");
 

@@ -198,13 +198,25 @@ public class DataManager : Singleton<DataManager>
             else
             {
                 PlayManager.Instance.PlayScene_NoteMaker( xpos * GameManager.Instance.speed, heightnum, NoteType, LongNoteStartEndCheck, SongTime, enemyType);
+                
+                if(LongNoteStartEndCheck != 2)
+                {
+                    PlayManager.Instance.AddNoteCount();
+                }
+                
             }
         
         }
 
-
+        PlayManager.Instance.SetComboCount();
         NoteParsing.Close();
     }
+
+    void SaveGameResult()
+    {
+        //Debug.Log(PlayManager.Instance);
+    }
+
 
 
 

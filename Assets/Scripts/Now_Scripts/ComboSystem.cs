@@ -6,6 +6,7 @@ using TMPro;
 public class ComboSystem : MonoBehaviour
 {
     public int Combo = 0;
+    int FullNoteCount = 0;
     public TMP_Text ComboText;
 
     // Start is called before the first frame update
@@ -18,14 +19,14 @@ public class ComboSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Combo >=5)
-        {
+       // if (Combo >=5)
+      //  {
             ComboText.enabled = true;
-            ComboText.text = Combo.ToString();
-        }
-        else
+            ComboText.text = Combo.ToString() + " / " + FullNoteCount.ToString();
+      //  }
+      //  else
         {
-            ComboText.enabled = false;
+      //      ComboText.enabled = false;
         }
     }
 
@@ -37,6 +38,11 @@ public class ComboSystem : MonoBehaviour
     public void MissNote()
     {
         Combo = 0;
+    }
+
+    public void SetFullNoteCount(int count)
+    {
+        FullNoteCount = count;
     }
 
 

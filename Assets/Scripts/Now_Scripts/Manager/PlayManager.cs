@@ -14,6 +14,11 @@ public class PlayManager : Singleton<PlayManager>
     public ComboSystem combosystem;
     public ScoreSystem scoresystem;
 
+
+    int NoteCount_Now =0;
+
+
+
     //public Image MusicTimeLeftLine;
 
     public GameObject Note_Parent;
@@ -235,6 +240,31 @@ public class PlayManager : Singleton<PlayManager>
     public float SetLine()
     {
         return Mathf.Clamp(GameManager.Instance.MainAudio.time / GameManager.Instance.MainAudio.clip.length, 0f, 1f);
+    }
+
+
+    public void AddNoteCount()
+    {
+        NoteCount_Now += 1;
+    }
+
+
+
+
+
+
+    public int GetCombo()
+    {
+        return combosystem.Combo;
+    }
+    public int GetScore()
+    {
+        return scoresystem.Score;
+    }
+
+    public void SetComboCount()
+    {
+        combosystem.SetFullNoteCount(NoteCount_Now);
     }
 
 
