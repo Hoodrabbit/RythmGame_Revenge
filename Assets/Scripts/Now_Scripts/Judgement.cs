@@ -310,30 +310,30 @@ public class Judgement : MonoBehaviour
 
 
             //정확한 판정을 켰을 경우
-            if (f_time <= 0.025)
+            if (f_time <= 0.04)
             {
                 
                 judgeText.text = "Perfect";
                 Debug.Log("Perfect");
 
             }
-            else
-            {
+            //else
+            //{
 
-                if (time > 0)
-            {
-                    judgeText.text = "Perfect\nEarly";
-                    //early
-                }
-                else
-                {
-                    judgeText.text = "Perfect\nLate";
-                    //late
-                }
+            //    if (time > 0)
+            //{
+            //        judgeText.text = "Perfect\nEarly";
+            //        //early
+            //    }
+            //    else
+            //    {
+            //        judgeText.text = "Perfect\nLate";
+            //        //late
+            //    }
 
 
 
-            }
+            //}
 
 
 
