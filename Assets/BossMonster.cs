@@ -5,8 +5,10 @@ using UnityEngine;
 public class BossMonster : MonoBehaviour
 {
 
+    public Sprite BossImg;
+
     bool check = false;
-    float MaxTime = 0.5f;
+    float MaxTime = 0.3f;
     //일단 노트화 시켜서 다른 노트처럼 똑같이 움직이되 보스가 나오는 
     float TTIme = 0;
     Vector2 startpos;
