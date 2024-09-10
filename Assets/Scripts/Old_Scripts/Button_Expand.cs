@@ -5,11 +5,6 @@ using UnityEngine.UI;
 
 
 
-
-
-
-
-
 public class Button_Expand : MonoBehaviour
 {
     Button btn;

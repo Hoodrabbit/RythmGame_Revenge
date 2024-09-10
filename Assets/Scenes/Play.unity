@@ -2624,7 +2624,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8982161567800402618, guid: 043fee36ccdedaf4bbf031bdf0423eaa, type: 3}
       propertyPath: m_Size.x
-      value: 7
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982161567800402618, guid: 043fee36ccdedaf4bbf031bdf0423eaa, type: 3}
+      propertyPath: m_Offset.x
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -2737,7 +2741,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8982161567800402618, guid: 043fee36ccdedaf4bbf031bdf0423eaa, type: 3}
       propertyPath: m_Size.x
-      value: 7
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982161567800402618, guid: 043fee36ccdedaf4bbf031bdf0423eaa, type: 3}
+      propertyPath: m_Offset.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8982161567800402618, guid: 043fee36ccdedaf4bbf031bdf0423eaa, type: 3}
       propertyPath: m_IsTrigger

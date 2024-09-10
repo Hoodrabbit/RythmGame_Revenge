@@ -14,7 +14,9 @@ TagManager:
   - Beat
   - Rhythm
   - ExpandLine
+  - Boss
   - asdf
+  - BossActionNote
   layers:
   - Default
   - TransparentFX
@@ -57,4 +59,7 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 626425845
+    locked: 0
+  - name: Boss
+    uniqueID: 4279421187
     locked: 0

@@ -23,6 +23,8 @@ public class NoteMaker_EditScene : MonoBehaviour
     GameObject Note_Long;
     GameObject ExpandCheckerLineMaker;
     GameObject Ghost_Note;
+    GameObject BossAppearNoteMaker;
+    GameObject BossDisappearNoteMaker;
 
     bool Already_Using = false;
 
@@ -42,9 +44,10 @@ public class NoteMaker_EditScene : MonoBehaviour
         }
         Note_Normal = MakerObjList[0];
         Note_Long = MakerObjList[1];
-        ExpandCheckerLineMaker = MakerObjList[2];
-        Ghost_Note = MakerObjList[3];
-
+       // ExpandCheckerLineMaker = MakerObjList[2];
+        Ghost_Note = MakerObjList[2];
+        BossAppearNoteMaker = MakerObjList[3];
+        BossDisappearNoteMaker = MakerObjList[4];
 
 
         //NoteMakerButton = GetComponent<Button>();
@@ -160,5 +163,48 @@ public class NoteMaker_EditScene : MonoBehaviour
 
     }
 
+    public void Instantiate_BossAppearNote()
+    {
+        if (BossAppearNoteMaker.activeSelf == false)
+        {
+            if (!Already_Using)
+            {
+                BossAppearNoteMaker.SetActive(true);
+            }
+            else
+            {
+                TurnOffMaker();
+                BossAppearNoteMaker.SetActive(true);
+            }
+            Already_Using = true;
+        }
+        else
+        {
+            BossAppearNoteMaker.SetActive(false);
+            Already_Using = false;
+        }
+    }
+
+    public void Instantiate_BossDisappearNote()
+    {
+        if (BossDisappearNoteMaker.activeSelf == false)
+        {
+            if (!Already_Using)
+            {
+                BossDisappearNoteMaker.SetActive(true);
+            }
+            else
+            {
+                TurnOffMaker();
+                BossDisappearNoteMaker.SetActive(true);
+            }
+            Already_Using = true;
+        }
+        else
+        {
+            BossDisappearNoteMaker.SetActive(false);
+            Already_Using = false;
+        }
+    }
 
 }

@@ -121,6 +121,34 @@ class LoadNote : IButton
 
 }
 
+class MakeBossAppearNote : IButton
+{
+    string name = "MakeBossAppearNote";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        NoteMaker_EditScene.instance.Instantiate_BossAppearNote();
+    }
+
+}
+
+class MakeBossDisappearNote : IButton
+{
+    string name = "MakeBossDisappearNote";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        NoteMaker_EditScene.instance.Instantiate_BossDisappearNote();
+    }
+
+}
+
+
+
 
 
 

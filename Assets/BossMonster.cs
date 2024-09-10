@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class BossMonster : MonoBehaviour
 {
-
     public Sprite BossImg;
 
     bool check = false;
     float MaxTime = 0.3f;
     //일단 노트화 시켜서 다른 노트처럼 똑같이 움직이되 보스가 나오는 
-    float TTIme = 0;
+    float TTime = 0;
     Vector2 startpos;
+    Vector2 endpos;
+
+
     private void Start()
     {
         startpos = transform.position;
+        endpos = new Vector3(15, 0);
     }
 
 
@@ -24,7 +27,7 @@ public class BossMonster : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
 
-            check = true;
+            //check = true;
             
 
 
@@ -35,16 +38,75 @@ public class BossMonster : MonoBehaviour
         {
            
 
-            TTIme += Time.deltaTime;
-            float t = TTIme / MaxTime;
+            TTime += Time.deltaTime;
+            float t = TTime / MaxTime;
 
-            transform.position = Vector3.Lerp(startpos, new Vector3(5, 0),t);
+            transform.position = Vector3.Lerp(startpos, endpos, t);
         }
 
 
     }
 
+    public void Appear()
+    {
+        //check = true;
 
+        //TTime += Time.deltaTime;
+        //float t = TTime / MaxTime;
+
+        //transform.position = Vector3.Lerp(startpos, endpos, t);
+        StartCoroutine(AppearBoss());
+
+    }
+
+    public void Disappear()
+    {
+
+        //TTime += Time.deltaTime;
+        //float t = TTime / MaxTime;
+
+        //transform.position = Vector3.Lerp(endpos, startpos, t);
+        StartCoroutine (DisappearBoss());
+    }
+
+    IEnumerator AppearBoss()
+    {
+       
+        TTime = 0;
+        
+        while(TTime <= MaxTime)
+        {
+            TTime += Time.deltaTime;
+            float t = TTime / MaxTime;
+
+            transform.position =Vector3.Lerp(startpos, endpos, t);
+            yield return null;
+        }
+
+        Debug.Log("출현");
+
+        GameManager.Instance.BossAppear = true;
+
+
+    }
+
+    IEnumerator DisappearBoss()
+    {
+      
+        TTime = 0;
+
+        while(TTime <= MaxTime)
+        {
+            TTime += Time.deltaTime;
+            float t = TTime / MaxTime;
+
+            transform.position = Vector3.Lerp(endpos, startpos, t);
+            yield return null;
+        }
+
+        Debug.Log("퇴장");
+        GameManager.Instance.BossAppear = false;
+    }
 
 
 

@@ -28,6 +28,9 @@ public class Judgement : MonoBehaviour
 
     bool active = false;
 
+    bool AlreadyDelete = false;
+
+
     public bool longnotePress = false;
     float pressTime = 0;
 
@@ -363,7 +366,8 @@ public class Judgement : MonoBehaviour
         {
             Debug.Log(f_time + "          " );
             judgeText.text = "Miss!";
-
+            //notes.RemoveAt(0); //추가
+            //AlreadyDelete = true;
             return false;
             //Debug.Log("Miss");
             //미스가 일어나면 일정 시간 후 무조건 바로 꺼져야 함 아니면 미스 표시가 아예 안뜸
@@ -396,10 +400,22 @@ public class Judgement : MonoBehaviour
         if (collision.gameObject.CompareTag("Note"))
         {
             //active = true;
-           
+
             //judgeText.text = "Miss!";
-           // notes[0].MissNote();
-            notes.RemoveAt(0);
+            // notes[0].MissNote();
+
+            //if (AlreadyDelete)
+          //  {
+
+          //      AlreadyDelete = false;
+          //  }
+          //  else
+          //  {
+                notes.RemoveAt(0);
+          //  }
+
+
+            
             //제일 처음 노트부터 사라져야 하기 때문에 작동됨
 
 

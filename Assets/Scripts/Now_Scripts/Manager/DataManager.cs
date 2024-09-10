@@ -3,10 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Threading.Tasks;
-using System.IO.Pipes;
-using System.Runtime.Serialization;
 using System.Linq;
 using System;
+
+
+
+
+
+//0번 타입 : 보스 타입인데 보스도 종류가 있다보니 어떤 식으로 하면 좋을 지 
+//아니면 보스만 별개로 100번대 타입으로 하는 것도 방법일듯함
+
+//ㅁㄴㅇㄹ
+
+
+
 
 
 public class NoteInfoPos

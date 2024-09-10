@@ -6,6 +6,8 @@ public class Expand_Line_Maker : NoteMakerBase
 {
     public GameObject Expand_Line;
 
+  
+
 
     protected override void AreaCheck(Vector2 Pos, bool DeleteMode)
     {
@@ -24,7 +26,7 @@ public class Expand_Line_Maker : NoteMakerBase
                 float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                 //위와 동일 
 
-                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 0, 0, 0, (double)RealXpos / 10));
+               // DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 0, 0, 0, (double)RealXpos / 10));
 
             }
             i++;
@@ -38,7 +40,7 @@ public class Expand_Line_Maker : NoteMakerBase
                 //Debug.Log("작동" + hit[i].collider.name);
 
 
-                if (hit[i].collider.CompareTag("ExpandLine"))
+                if (hit[i].collider.CompareTag("BossApp"))
                 {
 
                     Destroy(hit[i].collider.gameObject);
