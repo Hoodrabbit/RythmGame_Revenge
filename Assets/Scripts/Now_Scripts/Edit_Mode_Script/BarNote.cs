@@ -21,16 +21,13 @@ public class BarNote : MonoBehaviour
     [Space(10f)]
     [Header("각종 변수들")]
     public float TTime = 0;
-    public float NowBPM;
-    public float StdBPM;
+   
     public int speed;
 
-    public int CameraSize = 13;
-
-
-    public float OffsetTime = 0;
-
+    float NowBPM;
+    float StdBPM = 60;
     bool first = true;
+
     public List<GameObject> CNote;
     public List<GameObject> UnActiveNote_2;
     public List<GameObject> UnActiveNote_4;
@@ -42,34 +39,40 @@ public class BarNote : MonoBehaviour
 
     int Beat = 8;
 
-    bool Devide = false;
+
+
+    bool Devide = false; //마디가 끝나기 전에 노래가 끝나는지 체크하여 마디가 끝날 때까지 추가로 제작할지 체크해주는 변수
     bool End = false;
+
+
+
+
+
 
     // Start is called before the first frame update
     void Awake()
     {
+        InitializeBarNoteScript();
+    }
+
+    private void Update()
+    {
+      ChangeSpeed();
+    }
+
+    void InitializeBarNoteScript() //BarNote 스크립트 내 변수들 초기화 시켜주는 메서드
+    {
         EditManager.Instance.NoteParent = this;
 
-
         NowBPM = GameManager.Instance.musicInfo.BPM;
-        StdBPM = 60;
+
         NextBeat = StdBPM / NowBPM / Beat;
-        //Debug.Log(NextBeat);
+
         speed = GameManager.Instance.speed;
-        //Debug.Log(NextBeat);
-        //Debug.Log(GameManager.Instance.MainAudio.clip.length);
+
         if (GameManager.Instance.musicInfo.Music.length % GameManager.Instance.GetBPS() == 0)
         {
-            //Debug.Log(GameManager.Instance.musicInfo.Music.length);
-            //Debug.Log(GameManager.Instance.GetBPS());
-            //Debug.Log(NextBeat);
-
             Devide = true;
-        }
-        else
-        {
-            //Debug.Log(GameManager.Instance.musicInfo.Music.length);
-            //Debug.Log(GameManager.Instance.GetBPS());
         }
 
 
@@ -84,14 +87,6 @@ public class BarNote : MonoBehaviour
         }
 
 
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Tab))
-        {
-            ChangeSpeed();
-        }
     }
 
     void ChangeSpeed()
@@ -116,66 +111,46 @@ public class BarNote : MonoBehaviour
         }
     }
 
-
     public void MakeBar()
     {
 
         while (GameManager.Instance.musicInfo.Music.length >= TTime)
         {
-            if (first == false)
+            if(first == true)
             {
-                if (count % 2 == 0 && count != Beat / 2 && count != 0 && Beat > count)
-                {
-                    GameObject NNote = Instantiate(MinutenessContanierNote4, new Vector3(transform.position.x + (TTime + NextBeat) * speed, 0, 0), Quaternion.identity, BeatNote.transform);
+                    GameObject NNote = Instantiate(ContanierNote, new Vector3(transform.position.x, 0, 0), Quaternion.identity, BeatNote.transform);
                     CNote.Add(NNote);
-                    UnActiveNote_4.Add(NNote);
-                    TTime += NextBeat;
                     count++;
-                    
-                    NNote.SetActive(false);
-                }
-                else if (count % 2 != 0)
-                {
-                    GameObject NNote = Instantiate(MinutenessContanierNote8, new Vector3(transform.position.x + (TTime + NextBeat)* speed, 0, 0), Quaternion.identity, BeatNote.transform);
-                    CNote.Add(NNote);
-                    UnActiveNote_8.Add(NNote);
-                    TTime += NextBeat;
-                    count++;
-
-                    NNote.SetActive(false);
-                }
-                else if (count == Beat / 2)
-                {
-                    GameObject NNote = Instantiate(MinutenessContanierNote2, new Vector3(transform.position.x + (TTime + NextBeat) * speed, 0, 0), Quaternion.identity, BeatNote.transform);
-                    CNote.Add(NNote);
-                    UnActiveNote_2.Add(NNote);
-                    TTime += NextBeat;
-                    count++;
-                    NNote.SetActive(false);
-                    //NNote.SetActive(false);
-                }
-                else if (count >= Beat)
+                    first = false;
+            }
+            else
+            {
+                if (count >= Beat)
                 {
                     GameObject NNote = Instantiate(ContanierNote, new Vector3(transform.position.x + (TTime + NextBeat) * speed, 0, 0), Quaternion.identity, BeatNote.transform);
                     CNote.Add(NNote);
                     TTime += NextBeat;
                     count = 1;
                 }
-
+                else if (count % 2 == 0 && count != Beat / 2 && count != 0 && Beat > count)
+                {
+                    InstantiateAndStoreNote(MinutenessContanierNote4, UnActiveNote_4);
+                }
+                else if (count % 2 != 0)
+                {
+                    InstantiateAndStoreNote(MinutenessContanierNote8, UnActiveNote_8);
+                }
+                else if (count == Beat / 2)
+                {
+                    InstantiateAndStoreNote(MinutenessContanierNote2, UnActiveNote_2);
+                }
+               
             }
-            else
-            {
-                GameObject NNote = Instantiate(ContanierNote, new Vector3(transform.position.x, 0, 0), Quaternion.identity, BeatNote.transform);
-                CNote.Add(NNote);
-                count++;
-                first = false;
-            }
+           
         }
-        //Debug.Log(TTime);
 
         Distance = CNote[CNote.Count - 1].transform.position.x;
 
-        //Debug.Log(Distance);
     }
     public void MakeMoreBar()
     {
@@ -184,27 +159,25 @@ public class BarNote : MonoBehaviour
 
         while (GameManager.Instance.musicInfo.Music.length+NextBeat >= TTime || End==false)
         {
-            //OffsetTime = NextBeat / 20;
+
             if (first == false)
             {
-                if (count % 2 == 0 && count != Beat / 2 && count != 0 && Beat > count)
+
+                if (count >= Beat)
                 {
                     GameObject NNote = Instantiate(SpareNote, new Vector3(transform.position.x + (TTime + NextBeat) * speed, 0, 0), Quaternion.identity, BeatNote.transform);
                     CNote.Add(NNote);
-                    UnActiveNote_4.Add(NNote);
                     TTime += NextBeat;
-                    count++;
-
-                    NNote.SetActive(false);
+                    count = 1;
+                }
+                else if (count % 2 == 0 && count != Beat / 2 && count != 0 && Beat > count)
+                {
+                    InstantiateAndStoreNote(SpareNote, UnActiveNote_4);
                 }
                 else if (count % 2 != 0)
                 {
-                    GameObject NNote = Instantiate(SpareNote, new Vector3(transform.position.x + (TTime + NextBeat) * speed, 0, 0), Quaternion.identity, BeatNote.transform);
-                    CNote.Add(NNote);
-                    UnActiveNote_8.Add(NNote);
-                    TTime += NextBeat;
-                    count++;
-                    NNote.SetActive(false);
+                    InstantiateAndStoreNote(SpareNote, UnActiveNote_8);
+                 
                     if (count == Beat)
                     {
                         End= true;
@@ -214,34 +187,36 @@ public class BarNote : MonoBehaviour
                 }
                 else if (count == Beat / 2)
                 {
-                    GameObject NNote = Instantiate(SpareNote, new Vector3(transform.position.x + (TTime + NextBeat) * speed, 0, 0), Quaternion.identity, BeatNote.transform);
-                    CNote.Add(NNote);
-                    UnActiveNote_2.Add(NNote);
-                    TTime += NextBeat;
-                    count++;
-                    NNote.SetActive(false);
-                    //NNote.SetActive(false);
+                    InstantiateAndStoreNote(SpareNote, UnActiveNote_2);
                 }
-                else if (count >= Beat)
-                {
-                    GameObject NNote = Instantiate(SpareNote, new Vector3(transform.position.x + (TTime + NextBeat) * speed, 0, 0), Quaternion.identity, BeatNote.transform);
-                    CNote.Add(NNote);
-                    TTime += NextBeat;
-                    count = 1;
-                }
-
+              
             }
 
         }
-        //Debug.Log(TTime);
+
 
         Distance = CNote[CNote.Count - 1].transform.position.x;
-        //Debug.Log(Distance);
-        //Debug.Log(Distance);
+
     }
+
+    //특정 라인들을 생성할 때 추가로 처리해야 하는 작업들을 담고있는 메서드
+    void InstantiateAndStoreNote(GameObject notePrefab, List<GameObject> unActiveList)
+    {
+        // 오브젝트 생성 및 리스트 추가
+        GameObject NNote = Instantiate(notePrefab, new Vector3(transform.position.x + (TTime + NextBeat) * speed, 0, 0), Quaternion.identity, BeatNote.transform);
+        CNote.Add(NNote);
+        unActiveList?.Add(NNote);  // null 체크 후 리스트에 추가
+
+        // TTime 갱신 및 count 증가
+        TTime += NextBeat;
+        count++;
+
+        // 오브젝트 비활성화
+        NNote.SetActive(false);
+    } 
+
     public float GetDistance()
     {
-        //Debug.Log(Distance);
         return Distance;
     }
 
@@ -308,69 +283,5 @@ public class BarNote : MonoBehaviour
 
 
     }
-
-    public void ExpandScreen()
-    {
-        if(Camera.main.orthographicSize < CameraSize)
-        {
-            StartCoroutine(CameraSizeUP());
-        }
-        else
-        {
-            StartCoroutine(CameraSizeDown()); 
-        }
-        
-
-        
-    }
-
-    IEnumerator CameraSizeUP()
-    {
-        float CurrentTime = 0f;
-        while (Camera.main.orthographicSize < CameraSize)
-        {
-            CurrentTime += Time.deltaTime;
-
-            float CurrentValue = Mathf.Lerp(10, CameraSize, CurrentTime / 0.3f);
-            float CurrentSize = Mathf.Lerp(1, 2, CurrentTime / 0.3f);
-
-
-            Debug.Log("작동");
-            Camera.main.orthographicSize = CurrentValue;
-            //transform.localScale = new Vector2(CurrentSize, CurrentSize);
-            if (CurrentTime > 1)
-            {
-                StopCoroutine(CameraSizeUP());
-            }
-
-
-            yield return null;
-        }
-    }
-
-    IEnumerator CameraSizeDown()
-    {
-        float CurrentTime = 0f;
-        while (Camera.main.orthographicSize > 10)
-        {
-            CurrentTime += Time.deltaTime;
-
-            float CurrentValue = Mathf.Lerp(CameraSize, 10, CurrentTime / 0.3f);
-            float CurrentSize = Mathf.Lerp(2, 1, CurrentTime / 0.3f);
-
-            Camera.main.orthographicSize = CurrentValue;
-            Debug.Log("작동"); 
-            
-            if (CurrentTime > 1)
-            {
-                StopCoroutine(CameraSizeDown());
-            }
-
-
-            yield return null;
-        }
-    }
-
-
 
 }

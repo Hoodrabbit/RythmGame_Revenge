@@ -4,21 +4,14 @@ using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
+    public SongSelect songSelect;
 
-    SongSelect songSelect;
 
-    // Start is called before the first frame update
-    void Start()
+    public SongSelect GetAudio()
     {
-        
+        return songSelect;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
     public void SetAudio(SongSelect ss)
     {
         songSelect = ss;
@@ -26,6 +19,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void SetValue(MusicInfo music)
     {
+        songSelect.InitializeSongSelect();
         songSelect.SongAudio.clip = music.Music;
         songSelect.SongAudio.PlayScheduled(0);
     }

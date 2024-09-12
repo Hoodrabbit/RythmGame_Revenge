@@ -16,7 +16,9 @@ public class EditManager : Singleton<EditManager>
     public GameObject ExpandLine_Obj;
     public GameObject GhostNote_Obj;
 
-
+    [Header("보스 노트")]
+    public GameObject BossAppearNote_Obj;
+    public GameObject BossDisappearNote_Obj;
 
     Queue<LongNoteScript> UnCompleteLongNoteQueue = new Queue<LongNoteScript>(); //아직 꼬리위치가 제대로 할당되지 않은 롱노트를 쉽게 관리하기 위해 만들어줌
 
@@ -56,6 +58,17 @@ public class EditManager : Singleton<EditManager>
 
                 break;
 
+
+
+            case 100:
+                Debug.Log("출현노트 ");
+                BossAppearNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
+                break;
+
+            case 101:
+                Debug.Log("퇴장노트 ");
+                BossDisappearNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
+                break;
 
 
             default:
@@ -119,6 +132,56 @@ public class EditManager : Singleton<EditManager>
         LongNoteInternalMethod(xpos, height, noteType, LongNoteStartEndCheck, (double)xpos / 10);
     }
 
+             void LongNoteInternalMethod(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    {
+        int ypos = 0;
+        switch (height)
+        {
+            case 1:
+                ypos = 2;
+                break;
+
+            case 2:
+                ypos = -2;
+                break;
+        }
+
+        GameObject LongNote;
+        if (LongNoteStartEndCheck == 1)
+        {
+            LongNote = Instantiate(LongNote_Obj, new Vector3(xpos, ypos), Quaternion.identity, EditManager.Instance.NoteParent.transform);
+            UnCompleteLongNoteQueue.Enqueue(LongNote.GetComponent<LongNoteScript>());
+
+            float RealXpos = LongNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)LongNote.transform.localPosition.x / GameManager.Instance.speed));
+        }
+        else if (LongNoteStartEndCheck == 2)
+        {
+            Queue<LongNoteScript> newLongNoteQueue = new Queue<LongNoteScript>();
+            foreach (var head in UnCompleteLongNoteQueue)
+            {
+                if (head.transform.position.y == ypos) //줄 번호가 1일 경우 2의 위치임
+                {
+                    head.Tail.transform.position = new Vector3(xpos, head.transform.position.y);
+
+                    float RealXpos = head.Tail.transform.position.x - EditManager.Instance.GetNPXpos();
+
+                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(head.Tail, RealXpos, height, noteType, LongNoteStartEndCheck, (double)(head.transform.position.x + head.Tail.transform.localPosition.x) / GameManager.Instance.speed));
+                }
+                else
+                {
+                    newLongNoteQueue.Enqueue(head); //해당 조건을 만족하지 않는 큐만 따로 추가함
+                }
+
+            }
+            UnCompleteLongNoteQueue = newLongNoteQueue;
+
+        }
+    }
+
+
+
     //public void ExpandLine(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
     //{
     //    GameObject AddNote = Instantiate(ExpandLine_Obj, new Vector3(xpos, 0), Quaternion.identity, EditManager.Instance.NoteParent.transform);
@@ -173,59 +236,35 @@ public class EditManager : Singleton<EditManager>
 
 
         //롱노트 내부 메서드 따로 분리함
-    void LongNoteInternalMethod(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
-        {
-            int ypos = 0;
-            switch (height)
-            {
-                case 1:
-                    ypos = 2;
-                    break;
+  
 
-                case 2:
-                    ypos = -2;
-                    break;
-            }
+    public void BossAppearNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
+    {
+        GameObject AddNote = Instantiate(BossAppearNote_Obj, new Vector3(xpos, 0), Quaternion.identity, EditManager.Instance.NoteParent.transform);
 
-            GameObject LongNote;
-            if (LongNoteStartEndCheck == 1)
-            {
-                LongNote = Instantiate(LongNote_Obj, new Vector3(xpos, ypos), Quaternion.identity, EditManager.Instance.NoteParent.transform);
-                UnCompleteLongNoteQueue.Enqueue(LongNote.GetComponent<LongNoteScript>());
+        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
-                float RealXpos = LongNote.transform.position.x - EditManager.Instance.GetNPXpos();
+        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+    }
 
-                DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)LongNote.transform.localPosition.x / GameManager.Instance.speed));
-            }
-            else if (LongNoteStartEndCheck == 2)
-            {
-                Queue<LongNoteScript> newLongNoteQueue = new Queue<LongNoteScript>();
-                foreach (var head in UnCompleteLongNoteQueue)
-                {
-                    if (head.transform.position.y == ypos) //줄 번호가 1일 경우 2의 위치임
-                    {
-                        head.Tail.transform.position = new Vector3(xpos, head.transform.position.y);
+    public void BossDisappearNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType= 0)
+    {
+        GameObject AddNote = Instantiate(BossDisappearNote_Obj, new Vector3(xpos, 0), Quaternion.identity, EditManager.Instance.NoteParent.transform);
 
-                        float RealXpos = head.Tail.transform.position.x - EditManager.Instance.GetNPXpos();
+        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
-                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(head.Tail, RealXpos, height, noteType, LongNoteStartEndCheck, (double)(head.transform.position.x + head.Tail.transform.localPosition.x) / GameManager.Instance.speed));
-                    }
-                    else
-                    {
-                        newLongNoteQueue.Enqueue(head); //해당 조건을 만족하지 않는 큐만 따로 추가함
-                    }
-
-                }
-                UnCompleteLongNoteQueue = newLongNoteQueue;
-
-            }
-        }
+        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+    }
 
 
-    public void ChangeScreenSize()
-        {
-            NoteParent.ExpandScreen();
-        }
+
+
+
+
+    //public void ChangeScreenSize()
+    //    {
+    //        NoteParent.ExpandScreen();
+    //    }
 
     public void ActivateBeatLine()
     {

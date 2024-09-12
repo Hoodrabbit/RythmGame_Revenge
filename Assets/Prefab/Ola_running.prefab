@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 306922098492292302}
   - component: {fileID: 7522617781960950083}
   - component: {fileID: 3874370409827201766}
+  - component: {fileID: 8884498414826395759}
   m_Layer: 0
   m_Name: Ola_running
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,12 +72,12 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -15546109
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 1517819035, guid: 7f5c4ca341ecae34daf05192da52ff2f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2.6675937, y: 2.485}
@@ -106,3 +107,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8884498414826395759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768186727778023260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1af45d87b57f7143afe762f96ddca91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BossImg: {fileID: 0}

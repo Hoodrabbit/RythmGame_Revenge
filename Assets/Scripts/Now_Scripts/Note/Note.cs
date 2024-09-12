@@ -23,7 +23,7 @@ public class Note : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         //rb.velocity = new Vector2(0, 0);
         //SongTime = AudioSettings.dspTime;

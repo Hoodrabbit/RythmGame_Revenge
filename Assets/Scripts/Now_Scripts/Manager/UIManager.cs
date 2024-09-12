@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
+    public BossNoteDetailScript BossNoteDetailPanel;
+
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))

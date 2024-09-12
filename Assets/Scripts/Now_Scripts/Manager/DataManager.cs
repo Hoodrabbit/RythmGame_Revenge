@@ -49,6 +49,10 @@ public class NoteInfoPos
 }
 
 
+
+/// <summary>
+/// 1 : Note 종류 2 : 위치  3 : 높이   4 : 롱노트 전용 변수(시작 1, 끝 2)   5 : 노래 시간   6 : 음률 전용 변수(0이면 기본 1, 2까지 존재)
+/// </summary>
 public class NoteInfoAll //찍은 노트에 대한 정보를 담아 줄 클래스
 {
     public GameObject Note;
@@ -176,7 +180,7 @@ public class DataManager : Singleton<DataManager>
 
         for (int i = 0; i < NoteCount; i++)
         {
-            float xpos; int heightnum; int NoteType; int LongNoteStartEndCheck; double SongTime; int enemyType;
+            float xpos; int height; int NoteType; int LongNoteStartEndCheck; double SongTime; int enemyType;
             
             string LineText; //파싱한 노트 정보를 저장받을 문자열
             
@@ -184,7 +188,7 @@ public class DataManager : Singleton<DataManager>
 
             string[] split_Text = LineText.Split(',');
             xpos = float.Parse(split_Text[0]);
-            heightnum = Int32.Parse(split_Text[1]);
+            height = Int32.Parse(split_Text[1]);
             NoteType = Int32.Parse(split_Text[2]);
             LongNoteStartEndCheck = Int32.Parse(split_Text[3]);
 
@@ -204,21 +208,21 @@ public class DataManager : Singleton<DataManager>
 
 
             if (GameManager.Instance.state != GameState.Play_Mode)
-                EditManager.Instance.MakeNote(xpos * GameManager.Instance.speed + EditManager.Instance.GetNPXpos() , heightnum, NoteType, LongNoteStartEndCheck, SongTime, enemyType);
+                EditManager.Instance.MakeNote(xpos * GameManager.Instance.speed + EditManager.Instance.GetNPXpos() , height, NoteType, LongNoteStartEndCheck, SongTime, enemyType);
             else
             {
-                PlayManager.Instance.PlayScene_NoteMaker( xpos * GameManager.Instance.speed, heightnum, NoteType, LongNoteStartEndCheck, SongTime, enemyType);
+                PlayManager.Instance.PlayScene_NoteMaker( xpos * GameManager.Instance.speed, height, NoteType, LongNoteStartEndCheck, SongTime, enemyType);
                 
-                if(LongNoteStartEndCheck != 2)
+                if(LongNoteStartEndCheck != 2 || NoteType < 100)
                 {
                     PlayManager.Instance.AddNoteCount();
                 }
-                
+                PlayManager.Instance.SetComboCount();
             }
         
         }
 
-        PlayManager.Instance.SetComboCount();
+       
         NoteParsing.Close();
     }
 

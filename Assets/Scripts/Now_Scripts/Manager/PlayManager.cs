@@ -28,29 +28,40 @@ public class PlayManager : Singleton<PlayManager>
     Queue<LongNoteScript> UnCompleteLongNoteQueue = new Queue<LongNoteScript>();
 
 
-    public void PlayScene_NoteMaker(float xpos, int heightnum, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0 )
+    public void PlayScene_NoteMaker(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0 )
     {
         xpos += GameManager.Instance.OffsetValue;
         switch (noteType)
         {
             case 0:
-                ExpandLine(xpos, heightnum, noteType, LongNoteStartEndCheck, songtime);
+                ExpandLine(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 break;
 
             case 1:
 
-                NormalNote(xpos, heightnum, noteType, LongNoteStartEndCheck, songtime, enemyType);
+                NormalNote(xpos, height, noteType, LongNoteStartEndCheck, songtime, enemyType);
                 break;
 
             case 2:
 
-               LongNote(xpos, heightnum, noteType, LongNoteStartEndCheck, songtime);
+               LongNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 //Debug.Log("�۵��� �ϳ�");
                 break;
 
             case 3:
-                GhostNote(xpos, heightnum, noteType, LongNoteStartEndCheck, songtime);
+                GhostNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
 
+                break;
+
+
+            case 100:
+                Debug.Log("출현노트 ");
+                BossAppearNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
+                break;
+
+            case 101:
+                Debug.Log("퇴장노트 ");
+                BossDisappearNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 break;
 
 
@@ -64,7 +75,7 @@ public class PlayManager : Singleton<PlayManager>
 
         ////Notes.Add(Instantiate(xpos));//���� �Ұ���
 
-        //NotePos = new NoteInfoPos(xpos + 1*3 * 6-5, heightnum); 
+        //NotePos = new NoteInfoPos(xpos + 1*3 * 6-5, height); 
 
         //if(NotePos.HeightValue ==1)
         //{
@@ -220,6 +231,49 @@ public class PlayManager : Singleton<PlayManager>
             //height �κ� ���߿� �ٲܰ���
             //Notes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
     }
+
+
+    public void BossAppearNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
+    {
+        GameObject Note_Instantiate;
+
+        Debug.Log("BossAppearNote Xpos : " + xpos);
+
+        NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
+        Note_Instantiate = Instantiate(NoteTypes[4], new Vector3(NotePos.xpos, 0), Quaternion.identity, Note_Parent.transform);
+
+        Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
+
+        Notes.Add(Note_Instantiate);
+    }
+
+    public void BossDisappearNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
+    {
+        GameObject Note_Instantiate;
+
+        Debug.Log("BossDisppearNote Xpos : " + xpos);
+
+        NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
+        Note_Instantiate = Instantiate(NoteTypes[5], new Vector3(NotePos.xpos, 0), Quaternion.identity, Note_Parent.transform);
+
+        Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
+
+        Notes.Add(Note_Instantiate);
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public void ControlHidingJudjement()

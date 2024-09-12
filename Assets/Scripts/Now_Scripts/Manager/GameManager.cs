@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    public GameDataState DataState = GameDataState.Data_UnLoad;
+
+
     public GameState state = GameState.None;
 
     public AudioSource MainAudio;
@@ -34,17 +37,7 @@ public class GameManager : Singleton<GameManager>
 
     public void Start()
     {
-
         MusicManager.Instance.SetMusic(0);
-        //MainAudio.PlayScheduled(CurDspTime); 
-        //if(state == GameState.Play_Mode)
-        //{
-        //    DataManager.Instance.LoadNote();
-        //    MainAudio.PlayScheduled(CurDspTime);
-        //}
-
-
-
     }
     public void PlayMusicOnly()
     {
@@ -67,11 +60,16 @@ public class GameManager : Singleton<GameManager>
     public void SetSongValue(int num)
     {
         SongValue = num;
+        DataState = GameDataState.FinishData_Load;
+        AudioManager.Instance.GetAudio().PlaySong();
     }
 
     public void SetSongValue(MusicInfo musicInfo)
     {
-       this.musicInfo = musicInfo;
+        this.musicInfo = musicInfo;
+        DataState = GameDataState.FinishData_Load;
+        AudioManager.Instance.GetAudio().PlaySong();
+
     }
 
 

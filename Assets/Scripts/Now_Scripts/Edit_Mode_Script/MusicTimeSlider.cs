@@ -59,7 +59,6 @@ public class MusicTimeSlider : MonoBehaviour
         {
             if (slider.value <= slider.maxValue)
             {
-                //Debug.Log(NoteParent.GetDistance() / GameManager.Instance.MainAudio.clip.length);
                 GameManager.Instance.MainAudio.time = slider.value;
                 Transform NPpos = EditManager.Instance.NoteParent.transform;
                 NPpos.position = new Vector3(-slider.value * GameManager.Instance.speed, 0, 0); //이상한 부분

@@ -6,8 +6,20 @@ using UnityEngine;
 public class BossNoteMaker : NoteMakerBase
 {
     public GameObject Boss_Note;
+    public override GameObject Note { get => Boss_Note; set => Boss_Note = value; }
 
-    protected override void AreaCheck(Vector2 Pos, bool DeleteMode)
+    public BossNoteType bossNoteType;
+
+  
+
+    protected override void Update()
+    {
+        base.Update();
+    } // 클릭 이벤트를 처리하는 메서드
+   
+
+
+    protected override void AreaCheck(GameObject Note, Vector2 Pos, bool DeleteMode)
     {
         hit = Physics2D.RaycastAll(Pos, transform.forward, 10);
         int i = 0;
@@ -18,12 +30,28 @@ public class BossNoteMaker : NoteMakerBase
             if (hit[i].collider.CompareTag("NotePlace"))
             {
 
-                GameObject AddNote = Instantiate(Boss_Note, new Vector3(hit[i].transform.position.x, 0), Quaternion.identity, barNote.RhythmNote.transform);
+                Vector2 InstantiatePos = new Vector3(hit[i].transform.position.x, 0);
 
-                float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
-                //위와 동일 
+                if(NoteCheck(InstantiatePos)  )
+                {
 
-                // DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 0, 0, 0, (double)RealXpos / 10));
+                    GameObject AddNote = Instantiate(Note, InstantiatePos, Quaternion.identity, barNote.RhythmNote.transform);
+
+                    float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+                    //위와 동일 
+
+                    if (bossNoteType == BossNoteType.Appear)
+                    {
+                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 0, 100, 0, (double)RealXpos / 10));
+                    }
+                    else if (bossNoteType == BossNoteType.Disappear)
+                    {
+                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 0, 101, 0, (double)RealXpos / 10));
+                    }
+                }
+
+
+                 
                 //데이터 생성은 잠시 뒤 작업 예정
             }
             i++;
@@ -52,4 +80,31 @@ public class BossNoteMaker : NoteMakerBase
 
 
     }
+
+
+
+    protected override bool NoteCheck(Vector2 Pos)
+    {
+
+        Vector2 rayDirection = Pos;
+        Debug.Log("Posup : " + rayDirection);
+        RaycastHit2D[] hit_Detail;
+        int count = 0;
+        hit_Detail = Physics2D.RaycastAll(rayDirection, transform.forward, 10);
+
+        while (count < hit_Detail.Length)
+        {
+            if (hit_Detail[count].collider.CompareTag("BossActionNote"))
+            {
+                Debug.Log("중복입니다.");
+                return false;
+            }
+            count++;
+        }
+
+        return true;
+
+    }
+
+
 }

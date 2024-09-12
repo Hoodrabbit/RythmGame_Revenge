@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4814179187394505402}
   - component: {fileID: 1449948421453268875}
   - component: {fileID: 1587194095913307290}
+  - component: {fileID: 5571240979671116975}
   m_Layer: 0
   m_Name: IMGNote
   m_TagString: Note
@@ -120,3 +121,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5571240979671116975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5612370883487808057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4393ddc9e052b3944a09001ede375ef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
