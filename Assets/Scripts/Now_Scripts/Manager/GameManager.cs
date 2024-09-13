@@ -67,8 +67,8 @@ public class GameManager : Singleton<GameManager>
     public void SetSongValue(MusicInfo musicInfo)
     {
         this.musicInfo = musicInfo;
-        DataState = GameDataState.FinishData_Load;
-        AudioManager.Instance.GetAudio().PlaySong();
+        //DataState = GameDataState.FinishData_Load;
+        //AudioManager.Instance.GetAudio().PlaySong();
 
     }
 
