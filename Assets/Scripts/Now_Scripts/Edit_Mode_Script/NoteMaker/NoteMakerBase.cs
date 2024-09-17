@@ -12,6 +12,12 @@ public abstract class NoteMakerBase : MonoBehaviour
     protected BarNote barNote;
 
 
+    /// <summary>
+    ///  (0 : Null 1 : NormalNote , 2 : LongNote, 3 : GhostNote   100 : BossAppearNote      특수 노트가 될 예정 여기에서 더 추가 될 수 있음)
+    /// </summary>
+    protected int NoteType;
+
+
     protected virtual void Awake()
     {
         barNote = FindObjectOfType<BarNote>();
@@ -71,7 +77,7 @@ public abstract class NoteMakerBase : MonoBehaviour
                         //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가
 
 
-                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 1, 3, 0, (double)RealXpos / 10));
+                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 1, NoteType, 0, (double)RealXpos / 10));
                     }
 
                 }
@@ -89,7 +95,7 @@ public abstract class NoteMakerBase : MonoBehaviour
                         float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                         //위와 동일 
 
-                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 2, 3, 0, (double)RealXpos / 10));
+                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, 2, NoteType, 0, (double)RealXpos / 10));
                     }
                 }
             }

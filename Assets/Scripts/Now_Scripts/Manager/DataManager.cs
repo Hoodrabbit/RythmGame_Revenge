@@ -93,7 +93,7 @@ public class DataManager : Singleton<DataManager>
         {
             Directory.CreateDirectory(NoteDataFolder);
         }
-        NoteDataPath = Path.Combine(NoteDataFolder, GameManager.Instance.musicInfo.NoteFileDirection);
+        NoteDataPath = Path.Combine(NoteDataFolder, GameManager.Instance.musicInfo.Music_Name + "_NoteData.txt");
     }
 
 

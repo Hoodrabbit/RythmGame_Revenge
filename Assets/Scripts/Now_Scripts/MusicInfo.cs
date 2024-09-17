@@ -13,7 +13,7 @@ public class MusicInfo : ScriptableObject
 
     public float BPM;
 
-    public string NoteFileDirection;
+    //public string NoteFileDirection;
 
     public Sprite MusicSprite;
 

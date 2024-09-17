@@ -17,6 +17,11 @@ public class PlayManager : Singleton<PlayManager>
 
     int NoteCount_Now =0;
 
+    const int UP = 3;
+    const int DOWN = -1;
+    const int MIDDLE = (UP + DOWN) / 2;
+
+
 
 
     //public Image MusicTimeLeftLine;
@@ -34,7 +39,7 @@ public class PlayManager : Singleton<PlayManager>
         switch (noteType)
         {
             case 0:
-                ExpandLine(xpos, height, noteType, LongNoteStartEndCheck, songtime);
+                //ExpandLine(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 break;
 
             case 1:
@@ -101,25 +106,31 @@ public class PlayManager : Singleton<PlayManager>
         combosystem.MissNote();
     }
 
+    private int SettingHeight(int height)
+    {
+        switch (height)
+        {
+            case 1:
+                return UP;
+
+
+            case 2:
+                return DOWN;
+            default:
+                return 0;
+        }
+    }
+
+
 
     void NormalNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType)
     {
         GameObject Note_Instantiate;
 
-        float ypos = 0;
-        switch (height)
-        {
-            case 1:
-                ypos = 2.8f;
-                break;
+        
 
-            case 2:
-                ypos = -2.2f;
-                break;
-        }
-
-            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType , LongNoteStartEndCheck, songtime);
-            Note_Instantiate = Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, ypos), Quaternion.identity, Note_Parent.transform);
+            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, SettingHeight(height), noteType , LongNoteStartEndCheck, songtime);
+            Note_Instantiate = Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, SettingHeight(height)), Quaternion.identity, Note_Parent.transform);
             Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
             Note_Instantiate.GetComponent<Note>().SetNoteType(enemyType);
             Notes.Add(Note_Instantiate);
@@ -134,47 +145,30 @@ public class PlayManager : Singleton<PlayManager>
     //�ճ�Ʈ ���� �޼��� ���� �и���
     void LongNoteInternalMethod(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
     {
-        float ypos = 0;
-        switch (height)
-        {
-            case 1:
-                ypos = 2.8f;
-                break;
-
-            case 2:
-                ypos = -2.2f;
-                break;
-        }
+       
 
         GameObject LongNote;
         if (LongNoteStartEndCheck == 1)
         {
-            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
-            LongNote = Instantiate(NoteTypes[1], new Vector3(NotePos.xpos, ypos), Quaternion.identity, Note_Parent.transform);
+            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, SettingHeight(height), noteType, LongNoteStartEndCheck, songtime);
+            LongNote = Instantiate(NoteTypes[1], new Vector3(NotePos.xpos, SettingHeight(height)), Quaternion.identity, Note_Parent.transform);
             LongNote.GetComponent<Note>().SetSongTime(songtime);
             Debug.Log(songtime + " ���ʴ��ΰ���");
             Notes.Add(LongNote);
             
             UnCompleteLongNoteQueue.Enqueue(LongNote.GetComponent<LongNoteScript>());
-
-           // float RealXpos = LongNote.transform.position.x - EditManager.Instance.GetNPXpos();
-
-          //  DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, height, noteType, LongNoteStartEndCheck));
         }
         else if (LongNoteStartEndCheck == 2)
         {
             Queue<LongNoteScript> newLongNoteQueue = new Queue<LongNoteScript>();
             foreach (var head in UnCompleteLongNoteQueue)
             {
-                if (head.transform.position.y == ypos) //�� ��ȣ�� 1�� ��� 2�� ��ġ��
+                if (head.transform.position.y == SettingHeight(height)) //�� ��ȣ�� 1�� ��� 2�� ��ġ��
                 {
-                    NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
+                    NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, SettingHeight(height), noteType, LongNoteStartEndCheck, songtime);
                     head.Tail.transform.position = new Vector3(NotePos.xpos, head.transform.position.y);
-                    //Debug.Log(xpos);
-                    //float RealXpos = head.Tail.transform.position.x - EditManager.Instance.GetNPXpos();
 
                     Notes.Add(head.Tail);
-                    //DataManager.Instance.EditNotes.Add(new NoteInfoAll(head.Tail, RealXpos, height, noteType, LongNoteStartEndCheck));
                 }
                 else
                 {
@@ -187,39 +181,26 @@ public class PlayManager : Singleton<PlayManager>
         }
     }
 
-    public void ExpandLine(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
-    {
+    //public void ExpandLine(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    //{
 
-        GameObject Note_Instantiate;
+    //    GameObject Note_Instantiate;
 
-        NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
+    //    NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
 
-        Note_Instantiate = Instantiate(NoteTypes[2], new Vector3(NotePos.xpos-1, height), Quaternion.identity, Note_Parent.transform);
+    //    Note_Instantiate = Instantiate(NoteTypes[2], new Vector3(NotePos.xpos-1, height), Quaternion.identity, Note_Parent.transform);
         
-        Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
+    //    Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
 
-        Notes.Add(Note_Instantiate);
-    }
+    //    Notes.Add(Note_Instantiate);
+    //}
 
     public void GhostNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
     {
         GameObject Note_Instantiate;
-
-        float ypos = 0;
-        switch (height)
-        {
-            case 1:
-                ypos = 2.8f;
-                break;
-
-            case 2:
-                ypos = -2.2f;
-                break;
-        }
-
       
-            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
-            Note_Instantiate = Instantiate(NoteTypes[3], new Vector3(NotePos.xpos, ypos), Quaternion.identity, Note_Parent.transform);
+            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, SettingHeight(height), noteType, LongNoteStartEndCheck, songtime);
+            Note_Instantiate = Instantiate(NoteTypes[3], new Vector3(NotePos.xpos, SettingHeight(height)), Quaternion.identity, Note_Parent.transform);
             
             Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
                 
@@ -239,8 +220,8 @@ public class PlayManager : Singleton<PlayManager>
 
         Debug.Log("BossAppearNote Xpos : " + xpos);
 
-        NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
-        Note_Instantiate = Instantiate(NoteTypes[4], new Vector3(NotePos.xpos, 0), Quaternion.identity, Note_Parent.transform);
+        NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, noteType, LongNoteStartEndCheck, songtime);
+        Note_Instantiate = Instantiate(NoteTypes[4], new Vector3(NotePos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
 
         Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
 
@@ -253,8 +234,8 @@ public class PlayManager : Singleton<PlayManager>
 
         Debug.Log("BossDisppearNote Xpos : " + xpos);
 
-        NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
-        Note_Instantiate = Instantiate(NoteTypes[5], new Vector3(NotePos.xpos, 0), Quaternion.identity, Note_Parent.transform);
+        NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, noteType, LongNoteStartEndCheck, songtime);
+        Note_Instantiate = Instantiate(NoteTypes[5], new Vector3(NotePos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
 
         Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
 
