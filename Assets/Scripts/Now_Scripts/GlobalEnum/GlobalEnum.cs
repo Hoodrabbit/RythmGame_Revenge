@@ -73,7 +73,24 @@ public enum BossNoteType
 
     Dash_Disappear
 
+}
 
+
+
+//음악 마디의 가시성 상태에 따라 에디터 상에서 키를 눌렀을 때 어느 정도를 이동할 것인지 체크를 해줌
+public enum BeatNoteLine_Visble_Status
+{
+    // 마디만 있는 경우(1박)
+    OneNoteInBar, 
+
+    // 마디 사이에 음표가 하나 있는 경우 (2박)
+    TwoNoteInBar,
+    
+    // 마디 사이에 음표가 3개 있는 경우 (4박)
+    FourNoteInBar,
+
+    // 마디 사이에 음표가 7개 있는 경우 (8박)
+    EightNoteInBar
 }
 
 

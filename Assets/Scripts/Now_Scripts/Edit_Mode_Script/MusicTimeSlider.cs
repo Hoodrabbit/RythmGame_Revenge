@@ -60,7 +60,7 @@ public class MusicTimeSlider : MonoBehaviour
             if (slider.value <= slider.maxValue)
             {
                 GameManager.Instance.MainAudio.time = slider.value;
-                Transform NPpos = EditManager.Instance.NoteParent.transform;
+                Transform NPpos = EditManager.Instance.barNote.transform;
                 NPpos.position = new Vector3(-slider.value * GameManager.Instance.speed, 0, 0); //이상한 부분
             }
 
@@ -77,9 +77,9 @@ public class MusicTimeSlider : MonoBehaviour
         {
             //Debug.Log(GameManager.Instance.MainAudio.timeSamples/GameManager.Instance.MainAudio.clip.frequency);
             slider.value = (float)GameManager.Instance.MainAudio.timeSamples / GameManager.Instance.MainAudio.clip.frequency;
-            Transform NPpos = EditManager.Instance.NoteParent.transform;
+            Transform NPpos = EditManager.Instance.barNote.transform;
             NPpos.position = new Vector3(-slider.value * GameManager.Instance.speed , 0, 0);
-            //NPpos.position = new Vector3(-(float)(AudioSettings.dspTime - GameManager.Instance.StartDspTime() ) * (EditManager.Instance.NoteParent.GetDistance() / ((int)(GameManager.Instance.MainAudio.clip.length) + 1)), 0, 0);
+            //NPpos.position = new Vector3(-(float)(AudioSettings.dspTime - GameManager.Instance.StartDspTime() ) * (EditManager.Instance.barNote.GetDistance() / ((int)(GameManager.Instance.MainAudio.clip.length) + 1)), 0, 0);
             // / GameManager.Instance.MainAudio.clip.length
 
         }

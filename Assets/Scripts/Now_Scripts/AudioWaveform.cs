@@ -29,7 +29,7 @@ public class AudioWaveform : MonoBehaviour
         
 
         
-        //width = (int)EditManager.Instance.NoteParent.GetDistance() *6;
+        //width = (int)EditManager.Instance.barNote.GetDistance() *6;
         //Debug.Log(width);
 
         //WaveFormRect.sizeDelta = new Vector2(width, height);

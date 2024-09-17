@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class BarNote : MonoBehaviour
 {
+    public BeatNoteLine_Visble_Status B_V_S; // 현재 시각화 되어있는 비트 라인들의 상태를 체크하기 위한 변수
+
+
+
     public GameObject BeatNote;
     public GameObject RhythmNote;
 
@@ -62,7 +66,9 @@ public class BarNote : MonoBehaviour
 
     void InitializeBarNoteScript() //BarNote 스크립트 내 변수들 초기화 시켜주는 메서드
     {
-        EditManager.Instance.NoteParent = this;
+        B_V_S = BeatNoteLine_Visble_Status.OneNoteInBar;
+
+        EditManager.Instance.barNote = this;
 
         NowBPM = GameManager.Instance.musicInfo.BPM;
 
@@ -244,19 +250,19 @@ public class BarNote : MonoBehaviour
                 case 0:
                     foreach (var Note in UnActiveNote_2)
                     {
-                        Note.SetActive(true);
+                        Note.SetActive(true); B_V_S = BeatNoteLine_Visble_Status.TwoNoteInBar;
                     }
                     break;
                 case 1:
                     foreach (var Note in UnActiveNote_4)
                     {
-                        Note.SetActive(true);
+                        Note.SetActive(true); B_V_S = BeatNoteLine_Visble_Status.FourNoteInBar;
                     }
                     break;
                 case 2:
                     foreach (var Note in UnActiveNote_8)
                     {
-                        Note.SetActive(true);
+                        Note.SetActive(true); B_V_S = BeatNoteLine_Visble_Status.EightNoteInBar;
                     }
                     break;
                 default:
@@ -277,6 +283,8 @@ public class BarNote : MonoBehaviour
             {
                 Note.SetActive(false);
             }
+
+            B_V_S = BeatNoteLine_Visble_Status.OneNoteInBar;
 
         }
 

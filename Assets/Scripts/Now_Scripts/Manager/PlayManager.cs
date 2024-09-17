@@ -334,7 +334,7 @@ public class PlayManager : Singleton<PlayManager>
         //���߿� ��ȣ�� ���� ��ġ �� ������ ��Ȱ�ϰ� �� �� �ֵ��� ���� ������ �������� �� �� ����
         if (height == 1)
         {
-            GameObject AddNote = Instantiate(Note, new Vector3(xpos, 2), Quaternion.identity, EditManager.Instance.NoteParent.transform);
+            GameObject AddNote = Instantiate(Note, new Vector3(xpos, 2), Quaternion.identity, EditManager.Instance.barNote.transform);
 
             float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
@@ -344,7 +344,7 @@ public class PlayManager : Singleton<PlayManager>
         }
         else if (height == 2)
         {
-            GameObject AddNote = Instantiate(Note, new Vector3(xpos, -2), Quaternion.identity, EditManager.Instance.NoteParent.transform);
+            GameObject AddNote = Instantiate(Note, new Vector3(xpos, -2), Quaternion.identity, EditManager.Instance.barNote.transform);
 
             float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
