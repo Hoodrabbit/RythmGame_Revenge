@@ -56,8 +56,10 @@ public class MusicSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Clicked?.Invoke();
+       
 
+
+        Debug.Log("뮤직슬롯 실행 전");
 
         //음악 이걸로 변경
         if (musicInfo != null)
@@ -68,5 +70,10 @@ public class MusicSlot : MonoBehaviour, IPointerClickHandler
             
         else
             Debug.LogError("없어요");
+
+        Debug.Log("뮤직슬롯 실행 후");
+
+        Clicked?.Invoke();
+
     }
 }

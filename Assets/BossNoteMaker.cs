@@ -30,7 +30,7 @@ public class BossNoteMaker : NoteMakerBase
             if (hit[i].collider.CompareTag("NotePlace"))
             {
 
-                Vector2 InstantiatePos = new Vector3(hit[i].transform.position.x, 0);
+                Vector2 InstantiatePos = new Vector3(hit[i].transform.position.x, EditManager.MIDDLE);
 
                 if(NoteCheck(InstantiatePos)  )
                 {

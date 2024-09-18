@@ -66,7 +66,7 @@ public abstract class NoteMakerBase : MonoBehaviour
                 //1
                 if (Pos.y > 0)
                 {
-                    Vector2 InstantiatePos = new Vector3(hit[i].transform.position.x, hit[i].transform.position.y + 2);
+                    Vector2 InstantiatePos = new Vector3(hit[i].transform.position.x, hit[i].transform.position.y + EditManager.UP);
 
 
                     if (NoteCheck(InstantiatePos))
@@ -85,7 +85,7 @@ public abstract class NoteMakerBase : MonoBehaviour
                 //2
                 else if (Pos.y <= 0)
                 {
-                    Vector2 InstantiatePos = new Vector3(hit[i].transform.position.x, hit[i].transform.position.y - 2);
+                    Vector2 InstantiatePos = new Vector3(hit[i].transform.position.x, hit[i].transform.position.y + EditManager.DOWN);
 
 
                     if (NoteCheck(InstantiatePos))

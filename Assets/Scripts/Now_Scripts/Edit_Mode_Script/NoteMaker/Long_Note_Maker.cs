@@ -52,7 +52,7 @@ public class Long_Note_Maker : NoteMakerBase
             {
                 if (Pos.y > 0)
                 {
-                    Vector3 InstantiatePos = new Vector3(hit[i].transform.position.x, hit[i].transform.position.y + 2);
+                    Vector3 InstantiatePos = new Vector3(hit[i].transform.position.x, hit[i].transform.position.y + EditManager.UP);
 
                     if (NoteCheck(InstantiatePos))
                     {
@@ -99,7 +99,7 @@ public class Long_Note_Maker : NoteMakerBase
                 else
                 {
 
-                    Vector3 InstantiatePos = new Vector3(hit[i].transform.position.x, hit[i].transform.position.y - 2);
+                    Vector3 InstantiatePos = new Vector3(hit[i].transform.position.x, hit[i].transform.position.y + EditManager.DOWN);
 
                     if (NoteCheck(InstantiatePos))
                     {

@@ -12,6 +12,7 @@ public class SongSelect : MonoBehaviour
 
     public void Awake()
     {
+        Debug.Log("초기화 진행중");
         InitializeSongSelect();
     }
 

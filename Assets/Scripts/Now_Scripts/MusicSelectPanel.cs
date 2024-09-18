@@ -42,6 +42,7 @@ public class MusicSelectPanel : MonoBehaviour
     {
         musicCount = MusicManager.Instance.musicInfos.Count;
         SlotClicked += OpenDetailPanel;
+        SlotClicked += SlotChangeCheck;
         MusicSlotPanelAnimator = GetComponent<Animator>();
         NextPos = new Vector2(600, 0);
         int median = musicCount / 2;
@@ -82,6 +83,7 @@ public class MusicSelectPanel : MonoBehaviour
     private void OnDestroy()
     {
         SlotClicked -= OpenDetailPanel;
+        SlotClicked -= SlotChangeCheck;
     }
 
     private void Update()
@@ -178,6 +180,41 @@ public class MusicSelectPanel : MonoBehaviour
         }
 
     }
+
+
+    void SlotChangeCheck()
+    {
+        Debug.Log("슬롯 실행 전");
+
+
+        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+
+
+        Debug.Log(Input.mousePosition - screenCenter);
+
+
+        if ((Input.mousePosition - screenCenter).x < -100)
+        {
+            Debug.Log("Left작동");
+            NowSelect++;
+        }
+        else if ((Input.mousePosition - screenCenter).x > 100)
+        {
+            Debug.Log("Right작동");
+            NowSelect--;
+        }
+        SortingMusic(NowSelect);
+        AudioManager.Instance.SetValue(MusicSlots[medianValue].musicInfo);
+        MusicManager.Instance.SetMusic(MusicSlots[medianValue].musicInfo);
+        Debug.Log(NowSelect);
+
+        Debug.Log("슬롯 실행 후");
+    }
+
+
+
+
+
 
     public void SlotChangedRight()
     {
