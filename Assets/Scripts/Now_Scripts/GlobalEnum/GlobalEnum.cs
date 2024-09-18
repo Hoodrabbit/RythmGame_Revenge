@@ -76,7 +76,6 @@ public enum BossNoteType
 }
 
 
-
 //음악 마디의 가시성 상태에 따라 에디터 상에서 키를 눌렀을 때 어느 정도를 이동할 것인지 체크를 해줌
 public enum BeatNoteLine_Visble_Status
 {
@@ -94,3 +93,8 @@ public enum BeatNoteLine_Visble_Status
 }
 
 
+public enum NoteEditOperatingState
+{
+    KeyBoard,
+    Mouse
+}

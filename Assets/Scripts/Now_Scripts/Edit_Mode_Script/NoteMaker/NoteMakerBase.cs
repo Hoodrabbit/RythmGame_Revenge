@@ -21,24 +21,67 @@ public abstract class NoteMakerBase : MonoBehaviour
     protected virtual void Awake()
     {
         barNote = FindObjectOfType<BarNote>();
+        transform.position = new Vector3(0, 2);
     }
 
 
     protected virtual void Update()
     {
-        Vector2 Pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = Pos; //마우스의 현재 위치에 노트를 생성시켜주는 오브젝트가 위치할 수 있도록 함
 
-        if (Input.GetMouseButtonDown(0))
+       
+        if(EditManager.Instance.OperateEditState == NoteEditOperatingState.Mouse)
         {
-            AreaCheck(Note, transform.position, false);
+            Vector2 Pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = Pos; //마우스의 현재 위치에 노트를 생성시켜주는 오브젝트가 위치할 수 있도록 함
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                AreaCheck(Note, transform.position, false);
+            }
+
+            if (Input.GetMouseButton(1))
+            {
+                //Debug.Log("제거모드");
+                AreaCheck(Note, transform.position, true);
+            }
+        }
+        else
+        {
+            //현재 체크 상태가 키보드인 경우 아래 코드를 사용 못하도록 막아줘야 함
+
+            //transform.position = Pos;
+
+            if(Input.GetKeyDown(KeyCode.W))
+            {
+                transform.position = new Vector3(0, EditManager.UP);
+            }
+
+
+            if(Input.GetKeyDown(KeyCode.S))
+            {
+                transform.position = new Vector3(0, EditManager.DOWN);
+            }
+
+
+            
+
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                AreaCheck(Note, transform.position, false);
+            }
+
+            if(Input.GetKeyDown(KeyCode.Delete))
+            {
+                AreaCheck(Note, transform.position, true);
+            }
+
+
+
+
         }
 
-        if (Input.GetMouseButton(1))
-        {
-            //Debug.Log("제거모드");
-            AreaCheck(Note,transform.position, true);
-        }
+
+
     }
 
     protected virtual void AreaCheck(GameObject Note, Vector2 Pos, bool DeleteMode) 

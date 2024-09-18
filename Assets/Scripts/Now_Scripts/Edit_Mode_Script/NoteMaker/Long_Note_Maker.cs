@@ -47,7 +47,11 @@ public class Long_Note_Maker : NoteMakerBase
                 Checkduplication = true;
                 Debug.Log("중복입니다.");
             }
-
+            i++;
+        }
+        i = 0;
+        while(i < hit.Length && !DeleteMode)
+        {
             if (hit[i].collider.CompareTag("NotePlace") && Checkduplication == false)
             {
                 if (Pos.y > 0)
@@ -142,6 +146,9 @@ public class Long_Note_Maker : NoteMakerBase
                 }
                 i++;
             }
+
+          
+            
         }
 
         if (DeleteMode)

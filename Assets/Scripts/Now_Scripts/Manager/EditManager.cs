@@ -14,6 +14,8 @@ using UnityEngine;
 
 public class EditManager : Singleton<EditManager>
 {
+    public NoteEditOperatingState OperateEditState = NoteEditOperatingState.Mouse;
+
     //각종 에딧씬에서 필요한 기능들을 모아놓음 
     public BarNote barNote;
 

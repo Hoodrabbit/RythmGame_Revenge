@@ -9,6 +9,7 @@ interface IButton
     void Click();
 
 }
+
 class PlayMusic : IButton
 {
     //음악 재생 버튼
@@ -56,6 +57,8 @@ class AddBeatLine : IButton
     }
 }
 
+
+
 class MakeNormalNote : IButton
 {
     string name = "MakeNormalNote";
@@ -95,6 +98,8 @@ class MakeGhostNote : IButton
 
 }
 
+
+
 class SaveNote : IButton
 {
     string name = "SaveNote";
@@ -120,6 +125,8 @@ class LoadNote : IButton
     }
 
 }
+
+
 
 class MakeBossAppearNote : IButton
 {
@@ -148,6 +155,33 @@ class MakeBossDisappearNote : IButton
 }
 
 
+class UsingKeyboard :IButton
+{
+    //UI매니저에서 키보드 사용체크 마우스 인터렉션 on 
+    string name = "UsingKeyboard";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        UIManager.Instance.KeyBoardOperating();
+    }
+
+
+}
+
+class UsingMouse : IButton
+{
+    //반대
+    string name = "UsingMouse";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        UIManager.Instance.MouseOperating();
+    }
+}
 
 
 
