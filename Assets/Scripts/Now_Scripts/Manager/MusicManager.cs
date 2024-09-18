@@ -23,11 +23,6 @@ public class MusicManager : Singleton<MusicManager>
         GameManager.Instance.musicInfo = musicInfo;
         GameManager.Instance.SetSongValue(musicInfo);
 
-        //songSelect.SongAudio.clip = songSelect.audioClips[Value];
-        //MusicManager.Instance.SetMusic(Value);
-        //songSelect.SongAudio.PlayScheduled(0);
-
-
     }
 
 

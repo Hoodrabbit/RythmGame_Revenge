@@ -190,18 +190,26 @@ public class MusicSelectPanel : MonoBehaviour
         Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
 
 
-        Debug.Log(Input.mousePosition - screenCenter);
+      //  Debug.Log(Input.mousePosition - screenCenter);
 
 
         if ((Input.mousePosition - screenCenter).x < -100)
         {
             Debug.Log("Left작동");
             NowSelect++;
+            if (NowSelect > musicCount - 1)
+            {
+                NowSelect = 0;
+            }
         }
         else if ((Input.mousePosition - screenCenter).x > 100)
         {
             Debug.Log("Right작동");
             NowSelect--;
+            if (NowSelect < 0)
+            {
+                NowSelect = musicCount - 1;
+            }
         }
         SortingMusic(NowSelect);
         AudioManager.Instance.SetValue(MusicSlots[medianValue].musicInfo);

@@ -172,7 +172,7 @@ public class DataManager : Singleton<DataManager>
         {
             Destroy(EditNotes[EditNotes.Count - 1].Note);
             EditNotes.RemoveAt(EditNotes.Count - 1);
-            Debug.Log("노트 초기화 중입니다.");
+            //Debug.Log("노트 초기화 중입니다.");
         }
 
 

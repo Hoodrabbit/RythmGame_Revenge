@@ -539,7 +539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClips: []
-  SongAudio: {fileID: 0}
+  SongAudio: {fileID: 203114862}
   Volume: 0
 --- !u!1 &477969148
 GameObject:
@@ -1102,6 +1102,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3192168822060242081, guid: d8b9b3815d06ed04aa2519c286eb8c66, type: 3}
+      propertyPath: songSelect
+      value: 
+      objectReference: {fileID: 203114863}
     - target: {fileID: 7803825021946720995, guid: d8b9b3815d06ed04aa2519c286eb8c66, type: 3}
       propertyPath: m_Name
       value: AudioManager

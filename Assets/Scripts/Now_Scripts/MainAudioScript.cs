@@ -30,7 +30,7 @@ public class MainAudioScript : MonoBehaviour
     {
         if(GameManager.Instance.state != GameState.Offset_Mode) 
         {
-            Debug.Log(GameManager.Instance.musicInfo.Music);
+            //Debug.Log(GameManager.Instance.musicInfo.Music);
 
             audioSource.clip = GameManager.Instance.musicInfo.Music;
         }

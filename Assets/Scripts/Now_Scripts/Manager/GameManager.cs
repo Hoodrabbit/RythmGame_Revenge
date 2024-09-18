@@ -37,6 +37,8 @@ public class GameManager : Singleton<GameManager>
 
     public void Start()
     {
+        Debug.Log("게임매니저 먼저 실행");
+        //InitializeSongSelect();
         MusicManager.Instance.SetMusic(0);
     }
     public void PlayMusicOnly()
@@ -59,6 +61,9 @@ public class GameManager : Singleton<GameManager>
     }
     public void SetSongValue(int num)
     {
+
+        Debug.Log("SetSongValue 작동");
+
         SongValue = num;
         DataState = GameDataState.FinishData_Load;
         AudioManager.Instance.GetAudio().PlaySong();
