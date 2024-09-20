@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 8288947683503557723}
   - component: {fileID: 1544619962534056680}
   - component: {fileID: 3427757792095548354}
+  - component: {fileID: 5842939348262012302}
   m_Layer: 0
-  m_Name: Note_Type3
+  m_Name: CurvedNote
   m_TagString: Note
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,4 +164,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   SongTime: 0
+  AudioTime: 0
   Type: 0
+  xpos: 0
+--- !u!95 &5842939348262012302
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5612370883487808057}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b1ebbb61df390fe458f015a75a86cfb6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

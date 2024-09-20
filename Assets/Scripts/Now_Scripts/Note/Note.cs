@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 
@@ -37,6 +38,9 @@ public class Note : MonoBehaviour
         {
             Instantiate(FindObjectOfType<OffsetUIController>().OffsetNote, new Vector3(xpos + 10 * (float)(AudioSettings.dspTime - AudioTime), 0), Quaternion.identity);
         }
+
+        transform.position = new Vector2(transform.position.x - 5*Time.deltaTime, transform.position.y);
+
 
     }
 
@@ -80,7 +84,7 @@ public class Note : MonoBehaviour
 
 
             //transform.position = new Vector2(transform.position.x + 10 * Time.fixedDeltaTime, transform.position.y);
-            transform.position = new Vector2(xpos + 10 * (float)(AudioSettings.dspTime - AudioTime), transform.position.y);
+          //  transform.position = new Vector2(xpos + 10 * (float)(AudioSettings.dspTime - AudioTime), transform.position.y);
 
             
 
@@ -152,6 +156,28 @@ public class Note : MonoBehaviour
         AudioTime = AudioSettings.dspTime;
     }
 
+    public void NoteCurving()
+    {
+        StartCoroutine(NoteMove());
+    }
+
+    IEnumerator NoteMove()
+    {
+
+        float elapsed = 0.0f;
+
+        while (elapsed < GameManager.Instance.GetBPS() * 8)
+        {
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, 2), elapsed / (GameManager.Instance.GetBPS() * 8));
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // 이동 완료 후 최종 위치를 정확히 설정
+        transform.position = new Vector3(transform.position.x, 2);
+        Debug.Log("체크");
+        yield return null;
+    }
 
 
 }

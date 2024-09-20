@@ -28,7 +28,8 @@ public class BossMonster : MonoBehaviour
         {
 
             //check = true;
-            
+            Animation myanimation = GetComponent<Animation>();
+            //myanimation.blen
 
 
 
