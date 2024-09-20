@@ -39,7 +39,7 @@ public class Note : MonoBehaviour
             Instantiate(FindObjectOfType<OffsetUIController>().OffsetNote, new Vector3(xpos + 10 * (float)(AudioSettings.dspTime - AudioTime), 0), Quaternion.identity);
         }
 
-        transform.position = new Vector2(transform.position.x - 5*Time.deltaTime, transform.position.y);
+      //  transform.position = new Vector2(transform.position.x - 5*Time.deltaTime, transform.position.y);
 
 
     }
