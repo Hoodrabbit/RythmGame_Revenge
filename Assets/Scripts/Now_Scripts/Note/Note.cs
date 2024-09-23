@@ -26,10 +26,19 @@ public class Note : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        //rb.velocity = new Vector2(0, 0);
-        //SongTime = AudioSettings.dspTime;
         AudioTime = AudioSettings.dspTime;
         xpos = transform.position.x;
+        if (Type == NoteType.Obstacle)
+        {
+            SpriteRenderer ChangeColor = GetComponent<SpriteRenderer>();
+            Debug.Log(transform.position.y);
+            if (transform.position.y >= 0)
+                ChangeColor.color = Color.red;
+            else
+                ChangeColor.color = Color.blue;
+        }
+
+
     }
 
     private void Update()
@@ -39,7 +48,7 @@ public class Note : MonoBehaviour
             Instantiate(FindObjectOfType<OffsetUIController>().OffsetNote, new Vector3(xpos + 10 * (float)(AudioSettings.dspTime - AudioTime), 0), Quaternion.identity);
         }
 
-      //  transform.position = new Vector2(transform.position.x - 5*Time.deltaTime, transform.position.y);
+  
 
 
     }
@@ -48,13 +57,9 @@ public class Note : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-       // Debug.Log(AudioTime + " , " + (AudioSettings.dspTime - AudioTime));
-
-
-        if(transform.position.x <=0)
-        {
-            //Debug.Log(SongTime + "  ,  " + AudioSettings.dspTime);
-        }
+  
+        
+        
 
 
         if (GameManager.Instance.state == GameState.Play_Mode)

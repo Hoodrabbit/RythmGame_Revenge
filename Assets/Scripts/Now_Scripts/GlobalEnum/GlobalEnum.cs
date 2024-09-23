@@ -57,7 +57,9 @@ public enum NoteType
 
     White,
 
-    Dark
+    Dark,
+
+    Obstacle
 
 };
 

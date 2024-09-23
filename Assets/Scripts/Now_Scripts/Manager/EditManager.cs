@@ -28,6 +28,10 @@ public class EditManager : Singleton<EditManager>
     public GameObject ExpandLine_Obj;
     public GameObject GhostNote_Obj;
 
+
+    [Header("장애물")]
+    public GameObject Obstacle_Obj;
+
     [Header("보스 노트")]
     public GameObject BossAppearNote_Obj;
     public GameObject BossDisappearNote_Obj;
@@ -37,6 +41,8 @@ public class EditManager : Singleton<EditManager>
     public const int UP = 3;
     public const int DOWN = -1;
     public const int MIDDLE = (UP + DOWN) / 2;
+    public const int OBSTACLE_UP = 4;
+    public const int OBSTACLE_DOWN = -2;
 
 
 
@@ -52,7 +58,7 @@ public class EditManager : Singleton<EditManager>
         switch (noteType)
         {
             case 0:
-                //ExpandLine(xpos, height, noteType, LongNoteStartEndCheck, songtime);
+                Obstacle(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 break;
 
             case 1:
@@ -150,18 +156,6 @@ public class EditManager : Singleton<EditManager>
 
         }
     }
-
-
-
-    //public void ExpandLine(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
-    //{
-    //    GameObject AddNote = Instantiate(ExpandLine_Obj, new Vector3(xpos, 0), Quaternion.identity, EditManager.Instance.barNote.transform);
-
-    //    float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
-
-    //    //height 부분 나중에 바꿀거임
-    //    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
-    //}
     public void GhostNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
         {
                 GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, SettingHeight(height)), Quaternion.identity, EditManager.Instance.barNote.transform);
@@ -175,6 +169,23 @@ public class EditManager : Singleton<EditManager>
 
         //롱노트 내부 메서드 따로 분리함
   
+
+    public void Obstacle(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
+    {
+        GameObject AddNote = Instantiate(Obstacle_Obj, new Vector3(xpos, SettingHeight(height)), Quaternion.identity, EditManager.Instance.barNote.transform);
+
+        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
+    }
+
+
+
+
+
+
+
+
 
     public void BossAppearNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
     {
@@ -196,20 +207,36 @@ public class EditManager : Singleton<EditManager>
 
 
 
+
+
+
+
     private int SettingHeight(int height)
     {
         switch (height)
         {
+            case -1:
+                return OBSTACLE_UP;
+
+            case -2:
+                return OBSTACLE_DOWN;
+
+
             case 1:
                 return UP;
                 
 
             case 2:
                 return DOWN;
+
+            
+
             default:
                 return 0;
         }
     }
+
+
 
 
 

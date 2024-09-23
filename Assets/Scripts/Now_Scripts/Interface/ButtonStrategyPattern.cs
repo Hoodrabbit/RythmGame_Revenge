@@ -98,6 +98,19 @@ class MakeGhostNote : IButton
 
 }
 
+class MakeObstacle : IButton
+{
+    string name = "MakeObstacle";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        NoteMaker_EditScene.instance.Instantiate_Obstacle();
+    }
+
+}
+
 
 
 class SaveNote : IButton

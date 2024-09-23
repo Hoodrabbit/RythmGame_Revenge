@@ -25,6 +25,7 @@ public class NoteMaker_EditScene : MonoBehaviour
     GameObject Ghost_Note;
     GameObject BossAppearNoteMaker;
     GameObject BossDisappearNoteMaker;
+    GameObject ObstacleMaker;
 
     bool Already_Using = false;
 
@@ -48,7 +49,7 @@ public class NoteMaker_EditScene : MonoBehaviour
         Ghost_Note = MakerObjList[2];
         BossAppearNoteMaker = MakerObjList[3];
         BossDisappearNoteMaker = MakerObjList[4];
-
+        ObstacleMaker = MakerObjList[5];
 
         //NoteMakerButton = GetComponent<Button>();
 
@@ -206,5 +207,29 @@ public class NoteMaker_EditScene : MonoBehaviour
             Already_Using = false;
         }
     }
+
+    public void Instantiate_Obstacle()
+    {
+        if (ObstacleMaker.activeSelf == false)
+        {
+            if (!Already_Using)
+            {
+                ObstacleMaker.SetActive(true);
+            }
+            else
+            {
+                TurnOffMaker();
+                ObstacleMaker.SetActive(true);
+            }
+            Already_Using = true;
+        }
+        else
+        {
+            ObstacleMaker.SetActive(false);
+            Already_Using = false;
+        }
+    }
+
+
 
 }

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//�÷��̾��� �����ϴ� �̱���
+
 public class PlayManager : Singleton<PlayManager>
 {
-    public List<GameObject> NoteTypes; //�ϴ� ������� �Ϲ� ��, Ư�� ��Ʈ ... �̷������� ����
+    public List<GameObject> NoteTypes; 
     public List<GameObject> Notes;
     public NoteInfoPos NotePos;
 
@@ -20,11 +20,11 @@ public class PlayManager : Singleton<PlayManager>
     const int UP = 3;
     const int DOWN = -1;
     const int MIDDLE = (UP + DOWN) / 2;
+    const int OBSTACLE_UP = 4;
+    const int OBSTACLE_DOWN = -2;
 
 
 
-
-    //public Image MusicTimeLeftLine;
 
     public GameObject Note_Parent;
 
@@ -39,8 +39,9 @@ public class PlayManager : Singleton<PlayManager>
         switch (noteType)
         {
             case 0:
-                //ExpandLine(xpos, height, noteType, LongNoteStartEndCheck, songtime);
+                MakeObstacle(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 break;
+
 
             case 1:
 
@@ -50,7 +51,7 @@ public class PlayManager : Singleton<PlayManager>
             case 2:
 
                LongNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
-                //Debug.Log("�۵��� �ϳ�");
+
                 break;
 
             case 3:
@@ -76,22 +77,6 @@ public class PlayManager : Singleton<PlayManager>
         }
 
 
-        //�ϴ� �ٽ� ������ �ϱ� ������ �ּ�ó����
-
-        ////Notes.Add(Instantiate(xpos));//���� �Ұ���
-
-        //NotePos = new NoteInfoPos(xpos + 1*3 * 6-5, height); 
-
-        //if(NotePos.HeightValue ==1)
-        //{
-        //    Notes.Add(Instantiate(Note, new Vector3(NotePos.xpos, 2), Quaternion.identity));
-        //}
-        //else
-        //{
-        //    Notes.Add(Instantiate(Note, new Vector3(NotePos.xpos, -2), Quaternion.identity));
-        //}
-
-
 
     }
 
@@ -110,6 +95,12 @@ public class PlayManager : Singleton<PlayManager>
     {
         switch (height)
         {
+            case -1:
+                return OBSTACLE_UP;
+
+            case -2:
+                return OBSTACLE_DOWN;
+
             case 1:
                 return UP;
 
@@ -142,7 +133,6 @@ public class PlayManager : Singleton<PlayManager>
         LongNoteInternalMethod(xpos, height, noteType, LongNoteStartEndCheck, songtime);
     }
 
-    //�ճ�Ʈ ���� �޼��� ���� �и���
     void LongNoteInternalMethod(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
     {
        
@@ -172,7 +162,7 @@ public class PlayManager : Singleton<PlayManager>
                 }
                 else
                 {
-                    newLongNoteQueue.Enqueue(head); //�ش� ������ �������� �ʴ� ť�� ���� �߰���
+                    newLongNoteQueue.Enqueue(head);
                 }
 
             }
@@ -180,20 +170,6 @@ public class PlayManager : Singleton<PlayManager>
 
         }
     }
-
-    //public void ExpandLine(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
-    //{
-
-    //    GameObject Note_Instantiate;
-
-    //    NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
-
-    //    Note_Instantiate = Instantiate(NoteTypes[2], new Vector3(NotePos.xpos-1, height), Quaternion.identity, Note_Parent.transform);
-        
-    //    Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
-
-    //    Notes.Add(Note_Instantiate);
-    //}
 
     public void GhostNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
     {
@@ -206,12 +182,23 @@ public class PlayManager : Singleton<PlayManager>
                 
             Notes.Add(Note_Instantiate);
 
-            //float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
-
-
-            //height �κ� ���߿� �ٲܰ���
-            //Notes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck));
     }
+
+    void MakeObstacle(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    {
+        GameObject Note_Instantiate;
+
+        NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, SettingHeight(height), noteType, LongNoteStartEndCheck, songtime);
+        Note_Instantiate = Instantiate(NoteTypes[6], new Vector3(NotePos.xpos, SettingHeight(height)), Quaternion.identity, Note_Parent.transform);
+
+        Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
+
+        Notes.Add(Note_Instantiate);
+    }
+
+
+
+
 
 
     public void BossAppearNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
@@ -304,37 +291,3 @@ public class PlayManager : Singleton<PlayManager>
 
 
 }
-
-
-
-
-
-/*
- public void MakeNote(float xpos, int height)
-    {
-        //���߿� ��ȣ�� ���� ��ġ �� ������ ��Ȱ�ϰ� �� �� �ֵ��� ���� ������ �������� �� �� ����
-        if (height == 1)
-        {
-            GameObject AddNote = Instantiate(Note, new Vector3(xpos, 2), Quaternion.identity, EditManager.Instance.barNote.transform);
-
-            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
-
-
-            //height �κ� ���߿� �ٲܰ���
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height));
-        }
-        else if (height == 2)
-        {
-            GameObject AddNote = Instantiate(Note, new Vector3(xpos, -2), Quaternion.identity, EditManager.Instance.barNote.transform);
-
-            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
-
-            //height �κ� ���߿� �ٲܰ���
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height));
-
-
-        }
-
-    }
- 
- */
