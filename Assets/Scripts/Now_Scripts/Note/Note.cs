@@ -6,14 +6,20 @@ using UnityEngine;
 
 public class Note : MonoBehaviour
 {
+    [Header("노트 타입")]
+    public int TypeNum;
+   
+
     Rigidbody2D rb;
+    [Space(20)]
     public float speed;
 
     public double SongTime;
 
     public double AudioTime;
 
-    public NoteType Type = NoteType.Normal;
+    public MelodyType Type = MelodyType.Normal;
+    public NoteHeight Height;
     public float xpos;
 
 
@@ -28,15 +34,21 @@ public class Note : MonoBehaviour
     {
         AudioTime = AudioSettings.dspTime;
         xpos = transform.position.x;
-        if (Type == NoteType.Obstacle)
-        {
+        //if (Type == MelodyType.Obstacle)
+       // {
             SpriteRenderer ChangeColor = GetComponent<SpriteRenderer>();
             Debug.Log(transform.position.y);
+
+
+        if(TypeNum== 1 || TypeNum == 2)
+        {
             if (transform.position.y >= 0)
                 ChangeColor.color = Color.red;
             else
                 ChangeColor.color = Color.blue;
         }
+            
+       // }
 
 
     }
@@ -104,6 +116,26 @@ public class Note : MonoBehaviour
         {
             PlayManager.Instance.MissNote();
         }
+
+        if(collision.CompareTag("Curve"))
+        {
+            Debug.Log("감지");
+            Animator animator = GetComponent<Animator>();
+
+
+            if (Height == NoteHeight.UP)
+            {
+                animator.SetTrigger("UpCurve");
+            }
+            else
+            {
+                animator.SetTrigger("DownCurve");
+            }
+
+            
+            
+        }
+
     }
 
     public void SetSongTime(double songTime)
@@ -121,13 +153,13 @@ public class Note : MonoBehaviour
            
 
             case 0:
-                Type = NoteType.Normal; break;
+                Type = MelodyType.Normal; break;
             case 1:
-                Type = NoteType.White;
+                Type = MelodyType.White;
                 SR.color = Color.gray;
                 break;
             case 2:
-                Type = NoteType.Dark;
+                Type = MelodyType.Dark;
                 SR.color = Color.black;
                 break;
 
@@ -136,7 +168,7 @@ public class Note : MonoBehaviour
 
     }
 
-    public NoteType GetNoteType()
+    public MelodyType GetMelodyType()
     {
         return Type;
     }
@@ -161,28 +193,52 @@ public class Note : MonoBehaviour
         AudioTime = AudioSettings.dspTime;
     }
 
-    public void NoteCurving()
+    public void DownNoteCurving()
     {
-        StartCoroutine(NoteMove());
+        StartCoroutine(DownNoteMove());
     }
 
-    IEnumerator NoteMove()
+    IEnumerator DownNoteMove()
     {
 
         float elapsed = 0.0f;
 
-        while (elapsed < GameManager.Instance.GetBPS() * 8)
+        while (elapsed < GameManager.Instance.GetBPS())
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, 2), elapsed / (GameManager.Instance.GetBPS() * 8));
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, -1), elapsed / (GameManager.Instance.GetBPS()));
             elapsed += Time.deltaTime;
             yield return null;
         }
 
         // 이동 완료 후 최종 위치를 정확히 설정
-        transform.position = new Vector3(transform.position.x, 2);
+        transform.position = new Vector3(transform.position.x, -1);
         Debug.Log("체크");
         yield return null;
     }
+
+
+    public void UpNoteCurving()
+    {
+        StartCoroutine(UpNoteMove());
+    }
+
+    IEnumerator UpNoteMove()
+    {
+        float elapsed = 0.0f;
+
+        while (elapsed < GameManager.Instance.GetBPS())
+        {
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, 3), elapsed / (GameManager.Instance.GetBPS()));
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // 이동 완료 후 최종 위치를 정확히 설정
+        transform.position = new Vector3(transform.position.x, 3);
+        Debug.Log("체크");
+        yield return null;
+    }
+   
 
 
 }

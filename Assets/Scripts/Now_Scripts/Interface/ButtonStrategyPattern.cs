@@ -2,7 +2,10 @@ using System;
 using System.Reflection;
 using UnityEngine;
 
-interface IButton
+
+
+//제발 클래스에 인터페이스를 상속시키자..
+interface IButton 
 {
     string ButtonName { get; }
 
@@ -10,11 +13,25 @@ interface IButton
 
 }
 
+
+class Back : IButton
+{
+    readonly string name = "Back";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+
+    }
+
+}
+
 class PlayMusic : IButton
 {
     //음악 재생 버튼
 
-    string name = "PlayMusic";
+    readonly string name = "PlayMusic";
 
     public string ButtonName => name;
 
@@ -34,7 +51,7 @@ class StopMusic : IButton
 {
     //음악 일시정지 버튼
 
-    string name = "StopMusic";
+    readonly string name = "StopMusic";
 
     public string ButtonName => name;
 
@@ -47,7 +64,7 @@ class StopMusic : IButton
 
 class AddBeatLine : IButton
 {
-    string name = "AddBeatLine";
+    readonly string name = "AddBeatLine";
 
     public string ButtonName => name;
 
@@ -61,7 +78,7 @@ class AddBeatLine : IButton
 
 class MakeNormalNote : IButton
 {
-    string name = "MakeNormalNote";
+    readonly string name = "MakeNormalNote";
 
     public string ButtonName => name;
 
@@ -74,7 +91,7 @@ class MakeNormalNote : IButton
 
 class MakeLongNote : IButton
 {
-    string name = "MakeLongNote";
+    readonly string name = "MakeLongNote";
 
     public string ButtonName => name;
 
@@ -87,7 +104,7 @@ class MakeLongNote : IButton
 
 class MakeGhostNote : IButton
 {
-    string name = "MakeGhostNote";
+    readonly string name = "MakeGhostNote";
 
     public string ButtonName => name;
 
@@ -100,7 +117,7 @@ class MakeGhostNote : IButton
 
 class MakeObstacle : IButton
 {
-    string name = "MakeObstacle";
+    readonly string name = "MakeObstacle";
 
     public string ButtonName => name;
 
@@ -113,65 +130,10 @@ class MakeObstacle : IButton
 
 
 
-class SaveNote : IButton
-{
-    string name = "SaveNote";
-
-    public string ButtonName => name;
-
-    public void Click()
-    {
-        DataManager.Instance.SaveNote();
-    }
-
-}
-
-class LoadNote : IButton
-{
-    string name = "LoadNote";
-
-    public string ButtonName => name;
-
-    public void Click()
-    {
-        DataManager.Instance.LoadNote();
-    }
-
-}
-
-
-
-class MakeBossAppearNote : IButton
-{
-    string name = "MakeBossAppearNote";
-
-    public string ButtonName => name;
-
-    public void Click()
-    {
-        NoteMaker_EditScene.instance.Instantiate_BossAppearNote();
-    }
-
-}
-
-class MakeBossDisappearNote : IButton
-{
-    string name = "MakeBossDisappearNote";
-
-    public string ButtonName => name;
-
-    public void Click()
-    {
-        NoteMaker_EditScene.instance.Instantiate_BossDisappearNote();
-    }
-
-}
-
-
-class UsingKeyboard :IButton
+class UsingKeyboard : IButton
 {
     //UI매니저에서 키보드 사용체크 마우스 인터렉션 on 
-    string name = "UsingKeyboard";
+   readonly string name = "UsingKeyboard";
 
     public string ButtonName => name;
 
@@ -186,7 +148,7 @@ class UsingKeyboard :IButton
 class UsingMouse : IButton
 {
     //반대
-    string name = "UsingMouse";
+    readonly string name = "UsingMouse";
 
     public string ButtonName => name;
 
@@ -200,21 +162,105 @@ class UsingMouse : IButton
 
 
 
-
-
-
-class Back : IButton
+class SaveNote : IButton
 {
-    string name = "Back";
+   readonly string name = "SaveNote";
 
     public string ButtonName => name;
 
     public void Click()
     {
-
+        DataManager.Instance.SaveNote();
     }
 
 }
+
+class LoadNote : IButton
+{
+   readonly string name = "LoadNote";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        DataManager.Instance.LoadNote();
+    }
+
+}
+
+
+/*
+
+
+    게임 내 여러 이벤트들의 생성 관련 버튼 클래스들
+
+
+
+ */
+class MakeBossAppearNote : IButton
+{
+   readonly string name = "MakeBossAppearNote";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        NoteMaker_EditScene.instance.Instantiate_BossAppearNote();
+    }
+
+}
+
+class MakeBossDisappearNote : IButton
+{
+    readonly string name = "MakeBossDisappearNote";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        NoteMaker_EditScene.instance.Instantiate_BossDisappearNote();
+    }
+
+}
+
+class MakeEndEvent : IButton
+{
+    readonly string name = "MakeEndEvent";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        throw new NotImplementedException();
+    }
+}
+
+class MakeNoteOutSpawnEvent : IButton
+{
+    readonly string name = "MakeNoteOutSpawnEvent";
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        throw new NotImplementedException();
+    }
+
+}
+
+class MakeNoteOutSpawnReverseEvent : IButton
+{
+    readonly string name = "MakeNoteOutSpawnReverseEvent";
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        throw new NotImplementedException();
+    }
+}
+
+
+
+
 
 
 
@@ -244,8 +290,6 @@ class ButtonContext
 
 }
 
-//이벤트로 모든 버튼을 클릭했을 때 이벤트를 구독하면 좋긴 한데 그건 좀 빡셀 것 같음
-
 class BtnController
 {
     ButtonContext btnContext = new ButtonContext();
@@ -270,26 +314,3 @@ class BtnController
 
 }
 //---------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-//버튼마다 가지고 있는 스크립트 
-
-//class ButtonButton
-//{
-//    Button button;
-//    void Start()
-//    {
-//        button.addlistener(OnclickButton);
-//    }
-
-//    void OnclickButton()
-//    {
-//        //지금 버튼의 이름을 가져와서 버튼Context에 정보를 넘겨줘요
-//        //그리고 바로 click함수 실행
-
-//    }
-
-
-//}

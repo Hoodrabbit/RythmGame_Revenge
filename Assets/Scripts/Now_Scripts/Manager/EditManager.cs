@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static TreeEditor.TreeEditorHelper;
 
 
 
@@ -36,6 +37,15 @@ public class EditManager : Singleton<EditManager>
     public GameObject BossAppearNote_Obj;
     public GameObject BossDisappearNote_Obj;
 
+
+    [Header("이벤트 생성 노트")]
+    public GameObject EndEvent_Obj;
+    public GameObject NoteOutSpawnEvent_Obj;
+    public GameObject NoteOutSpawnReverseEvent_Obj;
+
+
+
+
     Queue<LongNoteScript> UnCompleteLongNoteQueue = new Queue<LongNoteScript>(); //아직 꼬리위치가 제대로 할당되지 않은 롱노트를 쉽게 관리하기 위해 만들어줌
 
     public const int UP = 3;
@@ -43,6 +53,11 @@ public class EditManager : Singleton<EditManager>
     public const int MIDDLE = (UP + DOWN) / 2;
     public const int OBSTACLE_UP = 4;
     public const int OBSTACLE_DOWN = -2;
+
+    public const int UP_OUTSIDE = 8;
+    public const int DOWN_OUTSIDE = -6;
+
+
 
 
 
@@ -77,19 +92,6 @@ public class EditManager : Singleton<EditManager>
 
                 break;
 
-
-
-            case 100:
-                Debug.Log("출현노트 ");
-                BossAppearNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
-                break;
-
-            case 101:
-                Debug.Log("퇴장노트 ");
-                BossDisappearNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
-                break;
-
-
             default:
                 break;
         }
@@ -97,6 +99,47 @@ public class EditManager : Singleton<EditManager>
 
 
     }
+
+
+    public void MakeEvent(float xpos, int height, int eventType, double songtime)
+    {
+        switch (eventType)
+        {
+            case 100:
+            Debug.Log("출현노트 ");
+            BossAppearNote(xpos, height, eventType, songtime);
+            break;
+
+        case 101:
+            Debug.Log("퇴장노트 ");
+            BossDisappearNote(xpos, height, eventType, songtime);
+            break;
+
+
+        case 200:
+            Debug.Log("이벤트 종료");
+            EndEventNote(xpos, height, eventType, songtime);
+            break;
+
+        case 201:
+            Debug.Log("노트 생성 바깥쪽");
+            NoteSpawnOutsideEvent(xpos, height, eventType, songtime);
+            break;
+
+        case 202:
+            Debug.Log("노트 생성 바깥쪽 역순");
+            NoteSpawnOutsideReverseEvent(xpos, height, eventType, songtime);
+            break;
+        }
+
+    }
+
+
+
+
+
+
+
 
     public void NormalNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
     {
@@ -187,22 +230,66 @@ public class EditManager : Singleton<EditManager>
 
 
 
-    public void BossAppearNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
+    public void BossAppearNote(float xpos, int height, int eventType, double songtime)
     {
-        GameObject AddNote = Instantiate(BossAppearNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
+        //GameObject AddNote = Instantiate(BossAppearNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
 
-        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+        //float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
-        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+        //DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
+
+        GameObject AddEvent = Instantiate(EndEvent_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
+
+        float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
+
+        DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, height, eventType, (double)AddEvent.transform.localPosition.x / GameManager.Instance.speed));
+
+
     }
 
-    public void BossDisappearNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType= 0)
+    public void BossDisappearNote(float xpos, int height, int eventType, double songtime)
     {
-        GameObject AddNote = Instantiate(BossDisappearNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
+        //GameObject AddNote = Instantiate(BossDisappearNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
 
-        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+        //float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
-        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / 10));
+        //DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
+
+        GameObject AddEvent = Instantiate(EndEvent_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
+
+        float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
+
+        DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, height, eventType, (double)AddEvent.transform.localPosition.x / GameManager.Instance.speed));
+
+    }
+
+
+    public void EndEventNote(float xpos, int height, int eventType, double songtime)
+    {
+        GameObject AddEvent = Instantiate(EndEvent_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
+
+        float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
+
+        DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, height, eventType, (double)AddEvent.transform.localPosition.x / GameManager.Instance.speed));
+
+    }
+
+    public void NoteSpawnOutsideEvent(float xpos, int height, int eventType, double songtime)
+    {
+        GameObject AddEvent = Instantiate(EndEvent_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
+
+        float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
+
+        DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, height, eventType, (double)AddEvent.transform.localPosition.x / GameManager.Instance.speed));
+    }
+
+    public void NoteSpawnOutsideReverseEvent(float xpos, int height, int eventType, double songtime)
+    {
+        GameObject AddEvent = Instantiate(EndEvent_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
+
+        float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
+
+        DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, height, eventType, (double)AddEvent.transform.localPosition.x / GameManager.Instance.speed));
     }
 
 
@@ -215,6 +302,8 @@ public class EditManager : Singleton<EditManager>
     {
         switch (height)
         {
+
+            //장애물 높이
             case -1:
                 return OBSTACLE_UP;
 
@@ -222,6 +311,7 @@ public class EditManager : Singleton<EditManager>
                 return OBSTACLE_DOWN;
 
 
+            //기본 노트 높이
             case 1:
                 return UP;
                 
@@ -229,7 +319,17 @@ public class EditManager : Singleton<EditManager>
             case 2:
                 return DOWN;
 
-            
+
+
+            //바깥쪽 노트 높이
+            case 10:
+                return UP_OUTSIDE;
+
+
+            case 20:
+                return DOWN_OUTSIDE;
+
+
 
             default:
                 return 0;

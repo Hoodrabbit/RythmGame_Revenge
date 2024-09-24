@@ -13,7 +13,7 @@ public abstract class NoteMakerBase : MonoBehaviour
 
 
     /// <summary>
-    ///  (0 : Null 1 : NormalNote , 2 : LongNote, 3 : GhostNote   100 : BossAppearNote      특수 노트가 될 예정 여기에서 더 추가 될 수 있음)
+    ///  (0 : Obstacle 1 : NormalNote , 2 : LongNote, 3 : GhostNote   100 : BossAppearNote      특수 노트가 될 예정 여기에서 더 추가 될 수 있음)
     /// </summary>
     protected int NoteType;
 
@@ -22,6 +22,7 @@ public abstract class NoteMakerBase : MonoBehaviour
     {
         barNote = FindObjectOfType<BarNote>();
         transform.position = new Vector3(0, 2);
+        NoteType = Note.GetComponent<Note>().TypeNum;
     }
 
 

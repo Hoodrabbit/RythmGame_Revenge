@@ -13,7 +13,7 @@ public class SongSpeedDropDown : MonoBehaviour
 
     int StartIndex = 2;
 
-    List<string> Speed = new List<string>{ "0.25", "0.5", "1", "1.5", "2" };
+    readonly List<string> Speed = new List<string>{ "0.25", "0.5", "1", "1.5", "2" };
 
 
     // Start is called before the first frame update

@@ -38,6 +38,7 @@ public enum GameState
 
     Finish_Play
 };
+
 public enum JudgeMentState
 {
     Perfect,
@@ -51,7 +52,7 @@ public enum JudgeMentState
     Null
 };
 
-public enum NoteType
+public enum MelodyType
 {
     Normal,
 
@@ -62,6 +63,17 @@ public enum NoteType
     Obstacle
 
 };
+
+public enum NoteHeight
+{ 
+    None,
+    UP,
+    DOWN
+}
+
+
+
+
 
 public enum BossNoteType
 {
@@ -100,3 +112,14 @@ public enum NoteEditOperatingState
     KeyBoard,
     Mouse
 }
+
+
+public enum EventType
+{
+    SpawnOutside,
+    SpawnOutside_Reverse,
+    End
+
+}
+
+

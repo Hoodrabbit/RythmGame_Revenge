@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 3472630597451549889}
   - component: {fileID: 6639074378139729599}
   - component: {fileID: 5715799422078636730}
+  - component: {fileID: -8896001686497402160}
   m_Layer: 0
   m_Name: Head
   m_TagString: Note
@@ -310,6 +311,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &-8896001686497402160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7824795879292237692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9295c761605220428c5ff51a534fa2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TypeNum: 2
+  speed: 0
+  SongTime: 0
+  AudioTime: 0
+  Type: 0
+  Height: 0
+  xpos: 0
 --- !u!1 &8204148498064322795
 GameObject:
   m_ObjectHideFlags: 0
