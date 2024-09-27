@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -9,6 +10,9 @@ public class Note : MonoBehaviour
     [Header("노트 타입")]
     public int TypeNum;
    
+    public Action EventChanged;
+
+
 
     Rigidbody2D rb;
     [Space(20)]
@@ -312,26 +316,28 @@ public class Note : MonoBehaviour
         yield return null;
     }
 
-    //public void ReverseUpNoteCurving()
-    //{
-    //    StartCoroutine(ReverseUpNoteMove());
-    //}
 
-    //IEnumerator ReverseUpNoteMove()
-    //{
-    //    float elapsed = 0.0f;
 
-    //    while (elapsed < GameManager.Instance.GetBPS() * 10)
-    //    {
-    //        transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, GetHeight()), elapsed / (GameManager.Instance.GetBPS() * 10));
-    //        elapsed += Time.deltaTime;
-    //        yield return null;
-    //    }
+    public void EventChangeMethod()
+    {
+        //계속 적용시키는 건 최적화에 문제가 생기니까 해당 이벤트가 발동됬을 때 적용 될 수 있도록 만들어주면 좋을 것 같음
+        for(int i=0; i<DataManager.Instance.EventNotes.Count; i++)
+        {
+            if(this.SongTime >= DataManager.Instance.EventNotes[i].eventPos.SongTime)
+            {
+                if(this.transform.position.y > 0)
+                {
 
-    //    // 이동 완료 후 최종 위치를 정확히 설정
-    //    transform.position = new Vector3(transform.position.x, GetHeight());
-    //    Debug.Log("체크");
-    //    yield return null;
-    //}
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+    }
+
+
 
 }

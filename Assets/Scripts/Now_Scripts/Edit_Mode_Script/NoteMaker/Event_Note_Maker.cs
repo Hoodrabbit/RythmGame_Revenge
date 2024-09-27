@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
+using System;
 using UnityEngine;
 
 public class Event_Note_Maker : NoteMakerBase
@@ -9,7 +7,7 @@ public class Event_Note_Maker : NoteMakerBase
 
     //고른 노트의 데이터 타입을 확인해서 번호를 얻어가는 메서드도 필요함
 
-    
+    public static event Action EventChanged;
     public override GameObject Note { get => EventNote; set => EventNote = value; }
 
 
@@ -49,7 +47,7 @@ public class Event_Note_Maker : NoteMakerBase
 
                     AddEvent.GetComponent<NoteEventScript>().SetSongTime(RealXpos / GameManager.Instance.speed);
                     DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, 0, NoteType, (double)RealXpos / GameManager.Instance.speed));
-                    
+                    EventChanged?.Invoke();
                 }
 
             }
@@ -67,8 +65,10 @@ public class Event_Note_Maker : NoteMakerBase
                 if (hit[i].collider.CompareTag("EventNote"))
                 {
 
-                    Destroy(hit[i].collider.gameObject);
+                   
 
+                    Destroy(hit[i].collider.gameObject);
+                    EventChanged?.Invoke();
 
 
                 }
