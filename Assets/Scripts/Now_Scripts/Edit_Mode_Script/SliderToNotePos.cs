@@ -31,8 +31,6 @@ public class SliderToNotePos : MonoBehaviour
         musicTimeSlider = FindObjectOfType<MusicTimeSlider>();
         MaxCount = (int)(GameManager.Instance.ClipLength() / GameManager.Instance.GetBPS());
     }
-
-    // Update is called once per frame
     void Update()
     {
         SliderFunc();
@@ -65,24 +63,12 @@ public class SliderToNotePos : MonoBehaviour
                     if (Mathf.Abs((musicTimeSlider.GetSliderValue() % NowBeat)) <= 0.00001 || Mathf.Abs((musicTimeSlider.GetSliderValue() % NowBeat) - NowBeat) <= 0.00001)
                     {
                         musicTimeSlider.SetSliderValue(NowBeat);
-                        //Debug.Log("잘되는 경우 : " + (slider.value / NowBeat));
-                        Debug.Log("True");
                     }
                     else
                     {
-                        Debug.Log("False");
-                        Debug.Log("값 : " + (int)(musicTimeSlider.GetSliderValue() / NowBeat) + " , " + NowBeat);
-                        //Debug.Log("안되는 경우 : " + Mathf.Abs((slider.value % NowBeat)));
-                        //Debug.Log("안되는 경우 : " + (int)(slider.value / NowBeat) +" , " + (slider.value / NowBeat) + " , " + (slider.value % NowBeat) + " , " + NowBeat);
                         musicTimeSlider.SetSliderValue(-musicTimeSlider.GetSliderValue() + Count * NowBeat + NowBeat);
 
                     }
-                    //if (MaxCount > Count)
-                    //{
-
-                    //    Count++;
-                    //}
-                        
 
                     PressTime_2nd = 0;
                 }
@@ -101,20 +87,12 @@ public class SliderToNotePos : MonoBehaviour
                 if (Mathf.Abs((musicTimeSlider.GetSliderValue() % NowBeat)) <= 0.00001 || Mathf.Abs((musicTimeSlider.GetSliderValue() % NowBeat) - NowBeat) <= 0.00001)
                 {
                     musicTimeSlider.SetSliderValue(NowBeat);
-                    //Debug.Log("잘되는 경우 : " + (slider.value / NowBeat));
-                    Debug.Log("True");
                 }
                 else
                 {
-                    Debug.Log("False");
-                    Debug.Log("값 : " + (int)(musicTimeSlider.GetSliderValue() / NowBeat) + " , " + NowBeat);
-                    //Debug.Log("안되는 경우 : " + Mathf.Abs((slider.value % NowBeat)));
-                    //Debug.Log("안되는 경우 : " + (int)(slider.value / NowBeat) +" , " + (slider.value / NowBeat) + " , " + (slider.value % NowBeat) + " , " + NowBeat);
                     musicTimeSlider.SetSliderValue(-musicTimeSlider.GetSliderValue() + Count * NowBeat + NowBeat);
 
                 }
-                //if (MaxCount > Count)
-                //    Count++;
 
 
             }
@@ -136,34 +114,17 @@ public class SliderToNotePos : MonoBehaviour
                 {
                     Debug.Log(Mathf.Abs((musicTimeSlider.GetSliderValue() % NowBeat)) + " , " + Mathf.Abs((musicTimeSlider.GetSliderValue() % NowBeat) - NowBeat));
 
-                    //slider.value -= 60 / GameManager.Instance.musicInfo.BPM;
                     if (Mathf.Abs((musicTimeSlider.GetSliderValue() % NowBeat)) <= 0.00001 || Mathf.Abs((musicTimeSlider.GetSliderValue() % NowBeat) - NowBeat) <= 0.00001)
                     {
-                        Debug.Log("TrueDown");
                         musicTimeSlider.SetSliderValue(-NowBeat);
                     }
                     else
                     {
-                        Debug.Log("False");
-                        Debug.Log("값 : " + (int)(musicTimeSlider.GetSliderValue() / NowBeat) + " , " + NowBeat);
-                        //Debug.Log((slider.value % NowBeat) - NowBeat);
                         musicTimeSlider.SetSliderValue(-musicTimeSlider.GetSliderValue() + Count * NowBeat);
-                        //정수형값이 0이 되는 순간 값을 제대로 못받아서 문제가 생기는 것 같음
-                        //해결해줘야함
 
                     }
-                    //if (Count > 0)
-                    //    Count--;
-
                     PressTime_2nd = 0;
                 }
-
-
-                //MoveTime(Pos, MovePos, Value);
-
-                //SetValue();
-
-                //NowSongTime.text = GetSliderValue().ToString("0.000");
             }
         }
 
@@ -173,21 +134,14 @@ public class SliderToNotePos : MonoBehaviour
             {
                 if (Mathf.Abs((musicTimeSlider.GetSliderValue() % NowBeat)) <= 0.00001 || Mathf.Abs((musicTimeSlider.GetSliderValue() % NowBeat) - NowBeat) <= 0.00001)
                 {
-                    Debug.Log("TrueDown");
                     musicTimeSlider.SetSliderValue(-NowBeat);
                 }
                 else
                 {
-                    Debug.Log("False");
-                    Debug.Log("값 : " + (int)(musicTimeSlider.GetSliderValue() / NowBeat) + " , " + NowBeat);
-                    //Debug.Log((slider.value % NowBeat) - NowBeat);
                     musicTimeSlider.SetSliderValue(-musicTimeSlider.GetSliderValue() + Count * NowBeat);
-                    //정수형값이 0이 되는 순간 값을 제대로 못받아서 문제가 생기는 것 같음
-                    //해결해줘야함
 
                 }
-                //if (Count > 0)
-                //    Count--;
+
 
             }
 
@@ -233,18 +187,15 @@ public class SliderToNotePos : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
 
-            //Pos = slider.value;
             Pos = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
             Debug.Log(Pos);
-            //Debug.Log(slider.value);
-            //Value = slider.value;
+
             Debug.Log(musicTimeSlider.GetSliderValue());
         }
 
         if (Input.GetMouseButton(0))
         {
             MovePos = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
-            //Debug.Log(Value);
             musicTimeSlider.SetSliderValue(Value + MovePos - Pos);
         }
 

@@ -12,14 +12,14 @@ public class SongSelect : MonoBehaviour
 
     public void Start()
     {
-        Debug.Log("내가 먼저 실행");
-        Debug.Log("내가 먼저 실행");
+       // Debug.Log("내가 먼저 실행");
+       // Debug.Log("내가 먼저 실행");
         InitializeSongSelect();
     }
 
     public void InitializeSongSelect()
     {
-        Debug.Log("초기화 진행중");
+        //Debug.Log("초기화 진행중");
         if(AudioManager.Instance.GetAudio() == null)
         {
             AudioManager.Instance.SetAudio(this.GetComponent<SongSelect>());

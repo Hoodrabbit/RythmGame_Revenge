@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4077388124491583599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5551182387669738615}
+  - component: {fileID: 5341708954220775997}
+  - component: {fileID: 452425380161129695}
+  m_Layer: 0
+  m_Name: EditManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5551182387669738615
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4077388124491583599}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -10.252136, y: 3.2631314, z: 0.16663146}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5341708954220775997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4077388124491583599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6a0d813e543a3a44bf37df0e0cb91df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OperateEditState: 1
+  barNote: {fileID: 0}
+  NormalNote_Obj: {fileID: 5612370883487808057, guid: bc08f6a78dbff774894e2e4087bd4530, type: 3}
+  LongNote_Obj: {fileID: 7824795879292237692, guid: de278df82ae65b24f835e953d6151396, type: 3}
+  ExpandLine_Obj: {fileID: 5612370883487808057, guid: 4cd7c281102d6224cb0fabc6651be393, type: 3}
+  GhostNote_Obj: {fileID: 5612370883487808057, guid: d278a52fc72083148ba112b03f470e5f, type: 3}
+  Obstacle_Obj: {fileID: 5612370883487808057, guid: dd48af849dcdf0249be456f665ee2e3f, type: 3}
+  BossAppearNote_Obj: {fileID: 5612370883487808057, guid: e8d9bafe715f7204ab477ff0b653a4c0, type: 3}
+  BossDisappearNote_Obj: {fileID: 5612370883487808057, guid: 1bc5797df5cfe0148bd1604980f96b27, type: 3}
+  EndEvent_Obj: {fileID: 5612370883487808057, guid: c69f4bbf5271c4b4d84a26e8a504c20a, type: 3}
+  NoteOutSpawnEvent_Obj: {fileID: 5612370883487808057, guid: b7bdeb75062d35b4284591e9dcb22742, type: 3}
+  NoteOutSpawnReverseEvent_Obj: {fileID: 5612370883487808057, guid: 9d34630066dddf3459f96f0b536d2340, type: 3}
+--- !u!114 &452425380161129695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4077388124491583599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 377dff507ca73574481c9aa14825a3d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MakerObjList_Prefab:
+  - {fileID: 5612370883487808057, guid: dd0487d97f60888438aa0fd5e497b285, type: 3}
+  - {fileID: 8318142524779963939, guid: 89e853da2dcac4a4fa4e13ac1c03d2d7, type: 3}
+  - {fileID: 5612370883487808057, guid: d1722d5a8243ae74e9f2aaca53275b8e, type: 3}
+  - {fileID: 5612370883487808057, guid: c1f2264c8c994694cb96131cb9b993e0, type: 3}
+  - {fileID: 5612370883487808057, guid: 8686bd77c73b6764a971e1896cc4559f, type: 3}
+  - {fileID: 5612370883487808057, guid: 3ab8ca1d9dbc97d4fab6f06cbbba3d44, type: 3}
+  - {fileID: 5612370883487808057, guid: 4621233dfa9fad54faf6eb0e64a06c1a, type: 3}
+  - {fileID: 5612370883487808057, guid: 621f80433da18f84fb523ad9319c72cc, type: 3}
+  - {fileID: 5612370883487808057, guid: b1c70e4461afebd4687418ab6660136c, type: 3}
+  MakerObjList: []

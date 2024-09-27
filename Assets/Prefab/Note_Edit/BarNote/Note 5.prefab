@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 10, z: 1}
+  m_LocalScale: {x: 0.2, y: 7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -126,9 +126,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9295c761605220428c5ff51a534fa2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TypeNum: 0
   speed: 6
   SongTime: 0
+  AudioTime: 0
   Type: 0
+  Height: 0
+  xpos: 0
 --- !u!61 &5565928282346254548
 BoxCollider2D:
   m_ObjectHideFlags: 0

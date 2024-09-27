@@ -22,6 +22,10 @@ public class Note : MonoBehaviour
     public NoteHeight Height;
     public float xpos;
 
+    public bool EventActivate = false;
+    //이벤트가 활성화 즉 true일시 해당 이벤트로 발생하는 위치의 이동
+    //우리가 알아야 하는 것 즉 이벤트가 발생했을 시 노트가 어느 위치(y값)로 이동하는가
+
 
     private void Awake()
     {
@@ -60,7 +64,30 @@ public class Note : MonoBehaviour
             Instantiate(FindObjectOfType<OffsetUIController>().OffsetNote, new Vector3(xpos + 10 * (float)(AudioSettings.dspTime - AudioTime), 0), Quaternion.identity);
         }
 
-  
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            if(Height == NoteHeight.REVERSE_UP)
+            {
+                Animator animator = GetComponent<Animator>();
+                animator.SetTrigger("UpCurve");
+            }
+            if(Height == NoteHeight.REVERSE_DOWN)
+            {
+                Animator animator = GetComponent<Animator>();
+                animator.SetTrigger("DownCurve");
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            StopAllCoroutines();
+                Animator animator = GetComponent<Animator>();
+                animator.SetTrigger("ReverseCurve");
+            
+        }
+
+
+
 
 
     }
@@ -173,6 +200,25 @@ public class Note : MonoBehaviour
         return Type;
     }
 
+    public int GetHeight()
+    {
+        switch(Height)
+        {
+            case NoteHeight.UP:
+                return EditManager.UP;
+            case NoteHeight.DOWN:
+                return EditManager.DOWN;
+            case NoteHeight.OUTSIDE_DOWN:
+            case NoteHeight.REVERSE_DOWN:
+                return EditManager.DOWN_OUTSIDE;
+            case NoteHeight.OUTSIDE_UP:
+            case NoteHeight.REVERSE_UP:
+                return EditManager.UP_OUTSIDE;
+        }
+        return 0;
+    }
+
+
 
     public void HitNote()
     {
@@ -202,10 +248,12 @@ public class Note : MonoBehaviour
     {
 
         float elapsed = 0.0f;
+        Vector3 StartPos = transform.position;
+        //Debug.Log(GameManager.Instance.GetBPS());
 
         while (elapsed < GameManager.Instance.GetBPS())
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, -1), elapsed / (GameManager.Instance.GetBPS()));
+            transform.position = Vector3.Lerp(StartPos, new Vector3(transform.position.x, -1), elapsed / (GameManager.Instance.GetBPS()));
             elapsed += Time.deltaTime;
             yield return null;
         }
@@ -225,10 +273,10 @@ public class Note : MonoBehaviour
     IEnumerator UpNoteMove()
     {
         float elapsed = 0.0f;
-
+        Vector3 StartPos = transform.position;
         while (elapsed < GameManager.Instance.GetBPS())
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, 3), elapsed / (GameManager.Instance.GetBPS()));
+            transform.position = Vector3.Lerp(StartPos, new Vector3(transform.position.x, 3), elapsed / (GameManager.Instance.GetBPS()));
             elapsed += Time.deltaTime;
             yield return null;
         }
@@ -240,5 +288,50 @@ public class Note : MonoBehaviour
     }
    
 
+
+    //이름을 잘못 지었습니다.. 역순이 역순으로 꺽어서 오는게 아니라 진짜 행동이 되돌아가는 그 리버스요
+    public void ReverseNoteCurving()
+    {
+        StartCoroutine (ReverseNoteMove());
+    }
+
+    IEnumerator ReverseNoteMove()
+    {
+        float elapsed = 0.0f;
+        Vector3 StartPos = transform.position;
+        while (elapsed < GameManager.Instance.GetBPS())
+        {
+            transform.position = Vector3.Lerp(StartPos, new Vector3(transform.position.x, GetHeight()), elapsed / (GameManager.Instance.GetBPS()));
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // 이동 완료 후 최종 위치를 정확히 설정
+        transform.position = new Vector3(transform.position.x, GetHeight());
+        Debug.Log("체크" + GetHeight());
+        yield return null;
+    }
+
+    //public void ReverseUpNoteCurving()
+    //{
+    //    StartCoroutine(ReverseUpNoteMove());
+    //}
+
+    //IEnumerator ReverseUpNoteMove()
+    //{
+    //    float elapsed = 0.0f;
+
+    //    while (elapsed < GameManager.Instance.GetBPS() * 10)
+    //    {
+    //        transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, GetHeight()), elapsed / (GameManager.Instance.GetBPS() * 10));
+    //        elapsed += Time.deltaTime;
+    //        yield return null;
+    //    }
+
+    //    // 이동 완료 후 최종 위치를 정확히 설정
+    //    transform.position = new Vector3(transform.position.x, GetHeight());
+    //    Debug.Log("체크");
+    //    yield return null;
+    //}
 
 }

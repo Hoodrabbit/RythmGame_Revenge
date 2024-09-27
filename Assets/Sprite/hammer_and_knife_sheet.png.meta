@@ -1,0 +1,680 @@
+fileFormatVersion: 2
+guid: 82cd28ef00cacee47b3c01f01de02326
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 200
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_0
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 619
+        width: 757
+        height: 598
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ea4d18d071dd9f4fb610b8310810e93
+      internalID: -181327941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_2
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 652
+        width: 757
+        height: 563
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82cd159ae704d504993e482e66ffa70f
+      internalID: 1971773917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 1585
+        y: 627
+        width: 757
+        height: 593
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3ae122bc9232654998275852fea36ab
+      internalID: -1985435456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 2372
+        y: 624
+        width: 756
+        height: 588
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b6beb0987f7df34e8a06a121c00d8e3
+      internalID: 362094575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_6
+      rect:
+        serializedVersion: 2
+        x: 3161
+        y: 630
+        width: 757
+        height: 583
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bb7afdfebaacdd44a6fb93732e17c4e
+      internalID: -1346464093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_7
+      rect:
+        serializedVersion: 2
+        x: 3944
+        y: 630
+        width: 757
+        height: 574
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db8f139de8b49ea4ea57914e699124ae
+      internalID: -966795561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_8
+      rect:
+        serializedVersion: 2
+        x: 4733
+        y: 627
+        width: 757
+        height: 572
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19ec7ff36b731ad43885802ad4e25546
+      internalID: 1659193137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_10
+      rect:
+        serializedVersion: 2
+        x: 5516
+        y: 627
+        width: 757
+        height: 573
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 759fd512ff45b2f42a53aa0cd34d967f
+      internalID: 506013779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_12
+      rect:
+        serializedVersion: 2
+        x: 6302
+        y: 626
+        width: 757
+        height: 575
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 515f4ef964ca1ac4e8d9ab5792861c8d
+      internalID: -2138387960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_14
+      rect:
+        serializedVersion: 2
+        x: 7087
+        y: 632
+        width: 758
+        height: 572
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 144c3d776e9ba2b4c984a58a91303a32
+      internalID: -1993406194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_15
+      rect:
+        serializedVersion: 2
+        x: 7873
+        y: 627
+        width: 757
+        height: 581
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afde5beadede5824aa417a40d99573fe
+      internalID: -512925768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_16
+      rect:
+        serializedVersion: 2
+        x: 8675
+        y: 629
+        width: 757
+        height: 588
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e408b00b95a88fe4ba2f50dd5bccafa7
+      internalID: -1278465635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_18
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 8
+        width: 632
+        height: 594
+      alignment: 9
+      pivot: {x: 0.6511593, y: 0.04246878}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fb7bf192f25c2f47912d190343a468e
+      internalID: -1199018292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_19
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 16
+        width: 638
+        height: 590
+      alignment: 9
+      pivot: {x: 0.62908417, y: 0.04215869}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de0e10b34cc012e49ad3d4380c665f4a
+      internalID: -1263184384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_20
+      rect:
+        serializedVersion: 2
+        x: 1375
+        y: 9
+        width: 644
+        height: 601
+      alignment: 9
+      pivot: {x: 0.6739189, y: 0.04779777}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f90ea4cd01b0c848951d0127af8f56c
+      internalID: -783856987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_21
+      rect:
+        serializedVersion: 2
+        x: 2049
+        y: 21
+        width: 650
+        height: 572
+      alignment: 9
+      pivot: {x: 0.653436, y: 0.042967778}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6ea9c0e2560eb84b998d4d992ebd105
+      internalID: 894774794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_22
+      rect:
+        serializedVersion: 2
+        x: 2736
+        y: 11
+        width: 656
+        height: 580
+      alignment: 9
+      pivot: {x: 0.59444445, y: 0.05187704}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9a20249c54fff4408dbfd4d76fbcf47
+      internalID: -1150356416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_23
+      rect:
+        serializedVersion: 2
+        x: 3411
+        y: 4
+        width: 660
+        height: 581
+      alignment: 9
+      pivot: {x: 0.64195263, y: 0.055249266}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15baea74d40e5f745a0f6d8c98d86f1b
+      internalID: 1057154488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_24
+      rect:
+        serializedVersion: 2
+        x: 4092
+        y: 6
+        width: 659
+        height: 600
+      alignment: 9
+      pivot: {x: 0.6582194, y: 0.054221917}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef0aea8e36c37c64e856bcafd5ae7f85
+      internalID: -1876797090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_25
+      rect:
+        serializedVersion: 2
+        x: 4782
+        y: 12
+        width: 655
+        height: 600
+      alignment: 9
+      pivot: {x: 0.6614929, y: 0.044147827}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0b5501f6c1980f4a9e4a7e85c8b7564
+      internalID: 471209562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_26
+      rect:
+        serializedVersion: 2
+        x: 5464
+        y: 11
+        width: 650
+        height: 600
+      alignment: 9
+      pivot: {x: 0.64413685, y: 0.05674048}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b44c6eeefb2ec64d927e2b8e009f3cf
+      internalID: -1253354335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_27
+      rect:
+        serializedVersion: 2
+        x: 6138
+        y: 18
+        width: 646
+        height: 580
+      alignment: 9
+      pivot: {x: 0.6052624, y: 0.046666402}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed3288743e2ba7847bd77fac35231403
+      internalID: -374864883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_28
+      rect:
+        serializedVersion: 2
+        x: 6826
+        y: 21
+        width: 639
+        height: 568
+      alignment: 9
+      pivot: {x: 0.57567364, y: 0.047730573}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a55c8851ac8c15c42a13fe84ea80118b
+      internalID: -2116439108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hammer_and_knife_sheet_29
+      rect:
+        serializedVersion: 2
+        x: 7511
+        y: 15
+        width: 634
+        height: 582
+      alignment: 9
+      pivot: {x: 0.64062345, y: 0.040434964}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58f6c61048d033e41b17d425528858db
+      internalID: 638447189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      hammer_and_knife_sheet_0: -181327941
+      hammer_and_knife_sheet_1: 1805703829
+      hammer_and_knife_sheet_10: 506013779
+      hammer_and_knife_sheet_11: -401209857
+      hammer_and_knife_sheet_12: -2138387960
+      hammer_and_knife_sheet_13: 1166490793
+      hammer_and_knife_sheet_14: -1993406194
+      hammer_and_knife_sheet_15: -512925768
+      hammer_and_knife_sheet_16: -1278465635
+      hammer_and_knife_sheet_17: -1854248150
+      hammer_and_knife_sheet_18: -1199018292
+      hammer_and_knife_sheet_19: -1263184384
+      hammer_and_knife_sheet_2: 1971773917
+      hammer_and_knife_sheet_20: -783856987
+      hammer_and_knife_sheet_21: 894774794
+      hammer_and_knife_sheet_22: -1150356416
+      hammer_and_knife_sheet_23: 1057154488
+      hammer_and_knife_sheet_24: -1876797090
+      hammer_and_knife_sheet_25: 471209562
+      hammer_and_knife_sheet_26: -1253354335
+      hammer_and_knife_sheet_27: -374864883
+      hammer_and_knife_sheet_28: -2116439108
+      hammer_and_knife_sheet_29: 638447189
+      hammer_and_knife_sheet_3: -1255957248
+      hammer_and_knife_sheet_30: -835840937
+      hammer_and_knife_sheet_31: -1479921605
+      hammer_and_knife_sheet_32: 1756651856
+      hammer_and_knife_sheet_33: -2092227178
+      hammer_and_knife_sheet_34: -1328462146
+      hammer_and_knife_sheet_35: -662689292
+      hammer_and_knife_sheet_4: -1985435456
+      hammer_and_knife_sheet_5: 362094575
+      hammer_and_knife_sheet_6: -1346464093
+      hammer_and_knife_sheet_7: -966795561
+      hammer_and_knife_sheet_8: 1659193137
+      hammer_and_knife_sheet_9: 1171896033
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

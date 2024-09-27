@@ -20,11 +20,15 @@ public class NoteMaker_EditScene : MonoBehaviour
     public List<GameObject> MakerObjList;
     GameObject Note_Normal;
     GameObject Note_Long;
-    GameObject ExpandCheckerLineMaker;
     GameObject Ghost_Note;
     GameObject BossAppearNoteMaker;
     GameObject BossDisappearNoteMaker;
     GameObject ObstacleMaker;
+    GameObject EndEventMaker;
+    GameObject NoteSpawnOutsideEventMaker;
+    GameObject NoteSpawnOutsideReverseEventMaker;
+
+
 
     bool Already_Using = false;
 
@@ -44,11 +48,18 @@ public class NoteMaker_EditScene : MonoBehaviour
         }
         Note_Normal = MakerObjList[0];
         Note_Long = MakerObjList[1];
-       // ExpandCheckerLineMaker = MakerObjList[2];
+
         Ghost_Note = MakerObjList[2];
+
         BossAppearNoteMaker = MakerObjList[3];
         BossDisappearNoteMaker = MakerObjList[4];
+
         ObstacleMaker = MakerObjList[5];
+
+        EndEventMaker = MakerObjList[6];
+        NoteSpawnOutsideEventMaker = MakerObjList[7];
+        NoteSpawnOutsideReverseEventMaker = MakerObjList[8];
+
 
         //NoteMakerButton = GetComponent<Button>();
 
@@ -112,29 +123,6 @@ public class NoteMaker_EditScene : MonoBehaviour
             Already_Using = false;
         }
         
-    }
-
-    public void Instantiate_ExpandCheckerLine()
-    {
-        if(ExpandCheckerLineMaker.activeSelf == false)
-        {
-            if (!Already_Using)
-            {
-                ExpandCheckerLineMaker.SetActive(true);
-            }
-            else
-            {
-                TurnOffMaker();
-                ExpandCheckerLineMaker.SetActive(true);
-            }
-            Already_Using = true;
-        }
-        else
-        {
-            ExpandCheckerLineMaker.SetActive(false);
-            Already_Using = false;
-        }
-       
     }
 
     public void Instantiate_GhostNote()
@@ -229,6 +217,72 @@ public class NoteMaker_EditScene : MonoBehaviour
         }
     }
 
+    public void Instantiate_EndEvent()
+    {
+        if (EndEventMaker.activeSelf == false)
+        {
+            if (!Already_Using)
+            {
+                EndEventMaker.SetActive(true);
+            }
+            else
+            {
+                TurnOffMaker();
+                EndEventMaker.SetActive(true);
+            }
+            Already_Using = true;
+        }
+        else
+        {
+            EndEventMaker.SetActive(false);
+            Already_Using = false;
+        }
+    }
+
+    public void Instantiate_NoteSpawnOutsideEvent()
+    {
+        if (NoteSpawnOutsideEventMaker.activeSelf == false)
+        {
+            if (!Already_Using)
+            {
+                NoteSpawnOutsideEventMaker.SetActive(true);
+            }
+            else
+            {
+                TurnOffMaker();
+                NoteSpawnOutsideEventMaker.SetActive(true);
+            }
+            Already_Using = true;
+        }
+        else
+        {
+            NoteSpawnOutsideEventMaker.SetActive(false);
+            Already_Using = false;
+        }
+
+    }
+
+    public void Instantiate_NoteSpawnOutsideReverseEvent()
+    {
+        if (NoteSpawnOutsideReverseEventMaker.activeSelf == false)
+        {
+            if (!Already_Using)
+            {
+                NoteSpawnOutsideReverseEventMaker.SetActive(true);
+            }
+            else
+            {
+                TurnOffMaker();
+                NoteSpawnOutsideReverseEventMaker.SetActive(true);
+            }
+            Already_Using = true;
+        }
+        else
+        {
+            NoteSpawnOutsideReverseEventMaker.SetActive(false);
+            Already_Using = false;
+        }
+    }
 
 
 }

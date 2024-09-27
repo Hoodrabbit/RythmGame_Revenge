@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static TreeEditor.TreeEditorHelper;
-
 
 
 
@@ -145,7 +143,7 @@ public class EditManager : Singleton<EditManager>
     {
         GameObject AddNote = Instantiate(NormalNote_Obj, EditManager.Instance.barNote.RhythmNote.transform);
 
-            AddNote.transform.position = new Vector3(xpos, SettingHeight(height));
+            AddNote.transform.position = new Vector3(xpos, height/* SettingHeight(height)*/);
             AddNote.GetComponent<Note>().SetNoteType(enemyType);
 
 
@@ -169,7 +167,7 @@ public class EditManager : Singleton<EditManager>
         GameObject LongNote;
         if (LongNoteStartEndCheck == 1)
         {
-            LongNote = Instantiate(LongNote_Obj, new Vector3(xpos, SettingHeight(height)), Quaternion.identity, EditManager.Instance.barNote.transform);
+            LongNote = Instantiate(LongNote_Obj, new Vector3(xpos, height/*SettingHeight(height)*/), Quaternion.identity, EditManager.Instance.barNote.transform);
             UnCompleteLongNoteQueue.Enqueue(LongNote.GetComponent<LongNoteScript>());
 
             float RealXpos = LongNote.transform.position.x - EditManager.Instance.GetNPXpos();
@@ -181,7 +179,7 @@ public class EditManager : Singleton<EditManager>
             Queue<LongNoteScript> newLongNoteQueue = new Queue<LongNoteScript>();
             foreach (var head in UnCompleteLongNoteQueue)
             {
-                if (head.transform.position.y == SettingHeight(height)) //줄 번호가 1일 경우 2의 위치임
+                if (head.transform.position.y == height) //줄 번호가 1일 경우 2의 위치임
                 {
                     head.Tail.transform.position = new Vector3(xpos, head.transform.position.y);
 
@@ -201,7 +199,7 @@ public class EditManager : Singleton<EditManager>
     }
     public void GhostNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
         {
-                GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, SettingHeight(height)), Quaternion.identity, EditManager.Instance.barNote.transform);
+                GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.transform);
 
                 float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
@@ -215,7 +213,7 @@ public class EditManager : Singleton<EditManager>
 
     public void Obstacle(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
     {
-        GameObject AddNote = Instantiate(Obstacle_Obj, new Vector3(xpos, SettingHeight(height)), Quaternion.identity, EditManager.Instance.barNote.transform);
+        GameObject AddNote = Instantiate(Obstacle_Obj, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.transform);
 
         float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 

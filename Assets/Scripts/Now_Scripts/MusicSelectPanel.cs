@@ -204,7 +204,7 @@ public class MusicSelectPanel : MonoBehaviour
         }
         else if ((Input.mousePosition - screenCenter).x > 100)
         {
-            Debug.Log("Right작동");
+            //Debug.Log("Right작동");
             NowSelect--;
             if (NowSelect < 0)
             {

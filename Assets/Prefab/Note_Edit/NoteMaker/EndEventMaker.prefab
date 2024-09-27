@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8557576016896229041}
   - component: {fileID: 8288947683503557723}
   - component: {fileID: 1544619962534056680}
-  - component: {fileID: -6603021653760626269}
+  - component: {fileID: -3129685417793229724}
   m_Layer: 0
   m_Name: EndEventMaker
   m_TagString: Note_Edit
@@ -149,7 +149,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &-6603021653760626269
+--- !u!114 &-3129685417793229724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,8 +158,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5612370883487808057}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3678bf1ab901bc44da33c51292c1d7cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 0aca17426e900a44b97d405545fef7b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Boss_Note: {fileID: 5612370883487808057, guid: e8d9bafe715f7204ab477ff0b653a4c0, type: 3}
-  bossNoteType: 0
+  EventNote: {fileID: 5612370883487808057, guid: c69f4bbf5271c4b4d84a26e8a504c20a, type: 3}

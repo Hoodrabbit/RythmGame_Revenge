@@ -47,8 +47,8 @@ public class Event_Note_Maker : NoteMakerBase
                     float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
                     //위와 동일 
 
-
-                   DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, 0, NoteType, (double)RealXpos / 10));
+                    AddEvent.GetComponent<NoteEventScript>().SetSongTime(RealXpos / GameManager.Instance.speed);
+                    DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, 0, NoteType, (double)RealXpos / GameManager.Instance.speed));
                     
                 }
 
@@ -64,7 +64,7 @@ public class Event_Note_Maker : NoteMakerBase
                 //Debug.Log("작동" + hit[i].collider.name);
 
 
-                if (hit[i].collider.CompareTag("BossActionNote"))
+                if (hit[i].collider.CompareTag("EventNote"))
                 {
 
                     Destroy(hit[i].collider.gameObject);
@@ -93,7 +93,7 @@ public class Event_Note_Maker : NoteMakerBase
 
         while (count < hit_Detail.Length)
         {
-            if (hit_Detail[count].collider.CompareTag("BossActionNote"))
+            if (hit_Detail[count].collider.CompareTag("BossActionNote") || hit_Detail[count].collider.CompareTag("EventNote"))
             {
                 Debug.Log("중복입니다.");
                 return false;

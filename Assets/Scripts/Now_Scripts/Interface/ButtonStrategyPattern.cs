@@ -231,7 +231,7 @@ class MakeEndEvent : IButton
 
     public void Click()
     {
-        throw new NotImplementedException();
+        NoteMaker_EditScene.instance.Instantiate_EndEvent();
     }
 }
 
@@ -242,7 +242,7 @@ class MakeNoteOutSpawnEvent : IButton
 
     public void Click()
     {
-        throw new NotImplementedException();
+        NoteMaker_EditScene.instance.Instantiate_NoteSpawnOutsideEvent();
     }
 
 }
@@ -254,7 +254,7 @@ class MakeNoteOutSpawnReverseEvent : IButton
 
     public void Click()
     {
-        throw new NotImplementedException();
+        NoteMaker_EditScene.instance.Instantiate_NoteSpawnOutsideReverseEvent();
     }
 }
 

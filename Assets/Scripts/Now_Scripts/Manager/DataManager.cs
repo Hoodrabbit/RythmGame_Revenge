@@ -111,12 +111,9 @@ public class EventInfoAll
 public class DataManager : Singleton<DataManager>
 {
     //파일 관리를 해줄 스크립트 게임 매니저의 스크립터블에서 파일 주소를 뽑아옴
-#if UNITY_EDITOR
     static string NoteDataFolder = Application.streamingAssetsPath + "\\NOTEDATA_Folder";
     static string NoteEventDataFolder = Application.streamingAssetsPath + "\\NOTEEVENTDATA_Folder";
-#else
-        static string NoteDataFolder = Application.streamingAssetsPath + "\\NOTEDATA_Folder";
-#endif
+
     string NoteDataPath;
     string NoteEventDataPath;
 
@@ -128,18 +125,19 @@ public class DataManager : Singleton<DataManager>
     protected override void Awake()
     {
         base.Awake();
+        if (!Directory.Exists(NoteEventDataFolder))
+        {
+            Directory.CreateDirectory(NoteEventDataFolder);
+        }
         if (!Directory.Exists(NoteDataFolder))
         {
             Directory.CreateDirectory(NoteDataFolder);
         }
-        if(!Directory.Exists(NoteEventDataFolder))
-        {
-            Directory.CreateDirectory(NoteEventDataFolder);
-        }
 
 
-        NoteDataPath = Path.Combine(NoteDataFolder, GameManager.Instance.musicInfo.Music_Name + "_NoteData.txt");
         NoteEventDataPath = Path.Combine(NoteEventDataFolder, GameManager.Instance.musicInfo.Music_Name + "_EventData.txt");
+        NoteDataPath = Path.Combine(NoteDataFolder, GameManager.Instance.musicInfo.Music_Name + "_NoteData.txt");
+        
     }
 
 
@@ -323,9 +321,9 @@ public class DataManager : Singleton<DataManager>
             height = Int32.Parse(split_Text[1]);
             EventType = Int32.Parse(split_Text[2]);
 
-            if (split_Text[4] != null)
+            if (split_Text[3] != null)
             {
-                SongTime = double.Parse(split_Text[4]);
+                SongTime = double.Parse(split_Text[3]);
             }
             else
                 SongTime = 0;
@@ -352,8 +350,36 @@ public class DataManager : Singleton<DataManager>
     {
         //Debug.Log(PlayManager.Instance);
     }
+    
+
+    //해당 이벤트는 노트가 생성되는 순간과 이벤트 오브젝트가 생성되는 경우 두 경우 다 발동되도록 설정해야함
+    void AddEvent(double songtime)
+    {
+        //파싱한 이벤트 관련 데이터들을 리스트에다 저장을 해서 
+        //노트가 생성되면 바로 이벤트 리스트부터 확인하도록 해서 현재 적용되고 잇는 혹은 적용될 이벤트가 잇는지
+        //다만 문제가 될만한 부분이 실시간으로 이게 처리가 되어야 하다 보니 이벤트가 새로 만들어지거나 삭제되는 경우 
+        //다시 동기화를 해줘야 함 그것도 고려해서 만들어줘야함
+
+        /*
+            foreach(var event in 이벤트 데이터)
+        {
+            if(songtime > event.time)
+        {
+            return 현재 이벤트
 
 
+        }
+
+
+
+        }
+         
+         
+         
+         */
+
+
+    }
 
 
 

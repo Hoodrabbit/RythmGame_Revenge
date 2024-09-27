@@ -68,7 +68,11 @@ public enum NoteHeight
 { 
     None,
     UP,
-    DOWN
+    DOWN,
+    OUTSIDE_UP,
+    OUTSIDE_DOWN,
+    REVERSE_UP,
+    REVERSE_DOWN
 }
 
 
@@ -116,6 +120,7 @@ public enum NoteEditOperatingState
 
 public enum EventType
 {
+    None,
     SpawnOutside,
     SpawnOutside_Reverse,
     End
