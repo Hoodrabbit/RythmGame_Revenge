@@ -190,7 +190,7 @@ public class SliderToNotePos : MonoBehaviour
             Pos = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
             Debug.Log(Pos);
 
-            Debug.Log(musicTimeSlider.GetSliderValue());
+           // Debug.Log(musicTimeSlider.GetSliderValue());
         }
 
         if (Input.GetMouseButton(0))

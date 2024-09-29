@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5001148196221637037}
   - component: {fileID: 8557576016896229041}
   - component: {fileID: 1544619962534056680}
-  - component: {fileID: 3427757792095548354}
   - component: {fileID: 5565928282346254548}
   m_Layer: 0
   m_Name: Note 4
@@ -114,25 +113,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &3427757792095548354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5612370883487808057}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9295c761605220428c5ff51a534fa2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TypeNum: 0
-  speed: 6
-  SongTime: 0
-  AudioTime: 0
-  Type: 0
-  Height: 0
-  xpos: 0
 --- !u!61 &5565928282346254548
 BoxCollider2D:
   m_ObjectHideFlags: 0

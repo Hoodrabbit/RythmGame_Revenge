@@ -16,7 +16,7 @@ public class AudioManager : Singleton<AudioManager>
     {
        // Debug.Log("    " + ss.gameObject.name);
         songSelect = ss;
-        Debug.Log("    " + songSelect.gameObject.name);
+        //Debug.Log("    " + songSelect.gameObject.name);
     }
 
     public void SetValue(MusicInfo music)

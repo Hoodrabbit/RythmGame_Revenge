@@ -35,7 +35,7 @@ public abstract class NoteMakerBase : MonoBehaviour
             Vector2 Pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.position = Pos; //마우스의 현재 위치에 노트를 생성시켜주는 오브젝트가 위치할 수 있도록 함
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && Note != null)
             {
                 AreaCheck(Note, transform.position, false);
             }
@@ -169,7 +169,7 @@ public abstract class NoteMakerBase : MonoBehaviour
     {
 
         Vector2 rayDirection = Pos;
-        Debug.Log("Posup : " + rayDirection);
+        //Debug.Log("Posup : " + rayDirection);
         RaycastHit2D[] hit_Detail;
         int count = 0;
         hit_Detail = Physics2D.RaycastAll(rayDirection, transform.forward, 10);

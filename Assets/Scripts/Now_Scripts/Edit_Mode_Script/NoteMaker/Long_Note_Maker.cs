@@ -165,7 +165,7 @@ public class Long_Note_Maker : NoteMakerBase
                     LongNoteScript longNoteScript = LongNote.parent.GetComponent<LongNoteScript>();
                     if (longNoteScript != null)
                     {
-                        Debug.Log(longNoteScript.gameObject.name);
+                      //  Debug.Log(longNoteScript.gameObject.name);
                         Destroy(longNoteScript.gameObject);
                     }
 

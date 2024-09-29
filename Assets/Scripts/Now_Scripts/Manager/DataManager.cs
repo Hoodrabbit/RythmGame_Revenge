@@ -8,36 +8,6 @@ using System;
 
 
 
-
-
-//0번 타입 : 보스 타입인데 보스도 종류가 있다보니 어떤 식으로 하면 좋을 지 
-//아니면 보스만 별개로 100번대 타입으로 하는 것도 방법일듯함
-
-//ㅁㄴㅇㄹ
-
-
-public class NoteEventInfoPos
-{
-    public float xpos; // 노트의 X 값(에디터 상 정보이기 때문에 나중에 실제 게임 씬에서는 해당 데이터에 추가로 오프셋이나 속도에 따라 위치를 조절할 수 있음
-    public int HeightValue; //노트 높이 번호로 저장받아서 나중에 불러올 때는 그 번호에 따라 Y값을 특정 값으로 할당시킴
-
-    public int EventType; //이벤트 종류 체크
-
-    public double SongTime;
-
-
-    public NoteEventInfoPos(float x, int h, int eventType, double songtime)
-    {
-        xpos = x;
-        HeightValue = h;
-        EventType = eventType;
-        SongTime = songtime;
-    }
-
-
-
-}
-
 public class NoteInfoPos
 {
     public float xpos; // 노트의 X 값(에디터 상 정보이기 때문에 나중에 실제 게임 씬에서는 해당 데이터에 추가로 오프셋이나 속도에 따라 위치를 조절할 수 있음
@@ -67,8 +37,6 @@ public class NoteInfoPos
 
 }
 
-
-
 /// <summary>
 /// 1 : Note 종류 2 : 위치  3 : 높이   4 : 롱노트 전용 변수(시작 1, 끝 2)   5 : 노래 시간   6 : 음률 전용 변수(0이면 기본 1, 2까지 존재)
 /// </summary>
@@ -82,6 +50,30 @@ public class NoteInfoAll //찍은 노트에 대한 정보를 담아 줄 클래스
     {
         this.Note = Note;
         notePos = new NoteInfoPos(x, h, noteType, LongNoteStartEndCheck, songtime, enemyType);
+    }
+
+
+
+}
+
+
+
+public class NoteEventInfoPos
+{
+    public float xpos; // 노트의 X 값(에디터 상 정보이기 때문에 나중에 실제 게임 씬에서는 해당 데이터에 추가로 오프셋이나 속도에 따라 위치를 조절할 수 있음
+    public int HeightValue; //노트 높이 번호로 저장받아서 나중에 불러올 때는 그 번호에 따라 Y값을 특정 값으로 할당시킴
+
+    public int EventType; //이벤트 종류 체크
+
+    public double SongTime;
+
+
+    public NoteEventInfoPos(float x, int h, int eventType, double songtime)
+    {
+        xpos = x;
+        HeightValue = h;
+        EventType = eventType;
+        SongTime = songtime;
     }
 
 
@@ -117,6 +109,8 @@ public class DataManager : Singleton<DataManager>
     string NoteDataPath;
     string NoteEventDataPath;
 
+
+    public Action EventCheck= delegate { }; //해당 이벤트의 경우 특수하게 이벤트 노트 생성기 스크립트 내의 액션 변수에 구독되어 있음
     public List<NoteInfoAll> EditNotes = new List<NoteInfoAll>();
     public List<EventInfoAll> EventNotes = new List<EventInfoAll>();
 
@@ -141,7 +135,7 @@ public class DataManager : Singleton<DataManager>
     }
 
 
-    public void ListNullCheck() //해당 리스트 중에서 null이 존재하는지 확인하고 만약 존재한다면 해당 데이터는 제거함
+    public void ListNullCheck(double songtime = -1) //해당 리스트 중에서 null이 존재하는지 확인하고 만약 존재한다면 해당 데이터는 제거함
     {
         int i = EditNotes.Count - 1;
         while (i >= 0)
@@ -154,15 +148,28 @@ public class DataManager : Singleton<DataManager>
             i--;
         }
 
-        int j = EventNotes.Count - 1;
-        while(j >= 0)
+        int j = 0;
+        while(j < EventNotes.Count)
         {
+            //Debug.Log(EventNotes.Count);
+            //Debug.Log(EventNotes[j].EventNote.gameObject.name);
             if (EventNotes[j].EventNote == null)
+            {
+                
+                EventNotes.RemoveAt(j);
+            }
+
+            if(songtime == (EventNotes[j].eventPos.SongTime))
             {
                 EventNotes.RemoveAt(j);
             }
-            j--;
+
+
+            j++;
         }
+
+        
+
 
 
     }
@@ -344,43 +351,15 @@ public class DataManager : Singleton<DataManager>
 
         NoteParsing.Close();
         EventNoteParsing.Close();
+
+        EventCheck?.Invoke();
+
     }
 
     void SaveGameResult()
     {
         //Debug.Log(PlayManager.Instance);
     }
-    
-
-    //해당 이벤트는 노트가 생성되는 순간과 이벤트 오브젝트가 생성되는 경우 두 경우 다 발동되도록 설정해야함
-    void AddEvent(double songtime)
-    {
-        //파싱한 이벤트 관련 데이터들을 리스트에다 저장을 해서 
-        //노트가 생성되면 바로 이벤트 리스트부터 확인하도록 해서 현재 적용되고 잇는 혹은 적용될 이벤트가 잇는지
-        //다만 문제가 될만한 부분이 실시간으로 이게 처리가 되어야 하다 보니 이벤트가 새로 만들어지거나 삭제되는 경우 
-        //다시 동기화를 해줘야 함 그것도 고려해서 만들어줘야함
-
-        /*
-            foreach(var event in 이벤트 데이터)
-        {
-            if(songtime > event.time)
-        {
-            return 현재 이벤트
-
-
-        }
-
-
-
-        }
-         
-         
-         
-         */
-
-
-    }
-
 
 
 

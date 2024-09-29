@@ -9,8 +9,8 @@ public class Note : MonoBehaviour
 {
     [Header("노트 타입")]
     public int TypeNum;
-   
-    public Action EventChanged;
+
+    public EventType eventType;
 
 
 
@@ -24,9 +24,14 @@ public class Note : MonoBehaviour
 
     public MelodyType Type = MelodyType.Normal;
     public NoteHeight Height;
-    public float xpos;
 
-    public bool EventActivate = false;
+    public float xpos;
+    public float ypos;
+
+    Animator Note_Move_Animator;
+
+
+    //public bool EventActivate = false;
     //이벤트가 활성화 즉 true일시 해당 이벤트로 발생하는 위치의 이동
     //우리가 알아야 하는 것 즉 이벤트가 발생했을 시 노트가 어느 위치(y값)로 이동하는가
 
@@ -35,28 +40,36 @@ public class Note : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         speed = GameManager.Instance.speed;
+
     }
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
         AudioTime = AudioSettings.dspTime;
+        Note_Move_Animator = GetComponent<Animator>();
         xpos = transform.position.x;
+        ypos = transform.position.y;
         //if (Type == MelodyType.Obstacle)
-       // {
-            SpriteRenderer ChangeColor = GetComponent<SpriteRenderer>();
-            Debug.Log(transform.position.y);
+        // {
+        SpriteRenderer ChangeColor = GetComponent<SpriteRenderer>();
+
+        if (TypeNum == 1)
+        {
+            EventManager.Instance.RefreshNoteEvent += EventChangeMethod;
+            EventChangeMethod();
+        }
 
 
-        if(TypeNum== 1 || TypeNum == 2)
+        if (TypeNum == 1 || TypeNum == 2)
         {
             if (transform.position.y >= 0)
                 ChangeColor.color = Color.red;
             else
                 ChangeColor.color = Color.blue;
         }
-            
-       // }
+
+        // }
 
 
     }
@@ -68,26 +81,24 @@ public class Note : MonoBehaviour
             Instantiate(FindObjectOfType<OffsetUIController>().OffsetNote, new Vector3(xpos + 10 * (float)(AudioSettings.dspTime - AudioTime), 0), Quaternion.identity);
         }
 
-        if(Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            if(Height == NoteHeight.REVERSE_UP)
+            if (Height == NoteHeight.REVERSE_UP)
             {
-                Animator animator = GetComponent<Animator>();
-                animator.SetTrigger("UpCurve");
+                Note_Move_Animator.SetTrigger("UpCurve");
             }
-            if(Height == NoteHeight.REVERSE_DOWN)
+            if (Height == NoteHeight.REVERSE_DOWN)
             {
-                Animator animator = GetComponent<Animator>();
-                animator.SetTrigger("DownCurve");
+                Note_Move_Animator.SetTrigger("DownCurve");
             }
         }
 
         if (Input.GetKeyDown(KeyCode.I))
         {
             StopAllCoroutines();
-                Animator animator = GetComponent<Animator>();
-                animator.SetTrigger("ReverseCurve");
-            
+            Animator animator = GetComponent<Animator>();
+            animator.SetTrigger("ReverseCurve");
+
         }
 
 
@@ -100,9 +111,9 @@ public class Note : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-  
-        
-        
+
+
+
 
 
         if (GameManager.Instance.state == GameState.Play_Mode)
@@ -113,16 +124,16 @@ public class Note : MonoBehaviour
                 //GameManager.Instance.PlayMusic();
             }
 
-            
-                transform.position = new Vector2(xpos - GameManager.Instance.speed*(float)(AudioSettings.dspTime - AudioTime), transform.position.y);
-                //AudioTime += AudioSettings.dspTime - AudioTime;
-            
+
+            transform.position = new Vector2(xpos - GameManager.Instance.speed * (float)(AudioSettings.dspTime - AudioTime), transform.position.y);
+            //AudioTime += AudioSettings.dspTime - AudioTime;
 
 
 
-            
+
+
         }
-        else if(GameManager.Instance.state == GameState.Offset_Mode)
+        else if (GameManager.Instance.state == GameState.Offset_Mode)
         {
             if ((float)(AudioSettings.dspTime - AudioTime) >= 2.4f)
             {
@@ -132,13 +143,13 @@ public class Note : MonoBehaviour
 
 
             //transform.position = new Vector2(transform.position.x + 10 * Time.fixedDeltaTime, transform.position.y);
-          //  transform.position = new Vector2(xpos + 10 * (float)(AudioSettings.dspTime - AudioTime), transform.position.y);
+            //  transform.position = new Vector2(xpos + 10 * (float)(AudioSettings.dspTime - AudioTime), transform.position.y);
 
-            
+
 
         }
 
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -148,7 +159,7 @@ public class Note : MonoBehaviour
             PlayManager.Instance.MissNote();
         }
 
-        if(collision.CompareTag("Curve"))
+        if (collision.CompareTag("Curve"))
         {
             Debug.Log("감지");
             Animator animator = GetComponent<Animator>();
@@ -163,8 +174,8 @@ public class Note : MonoBehaviour
                 animator.SetTrigger("DownCurve");
             }
 
-            
-            
+
+
         }
 
     }
@@ -177,11 +188,11 @@ public class Note : MonoBehaviour
     public void SetNoteType(int num)
     {
         SpriteRenderer SR = GetComponent<SpriteRenderer>();
-       
+
 
         switch (num)
         {
-           
+
 
             case 0:
                 Type = MelodyType.Normal; break;
@@ -206,7 +217,7 @@ public class Note : MonoBehaviour
 
     public int GetHeight()
     {
-        switch(Height)
+        switch (Height)
         {
             case NoteHeight.UP:
                 return EditManager.UP;
@@ -290,13 +301,13 @@ public class Note : MonoBehaviour
         Debug.Log("체크");
         yield return null;
     }
-   
+
 
 
     //이름을 잘못 지었습니다.. 역순이 역순으로 꺽어서 오는게 아니라 진짜 행동이 되돌아가는 그 리버스요
     public void ReverseNoteCurving()
     {
-        StartCoroutine (ReverseNoteMove());
+        StartCoroutine(ReverseNoteMove());
     }
 
     IEnumerator ReverseNoteMove()
@@ -317,26 +328,226 @@ public class Note : MonoBehaviour
     }
 
 
+    EventType EventChecker(int num)
+    {
+        switch (num)
+        {
+            case 0:
+                return EventType.None;
+            case 1:
+                return EventType.SpawnOutside;
+            case 2:
+                return EventType.SpawnOutside_Reverse;
+            case 3:
+                return EventType.None;
+        }
+        return 0;
+
+
+
+    }
 
     public void EventChangeMethod()
     {
         //계속 적용시키는 건 최적화에 문제가 생기니까 해당 이벤트가 발동됬을 때 적용 될 수 있도록 만들어주면 좋을 것 같음
-        for(int i=0; i<DataManager.Instance.EventNotes.Count; i++)
+        if (EventManager.Instance.EventList != null)
         {
-            if(this.SongTime >= DataManager.Instance.EventNotes[i].eventPos.SongTime)
-            {
-                if(this.transform.position.y > 0)
-                {
+            // Debug.Log(" 이벤트 발동   " + EventManager.Instance.EventList.Count);
 
+            int event_TypeCheck = 0;
+            bool ReverseCheck = false;
+
+            if (eventType == EventType.SpawnOutside_Reverse)
+            {
+                ReverseCheck = true;
+            }
+
+
+            if (EventManager.Instance.EventList.Count > 0)
+            {
+                for (int i = 0; i < EventManager.Instance.EventList.Count; i++)
+                {
+                    if (SongTime >= EventManager.Instance.EventList[i].eventPos.SongTime)
+                    {
+                        event_TypeCheck = EventManager.Instance.EventList[i].eventPos.EventType;
+                    }
+                }
+                eventType = EventChecker(event_TypeCheck);
+
+            }
+            else
+            {
+                eventType = EventChecker(0);
+            }
+
+            //이벤트에 따른 노트의 변화
+            //노트 높이 변경 관련 메서드 활성화
+
+            ChangeHeight();
+
+        }
+
+
+
+    }
+
+    //반대로 오는 노트도 있기 때문에 해당 타입이었던 경우 위치 변경 전 타입을 체크해서 위치를 설정해주도록 해야 함
+    void ChangeHeight(/*bool reverseCheck*/)
+    {
+        //if(!reverseCheck) //이전 상태가 노트 반전화가 아니었을 경우
+        //{
+        switch (eventType)
+        {
+            case EventType.None:
+                if (ypos > 0)
+                {
+                    Height = NoteHeight.UP;
+                    transform.position = new Vector3(transform.position.x, GetHeight());
                 }
                 else
                 {
-
+                    Height = NoteHeight.DOWN;
+                    transform.position = new Vector3(transform.position.x, GetHeight());
                 }
+                break;
+
+            case EventType.SpawnOutside:
+                if (ypos > 0)
+                {
+                    Height = NoteHeight.OUTSIDE_UP;
+                    transform.position = new Vector3(transform.position.x, GetHeight());
+                }
+                else
+                {
+                    Height = NoteHeight.OUTSIDE_DOWN;
+                    transform.position = new Vector3(transform.position.x, GetHeight());
+                }
+                break;
+
+            case EventType.SpawnOutside_Reverse:
+                if (ypos > 0)
+                {
+                    Height = NoteHeight.REVERSE_UP;
+                    transform.position = new Vector3(transform.position.x, GetHeight());
+                }
+                else
+                {
+                    Height = NoteHeight.REVERSE_DOWN;
+                    transform.position = new Vector3(transform.position.x, GetHeight());
+                }
+                break;
+        }
+        //}
+        //else //이전 상태가 노트 반전화가 였을 경우
+        //{
+        //    switch (eventType)
+        //    {
+        //        case EventType.None:
+        //            if (ypos > 0)
+        //            {
+        //                Height = NoteHeight.DOWN;
+        //                transform.position = new Vector3(transform.position.x, GetHeight());
+        //            }
+        //            else
+        //            {
+        //                Height = NoteHeight.UP;
+        //                transform.position = new Vector3(transform.position.x, GetHeight());
+        //            }
+        //            break;
+
+        //        case EventType.SpawnOutside:
+        //            if (ypos > 0)
+        //            {
+        //                Height = NoteHeight.UP;
+        //                transform.position = new Vector3(transform.position.x, GetHeight());
+        //            }
+        //            else
+        //            {
+        //                Height = NoteHeight.DOWN;
+        //                transform.position = new Vector3(transform.position.x, GetHeight());
+        //            }
+        //            break;
+
+        //        case EventType.SpawnOutside_Reverse:
+        //            if (ypos > 0)
+        //            {
+        //                Height = NoteHeight.UP;
+        //                transform.position = new Vector3(transform.position.x, GetHeight());
+        //            }
+        //            else
+        //            {
+        //                Height = NoteHeight.DOWN;
+        //                transform.position = new Vector3(transform.position.x, GetHeight());
+        //            }
+        //            break;
+        //    }
+        //}
+
+    }
+
+
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (TypeNum ==1)
+        {
+            // 충돌한 객체의 콜라이더 정보를 가져옴
+
+            if (collision.collider.CompareTag("Curve"))
+            {
+                Vector2 collisionPoint = collision.GetContact(0).point; // 충돌 지점
+                Vector2 thisObjectPosition = transform.position; // 현재 객체의 위치
+
+                // 충돌한 객체와의 상대 위치 계산
+                Vector2 collisionDirection = collisionPoint - thisObjectPosition;
+
+                if (collisionDirection.x > 0) //Left
+                {
+                    //StopAllCoroutines();
+
+                    Note_Move_Animator.SetTrigger("ReverseCurve");
+                }
+                else //Right
+                {
+                    //StopAllCoroutines();
+
+
+                    Determining_NoteCurve();
+                }
+
             }
         }
 
+      
+
+
     }
+
+    void Determining_NoteCurve()
+    {
+
+        if(Height == NoteHeight.OUTSIDE_UP) 
+        {
+            Note_Move_Animator.SetTrigger("DownCurve"); 
+        }
+        if(Height == NoteHeight.OUTSIDE_DOWN) 
+        {
+            Note_Move_Animator.SetTrigger("UpCurve");
+        }
+        if (Height == NoteHeight.REVERSE_UP)
+        {
+            Note_Move_Animator.SetTrigger("UpCurve");
+        }
+        if (Height == NoteHeight.REVERSE_DOWN)
+        {
+            Note_Move_Animator.SetTrigger("DownCurve");
+        }
+    }
+
+
+
+
 
 
 

@@ -64,7 +64,7 @@ public class EditManager : Singleton<EditManager>
         return barNote.transform.position.x;
     }
 
-    public void MakeNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType=0)
+    public void MakeNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
     {
         //나중에 번호에 따른 수치 값 조정을 원활하게 할 수 있도록 따로 값으로 만들어놔야 할 것 같음
 
@@ -76,7 +76,7 @@ public class EditManager : Singleton<EditManager>
 
             case 1:
 
-                NormalNote(xpos, height, noteType, LongNoteStartEndCheck, songtime,enemyType);
+                NormalNote(xpos, height, noteType, LongNoteStartEndCheck, songtime, enemyType);
                 break;
 
             case 2:
@@ -104,30 +104,30 @@ public class EditManager : Singleton<EditManager>
         switch (eventType)
         {
             case 100:
-            Debug.Log("출현노트 ");
-            BossAppearNote(xpos, height, eventType, songtime);
-            break;
+                Debug.Log("출현노트 ");
+                BossAppearNote(xpos, height, eventType, songtime);
+                break;
 
-        case 101:
-            Debug.Log("퇴장노트 ");
-            BossDisappearNote(xpos, height, eventType, songtime);
-            break;
+            case 101:
+                Debug.Log("퇴장노트 ");
+                BossDisappearNote(xpos, height, eventType, songtime);
+                break;
 
 
-        case 200:
-            Debug.Log("이벤트 종료");
-            EndEventNote(xpos, height, eventType, songtime);
-            break;
+            case 200:
+                Debug.Log("이벤트 종료");
+                EndEventNote(xpos, height, eventType, songtime);
+                break;
 
-        case 201:
-            Debug.Log("노트 생성 바깥쪽");
-            NoteSpawnOutsideEvent(xpos, height, eventType, songtime);
-            break;
+            case 201:
+                Debug.Log("노트 생성 바깥쪽");
+                NoteSpawnOutsideEvent(xpos, height, eventType, songtime);
+                break;
 
-        case 202:
-            Debug.Log("노트 생성 바깥쪽 역순");
-            NoteSpawnOutsideReverseEvent(xpos, height, eventType, songtime);
-            break;
+            case 202:
+                Debug.Log("노트 생성 바깥쪽 역순");
+                NoteSpawnOutsideReverseEvent(xpos, height, eventType, songtime);
+                break;
         }
 
     }
@@ -143,25 +143,25 @@ public class EditManager : Singleton<EditManager>
     {
         GameObject AddNote = Instantiate(NormalNote_Obj, EditManager.Instance.barNote.RhythmNote.transform);
 
-            AddNote.transform.position = new Vector3(xpos, height/* SettingHeight(height)*/);
-            AddNote.GetComponent<Note>().SetNoteType(enemyType);
+        AddNote.transform.position = new Vector3(xpos, height/* SettingHeight(height)*/);
+        AddNote.GetComponent<Note>().SetNoteType(enemyType);
 
 
-            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+        AddNote.GetComponent<Note>().SongTime = (double)RealXpos / GameManager.Instance.speed;
 
-
-            //height 부분 나중에 바꿀거임
-            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed, enemyType));
+        //height 부분 나중에 바꿀거임
+        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed, enemyType));
 
 
     }
 
-    public void LongNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime,int enemyType= 0)
+    public void LongNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
     {
         LongNoteInternalMethod(xpos, height, noteType, LongNoteStartEndCheck, (double)xpos / 10);
     }
 
-             void LongNoteInternalMethod(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    void LongNoteInternalMethod(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
     {
 
         GameObject LongNote;
@@ -198,18 +198,18 @@ public class EditManager : Singleton<EditManager>
         }
     }
     public void GhostNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
-        {
-                GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.transform);
+    {
+        GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.transform);
 
-                float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
-                DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
-         
-        }
+        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
+
+    }
 
 
-        //롱노트 내부 메서드 따로 분리함
-  
+    //롱노트 내부 메서드 따로 분리함
+
 
     public void Obstacle(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
     {
@@ -312,7 +312,7 @@ public class EditManager : Singleton<EditManager>
             //기본 노트 높이
             case 1:
                 return UP;
-                
+
 
             case 2:
                 return DOWN;
@@ -344,5 +344,5 @@ public class EditManager : Singleton<EditManager>
     }
 
 
-    
+
 }

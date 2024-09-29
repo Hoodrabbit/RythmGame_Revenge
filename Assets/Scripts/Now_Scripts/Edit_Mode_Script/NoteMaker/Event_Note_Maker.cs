@@ -7,13 +7,14 @@ public class Event_Note_Maker : NoteMakerBase
 
     //고른 노트의 데이터 타입을 확인해서 번호를 얻어가는 메서드도 필요함
 
-    public static event Action EventChanged;
+    public Action EventChanged;
     public override GameObject Note { get => EventNote; set => EventNote = value; }
 
 
     protected override void Awake()
     {
         base.Awake();
+        EventChanged += DataManager.Instance.EventCheck;
         //NoteType = EventNote.GetComponent<Note>().TypeNum;
     }
 
@@ -45,8 +46,10 @@ public class Event_Note_Maker : NoteMakerBase
                     float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
                     //위와 동일 
 
-                    AddEvent.GetComponent<NoteEventScript>().SetSongTime(RealXpos / GameManager.Instance.speed);
-                    DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, 0, NoteType, (double)RealXpos / GameManager.Instance.speed));
+                    NoteEventScript NES = AddEvent.GetComponent<NoteEventScript>();
+                    AddEvent.GetComponent<Note>().SongTime = (double)RealXpos / GameManager.Instance.speed;
+                    NES.SetSongTime(RealXpos / GameManager.Instance.speed);
+                    DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, 0, (int)NES.eventType, (double)RealXpos / GameManager.Instance.speed));
                     EventChanged?.Invoke();
                 }
 
@@ -65,9 +68,10 @@ public class Event_Note_Maker : NoteMakerBase
                 if (hit[i].collider.CompareTag("EventNote"))
                 {
 
-                   
 
+                    DataManager.Instance.ListNullCheck(hit[i].collider.GetComponent<Note>().SongTime);
                     Destroy(hit[i].collider.gameObject);
+
                     EventChanged?.Invoke();
 
 
@@ -86,7 +90,7 @@ public class Event_Note_Maker : NoteMakerBase
     {
 
         Vector2 rayDirection = Pos;
-        Debug.Log("Posup : " + rayDirection);
+       // Debug.Log("Posup : " + rayDirection);
         RaycastHit2D[] hit_Detail;
         int count = 0;
         hit_Detail = Physics2D.RaycastAll(rayDirection, transform.forward, 10);

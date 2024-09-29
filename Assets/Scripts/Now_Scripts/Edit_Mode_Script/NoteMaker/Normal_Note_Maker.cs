@@ -45,7 +45,7 @@ public class Normal_Note_Maker : NoteMakerBase
 
                 Vector2 InstantiatePos;
 
-                if(Pos.y >0)
+                if (Pos.y > 0)
                 {
                     InstantiatePos = new Vector3(hit[i].transform.position.x, hit[i].transform.position.y + EditManager.UP);
                 }
@@ -53,21 +53,21 @@ public class Normal_Note_Maker : NoteMakerBase
                 {
                     InstantiatePos = new Vector3(hit[i].transform.position.x, hit[i].transform.position.y + EditManager.DOWN);
                 }
-                
 
 
-                    if (NoteCheck(InstantiatePos))
-                    {
-                        GameObject AddNote = Instantiate(Note, InstantiatePos, Quaternion.identity, barNote.RhythmNote.transform);
 
-                        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
-                        //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가
+                if (NoteCheck(InstantiatePos))
+                {
+                    GameObject AddNote = Instantiate(Note, InstantiatePos, Quaternion.identity, barNote.RhythmNote.transform);
 
-                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, SetHeight_Event(Pos.y), NoteType, 0, (double)RealXpos / 10));
-                        //변경해야 됨 현재 로직 변경함
+                    float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+                    //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가
+                    AddNote.GetComponent<Note>().SongTime = (double)RealXpos / GameManager.Instance.speed;
+                    DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, SetHeight_Event(Pos.y), NoteType, 0, (double)RealXpos / GameManager.Instance.speed));
+                    //변경해야 됨 현재 로직 변경함
 
 
-                    }
+                }
             }
             i++;
         }
@@ -94,7 +94,7 @@ public class Normal_Note_Maker : NoteMakerBase
         if (GameEventState == EventType.SpawnOutside_Reverse)
         {
 
-            if(Ypos>0)
+            if (Ypos > 0)
             {
                 return EditManager.DOWN_OUTSIDE;
             }
@@ -137,4 +137,4 @@ public class Normal_Note_Maker : NoteMakerBase
 
 }
 
-  
+

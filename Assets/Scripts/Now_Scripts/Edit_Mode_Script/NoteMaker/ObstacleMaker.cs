@@ -98,7 +98,7 @@ public class ObstacleMaker : NoteMakerBase
     {
 
         Vector2 rayDirection = Pos;
-        Debug.Log("Posup : " + rayDirection);
+        //Debug.Log("Posup : " + rayDirection);
         RaycastHit2D[] hit_Detail;
         int count = 0;
         hit_Detail = Physics2D.RaycastAll(rayDirection, transform.forward, 10);

@@ -85,7 +85,7 @@ public class BarNote : MonoBehaviour
         if (Devide == true)
         {
             MakeBar();
-            Debug.Log("³ª´²Áü");
+            //Debug.Log("³ª´²Áü");
         }
         else
         {

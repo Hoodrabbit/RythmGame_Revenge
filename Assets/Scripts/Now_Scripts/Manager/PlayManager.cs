@@ -143,7 +143,7 @@ public class PlayManager : Singleton<PlayManager>
             NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
             LongNote = Instantiate(NoteTypes[1], new Vector3(NotePos.xpos, height), Quaternion.identity, Note_Parent.transform);
             LongNote.GetComponent<Note>().SetSongTime(songtime);
-            Debug.Log(songtime + " ���ʴ��ΰ���");
+           // Debug.Log(songtime + " ���ʴ��ΰ���");
             Notes.Add(LongNote);
             
             UnCompleteLongNoteQueue.Enqueue(LongNote.GetComponent<LongNoteScript>());
@@ -205,7 +205,7 @@ public class PlayManager : Singleton<PlayManager>
     {
         GameObject Note_Instantiate;
 
-        Debug.Log("BossAppearNote Xpos : " + xpos);
+       // Debug.Log("BossAppearNote Xpos : " + xpos);
 
         NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, noteType, LongNoteStartEndCheck, songtime);
         Note_Instantiate = Instantiate(NoteTypes[4], new Vector3(NotePos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
@@ -219,7 +219,7 @@ public class PlayManager : Singleton<PlayManager>
     {
         GameObject Note_Instantiate;
 
-        Debug.Log("BossDisppearNote Xpos : " + xpos);
+        //Debug.Log("BossDisppearNote Xpos : " + xpos);
 
         NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, noteType, LongNoteStartEndCheck, songtime);
         Note_Instantiate = Instantiate(NoteTypes[5], new Vector3(NotePos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
@@ -261,7 +261,7 @@ public class PlayManager : Singleton<PlayManager>
 
     public float SetLine()
     {
-        Debug.Log(GameManager.Instance.MainAudio.time+ "     ,      "+GameManager.Instance.MainAudio.clip.length);
+        //Debug.Log(GameManager.Instance.MainAudio.time+ "     ,      "+GameManager.Instance.MainAudio.clip.length);
         return Mathf.Clamp(GameManager.Instance.MainAudio.time / GameManager.Instance.MainAudio.clip.length, 0f, 1f);
     }
 

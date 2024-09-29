@@ -7,9 +7,20 @@ public class EventManager : Singleton<EventManager>
     public EventType NowEvent;
     float SongTime; //일단 지금은 xpos로 체크하도록 하는게 좋을 듯함
 
+    public List<EventInfoAll> EventList = new List<EventInfoAll>();
+    public Action RefreshNoteEvent;
     //public List<>
 
+    protected override void Awake()
+    {
+        base.Awake();
+       
+    }
 
+    private void Start()
+    {
+        DataManager.Instance.EventCheck += RefreshNoteEventMethod;
+    }
 
     public EventType GetEvent()
     {
@@ -64,13 +75,13 @@ public class EventManager : Singleton<EventManager>
 
 
     //더미
-    void eventchecker()
+    void RefreshNoteEventMethod()
     {
-        //노트가 디버그 찍을 수 있도록
+        DataManager.Instance.ListNullCheck();
+        EventList = DataManager.Instance.EventNotes;
 
-
-
-
+        Debug.Log("이벤트 발동");
+        RefreshNoteEvent?.Invoke();
     }
 
 
