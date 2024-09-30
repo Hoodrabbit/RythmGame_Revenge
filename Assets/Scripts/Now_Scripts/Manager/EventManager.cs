@@ -43,7 +43,7 @@ public class EventManager : Singleton<EventManager>
     {
         if(SongTime < GameManager.Instance.MainAudio.time && NowEvent != EventType.End)
         {
-            EventCheck();
+           // EventCheck();
         }
     }
 

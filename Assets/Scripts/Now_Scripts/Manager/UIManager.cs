@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,11 +10,11 @@ public class UIManager : Singleton<UIManager>
 {
     public BossNoteDetailScript BossNoteDetailPanel;
 
-
-    /// <summary>
-    /// OperatingWayButton[0] : KeyBoard , OperatingWayButton[1] : Mouse
-    /// </summary>
     public Button[] OperatingWayButton;
+
+    public Action MusicButtonPress;
+
+
 
 
     private void Update()
@@ -39,11 +40,14 @@ public class UIManager : Singleton<UIManager>
     public void PlayMusic()
     {
         GameManager.Instance.PlayMusicOnly();
+        MusicButtonPress?.Invoke();
+
     }
 
     public void StopMusic()
     {
         GameManager.Instance.MainAudio.Pause();
+        MusicButtonPress?.Invoke();
     }
 
 

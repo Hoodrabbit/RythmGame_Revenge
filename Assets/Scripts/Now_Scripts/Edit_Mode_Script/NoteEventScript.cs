@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class NoteEventScript : MonoBehaviour
 {
     public EventType eventType;
@@ -11,6 +11,18 @@ public class NoteEventScript : MonoBehaviour
 
 
     bool Used = false;
+
+    private void Start()
+    {
+        if (GameManager.Instance.state == GameState.Play_Mode)
+        {
+            SpriteRenderer SR = GetComponent<SpriteRenderer>();
+            GameObject childobj = GetComponentInChildren<Canvas>().gameObject;
+            childobj.SetActive(false);       
+            SR.color = new Color(0, 0, 0, 0);
+        }
+    }
+
 
     private void Update()
     {

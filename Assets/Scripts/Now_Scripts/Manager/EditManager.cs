@@ -114,19 +114,20 @@ public class EditManager : Singleton<EditManager>
                 break;
 
 
-            case 200:
+            case 3:
                 Debug.Log("이벤트 종료");
                 EndEventNote(xpos, height, eventType, songtime);
                 break;
 
-            case 201:
-                Debug.Log("노트 생성 바깥쪽");
-                NoteSpawnOutsideEvent(xpos, height, eventType, songtime);
-                break;
-
-            case 202:
+            case 2:
                 Debug.Log("노트 생성 바깥쪽 역순");
                 NoteSpawnOutsideReverseEvent(xpos, height, eventType, songtime);
+                
+                break;
+
+            case 1:
+                Debug.Log("노트 생성 바깥쪽");
+                NoteSpawnOutsideEvent(xpos, height, eventType, songtime);
                 break;
         }
 
@@ -274,7 +275,7 @@ public class EditManager : Singleton<EditManager>
 
     public void NoteSpawnOutsideEvent(float xpos, int height, int eventType, double songtime)
     {
-        GameObject AddEvent = Instantiate(EndEvent_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
+        GameObject AddEvent = Instantiate(NoteOutSpawnEvent_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
 
         float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
 
@@ -283,7 +284,7 @@ public class EditManager : Singleton<EditManager>
 
     public void NoteSpawnOutsideReverseEvent(float xpos, int height, int eventType, double songtime)
     {
-        GameObject AddEvent = Instantiate(EndEvent_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
+        GameObject AddEvent = Instantiate(NoteOutSpawnReverseEvent_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
 
         float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
 

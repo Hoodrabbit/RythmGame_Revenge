@@ -47,13 +47,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9295c761605220428c5ff51a534fa2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TypeNum: 0
+  TypeNum: 1
+  eventType: 0
   speed: 6
   SongTime: 0
   AudioTime: 0
   Type: 0
   Height: 0
   xpos: 0
+  ypos: 0
 --- !u!212 &8557576016896229041
 SpriteRenderer:
   m_ObjectHideFlags: 0

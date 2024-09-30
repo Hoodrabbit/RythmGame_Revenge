@@ -22,7 +22,7 @@ public class ComboSystem : MonoBehaviour
        // if (Combo >=5)
       //  {
             ComboText.enabled = true;
-            ComboText.text = Combo.ToString() + " / " + FullNoteCount.ToString();
+        ComboText.text = Combo.ToString();
       //  }
       //  else
         {

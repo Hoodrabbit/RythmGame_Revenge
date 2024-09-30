@@ -155,12 +155,13 @@ public class DataManager : Singleton<DataManager>
             //Debug.Log(EventNotes[j].EventNote.gameObject.name);
             if (EventNotes[j].EventNote == null)
             {
-                
+                Debug.Log("이벤트 제거");
                 EventNotes.RemoveAt(j);
             }
 
             if(songtime == (EventNotes[j].eventPos.SongTime))
             {
+                //DataManager.Instance.ListNullCheck(hit[i].collider.GetComponent<Note>().SongTime);
                 EventNotes.RemoveAt(j);
             }
 
@@ -341,7 +342,7 @@ public class DataManager : Singleton<DataManager>
             }
             else
             {
-                //PlayManager.Instance.PlayScene_NoteMaker(xpos * GameManager.Instance.speed + EditManager.Instance.GetNPXpos(), height, EventType,SongTime);
+                PlayManager.Instance.PlayScene_EventMaker(xpos * GameManager.Instance.speed, height, EventType,SongTime);
             }
 
         }

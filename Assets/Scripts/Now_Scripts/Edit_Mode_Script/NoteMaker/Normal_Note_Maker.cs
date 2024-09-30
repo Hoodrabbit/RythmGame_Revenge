@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static UnityEditor.PlayerSettings;
 
 
 //기본 노트가 의외로 확장될 수 있는 부분이 상당히 많아서 속성을 변경해야 할듯 함

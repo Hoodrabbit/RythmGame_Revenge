@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3210990702238462234}
   - component: {fileID: 3505856014102510414}
   - component: {fileID: 6769098838675601728}
+  - component: {fileID: 5175105850907118633}
   m_Layer: 0
   m_Name: Tail
   m_TagString: Note
@@ -130,6 +131,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5175105850907118633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6143954083052771896}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9295c761605220428c5ff51a534fa2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TypeNum: 0
+  eventType: 0
+  speed: 0
+  SongTime: 0
+  AudioTime: 0
+  Type: 0
+  Height: 0
+  xpos: 0
+  ypos: 0
 --- !u!1 &7824795879292237692
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +167,7 @@ GameObject:
   - component: {fileID: 5715799422078636730}
   - component: {fileID: -8896001686497402160}
   m_Layer: 0
-  m_Name: Head
+  m_Name: LongNote
   m_TagString: Note
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -324,12 +346,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TypeNum: 2
+  eventType: 0
   speed: 0
   SongTime: 0
   AudioTime: 0
   Type: 0
   Height: 0
   xpos: 0
+  ypos: 0
 --- !u!1 &8204148498064322795
 GameObject:
   m_ObjectHideFlags: 0
