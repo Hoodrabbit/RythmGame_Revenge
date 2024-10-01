@@ -49,7 +49,7 @@ public class Event_Note_Maker : NoteMakerBase
                     NoteEventScript NES = AddEvent.GetComponent<NoteEventScript>();
                     AddEvent.GetComponent<Note>().SongTime = (double)RealXpos / GameManager.Instance.speed;
                     NES.SetSongTime(RealXpos / GameManager.Instance.speed);
-                    DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, 0, (int)NES.eventType, (double)RealXpos / GameManager.Instance.speed));
+                    DataManager.Instance.NoteEventList.Add(new NoteEventInfoPos(RealXpos, 0, (int)NES.eventType, (double)RealXpos / GameManager.Instance.speed));
                     EventChanged?.Invoke();
                 }
 

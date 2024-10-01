@@ -112,7 +112,10 @@ public class DataManager : Singleton<DataManager>
 
     public Action EventCheck= delegate { }; //해당 이벤트의 경우 특수하게 이벤트 노트 생성기 스크립트 내의 액션 변수에 구독되어 있음
     public List<NoteInfoAll> EditNotes = new List<NoteInfoAll>();
-    public List<EventInfoAll> EventNotes = new List<EventInfoAll>();
+
+    //public List<EventInfoAll> EventNotes = new List<EventInfoAll>();
+    public List<NoteEventInfoPos> NoteEventList = new List<NoteEventInfoPos>();
+
 
 
 
@@ -149,20 +152,20 @@ public class DataManager : Singleton<DataManager>
         }
 
         int j = 0;
-        while(j < EventNotes.Count)
+        while(j < NoteEventList.Count)
         {
             //Debug.Log(EventNotes.Count);
             //Debug.Log(EventNotes[j].EventNote.gameObject.name);
-            if (EventNotes[j].EventNote == null)
-            {
-                Debug.Log("이벤트 제거");
-                EventNotes.RemoveAt(j);
-            }
+            //if (EventNotes[j].EventNote == null)
+            //{
+            //    Debug.Log("이벤트 제거");
+            //    EventNotes.RemoveAt(j);
+            //}
 
-            if(songtime == (EventNotes[j].eventPos.SongTime))
+            if(songtime == (NoteEventList[j].SongTime))
             {
                 //DataManager.Instance.ListNullCheck(hit[i].collider.GetComponent<Note>().SongTime);
-                EventNotes.RemoveAt(j);
+                NoteEventList.RemoveAt(j);
             }
 
 
@@ -179,7 +182,7 @@ public class DataManager : Singleton<DataManager>
     public void SaveNote()
     {
         EditNotes = EditNotes.OrderBy(N => N.notePos.xpos).ToList();
-        EventNotes = EventNotes.OrderBy(N => N.eventPos.xpos).ToList();
+        NoteEventList = NoteEventList.OrderBy(N => N.xpos).ToList();
 
 
         if (File.Exists(NoteDataPath))
@@ -220,12 +223,12 @@ public class DataManager : Singleton<DataManager>
 
 
             ListNullCheck();
-            writer.WriteLine(EventNotes.Count);
+            writer.WriteLine(NoteEventList.Count);
 
-            foreach (EventInfoAll Ev in EventNotes)
+            foreach (NoteEventInfoPos Ev in NoteEventList)
             {
 
-                writer.WriteLine($"{Ev.eventPos.xpos / GameManager.Instance.speed} , {Ev.eventPos.HeightValue}, {Ev.eventPos.EventType}, {Ev.eventPos.SongTime}");
+                writer.WriteLine($"{Ev.xpos / GameManager.Instance.speed} , {Ev.HeightValue}, {Ev.EventType}, {Ev.SongTime}");
             }
             writer.Close();
         }
@@ -234,12 +237,12 @@ public class DataManager : Singleton<DataManager>
             FileStream fileStream = File.Create(NoteEventDataPath);
             StreamWriter fileWriter = new StreamWriter(fileStream);
 
-            fileWriter.WriteLine(EventNotes.Count);
+            fileWriter.WriteLine(NoteEventList.Count);
 
-            foreach (EventInfoAll Ev in EventNotes)
+            foreach (NoteEventInfoPos Ev in NoteEventList)
             {
 
-                fileWriter.WriteLine($"{Ev.eventPos.xpos / GameManager.Instance.speed} , {Ev.eventPos.HeightValue}, {Ev.eventPos.EventType}, {Ev.eventPos.SongTime}");
+                fileWriter.WriteLine($"{Ev.xpos / GameManager.Instance.speed}  ,  {Ev.HeightValue} ,  {Ev.EventType} ,  {Ev.SongTime}");
             }
             fileWriter.Close();
         }
@@ -255,6 +258,45 @@ public class DataManager : Singleton<DataManager>
 
         StreamReader EventNoteParsing = new StreamReader(NoteEventDataPath);
         int EventCount = Int32.Parse(EventNoteParsing.ReadLine());
+        while (NoteEventList.Count > 0)
+        {
+            //Destroy(EventNotes[EventNotes.Count - 1].EventNote);
+            //EventNotes.RemoveAt(EventNotes.Count - 1);
+            NoteEventList = new List<NoteEventInfoPos>();
+        }
+
+        for (int i = 0; i < EventCount; i++)
+        {
+            float xpos; int height; int EventType; double SongTime;
+
+            string LineText; //파싱한 노트 정보를 저장받을 문자열
+
+            LineText = EventNoteParsing.ReadLine();
+
+            string[] split_Text = LineText.Split(',');
+            xpos = float.Parse(split_Text[0]);
+            height = Int32.Parse(split_Text[1]);
+            EventType = Int32.Parse(split_Text[2]);
+
+            if (split_Text[3] != null)
+            {
+                SongTime = double.Parse(split_Text[3]);
+            }
+            else
+                SongTime = 0;
+
+            if (GameManager.Instance.state != GameState.Play_Mode)
+            {
+                EditManager.Instance.MakeEvent(xpos * GameManager.Instance.speed + EditManager.Instance.GetNPXpos(), height, EventType, SongTime);
+            }
+            else
+            {
+                NoteEventInfoPos noteEvent = new NoteEventInfoPos(xpos, height, EventType, SongTime);
+                NoteEventList.Add(noteEvent);
+                //PlayManager.Instance.PlayScene_EventMaker(xpos * GameManager.Instance.speed, height, EventType, SongTime);
+            }
+
+        }
 
 
         //여기에서 로드할 때 싹다 초기화시켜줘야함
@@ -310,49 +352,15 @@ public class DataManager : Singleton<DataManager>
         
         }
 
-        while(EventNotes.Count >0)
-        {
-            Destroy(EventNotes[EventNotes.Count - 1].EventNote);
-            EventNotes.RemoveAt(EventNotes.Count - 1);
-        }
-
-        for (int i = 0; i < EventCount; i++)
-        {
-            float xpos; int height; int EventType; double SongTime;
-
-            string LineText; //파싱한 노트 정보를 저장받을 문자열
-
-            LineText = EventNoteParsing.ReadLine();
-
-            string[] split_Text = LineText.Split(',');
-            xpos = float.Parse(split_Text[0]);
-            height = Int32.Parse(split_Text[1]);
-            EventType = Int32.Parse(split_Text[2]);
-
-            if (split_Text[3] != null)
-            {
-                SongTime = double.Parse(split_Text[3]);
-            }
-            else
-                SongTime = 0;
-
-            if (GameManager.Instance.state != GameState.Play_Mode)
-            {
-                EditManager.Instance.MakeEvent(xpos * GameManager.Instance.speed + EditManager.Instance.GetNPXpos(), height, EventType, SongTime);
-            }
-            else
-            {
-                PlayManager.Instance.PlayScene_EventMaker(xpos * GameManager.Instance.speed, height, EventType,SongTime);
-            }
-
-        }
-
+  
 
 
 
         NoteParsing.Close();
         EventNoteParsing.Close();
 
+
+        Debug.Log("실행");
         EventCheck?.Invoke();
 
     }

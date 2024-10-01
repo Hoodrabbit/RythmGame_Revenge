@@ -7,7 +7,7 @@ public class EventManager : Singleton<EventManager>
     public EventType NowEvent;
     float SongTime; //일단 지금은 xpos로 체크하도록 하는게 좋을 듯함
 
-    public List<EventInfoAll> EventList = new List<EventInfoAll>();
+    public List<NoteEventInfoPos> EventList = new List<NoteEventInfoPos>();
     public Action RefreshNoteEvent;
     //public List<>
 
@@ -20,7 +20,13 @@ public class EventManager : Singleton<EventManager>
     private void Start()
     {
         DataManager.Instance.EventCheck += RefreshNoteEventMethod;
+
     }
+    private void OnDisable()
+    {
+        DataManager.Instance.EventCheck -= RefreshNoteEventMethod;
+    }
+
 
     public EventType GetEvent()
     {
@@ -74,11 +80,15 @@ public class EventManager : Singleton<EventManager>
     }
 
 
-    //더미
+
+    //현재 빌드 상에서 제대로 실행이 되지 않음
     void RefreshNoteEventMethod()
     {
         DataManager.Instance.ListNullCheck();
-        EventList = DataManager.Instance.EventNotes;
+        EventList = DataManager.Instance.NoteEventList;
+
+        Debug.Log("이벤트 총 갯수 : " + DataManager.Instance.NoteEventList.Count);
+
 
         Debug.Log("이벤트 발동");
         RefreshNoteEvent?.Invoke();

@@ -387,8 +387,8 @@ public class PlayManager : Singleton<PlayManager>
         EventNote = Instantiate(EventTypes[0], new Vector3(EventPos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
 
         EventNote.GetComponent<Note>().SetSongTime(songtime);
-
-        DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
+        
+       // DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
 
         //GameObject Note_Instantiate;
 
@@ -412,7 +412,7 @@ public class PlayManager : Singleton<PlayManager>
 
         EventNote.GetComponent<Note>().SetSongTime(songtime);
 
-        DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
+        //DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
 
         //GameObject Note_Instantiate;
 
@@ -438,7 +438,7 @@ public class PlayManager : Singleton<PlayManager>
 
         EventNote.GetComponent<Note>().SetSongTime(songtime);
 
-        DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
+        //DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
 
     }
 
@@ -452,7 +452,7 @@ public class PlayManager : Singleton<PlayManager>
 
         EventNote.GetComponent<Note>().SetSongTime(songtime);
 
-        DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
+        //DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
     }
 
     public void NoteSpawnOutsideReverseEvent(float xpos, int height, int eventType, double songtime)
@@ -465,7 +465,7 @@ public class PlayManager : Singleton<PlayManager>
 
         EventNote.GetComponent<Note>().SetSongTime(songtime);
 
-        DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
+       // DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
     }
 
 

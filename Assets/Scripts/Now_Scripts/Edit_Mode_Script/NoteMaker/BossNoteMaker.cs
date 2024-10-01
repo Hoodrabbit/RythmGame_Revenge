@@ -42,7 +42,7 @@ public class BossNoteMaker : NoteMakerBase
 
                     //if (bossNoteType == BossNoteType.Appear)
                     //{
-                        DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, 0, NoteType, (double)RealXpos / 10));
+                        DataManager.Instance.NoteEventList.Add(new NoteEventInfoPos(RealXpos, 0, NoteType, (double)RealXpos / 10));
                     //}
                     //else if (bossNoteType == BossNoteType.Disappear)
                     //{

@@ -41,6 +41,16 @@ public class GameManager : Singleton<GameManager>
         //InitializeSongSelect();
         MusicManager.Instance.SetMusic(0);
     }
+
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("GameState : " + state);
+        }
+    }
+
+
     public void PlayMusicOnly()
     {
         startDSPtimeValue = AudioSettings.dspTime;

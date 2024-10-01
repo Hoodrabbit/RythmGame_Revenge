@@ -57,7 +57,7 @@ public class Note : MonoBehaviour
         if (TypeNum == 1)
         {
             EventManager.Instance.RefreshNoteEvent += EventChangeMethod;
-            if(GameManager.Instance.state == GameState.Debug_Mode)
+            if(GameManager.Instance.state == GameState.None)
             {
                 UIManager.Instance.MusicButtonPress += ChangeNotePos_IsPlaying;
             }
@@ -80,6 +80,15 @@ public class Note : MonoBehaviour
 
 
     }
+    private void OnDisable()
+    {
+        EventManager.Instance.RefreshNoteEvent -= EventChangeMethod;
+        if (GameManager.Instance.state == GameState.None)
+        {
+            UIManager.Instance.MusicButtonPress -= ChangeNotePos_IsPlaying;
+        }
+    }
+
 
     // Update is called once per frame
     void FixedUpdate()
@@ -91,12 +100,6 @@ public class Note : MonoBehaviour
 
         if (GameManager.Instance.state == GameState.Play_Mode)
         {
-            if (transform.position.x <= -5 && GameManager.Instance.MainAudio.isPlaying == false)
-            {
-                //Debug.Log("�۵�����");
-                //GameManager.Instance.PlayMusic();
-            }
-
 
             transform.position = new Vector2(xpos - GameManager.Instance.speed * (float)(AudioSettings.dspTime - AudioTime), transform.position.y);
             //AudioTime += AudioSettings.dspTime - AudioTime;
@@ -127,10 +130,15 @@ public class Note : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Finish"))
+        if(gameObject.CompareTag("Note"))
         {
-            PlayManager.Instance.MissNote();
+            if (collision.CompareTag("Finish"))
+            {
+                PlayManager.Instance.MissNote();
+            }
         }
+
+       
 
         //if (collision.CompareTag("Curve"))
         //{
@@ -362,9 +370,9 @@ public class Note : MonoBehaviour
             {
                 for (int i = 0; i < EventManager.Instance.EventList.Count; i++)
                 {
-                    if (SongTime >= EventManager.Instance.EventList[i].eventPos.SongTime)
+                    if (SongTime >= EventManager.Instance.EventList[i].SongTime)
                     {
-                        event_TypeCheck = EventManager.Instance.EventList[i].eventPos.EventType;
+                        event_TypeCheck = EventManager.Instance.EventList[i].EventType;
                     }
                 }
                 eventType = EventChecker(event_TypeCheck);
