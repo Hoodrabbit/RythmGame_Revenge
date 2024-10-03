@@ -37,7 +37,7 @@ public abstract class NoteMakerBase : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0) && Note != null)
             {
-                AreaCheck(Note, transform.position, false);
+                AreaCheck(Note, transform.position, false); 
             }
 
             if (Input.GetMouseButton(1))

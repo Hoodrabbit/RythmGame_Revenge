@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,18 +7,34 @@ public class BossMonster : MonoBehaviour
 {
     public Sprite BossImg;
 
-    bool check = false;
+    public bool Trigger = false;
+    CircleCollider2D bossCollider;
+
+    bool Hit = true;
     float MaxTime = 0.3f;
     //일단 노트화 시켜서 다른 노트처럼 똑같이 움직이되 보스가 나오는 
     float TTime = 0;
     Vector2 startpos;
     Vector2 endpos;
 
+    Coroutine DashCoroutine;
+    Coroutine TurnBack_SuccessCoroutine;
+    Coroutine TurnBack_FailCoroutine;
+
+    Action HitAction;
+
+
 
     private void Start()
     {
+        bossCollider = GetComponent<CircleCollider2D>();
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = BossImg;
         startpos = transform.position;
-        endpos = new Vector3(15, 0);
+        endpos = new Vector3(25, 1);
+
+        HitAction += HitCheck;
+
     }
 
 
@@ -26,47 +43,25 @@ public class BossMonster : MonoBehaviour
         
         if(Input.GetKeyDown(KeyCode.Space))
         {
-
-            //check = true;
-            Animation myanimation = GetComponent<Animation>();
-            //myanimation.blen
-
-
+            //SwitchToCoroutineB(); //해당 코드를 통해 보스가 원래 출현 위치로 돌아옴
 
         }
 
-        if(check)
-        {
-           
-
-            TTime += Time.deltaTime;
-            float t = TTime / MaxTime;
-
-            transform.position = Vector3.Lerp(startpos, endpos, t);
-        }
+        
 
 
     }
 
     public void Appear()
     {
-        //check = true;
-
-        //TTime += Time.deltaTime;
-        //float t = TTime / MaxTime;
-
-        //transform.position = Vector3.Lerp(startpos, endpos, t);
+        bossCollider.isTrigger = true;
         StartCoroutine(AppearBoss());
 
     }
 
     public void Disappear()
     {
-
-        //TTime += Time.deltaTime;
-        //float t = TTime / MaxTime;
-
-        //transform.position = Vector3.Lerp(endpos, startpos, t);
+        bossCollider.isTrigger = false;
         StartCoroutine (DisappearBoss());
     }
 
@@ -108,6 +103,86 @@ public class BossMonster : MonoBehaviour
         Debug.Log("퇴장");
         GameManager.Instance.BossAppear = false;
     }
+
+    public void BossDash(Transform parent)
+    {
+       DashCoroutine = StartCoroutine(Dash(parent));
+    }
+
+    IEnumerator Dash(Transform parent)
+    {
+
+        TTime = 0;
+
+        Vector2 pos = transform.position;
+        float xpos = pos.x;
+        
+        //시간을 어떻게 할지가 필요함
+        while (transform.position.x >= 0)
+        {
+            transform.position = parent.position;
+            yield return null;
+        }
+        
+        if(transform.position.x <= 0)
+        {
+            Hit = true;
+            HitAction?.Invoke();
+            Debug.Log("눌렀는지 체크할꺼임");
+        }
+           
+
+
+        //yield return null;
+
+    }
+
+
+    IEnumerator TurnBack_Success()
+    {
+        Vector2 pos = transform.position;
+
+        while (TTime <= MaxTime)
+        {
+            TTime += Time.deltaTime;
+            
+            //아직 이상함 방식 좀 더 세밀하게 잡아서 처리해야 할 듯
+            //해당 코루틴이 실행되는 조건 이런 거 확인해봐야함
+            transform.position = Vector3.Lerp(pos, endpos, TTime / MaxTime);
+            yield return null;
+        }
+
+       
+    }
+
+    IEnumerator TurnBack_Fail()
+    {
+        //보스를 히트시키지 못했을 경우 
+        //다른 방식으로 돌아와야 함
+
+        //현재 생각중인 방식은 판정 라인을 지나갔다가 안보이는 영역에서 위치를 이동시키고 다시 오른쪽에서 나타나도록 하는 방식
+
+
+        yield return null;
+
+    }
+
+    void HitCheck()
+    {
+        if (Hit)
+        {
+            StartCoroutine(TurnBack_Success());
+        }
+        else
+        {
+
+        }
+    }
+
+
+
+
+
 
 
 

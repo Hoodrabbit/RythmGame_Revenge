@@ -2,29 +2,36 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager : Singleton<EventManager>
+public class EventManager : MonoBehaviour
 {
     public EventType NowEvent;
     float SongTime; //일단 지금은 xpos로 체크하도록 하는게 좋을 듯함
 
-    public List<NoteEventInfoPos> EventList = new List<NoteEventInfoPos>();
-    public Action RefreshNoteEvent;
-    //public List<>
+    public List<EventInfoAll> EventList = new List<EventInfoAll>();
+    public Action RefreshNoteEvent = delegate { };
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
-       
+        //base.Awake();
+        if (DataManager.Instance == null)
+        {
+            Debug.Log("이벤트가 NULL 입니다.");
+        }
+        else
+        {
+           // DataManager.Instance.EventCheck += RefreshNoteEventMethod;
+        }
+        
     }
 
     private void Start()
     {
-        DataManager.Instance.EventCheck += RefreshNoteEventMethod;
+        
 
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
-        DataManager.Instance.EventCheck -= RefreshNoteEventMethod;
+       // DataManager.Instance.EventCheck -= RefreshNoteEventMethod;
     }
 
 
@@ -82,12 +89,12 @@ public class EventManager : Singleton<EventManager>
 
 
     //현재 빌드 상에서 제대로 실행이 되지 않음
-    void RefreshNoteEventMethod()
+    public void RefreshNoteEventMethod()
     {
         DataManager.Instance.ListNullCheck();
-        EventList = DataManager.Instance.NoteEventList;
+        EventList = DataManager.Instance.EventNotes;
 
-        Debug.Log("이벤트 총 갯수 : " + DataManager.Instance.NoteEventList.Count);
+        Debug.Log("이벤트 총 갯수 : " + DataManager.Instance.EventNotes.Count);
 
 
         Debug.Log("이벤트 발동");

@@ -57,10 +57,10 @@ public class BossAppearNote : BossNote
     {
 
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            HandleClick();
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    HandleClick();
+        //}
 
 
 
@@ -142,46 +142,46 @@ public class BossAppearNote : BossNote
 
     }
 
-    private void HandleClick()
-    {
-        // 현재 시간과 이전 클릭 시간의 차이를 확인
-        if (Time.time - clickTime < clickDelay)
-        {
-            clickCount++;
+    //private void HandleClick()
+    //{
+    //    // 현재 시간과 이전 클릭 시간의 차이를 확인
+    //    if (Time.time - clickTime < clickDelay)
+    //    {
+    //        clickCount++;
 
-            // 더블 클릭으로 인식
-            if (clickCount == 2)
-            {
-                clickCount = 0;  // 클릭 카운트 초기화
-                OnDoubleClick();  // 더블 클릭 시 실행할 메서드 호출
+    //        // 더블 클릭으로 인식
+    //        if (clickCount == 2)
+    //        {
+    //            clickCount = 0;  // 클릭 카운트 초기화
+    //            OnDoubleClick();  // 더블 클릭 시 실행할 메서드 호출
                
-            }
-        }
-        else
-        {
-            // 클릭 시간 간격이 너무 길면, 다시 첫 클릭으로 간주
-            clickCount = 1;
-        }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        // 클릭 시간 간격이 너무 길면, 다시 첫 클릭으로 간주
+    //        clickCount = 1;
+    //    }
 
-        // 클릭 시간 기록
-        clickTime = Time.time;
-    }
+    //    // 클릭 시간 기록
+    //    clickTime = Time.time;
+    //}
 
-    private void OnDoubleClick()
-    {
-        //Debug.Log("더블 클릭이 감지되었습니다: " + gameObject.name);
-        // 여기서 원하는 동작을 실행할 수 있습니다.
+    //private void OnDoubleClick()
+    //{
+    //    //Debug.Log("더블 클릭이 감지되었습니다: " + gameObject.name);
+    //    // 여기서 원하는 동작을 실행할 수 있습니다.
 
-        BossNoteDetailScript DetailBossNote = UIManager.Instance.BossNoteDetailPanel;
-        if (UIManager.Instance.BossNoteDetailPanel.gameObject.activeSelf == false)
-        {
-            UIManager.Instance.BossNoteDetailPanel.gameObject.SetActive(true);
-        }
+    //    BossNoteDetailScript DetailBossNote = UIManager.Instance.BossNoteDetailPanel;
+    //    if (UIManager.Instance.BossNoteDetailPanel.gameObject.activeSelf == false)
+    //    {
+    //        UIManager.Instance.BossNoteDetailPanel.gameObject.SetActive(true);
+    //    }
        
-        DetailBossNote.SetNoteData(bossNote);
+    //    DetailBossNote.SetNoteData(bossNote);
 
 
-    }
+    //}
 
 
 

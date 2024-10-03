@@ -223,6 +223,24 @@ class MakeBossDisappearNote : IButton
 
 }
 
+class MakeBossDashNote : IButton
+{
+    readonly string name = "MakeBossDashNote";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        NoteMaker_EditScene.instance.Instantiate_BossDashNote();
+    }
+
+
+}
+
+
+
+
+
 class MakeEndEvent : IButton
 {
     readonly string name = "MakeEndEvent";

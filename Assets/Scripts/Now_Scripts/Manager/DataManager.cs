@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using System.Threading.Tasks;
 using System.Linq;
 using System;
 
@@ -103,24 +101,26 @@ public class EventInfoAll
 public class DataManager : Singleton<DataManager>
 {
     //파일 관리를 해줄 스크립트 게임 매니저의 스크립터블에서 파일 주소를 뽑아옴
-    static string NoteDataFolder = Application.streamingAssetsPath + "\\NOTEDATA_Folder";
-    static string NoteEventDataFolder = Application.streamingAssetsPath + "\\NOTEEVENTDATA_Folder";
+    string NoteDataFolder = Application.streamingAssetsPath + "\\NOTEDATA_Folder";
+    string NoteEventDataFolder = Application.streamingAssetsPath + "\\NOTEEVENTDATA_Folder";
 
     string NoteDataPath;
     string NoteEventDataPath;
 
 
+    public EventManager eventManager;
     public Action EventCheck= delegate { }; //해당 이벤트의 경우 특수하게 이벤트 노트 생성기 스크립트 내의 액션 변수에 구독되어 있음
     public List<NoteInfoAll> EditNotes = new List<NoteInfoAll>();
 
-    //public List<EventInfoAll> EventNotes = new List<EventInfoAll>();
-    public List<NoteEventInfoPos> NoteEventList = new List<NoteEventInfoPos>();
+    public List<EventInfoAll> EventNotes = new List<EventInfoAll>();
+    //public List<NoteEventInfoPos> NoteEventList = new List<NoteEventInfoPos>();
 
 
 
 
     protected override void Awake()
     {
+        //NoteEventList.RemoveAll(info => info.Event)
         base.Awake();
         if (!Directory.Exists(NoteEventDataFolder))
         {
@@ -134,55 +134,81 @@ public class DataManager : Singleton<DataManager>
 
         NoteEventDataPath = Path.Combine(NoteEventDataFolder, GameManager.Instance.musicInfo.Music_Name + "_EventData.txt");
         NoteDataPath = Path.Combine(NoteDataFolder, GameManager.Instance.musicInfo.Music_Name + "_NoteData.txt");
-        
+        if (eventManager != null)
+        {
+            EventCheck += eventManager.RefreshNoteEventMethod;
+        }
+        else
+        {
+            Debug.Log("없어요");
+        }
     }
 
 
-    public void ListNullCheck(double songtime = -1) //해당 리스트 중에서 null이 존재하는지 확인하고 만약 존재한다면 해당 데이터는 제거함
+    public void ListNullCheck(GameObject Note = null) //해당 리스트 중에서 null이 존재하는지 확인하고 만약 존재한다면 해당 데이터는 제거함
     {
-        int i = EditNotes.Count - 1;
-        while (i >= 0)
-        {
-            if (EditNotes[i].Note == null)
-            {
-                //Debug.Log(i + "이거 지워요");
-                EditNotes.RemoveAt(i);
-            }
-            i--;
-        }
+        //int i = EditNotes.Count - 1;
 
-        int j = 0;
-        while(j < NoteEventList.Count)
-        {
-            //Debug.Log(EventNotes.Count);
-            //Debug.Log(EventNotes[j].EventNote.gameObject.name);
-            //if (EventNotes[j].EventNote == null)
-            //{
-            //    Debug.Log("이벤트 제거");
-            //    EventNotes.RemoveAt(j);
-            //}
+        EditNotes.RemoveAll(info => info.Note == null);
+        EditNotes = EditNotes.OrderBy(N => N.notePos.xpos).ToList();
+        //while (i >= 0)
+        //{
+        //    if (EditNotes[i].Note == null)
+        //    {
+        //        //Debug.Log(i + "이거 지워요");
+        //        EditNotes.RemoveAt(i);
+        //    }
+        //    i--;
+        //}
 
-            if(songtime == (NoteEventList[j].SongTime))
-            {
-                //DataManager.Instance.ListNullCheck(hit[i].collider.GetComponent<Note>().SongTime);
-                NoteEventList.RemoveAt(j);
-            }
+        EventNotes.RemoveAll(info => info.EventNote== Note);
+        EventNotes = EventNotes.OrderBy(N => N.eventPos.SongTime).ToList();
+
+        //int j = 0;
+        //while(j < EventNotes.Count)
+        //{
+        //    //Debug.Log(EventNotes.Count);
+        //    //Debug.Log(EventNotes[j].EventNote.gameObject.name);
+        //    //if (EventNotes[j].EventNote == null)
+        //    //{
+        //    //    Debug.Log("이벤트 제거");
+        //    //    EventNotes.RemoveAt(j);
+        //    //}
+
+        //    if(songtime == (EventNotes[j].SongTime))
+        //    {
+        //        //DataManager.Instance.ListNullCheck(hit[i].collider.GetComponent<Note>().SongTime);
+        //        NoteEventList.RemoveAt(j);
+        //    }
 
 
-            j++;
-        }
+        //    j++;
+        //}
 
-        
+
 
 
 
     }
 
+    public NoteInfoAll FindNoteData(GameObject Note)
+    {
+
+        foreach (var note in EditNotes)
+        {
+            if(note.Note == Note)
+            {
+                return note;
+            }
+        }
+
+        return null;
+    }
 
     public void SaveNote()
     {
         EditNotes = EditNotes.OrderBy(N => N.notePos.xpos).ToList();
-        NoteEventList = NoteEventList.OrderBy(N => N.xpos).ToList();
+        EventNotes = EventNotes.OrderBy(N => N.eventPos.SongTime).ToList();
 
 
         if (File.Exists(NoteDataPath))
@@ -223,12 +249,12 @@ public class DataManager : Singleton<DataManager>
 
 
             ListNullCheck();
-            writer.WriteLine(NoteEventList.Count);
+            writer.WriteLine(EventNotes.Count);  
 
-            foreach (NoteEventInfoPos Ev in NoteEventList)
+            foreach (var Ev in EventNotes)
             {
 
-                writer.WriteLine($"{Ev.xpos / GameManager.Instance.speed} , {Ev.HeightValue}, {Ev.EventType}, {Ev.SongTime}");
+                writer.WriteLine($"{Ev.eventPos.xpos / GameManager.Instance.speed} , {Ev.eventPos.HeightValue}, {Ev.eventPos.EventType}, {Ev.eventPos.SongTime}");
             }
             writer.Close();
         }
@@ -237,12 +263,12 @@ public class DataManager : Singleton<DataManager>
             FileStream fileStream = File.Create(NoteEventDataPath);
             StreamWriter fileWriter = new StreamWriter(fileStream);
 
-            fileWriter.WriteLine(NoteEventList.Count);
+            fileWriter.WriteLine(EventNotes.Count);
 
-            foreach (NoteEventInfoPos Ev in NoteEventList)
+            foreach (var Ev in EventNotes)
             {
 
-                fileWriter.WriteLine($"{Ev.xpos / GameManager.Instance.speed}  ,  {Ev.HeightValue} ,  {Ev.EventType} ,  {Ev.SongTime}");
+                fileWriter.WriteLine($"{Ev.eventPos.xpos / GameManager.Instance.speed} , {Ev.eventPos.HeightValue}, {Ev.eventPos.EventType}, {Ev.eventPos.SongTime}");
             }
             fileWriter.Close();
         }
@@ -258,11 +284,11 @@ public class DataManager : Singleton<DataManager>
 
         StreamReader EventNoteParsing = new StreamReader(NoteEventDataPath);
         int EventCount = Int32.Parse(EventNoteParsing.ReadLine());
-        while (NoteEventList.Count > 0)
+        while (EventNotes.Count > 0)
         {
             //Destroy(EventNotes[EventNotes.Count - 1].EventNote);
             //EventNotes.RemoveAt(EventNotes.Count - 1);
-            NoteEventList = new List<NoteEventInfoPos>();
+            EventNotes = new List<EventInfoAll>();
         }
 
         for (int i = 0; i < EventCount; i++)
@@ -291,9 +317,9 @@ public class DataManager : Singleton<DataManager>
             }
             else
             {
-                NoteEventInfoPos noteEvent = new NoteEventInfoPos(xpos, height, EventType, SongTime);
-                NoteEventList.Add(noteEvent);
-                //PlayManager.Instance.PlayScene_EventMaker(xpos * GameManager.Instance.speed, height, EventType, SongTime);
+                EventInfoAll noteEvent = new EventInfoAll(new GameObject(), xpos, height, EventType, SongTime);
+                EventNotes.Add(noteEvent);
+                PlayManager.Instance.PlayScene_EventMaker(xpos * GameManager.Instance.speed, height, EventType, SongTime);
             }
 
         }

@@ -40,9 +40,12 @@ public class BossNoteMaker : NoteMakerBase
                     float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
                     //위와 동일 
 
+                    
+                    BossAppearNote bossAppearNote = AddEvent.GetComponent<BossAppearNote>();
+
                     //if (bossNoteType == BossNoteType.Appear)
                     //{
-                        DataManager.Instance.NoteEventList.Add(new NoteEventInfoPos(RealXpos, 0, NoteType, (double)RealXpos / 10));
+                        DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, bossAppearNote.TypeNum, NoteType, (double)RealXpos / 10));
                     //}
                     //else if (bossNoteType == BossNoteType.Disappear)
                     //{

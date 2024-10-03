@@ -27,6 +27,8 @@ public class NoteMaker_EditScene : MonoBehaviour
     GameObject EndEventMaker;
     GameObject NoteSpawnOutsideEventMaker;
     GameObject NoteSpawnOutsideReverseEventMaker;
+    GameObject BossDashNoteMaker;
+
 
 
 
@@ -59,6 +61,7 @@ public class NoteMaker_EditScene : MonoBehaviour
         EndEventMaker = MakerObjList[6];
         NoteSpawnOutsideEventMaker = MakerObjList[7];
         NoteSpawnOutsideReverseEventMaker = MakerObjList[8];
+        BossDashNoteMaker = MakerObjList[9];
 
 
         //NoteMakerButton = GetComponent<Button>();
@@ -283,6 +286,30 @@ public class NoteMaker_EditScene : MonoBehaviour
             Already_Using = false;
         }
     }
+
+    public void Instantiate_BossDashNote()
+    {
+        if (BossDashNoteMaker.activeSelf == false)
+        {
+            if (!Already_Using)
+            {
+                BossDashNoteMaker.SetActive(true);
+            }
+            else
+            {
+                TurnOffMaker();
+                BossDashNoteMaker.SetActive(true);
+            }
+            Already_Using = true;
+        }
+        else
+        {
+            BossDashNoteMaker.SetActive(false);
+            Already_Using = false;
+        }
+    }
+
+
 
 
 }

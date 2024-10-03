@@ -123,6 +123,9 @@ public enum EventType
     None,
     SpawnOutside,
     SpawnOutside_Reverse,
+
+    Dash,
+
     End
 
 }

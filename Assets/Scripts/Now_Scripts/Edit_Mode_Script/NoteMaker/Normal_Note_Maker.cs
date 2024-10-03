@@ -36,7 +36,16 @@ public class Normal_Note_Maker : NoteMakerBase
             if (hit[i].collider.CompareTag("Note"))
             {
                 Checkduplication = true;
-                Debug.Log("중복입니다.");
+                Note thisNote = hit[i].collider.gameObject.GetComponent<Note>();
+                ChangeMelodyType(thisNote);
+                NoteInfoAll infoAll = DataManager.Instance.FindNoteData(hit[i].collider.gameObject);
+                DataManager.Instance.ListNullCheck(hit[i].collider.gameObject);
+                DataManager.Instance.EditNotes.Add(new NoteInfoAll(hit[i].collider.gameObject, infoAll.notePos.xpos, infoAll.notePos.HeightValue, infoAll.notePos.NoteType, 0, infoAll.notePos.SongTime, (int)thisNote.Type));
+
+                //제대로 제거 되지 않음
+                //수정해야 함
+
+
             }
 
             if (hit[i].collider.CompareTag("NotePlace") && Checkduplication == false)
@@ -61,6 +70,9 @@ public class Normal_Note_Maker : NoteMakerBase
 
                     float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                     //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가
+
+                    Debug.Log("노트 생성");
+
                     AddNote.GetComponent<Note>().SongTime = (double)RealXpos / GameManager.Instance.speed;
                     DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, SetHeight_Event(Pos.y), NoteType, 0, (double)RealXpos / GameManager.Instance.speed));
                     //변경해야 됨 현재 로직 변경함
@@ -88,7 +100,7 @@ public class Normal_Note_Maker : NoteMakerBase
 
     int SetHeight_Event(float Ypos)
     {
-        EventType GameEventState = EventManager.Instance.GetEvent();
+        EventType GameEventState = DataManager.Instance.eventManager.GetEvent();
 
         if (GameEventState == EventType.SpawnOutside_Reverse)
         {
@@ -133,7 +145,33 @@ public class Normal_Note_Maker : NoteMakerBase
 
     }
 
+    void ChangeMelodyType(Note note)
+    {
+        switch (note.Type)
+        {
+            case MelodyType.Normal:
+                note.Type = MelodyType.White;
+                break;
+
+            case MelodyType.White:
+                note.Type = MelodyType.Dark;
+                break;
+            case MelodyType.Dark:
+                note.Type = MelodyType.Normal;
+                break;
+
+            case MelodyType.Obstacle: break;
+        }
+
+    }
+
+
+
+
+
 
 }
+
+
 
 

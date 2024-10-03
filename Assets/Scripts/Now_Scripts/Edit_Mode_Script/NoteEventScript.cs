@@ -28,14 +28,14 @@ public class NoteEventScript : MonoBehaviour
     {
         if(!Used && transform.position.x <0)
         { 
-            EventManager.Instance.SetEvent(eventType, SongTime);
+            //EventManager.Instance.SetEvent(eventType, SongTime);
             Used = true;
 
         }
         
         if(Used && transform.position.x >0) 
         { 
-            EventManager.Instance.EndEvent(); 
+            //EventManager.Instance.EndEvent(); 
             Used = false; 
         }
     }
@@ -48,16 +48,20 @@ public class NoteEventScript : MonoBehaviour
         SongTime = songtime;
     }
 
-    public void EventOn()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        //이후로 생성하는 노트를 카메라 밖에서 나오도록 만들어줌
+        if (collision.tag == "Boss" && eventType == EventType.Dash)
+        {
 
-        //이후로 생성하는 노트를 카메라 밖에서 반전되서 나오도록 만들어줌
-        //크로스가 일어나도록 함
+            //보스 오브젝트에 돌진을 하라는 신호를 보냄
+            collision.GetComponent<BossMonster>().BossDash(this.transform);
 
-        //해당 이벤트를 종료시킴
+
+
+            //collision.transform.parent = transform;
+            //collision.transform.localPosition = Vector3.zero;
+        }
     }
-
 
 
 

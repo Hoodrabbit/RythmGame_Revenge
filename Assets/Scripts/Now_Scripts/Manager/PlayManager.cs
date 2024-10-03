@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using Note_Namespace;
 
 
@@ -225,15 +226,7 @@ public class PlayManager : Singleton<PlayManager>
 
         switch (eventType)
         {
-            //case 100:
-            //    Debug.Log("출현노트 ");
-            //    BossAppearNote(xpos, height, eventType, songtime);
-            //    break;
-
-            //case 101:
-            //    Debug.Log("퇴장노트 ");
-            //    //BossDisappearNote(xpos, height, eventType, songtime);
-            //    break;
+            
 
             case 1:
                 Debug.Log("노트 생성 바깥쪽");
@@ -251,6 +244,22 @@ public class PlayManager : Singleton<PlayManager>
                 Debug.Log("이벤트 종료");
                 EndEventNote(xpos, height, eventType, songtime);
                 break;
+
+
+            case 100:
+                Debug.Log("출현노트 ");
+                BossAppearNote(xpos, height, eventType, songtime);
+                break;
+
+            case 101:
+                Debug.Log("퇴장노트 ");
+                BossDisappearNote(xpos, height, eventType, songtime);
+                break;
+
+
+
+
+
         }
 
     }

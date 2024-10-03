@@ -31,12 +31,12 @@ public class Note : MonoBehaviour
     Animator Note_Move_Animator;
     SpriteRenderer ChangeColor;
 
-    //public bool EventActivate = false;
+    public bool EventActivate = false;
     //이벤트가 활성화 즉 true일시 해당 이벤트로 발생하는 위치의 이동
     //우리가 알아야 하는 것 즉 이벤트가 발생했을 시 노트가 어느 위치(y값)로 이동하는가
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         speed = GameManager.Instance.speed;
@@ -56,8 +56,8 @@ public class Note : MonoBehaviour
 
         if (TypeNum == 1)
         {
-            EventManager.Instance.RefreshNoteEvent += EventChangeMethod;
-            if(GameManager.Instance.state == GameState.None)
+            DataManager.Instance.eventManager.RefreshNoteEvent += EventChangeMethod;
+            if(GameManager.Instance.state == GameState.None && gameObject.CompareTag("Note"))
             {
                 UIManager.Instance.MusicButtonPress += ChangeNotePos_IsPlaying;
             }
@@ -82,16 +82,19 @@ public class Note : MonoBehaviour
     }
     private void OnDisable()
     {
-        EventManager.Instance.RefreshNoteEvent -= EventChangeMethod;
-        if (GameManager.Instance.state == GameState.None)
+        if (TypeNum == 1)
         {
-            UIManager.Instance.MusicButtonPress -= ChangeNotePos_IsPlaying;
+            DataManager.Instance.eventManager.RefreshNoteEvent -= EventChangeMethod;
+            if (GameManager.Instance.state == GameState.None && gameObject.CompareTag("Note"))
+            {
+                UIManager.Instance.MusicButtonPress -= ChangeNotePos_IsPlaying;
+            }
         }
     }
 
 
     // Update is called once per frame
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
 
 
@@ -124,6 +127,40 @@ public class Note : MonoBehaviour
 
 
         }
+        else
+        {
+            //노트의 현재 위치가 12보다 큰지 작은지 체크해서 위치설정해주기
+
+            if (!GameManager.Instance.MainAudio.isPlaying && gameObject.CompareTag("Note"))
+            {
+                if (transform.position.x > 12)
+                {
+                    EventActivate = false;
+                }
+                else
+                {
+                    EventActivate = true;
+                    if(Height == NoteHeight.OUTSIDE_DOWN || Height == NoteHeight.REVERSE_UP || Height == NoteHeight.DOWN)
+                    {
+                        transform.position = new Vector3(transform.position.x, EditManager.DOWN);
+                    }
+                    else if(Height != NoteHeight.None)
+                    {
+                        transform.position = new Vector3(transform.position.x, EditManager.UP);
+                    }
+                    
+
+
+                }
+
+            }
+            else
+            {
+                EventActivate = false;
+            }
+
+
+        }
 
 
     }
@@ -138,48 +175,12 @@ public class Note : MonoBehaviour
             }
         }
 
-       
-
-        //if (collision.CompareTag("Curve"))
-        //{
-        //    Debug.Log("감지");
-        //    Animator animator = GetComponent<Animator>();
-
-
-        //    if (Height == NoteHeight.UP)
-        //    {
-        //        animator.SetTrigger("UpCurve");
-        //    }
-        //    else
-        //    {
-        //        animator.SetTrigger("DownCurve");
-        //    }
-
-
-
-        //}
 
     }
     
     public void ChangeNotePos_IsPlaying()
     {
-        if (!GameManager.Instance.MainAudio.isPlaying)
-        {
-            //노래가 재생중이 아닐경우 
-            if(Height == NoteHeight.UP || Height == NoteHeight.OUTSIDE_UP || Height == NoteHeight.REVERSE_DOWN)
-            {
-                transform.position = new Vector3(transform.position.x, EditManager.UP);
-            }
-            else if(Height != NoteHeight.None)
-            {
-                transform.position = new Vector3(transform.position.x, EditManager.DOWN);
-            }
-            
-        }
-        else
-        {
-            transform.position = new Vector3(transform.position.x, GetHeight());
-        }
+      transform.position = new Vector3(transform.position.x, GetHeight());
     }
 
 
@@ -271,14 +272,14 @@ public class Note : MonoBehaviour
 
         while (elapsed < 2)
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, -1), elapsed / 2);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, EditManager.DOWN), elapsed / 2);
             elapsed += Time.deltaTime;
             yield return null;
         }
 
         // 이동 완료 후 최종 위치를 정확히 설정
-        transform.position = new Vector3(transform.position.x, -1);
-        Debug.Log("체크");
+        transform.position = new Vector3(transform.position.x, EditManager.DOWN);
+        //Debug.Log("체크");
         yield return null;
     }
 
@@ -294,14 +295,14 @@ public class Note : MonoBehaviour
         Vector3 StartPos = transform.position;
         while (elapsed < 2)
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, 3), elapsed / 2);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, EditManager.UP), elapsed / 2);
             elapsed += Time.deltaTime;
             yield return null;
         }
 
         // 이동 완료 후 최종 위치를 정확히 설정
-        transform.position = new Vector3(transform.position.x, 3);
-        Debug.Log("체크");
+        transform.position = new Vector3(transform.position.x, EditManager.UP);
+       // Debug.Log("체크");
         yield return null;
     }
 
@@ -326,7 +327,7 @@ public class Note : MonoBehaviour
 
         // 이동 완료 후 최종 위치를 정확히 설정
         transform.position = new Vector3(transform.position.x, GetHeight());
-        Debug.Log("체크" + GetHeight());
+       // Debug.Log("체크" + GetHeight());
         yield return null;
     }
 
@@ -352,8 +353,32 @@ public class Note : MonoBehaviour
 
     public void EventChangeMethod()
     {
+        if(GameManager.Instance.state == GameState.None)
+        {
+            if (!GameManager.Instance.MainAudio.isPlaying)
+            {
+                if (transform.position.x > 12)
+                {
+                    EventActivate = false;
+                }
+                else
+                {
+                    EventActivate = true;
+                }
+
+            }
+            else
+            {
+                EventActivate = false;
+            }
+        }
+       
+
+
+
+
         //계속 적용시키는 건 최적화에 문제가 생기니까 해당 이벤트가 발동됬을 때 적용 될 수 있도록 만들어주면 좋을 것 같음
-        if (EventManager.Instance.EventList != null)
+        if (DataManager.Instance.eventManager.EventList != null)
         {
             // Debug.Log(" 이벤트 발동   " + EventManager.Instance.EventList.Count);
 
@@ -365,35 +390,40 @@ public class Note : MonoBehaviour
                 ReverseCheck = true;
             }
 
-
-            if (EventManager.Instance.EventList.Count > 0)
+            if(EventActivate == false)
             {
-                for (int i = 0; i < EventManager.Instance.EventList.Count; i++)
+                if (DataManager.Instance.eventManager.EventList.Count > 0)
                 {
-                    if (SongTime >= EventManager.Instance.EventList[i].SongTime)
+                    for (int i = 0; i < DataManager.Instance.eventManager.EventList.Count; i++)
                     {
-                        event_TypeCheck = EventManager.Instance.EventList[i].EventType;
+                        if (SongTime >= DataManager.Instance.eventManager.EventList[i].eventPos.SongTime && DataManager.Instance.eventManager.EventList[i].eventPos.EventType < 100)
+                        {
+                            event_TypeCheck = DataManager.Instance.eventManager.EventList[i].eventPos.EventType;
+                        }
                     }
-                }
-                eventType = EventChecker(event_TypeCheck);
+                    eventType = EventChecker(event_TypeCheck);
 
+                }
+                else
+                {
+                    // Debug.Log("작동되나요");
+                    eventType = EventChecker(0);
+                }
+
+                //이벤트에 따른 노트의 변화
+                //노트 높이 변경 관련 메서드 활성화
+
+                ChangeHeight();
             }
             else
             {
-                Debug.Log("작동되나요");
-                eventType = EventChecker(0);
+                Debug.Log("이벤트 활성화 되어 있음");
             }
 
-            //이벤트에 따른 노트의 변화
-            //노트 높이 변경 관련 메서드 활성화
-
-            ChangeHeight();
+           
 
         }
-        
-        if(GameManager.Instance.state == GameState.Debug_Mode)
-        ChangeNotePos_IsPlaying();
-
+       
     }
 
     //반대로 오는 노트도 있기 때문에 해당 타입이었던 경우 위치 변경 전 타입을 체크해서 위치를 설정해주도록 해야 함
@@ -406,6 +436,7 @@ public class Note : MonoBehaviour
             case EventType.None:
                 if (ypos > 0)
                 {
+                    //Debug.Log("작동이 왜 안되지");
                     Height = NoteHeight.UP;
                     transform.position = new Vector3(transform.position.x, GetHeight());
                 }
