@@ -24,13 +24,27 @@ public class TestBossDash : Note
         {
 
             //보스 오브젝트에 돌진을 하라는 신호를 보냄
-            collision.GetComponent<BossMonster>().BossDash(this.transform);
+            BossMonster boss = collision.GetComponent<BossMonster>();
+            boss.BossDash(this.transform);
+
+            //anim
 
 
 
             //collision.transform.parent = transform;
             //collision.transform.localPosition = Vector3.zero;
         }
+
+        if(collision.tag == "Judgement")
+        {
+
+
+
+
+
+        }
+
+
     }
 
 

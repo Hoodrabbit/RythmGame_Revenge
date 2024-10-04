@@ -5362,6 +5362,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ola_running
       objectReference: {fileID: 0}
+    - target: {fileID: 3874370409827201766, guid: 68e3ce48015c7d444ac0a80d63bf3812, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3874370409827201766, guid: 68e3ce48015c7d444ac0a80d63bf3812, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 277d81cbb98c45e40a131e5908368311, type: 2}
+    - target: {fileID: 7522617781960950083, guid: 68e3ce48015c7d444ac0a80d63bf3812, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7990669377979293128, guid: 68e3ce48015c7d444ac0a80d63bf3812, type: 3}
       propertyPath: m_Radius
       value: 0.1
@@ -5373,6 +5385,18 @@ PrefabInstance:
     - target: {fileID: 7990669377979293128, guid: 68e3ce48015c7d444ac0a80d63bf3812, type: 3}
       propertyPath: m_IsTrigger
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8884498414826395759, guid: 68e3ce48015c7d444ac0a80d63bf3812, type: 3}
+      propertyPath: BossImg
+      value: 
+      objectReference: {fileID: 21300000, guid: 2eb4edb9c070dae4d8503b0e709dbaef, type: 3}
+    - target: {fileID: 8884498414826395759, guid: 68e3ce48015c7d444ac0a80d63bf3812, type: 3}
+      propertyPath: endpos.x
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8884498414826395759, guid: 68e3ce48015c7d444ac0a80d63bf3812, type: 3}
+      propertyPath: endpos.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7407,11 +7431,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3495539026110493909, guid: eb3c36a909644764a9cc264d10fecba2, type: 3}
       propertyPath: m_text
-      value: "\uBCF4\uC2A4 \n\uB3CC\uC9C4"
+      value: "\uBCF4\uC2A4 \uB3CC\uC9C4\n(\uD0C0\uACA9)"
       objectReference: {fileID: 0}
     - target: {fileID: 3495539026110493909, guid: eb3c36a909644764a9cc264d10fecba2, type: 3}
       propertyPath: m_fontSize
-      value: 32.05
+      value: 26.8
       objectReference: {fileID: 0}
     - target: {fileID: 5001148196221637037, guid: eb3c36a909644764a9cc264d10fecba2, type: 3}
       propertyPath: m_Pivot.x

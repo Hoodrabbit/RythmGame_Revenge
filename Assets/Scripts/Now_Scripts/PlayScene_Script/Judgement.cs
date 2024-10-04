@@ -5,9 +5,15 @@ using TMPro;
 
 public class Judgement : MonoBehaviour
 {
+
+    public GameObject JudgeText;
+
+    //나중에 따로 판정마다 스프라이트를 가지고 있는 스크립트 혹은 변수가 추가될 예정
+
+    [Space ( 10f)]
+
     public KeyCode key;
     public KeyCode key2;
-
     public KeyCode Key3;
 
 
@@ -37,7 +43,7 @@ public class Judgement : MonoBehaviour
     float pressTime = 0;
 
     //public string txt;
-    public TMP_Text judgeText;
+    //public TMP_Text judgeText;
 
 
 
@@ -258,69 +264,35 @@ public class Judgement : MonoBehaviour
     {
         Debug.Log(time);
         float f_time = Mathf.Abs((float)time);
+        TMP_Text judgetext = Instantiate(JudgeText, Vector3.zero, Quaternion.identity, transform.GetComponentInChildren<Canvas>().gameObject.transform).GetComponent<TMP_Text>();
         if (f_time <= 0.05)
         {
-
+           
 
             //정확한 판정을 켰을 경우
             if (f_time <= 0.04)
             {
-                
-                judgeText.text = "Perfect";
+                judgetext.text = "Perfect";
                 Debug.Log("Perfect");
 
             }
-            //else
-            //{
-
-            //    if (time > 0)
-            //{
-            //        judgeText.text = "Perfect\nEarly";
-            //        //early
-            //    }
-            //    else
-            //    {
-            //        judgeText.text = "Perfect\nLate";
-            //        //late
-            //    }
-
-
-
-            //}
-
-
-
-
-
-
-            //judgeText.text = "Perfect";
-            //Debug.Log("Perfect");
-
-
-
-
-
-
 
             return true;
 
         }
         else if(f_time < 0.10 && f_time > 0.05)
         {
-            judgeText.text = "Great";
+            judgetext.text = "Great";
             Debug.Log("Great");
 
             return true;
         }
         else if(f_time >= 0.1)
         {
+            judgetext.text = "Miss";
             Debug.Log(f_time + "          " );
-            judgeText.text = "Miss!";
-            //notes.RemoveAt(0); //추가
-            //AlreadyDelete = true;
             return false;
-            //Debug.Log("Miss");
-            //미스가 일어나면 일정 시간 후 무조건 바로 꺼져야 함 아니면 미스 표시가 아예 안뜸
+
         }
 
         return false;
@@ -337,11 +309,6 @@ public class Judgement : MonoBehaviour
             {
                 notes.Add(collision.gameObject.GetComponent<Note>());
             }
-            
-            //Debug.Log(collision.gameObject.GetComponent<Note>().SongTime - GameManager.Instance.MainAudio.time);
-            //note = collision.gameObject;
-
-
 
         }
 
@@ -358,30 +325,7 @@ public class Judgement : MonoBehaviour
                 notes.RemoveAt(0);
             }
                 
-          
-
-            
-            //제일 처음 노트부터 사라져야 하기 때문에 작동됨
-
-
-            //note = collision.gameObject;
-
-
 
         }
     }
-
-    //void InitalizeJudgeMents()
-    //{
-    //    foreach (var obj in JudgeMentsColliders)
-    //    {
-    //        if (obj.bboxcollider2D.enabled == true)
-    //        {
-    //            obj.bboxcollider2D.enabled = false;
-    //        }
-    //    }
-    //}
-
-
-
 }

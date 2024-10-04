@@ -148,9 +148,9 @@ public class Note : MonoBehaviour
                     {
                         transform.position = new Vector3(transform.position.x, EditManager.UP);
                     }
-                    
 
 
+                    ChangeHeight();
                 }
 
             }
@@ -436,7 +436,7 @@ public class Note : MonoBehaviour
             case EventType.None:
                 if (ypos > 0)
                 {
-                    //Debug.Log("작동이 왜 안되지");
+                    Debug.Log("작동");
                     Height = NoteHeight.UP;
                     transform.position = new Vector3(transform.position.x, GetHeight());
                 }

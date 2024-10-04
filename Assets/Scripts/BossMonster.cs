@@ -9,13 +9,14 @@ public class BossMonster : MonoBehaviour
 
     public bool Trigger = false;
     CircleCollider2D bossCollider;
+    SpriteRenderer spriteRenderer;
 
     bool Hit = true;
     float MaxTime = 0.3f;
     //일단 노트화 시켜서 다른 노트처럼 똑같이 움직이되 보스가 나오는 
     float TTime = 0;
     Vector2 startpos;
-    Vector2 endpos;
+    public Vector2 endpos;
 
     Coroutine DashCoroutine;
     Coroutine TurnBack_SuccessCoroutine;
@@ -23,15 +24,24 @@ public class BossMonster : MonoBehaviour
 
     Action HitAction;
 
+    Animator Boss_animator;
+
+    public void Awake()
+    {
+        Boss_animator= GetComponent<Animator>();
+    }
 
 
     private void Start()
     {
+
+
+
         bossCollider = GetComponent<CircleCollider2D>();
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = BossImg;
         startpos = transform.position;
-        endpos = new Vector3(25, 1);
+        //endpos = new Vector3(25, 1);
 
         HitAction += HitCheck;
 
@@ -54,7 +64,7 @@ public class BossMonster : MonoBehaviour
 
     public void Appear()
     {
-        bossCollider.isTrigger = true;
+        
         StartCoroutine(AppearBoss());
 
     }
@@ -82,7 +92,7 @@ public class BossMonster : MonoBehaviour
         Debug.Log("출현");
 
         GameManager.Instance.BossAppear = true;
-
+        bossCollider.isTrigger = true;
 
     }
 
@@ -106,7 +116,15 @@ public class BossMonster : MonoBehaviour
 
     public void BossDash(Transform parent)
     {
-       DashCoroutine = StartCoroutine(Dash(parent));
+        //invisble Mode
+        //지금은 임의로 색깔을 입힌 상태라 이렇게 코드를 짜야 하지만 나중에는 0,0,0 이렇게 적용할 듯
+        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
+
+
+
+
+
+       //DashCoroutine = StartCoroutine(Dash(parent));
     }
 
     IEnumerator Dash(Transform parent)
@@ -179,7 +197,10 @@ public class BossMonster : MonoBehaviour
         }
     }
 
-
+    public Animator GetAnimator()
+    {
+        return Boss_animator;
+    }
 
 
 
