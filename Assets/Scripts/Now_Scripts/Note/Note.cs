@@ -349,101 +349,39 @@ public class Note : MonoBehaviour
     {
         switch (num)
         {
-            case 0:
-                return EventType.None;
             case 1:
                 return EventType.SpawnOutside;
             case 2:
                 return EventType.SpawnOutside_Reverse;
-            case 3:
+            default:
                 return EventType.None;
         }
-        return 0;
-
-
-
     }
 
     public void EventChangeMethod()
     {
-        if(GameManager.Instance.state == GameState.None)
+        if (GameManager.Instance.state == GameState.None && eventType != EventType.None && !EventActivate && !GameManager.Instance.MainAudio.isPlaying)
         {
-            if(eventType != EventType.None) 
+            EventActivate = transform.position.x <= 12;
+            if (EventActivate)
             {
-                if (!GameManager.Instance.MainAudio.isPlaying)
+                int event_TypeCheck = 0;
+                foreach (var e in DataManager.Instance.eventManager.EventList)
                 {
-                    if (transform.position.x > 12)
+                    if (SongTime >= e.eventPos.SongTime && e.eventPos.EventType < 100)
                     {
-                        EventActivate = false;
+                        event_TypeCheck = e.eventPos.EventType;
+                        break;
                     }
-                    else
-                    {
-                        EventActivate = true;
-
-                    }
-
                 }
-                else
+                eventType = EventChecker(event_TypeCheck);
+                if(TypeNum == 1)
                 {
-                    EventActivate = false;
+                    ChangeHeight();
                 }
-
+                
             }
-
-            
         }
-       
-
-
-
-
-        //계속 적용시키는 건 최적화에 문제가 생기니까 해당 이벤트가 발동됬을 때 적용 될 수 있도록 만들어주면 좋을 것 같음
-        if (DataManager.Instance.eventManager.EventList != null)
-        {
-            // Debug.Log(" 이벤트 발동   " + EventManager.Instance.EventList.Count);
-
-            int event_TypeCheck = 0;
-            bool ReverseCheck = false;
-
-            if (eventType == EventType.SpawnOutside_Reverse)
-            {
-                ReverseCheck = true;
-            }
-
-            if(EventActivate == false)
-            {
-                if (DataManager.Instance.eventManager.EventList.Count > 0)
-                {
-                    for (int i = 0; i < DataManager.Instance.eventManager.EventList.Count; i++)
-                    {
-                        if (SongTime >= DataManager.Instance.eventManager.EventList[i].eventPos.SongTime && DataManager.Instance.eventManager.EventList[i].eventPos.EventType < 100)
-                        {
-                            event_TypeCheck = DataManager.Instance.eventManager.EventList[i].eventPos.EventType;
-                        }
-                    }
-                    eventType = EventChecker(event_TypeCheck);
-
-                }
-                else
-                {
-                    // Debug.Log("작동되나요");
-                    eventType = EventChecker(0);
-                }
-
-                //이벤트에 따른 노트의 변화
-                //노트 높이 변경 관련 메서드 활성화
-
-                ChangeHeight();
-            }
-            else
-            {
-                Debug.Log("이벤트 활성화 되어 있음");
-            }
-
-           
-
-        }
-       
     }
 
     //반대로 오는 노트도 있기 때문에 해당 타입이었던 경우 위치 변경 전 타입을 체크해서 위치를 설정해주도록 해야 함

@@ -123,15 +123,15 @@ public enum EventType
     None,
     SpawnOutside,
     SpawnOutside_Reverse,
+    End,
 
-
-    Appear,
+    Appear = 100,
 
     Disappear,
 
-    Dash,
+    Dash
 
-    End
+    
 
 }
 

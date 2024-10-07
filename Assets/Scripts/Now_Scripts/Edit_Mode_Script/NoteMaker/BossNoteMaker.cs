@@ -4,10 +4,6 @@ public class BossNoteMaker : Event_Note_Maker
 {
     public override GameObject Note { get => EventNote; set => EventNote = value; }
 
-    public BossNoteType bossNoteType;
-
-  
-
     protected override void Update()
     {
         base.Update();
@@ -26,23 +22,23 @@ public class BossNoteMaker : Event_Note_Maker
             if (hit[i].collider.CompareTag("NotePlace"))
             {
 
-                Vector2 InstantiatePos = new Vector3(hit[i].transform.position.x, EditManager.MIDDLE);
+                Debug.Log("작동되는지 확인");
 
-                if (NoteCheck(InstantiatePos))
-                {
+                //Vector2 InstantiatePos = new Vector3(hit[i].transform.position.x, EditManager.MIDDLE);
 
-                    GameObject AddEvent = Instantiate(Note, InstantiatePos, Quaternion.identity, barNote.EventNote.transform);
+                //if (NoteCheck(InstantiatePos))
+                //{
 
-                    float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
-                    //위와 동일 
+                //    GameObject AddEvent = Instantiate(Note, InstantiatePos, Quaternion.identity, barNote.EventNote.transform);
 
+                //    float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
+                //    //위와 동일 
+                //    //BossEventScript BossEventScript = AddEvent.GetComponent<BossEventScript>();
 
-                    BossEventNote bossEventNote = AddEvent.GetComponent<BossEventNote>();
+                //    //DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos,0, (int)BossEventScript.bossEventType, (double)RealXpos / GameManager.Instance.speed));
 
-                    DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos,0, (int)bossEventNote.bossEventType, (double)RealXpos / GameManager.Instance.speed));
-
-                    EventChanged?.Invoke();
-                }
+                //    //EventChanged?.Invoke();
+                //}
                 i++;
             }
 

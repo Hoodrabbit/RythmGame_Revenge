@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4550381852937025239}
   - component: {fileID: -137378727269532241}
   - component: {fileID: 8952348970745380840}
+  - component: {fileID: 6548734254312535284}
   m_Layer: 0
   m_Name: BossDashNote
   m_TagString: BossActionNote
@@ -193,6 +194,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6618acebc1d1c0642922578f5d2075e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventType: 102
+  Boss_Animator: {fileID: 0}
+  boss_Real: {fileID: 0}
+  bossSprite: {fileID: 0}
+  Hit: 0
+--- !u!114 &6548734254312535284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5612370883487808057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9295c761605220428c5ff51a534fa2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   TypeNum: 102
   eventType: 0
   speed: 0
@@ -203,9 +221,3 @@ MonoBehaviour:
   xpos: 0
   ypos: 0
   EventActivate: 0
-  TapCount: 0
-  Invisble: 1
-  bossEventType: 102
-  boss_Real: {fileID: 0}
-  bossSprite: {fileID: 0}
-  Hit: 0

@@ -100,11 +100,11 @@ namespace Note_Namespace
 
 
 
-//        public void BossEventNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
+//        public void BossEventScript(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
 //        {
 //            GameObject Note_Instantiate;
 
-//            // Debug.Log("BossEventNote Xpos : " + xpos);
+//            // Debug.Log("BossEventScript Xpos : " + xpos);
 
 //            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, noteType, LongNoteStartEndCheck, songtime);
 //            Note_Instantiate = Instantiate(NoteTypes[4], new Vector3(NotePos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
@@ -248,7 +248,7 @@ public class PlayManager : Singleton<PlayManager>
 
             case 100:
                 Debug.Log("출현노트 ");
-                BossEventNote(xpos, height, eventType, songtime);
+                BossAppearNote(xpos, height, eventType, songtime);
                 break;
 
             case 101:
@@ -387,7 +387,7 @@ public class PlayManager : Singleton<PlayManager>
 
 
 
-    public void BossEventNote(float xpos, int height, int eventType, double songtime, int enemyType = 0)
+    public void BossAppearNote(float xpos, int height, int eventType, double songtime, int enemyType = 0)
     {
         GameObject EventNote;
 
@@ -397,18 +397,6 @@ public class PlayManager : Singleton<PlayManager>
 
         EventNote.GetComponent<Note>().SetSongTime(songtime);
         
-       // DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
-
-        //GameObject Note_Instantiate;
-
-        //// Debug.Log("BossEventNote Xpos : " + xpos);
-
-        //NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, noteType, LongNoteStartEndCheck, songtime);
-        //Note_Instantiate = Instantiate(NoteTypes[4], new Vector3(NotePos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
-
-        //Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
-
-        //Notes.Add(Note_Instantiate);
     }
 
     public void BossDisappearNote(float xpos, int height, int eventType, double songtime, int enemyType = 0)

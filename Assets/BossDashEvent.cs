@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossDashEvent : BossEventNote
+public class BossDashEvent : NoteEventScript
 {
 
     BossMonster boss;
@@ -14,24 +14,9 @@ public class BossDashEvent : BossEventNote
 
     public bool Hit = false;
 
-
-
-
-    //protected override void Awake()
-    //{
-    //    //base.Awake();
-    //}
-    protected override void Start()
+    protected override void Update()
     {
-        base.Start();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-
-
-        if(!Hit)
+        if (!Hit)
         {
             if (boss != null && CheckGetOutofCamera())
             {
@@ -44,9 +29,9 @@ public class BossDashEvent : BossEventNote
         }
         else
         {
-            if(boss!= null)
+            if (boss != null)
             {
-               
+
                 boss_Real.transform.parent = null;
 
                 boss.Turnback();
@@ -55,12 +40,12 @@ public class BossDashEvent : BossEventNote
                 spriteRenderer.color = Color.clear;
                 gameObject.SetActive(false);
             }
-            
-           
-           
+
+
+
             //gameObject.SetActive(false);
         }
-       
+
 
         //transform.position = new Vector2(transform.position.x - 5 * Time.deltaTime, transform.position.y);
 
@@ -68,7 +53,7 @@ public class BossDashEvent : BossEventNote
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Boss")
+        if (collision.tag == "Boss")
         {
 
             if (!IsTrigger)
@@ -91,7 +76,7 @@ public class BossDashEvent : BossEventNote
                 //보스 콜라이더와 닿으면 
             }
 
-           
+
             //anim
 
 
@@ -100,7 +85,7 @@ public class BossDashEvent : BossEventNote
             //collision.transform.localPosition = Vector3.zero;
         }
 
-        if(collision.tag == "Judgement")
+        if (collision.tag == "Judgement")
         {
 
 
@@ -128,6 +113,18 @@ public class BossDashEvent : BossEventNote
             return false;
         }
     }
+
+
+    ////protected override void Awake()
+    ////{
+    ////    //base.Awake();
+    ////}
+    //protected override void Start()
+    //{
+    //    base.Start();
+    //    spriteRenderer = GetComponent<SpriteRenderer>();
+    //}
+
 
 
 

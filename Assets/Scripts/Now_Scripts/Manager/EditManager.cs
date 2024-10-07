@@ -33,6 +33,7 @@ public class EditManager : Singleton<EditManager>
     [Header("보스 노트")]
     public GameObject BossAppearNote_Obj;
     public GameObject BossDisappearNote_Obj;
+    public GameObject BossDashNote_Obj;
 
 
     [Header("이벤트 생성 노트")]
@@ -119,7 +120,7 @@ public class EditManager : Singleton<EditManager>
 
             case 100:
                 Debug.Log("출현노트 ");
-                BossEventNote(xpos, height, eventType, songtime);
+                BossAppearNote(xpos, height, eventType, songtime);
                 break;
 
             case 101:
@@ -226,9 +227,9 @@ public class EditManager : Singleton<EditManager>
 
 
 
-    public void BossEventNote(float xpos, int height, int eventType, double songtime)
+    public void BossAppearNote(float xpos, int height, int eventType, double songtime)
     {
-        //GameObject AddNote = Instantiate(BossEventNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
+        //GameObject AddNote = Instantiate(BossEventScript_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
 
         //float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 

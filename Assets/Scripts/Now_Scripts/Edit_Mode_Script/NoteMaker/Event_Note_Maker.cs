@@ -65,7 +65,7 @@ public class Event_Note_Maker : NoteMakerBase
                 //Debug.Log("¿€µø" + hit[i].collider.name);
 
 
-                if (hit[i].collider.CompareTag("EventNote"))
+                if (hit[i].collider.CompareTag("EventNote") || hit[i].collider.CompareTag("BossActionNote"))
                 {
 
 

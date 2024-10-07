@@ -6,7 +6,7 @@ using TMPro;
 
 public class BossNoteDetailScript : MonoBehaviour
 {
-    BossEventNote bossNoteSet;
+    BossEventScript bossNoteSet;
 
     public TMP_InputField NoteTypeCheckText;
     public TMP_InputField TimeCheck;
@@ -14,7 +14,7 @@ public class BossNoteDetailScript : MonoBehaviour
     public Button InvisbleCheck;
 
 
-    public void SetNoteData(BossEventNote bossNote)
+    public void SetNoteData(BossEventScript bossNote)
     {
         bossNoteSet = bossNote;
         SetUI();
@@ -22,9 +22,9 @@ public class BossNoteDetailScript : MonoBehaviour
 
     public void SetUI()
     {
-        NoteTypeCheckText.text = ((int)bossNoteSet.bossEventType).ToString();
-        TimeCheck.text = bossNoteSet.SongTime.ToString();
-        TapCountCheck.text = bossNoteSet.TapCount.ToString();
+        //NoteTypeCheckText.text = ((int)bossNoteSet.bossEventType).ToString();
+        //TimeCheck.text = bossNoteSet.SongTime.ToString();
+        //TapCountCheck.text = bossNoteSet.TapCount.ToString();
         //InvisbleCheck
     }
 
