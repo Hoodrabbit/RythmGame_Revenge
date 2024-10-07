@@ -47,42 +47,49 @@ public class Note : MonoBehaviour
     protected virtual void Start()
     {
         AudioTime = AudioSettings.dspTime;
-        if(GetComponent<Animator>() != null)
-        {
-            Note_Move_Animator = GetComponent<Animator>();
-        } 
+        Note_Move_Animator = GetComponent<Animator>();
         xpos = transform.position.x;
         ypos = transform.position.y;
-        //if (Type == MelodyType.Obstacle)
-        // {
-       ChangeColor = GetComponent<SpriteRenderer>();
+        ChangeColor = GetComponent<SpriteRenderer>();
 
+        InitializeNote();
+    }
+
+
+    private void InitializeNote()
+    {
         if (TypeNum == 1)
         {
-            DataManager.Instance.eventManager.RefreshNoteEvent += EventChangeMethod;
-            if(GameManager.Instance.state == GameState.None && gameObject.CompareTag("Note"))
-            {
-                UIManager.Instance.MusicButtonPress += ChangeNotePos_IsPlaying;
-            }
-            
-            //노래가 실행중인지 아닌지도 체크해줘서 그걸 이벤트화 시켜줘야 함
-
+            RegisterEventHandlers();
+            SetInitialNotePositionAndColor();
             EventChangeMethod();
         }
-
-
-        if (TypeNum == 1 || TypeNum == 2)
+        else if (TypeNum == 2)
         {
-            if (transform.position.y >= 0)
-                ChangeColor.color = Color.red;
-            else
-                ChangeColor.color = Color.blue;
+            SetInitialNotePositionAndColor();
         }
-
-        // }
-
-
     }
+
+    private void RegisterEventHandlers()
+    {
+        DataManager.Instance.eventManager.RefreshNoteEvent += EventChangeMethod;
+        if (GameManager.Instance.state == GameState.None && gameObject.CompareTag("Note"))
+        {
+            UIManager.Instance.MusicButtonPress += ChangeNotePos_IsPlaying;
+        }
+    }
+
+    private void SetInitialNotePositionAndColor()
+    {
+        if (transform.position.y >= 0)
+            ChangeColor.color = Color.red;
+        else
+            ChangeColor.color = Color.blue;
+    }
+
+
+
+
     private void OnDisable()
     {
         if (TypeNum == 1)
@@ -100,19 +107,9 @@ public class Note : MonoBehaviour
     protected virtual void FixedUpdate()
     {
 
-
-
-
-
         if (GameManager.Instance.state == GameState.Play_Mode)
         {
-
             transform.position = new Vector2(xpos - GameManager.Instance.speed * (float)(AudioSettings.dspTime - AudioTime), transform.position.y);
-            //AudioTime += AudioSettings.dspTime - AudioTime;
-
-
-
-
 
         }
         else if (GameManager.Instance.state == GameState.Offset_Mode)
@@ -122,13 +119,6 @@ public class Note : MonoBehaviour
                 transform.position = new Vector3(xpos, 0);
                 AudioTime = AudioSettings.dspTime;
             }
-
-
-            //transform.position = new Vector2(transform.position.x + 10 * Time.fixedDeltaTime, transform.position.y);
-            //  transform.position = new Vector2(xpos + 10 * (float)(AudioSettings.dspTime - AudioTime), transform.position.y);
-
-
-
         }
         else
         {
@@ -170,7 +160,7 @@ public class Note : MonoBehaviour
                     EventActivate = false;
                 }
             }
-            
+
 
 
         }
@@ -360,8 +350,17 @@ public class Note : MonoBehaviour
 
     public void EventChangeMethod()
     {
+
+            ChangeHeight();
+        
+
         if (GameManager.Instance.state == GameState.None && eventType != EventType.None && !EventActivate && !GameManager.Instance.MainAudio.isPlaying)
         {
+            if (TypeNum == 1)
+            {
+                ChangeHeight();
+            }
+
             EventActivate = transform.position.x <= 12;
             if (EventActivate)
             {
@@ -375,10 +374,8 @@ public class Note : MonoBehaviour
                     }
                 }
                 eventType = EventChecker(event_TypeCheck);
-                if(TypeNum == 1)
-                {
-                    ChangeHeight();
-                }
+                Debug.Log("메서드 작동");
+                
                 
             }
         }
@@ -394,13 +391,14 @@ public class Note : MonoBehaviour
             case EventType.None:
                 if (ypos > 0)
                 {
-                    //Debug.Log("작동");
+                    Debug.Log("작동1111");
                     Height = NoteHeight.UP;
                     transform.position = new Vector3(transform.position.x, GetHeight());
                     ChangeColor.color = Color.red;
                 }
                 else
                 {
+                    Debug.Log("작동222");
                     Height = NoteHeight.DOWN;
                     transform.position = new Vector3(transform.position.x, GetHeight());
 
