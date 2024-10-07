@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossMonster : MonoBehaviour
+public class BossMonster : Note
 {
     public Sprite BossImg;
 
@@ -26,15 +26,16 @@ public class BossMonster : MonoBehaviour
 
     Animator Boss_animator;
 
-    public void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Boss_animator= GetComponent<Animator>();
     }
 
 
-    private void Start()
+    protected override void Start()
     {
-
+        DataManager.Instance.eventManager.RefreshNoteEvent += EventChangeMethod;
 
 
         bossCollider = GetComponent<CircleCollider2D>();
@@ -48,16 +49,11 @@ public class BossMonster : MonoBehaviour
     }
 
 
-    private void Update()
+
+    protected override void FixedUpdate()
     {
-        
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            //SwitchToCoroutineB(); //해당 코드를 통해 보스가 원래 출현 위치로 돌아옴
+        //보스만의 특별한 기능
 
-        }
-
-        
 
 
     }
@@ -119,13 +115,15 @@ public class BossMonster : MonoBehaviour
         //invisble Mode
         //지금은 임의로 색깔을 입힌 상태라 이렇게 코드를 짜야 하지만 나중에는 0,0,0 이렇게 적용할 듯
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
-
-
-
-
-
        //DashCoroutine = StartCoroutine(Dash(parent));
     }
+
+    public void VisualizeBoss()
+    {
+
+        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1);
+    }
+
 
     IEnumerator Dash(Transform parent)
     {
@@ -155,13 +153,22 @@ public class BossMonster : MonoBehaviour
 
     }
 
+    public void Turnback()
+    {
+        StartCoroutine(TurnBack_Success());
+    }
+
 
     IEnumerator TurnBack_Success()
     {
         Vector2 pos = transform.position;
+        TTime = 0;
+
 
         while (TTime <= MaxTime)
         {
+            Debug.Log("왜안될까");
+
             TTime += Time.deltaTime;
             
             //아직 이상함 방식 좀 더 세밀하게 잡아서 처리해야 할 듯
@@ -169,6 +176,7 @@ public class BossMonster : MonoBehaviour
             transform.position = Vector3.Lerp(pos, endpos, TTime / MaxTime);
             yield return null;
         }
+        transform.position = endpos;
 
        
     }

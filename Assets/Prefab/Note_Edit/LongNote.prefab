@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9295c761605220428c5ff51a534fa2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TypeNum: 0
+  TypeNum: 2
   eventType: 0
   speed: 0
   SongTime: 0
@@ -152,6 +152,7 @@ MonoBehaviour:
   Height: 0
   xpos: 0
   ypos: 0
+  EventActivate: 0
 --- !u!1 &7824795879292237692
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +250,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7824795879292237692}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a77a11ec9e5daf4abbeb6bf0d68ff9e, type: 3}
   m_Name: 
@@ -340,7 +341,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7824795879292237692}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9295c761605220428c5ff51a534fa2d, type: 3}
   m_Name: 
@@ -354,6 +355,7 @@ MonoBehaviour:
   Height: 0
   xpos: 0
   ypos: 0
+  EventActivate: 0
 --- !u!1 &8204148498064322795
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,7 +494,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8204148498064322795}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afdf237ce8e45f64587e3e6bf164c001, type: 3}
   m_Name: 

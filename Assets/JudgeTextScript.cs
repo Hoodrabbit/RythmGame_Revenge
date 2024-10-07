@@ -35,7 +35,7 @@ public class JudgeTextScript : MonoBehaviour
     {
         while(TTIme < LifeTime)
         {
-                rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y+0.1f);
+                rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y+0.3f);
                 TTIme += Time.deltaTime;
                 yield return null;
         }

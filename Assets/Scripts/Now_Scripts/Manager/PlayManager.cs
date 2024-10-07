@@ -100,11 +100,11 @@ namespace Note_Namespace
 
 
 
-//        public void BossAppearNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
+//        public void BossEventNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
 //        {
 //            GameObject Note_Instantiate;
 
-//            // Debug.Log("BossAppearNote Xpos : " + xpos);
+//            // Debug.Log("BossEventNote Xpos : " + xpos);
 
 //            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, noteType, LongNoteStartEndCheck, songtime);
 //            Note_Instantiate = Instantiate(NoteTypes[4], new Vector3(NotePos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
@@ -248,7 +248,7 @@ public class PlayManager : Singleton<PlayManager>
 
             case 100:
                 Debug.Log("출현노트 ");
-                BossAppearNote(xpos, height, eventType, songtime);
+                BossEventNote(xpos, height, eventType, songtime);
                 break;
 
             case 101:
@@ -387,7 +387,7 @@ public class PlayManager : Singleton<PlayManager>
 
 
 
-    public void BossAppearNote(float xpos, int height, int eventType, double songtime, int enemyType = 0)
+    public void BossEventNote(float xpos, int height, int eventType, double songtime, int enemyType = 0)
     {
         GameObject EventNote;
 
@@ -401,7 +401,7 @@ public class PlayManager : Singleton<PlayManager>
 
         //GameObject Note_Instantiate;
 
-        //// Debug.Log("BossAppearNote Xpos : " + xpos);
+        //// Debug.Log("BossEventNote Xpos : " + xpos);
 
         //NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, noteType, LongNoteStartEndCheck, songtime);
         //Note_Instantiate = Instantiate(NoteTypes[4], new Vector3(NotePos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);

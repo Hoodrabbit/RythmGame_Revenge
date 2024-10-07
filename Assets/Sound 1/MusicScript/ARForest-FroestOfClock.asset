@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 107293333b83d374696995dffd19c215, type: 3}
+  m_Name: ARForest-FroestOfClock
+  m_EditorClassIdentifier: 
+  Artist_Name: ARForest
+  Music_Name: Forest of Clock
+  Music: {fileID: 8300000, guid: a4688a4d2bb2ddd4fa37b3d7cc24911c, type: 3}
+  BPM: 175
+  NoteFileDirection: ForestOfClockNote.txt
+  MusicSprite: {fileID: 450323597, guid: 70c595dd60f9ff3468cdb2c63ed49636, type: 3}

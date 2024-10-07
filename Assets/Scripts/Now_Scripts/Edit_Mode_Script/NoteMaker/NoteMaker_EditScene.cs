@@ -21,7 +21,7 @@ public class NoteMaker_EditScene : MonoBehaviour
     GameObject Note_Normal;
     GameObject Note_Long;
     GameObject Ghost_Note;
-    GameObject BossAppearNoteMaker;
+    GameObject MakeBossAppearNote;
     GameObject BossDisappearNoteMaker;
     GameObject ObstacleMaker;
     GameObject EndEventMaker;
@@ -53,7 +53,7 @@ public class NoteMaker_EditScene : MonoBehaviour
 
         Ghost_Note = MakerObjList[2];
 
-        BossAppearNoteMaker = MakerObjList[3];
+        MakeBossAppearNote = MakerObjList[3];
         BossDisappearNoteMaker = MakerObjList[4];
 
         ObstacleMaker = MakerObjList[5];
@@ -154,24 +154,24 @@ public class NoteMaker_EditScene : MonoBehaviour
 
     }
 
-    public void Instantiate_BossAppearNote()
+    public void Instantiate_MakeBossAppearNote()
     {
-        if (BossAppearNoteMaker.activeSelf == false)
+        if (MakeBossAppearNote.activeSelf == false)
         {
             if (!Already_Using)
             {
-                BossAppearNoteMaker.SetActive(true);
+                MakeBossAppearNote.SetActive(true);
             }
             else
             {
                 TurnOffMaker();
-                BossAppearNoteMaker.SetActive(true);
+                MakeBossAppearNote.SetActive(true);
             }
             Already_Using = true;
         }
         else
         {
-            BossAppearNoteMaker.SetActive(false);
+            MakeBossAppearNote.SetActive(false);
             Already_Using = false;
         }
     }

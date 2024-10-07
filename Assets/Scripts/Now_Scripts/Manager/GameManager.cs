@@ -44,10 +44,6 @@ public class GameManager : Singleton<GameManager>
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("GameState : " + state);
-        }
     }
 
 

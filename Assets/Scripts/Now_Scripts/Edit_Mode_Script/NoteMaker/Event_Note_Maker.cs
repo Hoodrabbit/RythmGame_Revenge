@@ -41,7 +41,7 @@ public class Event_Note_Maker : NoteMakerBase
                 if (NoteCheck(InstantiatePos))
                 {
 
-                    GameObject AddEvent = Instantiate(Note, InstantiatePos, Quaternion.identity, barNote.RhythmNote.transform);
+                    GameObject AddEvent = Instantiate(Note, InstantiatePos, Quaternion.identity, barNote.EventNote.transform);
 
                     float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
                     //위와 동일 

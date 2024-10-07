@@ -17,7 +17,7 @@ public class dummyjudgement : MonoBehaviour
         if(collision.CompareTag("Boss"))
         {
 
-            TestBossDash bossDashScript = collision.GetComponent<TestBossDash>();
+            BossDashEvent bossDashScript = collision.GetComponent<BossDashEvent>();
             if (bossDashScript != null /*!bossDashScript.StopBoss*/)
             {
                 if (Input.anyKeyDown)

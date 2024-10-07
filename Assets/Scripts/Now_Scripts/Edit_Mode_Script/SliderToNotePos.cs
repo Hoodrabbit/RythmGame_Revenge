@@ -57,6 +57,9 @@ public class SliderToNotePos : MonoBehaviour
 
             if (PressTime > 0.3f)
             {
+                Debug.Log("왜 실행이 안되죠");
+
+
                 PressTime_2nd += Time.deltaTime;
                 if (PressTime_2nd > 0.05f)
                 {

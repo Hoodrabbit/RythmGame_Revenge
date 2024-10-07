@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
-public class BossNoteMaker : NoteMakerBase
+public class BossNoteMaker : Event_Note_Maker
 {
-    public GameObject Boss_Note;
-    public override GameObject Note { get => Boss_Note; set => Boss_Note = value; }
+    public override GameObject Note { get => EventNote; set => EventNote = value; }
 
     public BossNoteType bossNoteType;
 
@@ -16,7 +12,7 @@ public class BossNoteMaker : NoteMakerBase
     {
         base.Update();
     } // 클릭 이벤트를 처리하는 메서드
-   
+
 
 
     protected override void AreaCheck(GameObject Note, Vector2 Pos, bool DeleteMode)
@@ -32,53 +28,44 @@ public class BossNoteMaker : NoteMakerBase
 
                 Vector2 InstantiatePos = new Vector3(hit[i].transform.position.x, EditManager.MIDDLE);
 
-                if(NoteCheck(InstantiatePos)  )
+                if (NoteCheck(InstantiatePos))
                 {
 
-                    GameObject AddEvent = Instantiate(Note, InstantiatePos, Quaternion.identity, barNote.RhythmNote.transform);
+                    GameObject AddEvent = Instantiate(Note, InstantiatePos, Quaternion.identity, barNote.EventNote.transform);
 
                     float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
                     //위와 동일 
 
-                    
-                    BossAppearNote bossAppearNote = AddEvent.GetComponent<BossAppearNote>();
 
-                    //if (bossNoteType == BossNoteType.Appear)
-                    //{
-                        DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, bossAppearNote.TypeNum, NoteType, (double)RealXpos / 10));
-                    //}
-                    //else if (bossNoteType == BossNoteType.Disappear)
-                    //{
-                    //    DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, 0, NoteType, (double)RealXpos / 10));
-                    //}
-                }
+                    BossEventNote bossEventNote = AddEvent.GetComponent<BossEventNote>();
 
-            }
-            i++;
-        }
+                    DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos,0, (int)bossEventNote.bossEventType, (double)RealXpos / GameManager.Instance.speed));
 
-        if (DeleteMode)
-        {
-            i = 0;
-            while (i < hit.Length && DeleteMode)
-            {
-                //Debug.Log("작동" + hit[i].collider.name);
-
-
-                if (hit[i].collider.CompareTag("BossActionNote"))
-                {
-
-                    Destroy(hit[i].collider.gameObject);
-
-
-
+                    EventChanged?.Invoke();
                 }
                 i++;
             }
+
+            if (DeleteMode)
+            {
+                i = 0;
+                while (i < hit.Length && DeleteMode)
+                {
+                    //Debug.Log("작동" + hit[i].collider.name);
+
+
+                    if (hit[i].collider.CompareTag("BossActionNote"))
+                    {
+
+                        Destroy(hit[i].collider.gameObject);
+                        EventChanged?.Invoke();
+
+
+                    }
+                    i++;
+                }
+            }
         }
-
-
-
     }
 
 
@@ -94,7 +81,7 @@ public class BossNoteMaker : NoteMakerBase
 
         while (count < hit_Detail.Length)
         {
-            if (hit_Detail[count].collider.CompareTag("BossActionNote"))
+            if (hit_Detail[count].collider.CompareTag("BossActionNote") || hit_Detail[count].collider.CompareTag("EventNote"))
             {
                 Debug.Log("중복입니다.");
                 return false;

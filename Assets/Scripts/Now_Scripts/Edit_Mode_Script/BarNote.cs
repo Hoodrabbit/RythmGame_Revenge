@@ -12,6 +12,7 @@ public class BarNote : MonoBehaviour
 
     public GameObject BeatNote;
     public GameObject RhythmNote;
+    public GameObject EventNote;
 
     [Header("박자 노트 종류")]
     public GameObject ContanierNote;

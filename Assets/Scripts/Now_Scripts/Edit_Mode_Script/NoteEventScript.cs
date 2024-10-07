@@ -21,9 +21,9 @@ public class NoteEventScript : MonoBehaviour
         if (GameManager.Instance.state == GameState.Play_Mode)
         {
             SpriteRenderer SR = GetComponent<SpriteRenderer>();
-            //GameObject childobj = GetComponentInChildren<Canvas>().gameObject;
-           // childobj.SetActive(false);       
-            //SR.color = new Color(0, 0, 0, 0);
+            GameObject childobj = GetComponentInChildren<Canvas>().gameObject;
+           childobj.SetActive(false);       
+            SR.color = new Color(0, 0, 0, 0);
         }
     }
 
@@ -54,21 +54,21 @@ public class NoteEventScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Boss" && eventType == EventType.Dash)
-        {
+        //if (collision.tag == "Boss" && eventType == EventType.Dash)
+        //{
 
-            //보스 오브젝트에 돌진을 하라는 신호를 보냄
-            //수정 예정 보스 오브젝트를 잠시 꺼줌 
-            BossMonster boss = collision.GetComponent<BossMonster>();
-            boss.BossDash(this.transform);
+        //    //보스 오브젝트에 돌진을 하라는 신호를 보냄
+        //    //수정 예정 보스 오브젝트를 잠시 꺼줌 
+        //    BossMonster boss = collision.GetComponent<BossMonster>();
+        //    boss.BossDash(this.transform);
 
-            //보스 오브젝트와 충돌하면서 보스의 애니메이션 정보를 얻어감
-            Boss_Animator = boss.GetAnimator();
+        //    //보스 오브젝트와 충돌하면서 보스의 애니메이션 정보를 얻어감
+        //    Boss_Animator = boss.GetAnimator();
 
 
-            //collision.transform.parent = transform;
-            //collision.transform.localPosition = Vector3.zero;
-        }
+        //    //collision.transform.parent = transform;
+        //    //collision.transform.localPosition = Vector3.zero;
+        //}
     }
 
 

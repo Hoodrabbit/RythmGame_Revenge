@@ -47,7 +47,10 @@ public class Note : MonoBehaviour
     protected virtual void Start()
     {
         AudioTime = AudioSettings.dspTime;
-        Note_Move_Animator = GetComponent<Animator>();
+        if(GetComponent<Animator>() != null)
+        {
+            Note_Move_Animator = GetComponent<Animator>();
+        } 
         xpos = transform.position.x;
         ypos = transform.position.y;
         //if (Type == MelodyType.Obstacle)
@@ -130,34 +133,44 @@ public class Note : MonoBehaviour
         else
         {
             //노트의 현재 위치가 12보다 큰지 작은지 체크해서 위치설정해주기
-
-            if (!GameManager.Instance.MainAudio.isPlaying && gameObject.CompareTag("Note"))
+            if (eventType != EventType.None)
             {
-                if (transform.position.x > 12)
+                if (!GameManager.Instance.MainAudio.isPlaying && gameObject.CompareTag("Note") && TypeNum == 1 || TypeNum == 2)
                 {
-                    EventActivate = false;
+
+                    if (transform.position.x > 12)
+                    {
+                        EventActivate = false;
+                    }
+                    else
+                    {
+                        EventActivate = true;
+
+                        if (!GameManager.Instance.MainAudio.isPlaying)
+                        {
+                            //StopAllCoroutines();
+                        }
+
+                        if (Height == NoteHeight.OUTSIDE_DOWN || Height == NoteHeight.REVERSE_UP || Height == NoteHeight.DOWN)
+                        {
+                            transform.position = new Vector3(transform.position.x, EditManager.DOWN);
+                        }
+                        else if (Height != NoteHeight.None)
+                        {
+                            transform.position = new Vector3(transform.position.x, EditManager.UP);
+                        }
+
+
+                        ChangeHeight();
+                    }
+
                 }
                 else
                 {
-                    EventActivate = true;
-                    if(Height == NoteHeight.OUTSIDE_DOWN || Height == NoteHeight.REVERSE_UP || Height == NoteHeight.DOWN)
-                    {
-                        transform.position = new Vector3(transform.position.x, EditManager.DOWN);
-                    }
-                    else if(Height != NoteHeight.None)
-                    {
-                        transform.position = new Vector3(transform.position.x, EditManager.UP);
-                    }
-
-
-                    ChangeHeight();
+                    EventActivate = false;
                 }
-
             }
-            else
-            {
-                EventActivate = false;
-            }
+            
 
 
         }
@@ -355,22 +368,29 @@ public class Note : MonoBehaviour
     {
         if(GameManager.Instance.state == GameState.None)
         {
-            if (!GameManager.Instance.MainAudio.isPlaying)
+            if(eventType != EventType.None) 
             {
-                if (transform.position.x > 12)
+                if (!GameManager.Instance.MainAudio.isPlaying)
                 {
-                    EventActivate = false;
+                    if (transform.position.x > 12)
+                    {
+                        EventActivate = false;
+                    }
+                    else
+                    {
+                        EventActivate = true;
+
+                    }
+
                 }
                 else
                 {
-                    EventActivate = true;
+                    EventActivate = false;
                 }
 
             }
-            else
-            {
-                EventActivate = false;
-            }
+
+            
         }
        
 
@@ -436,20 +456,25 @@ public class Note : MonoBehaviour
             case EventType.None:
                 if (ypos > 0)
                 {
-                    Debug.Log("작동");
+                    //Debug.Log("작동");
                     Height = NoteHeight.UP;
                     transform.position = new Vector3(transform.position.x, GetHeight());
+                    ChangeColor.color = Color.red;
                 }
                 else
                 {
                     Height = NoteHeight.DOWN;
                     transform.position = new Vector3(transform.position.x, GetHeight());
-                }
 
-                if (transform.position.y >= 0)
-                    ChangeColor.color = Color.red;
-                else
-                    ChangeColor.color = Color.blue;
+                    //Debug.Log(gameObject.name);
+
+                    if(ChangeColor!= null)
+                    {
+                        //Debug.Log(ChangeColor.gameObject);
+                        ChangeColor.color = Color.blue;
+                    }
+                    
+                }
 
                 break;
 

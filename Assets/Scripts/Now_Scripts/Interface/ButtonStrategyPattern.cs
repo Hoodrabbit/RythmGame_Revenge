@@ -159,6 +159,20 @@ class UsingMouse : IButton
 }
 
 
+class DeleteAllNotes : IButton
+{
+    readonly string name = "DeleteAllNotes";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        //모든 정보 초기화 
+        DataManager.Instance.DestroyEverything();
+    }
+    
+
+}
 
 
 
@@ -205,7 +219,7 @@ class MakeBossAppearNote : IButton
 
     public void Click()
     {
-        NoteMaker_EditScene.instance.Instantiate_BossAppearNote();
+        NoteMaker_EditScene.instance.Instantiate_MakeBossAppearNote();
     }
 
 }

@@ -286,8 +286,10 @@ public class DataManager : Singleton<DataManager>
         int EventCount = Int32.Parse(EventNoteParsing.ReadLine());
         while (EventNotes.Count > 0)
         {
-            //Destroy(EventNotes[EventNotes.Count - 1].EventNote);
-            //EventNotes.RemoveAt(EventNotes.Count - 1);
+            foreach (Transform child in EditManager.Instance.barNote.EventNote.transform)
+            {
+                Destroy(child.gameObject);
+            }
             EventNotes = new List<EventInfoAll>();
         }
 
@@ -396,7 +398,39 @@ public class DataManager : Singleton<DataManager>
         //Debug.Log(PlayManager.Instance);
     }
 
+    public void DestroyEvent()
+    {
+        while (EventNotes.Count > 0)
+        {
+            Destroy(EventNotes[EventNotes.Count - 1].EventNote);
+            //EventNotes.RemoveAt(EventNotes.Count - 1);
+            EventNotes = new List<EventInfoAll>();
+        }
+    }
+    public void DestroyEverything()
+    {
+        while (EventNotes.Count > 0)
+        {
+            foreach(Transform child in EditManager.Instance.barNote.EventNote.transform)
+            {
+                Destroy(child.gameObject);
+            }
+           
+            EventNotes = new List<EventInfoAll>();
+        }
 
+        while (EditNotes.Count > 0)
+        {
+            foreach (Transform child in EditManager.Instance.barNote.RhythmNote.transform)
+            {
+                Destroy(child.gameObject);
+            }
+            EditNotes.RemoveAt(EditNotes.Count - 1);
+            //Debug.Log("노트 초기화 중입니다.");
+        }
+
+
+    }
 
 
 }

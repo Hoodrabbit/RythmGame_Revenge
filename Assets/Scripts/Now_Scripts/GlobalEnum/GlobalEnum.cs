@@ -81,7 +81,7 @@ public enum NoteHeight
 
 public enum BossNoteType
 {
-    Appear,
+    Appear= 100,
 
     Disappear,
 
@@ -123,6 +123,11 @@ public enum EventType
     None,
     SpawnOutside,
     SpawnOutside_Reverse,
+
+
+    Appear,
+
+    Disappear,
 
     Dash,
 

@@ -31,7 +31,7 @@ public class EditManager : Singleton<EditManager>
     public GameObject Obstacle_Obj;
 
     [Header("보스 노트")]
-    public GameObject BossAppearNote_Obj;
+    public GameObject BossEventNote_Obj;
     public GameObject BossDisappearNote_Obj;
 
 
@@ -119,7 +119,7 @@ public class EditManager : Singleton<EditManager>
 
             case 100:
                 Debug.Log("출현노트 ");
-                BossAppearNote(xpos, height, eventType, songtime);
+                BossEventNote(xpos, height, eventType, songtime);
                 break;
 
             case 101:
@@ -165,7 +165,7 @@ public class EditManager : Singleton<EditManager>
         GameObject LongNote;
         if (LongNoteStartEndCheck == 1)
         {
-            LongNote = Instantiate(LongNote_Obj, new Vector3(xpos, height/*SettingHeight(height)*/), Quaternion.identity, EditManager.Instance.barNote.transform);
+            LongNote = Instantiate(LongNote_Obj, new Vector3(xpos, height/*SettingHeight(height)*/), Quaternion.identity, EditManager.Instance.barNote.RhythmNote.transform);
             UnCompleteLongNoteQueue.Enqueue(LongNote.GetComponent<LongNoteScript>());
 
             float RealXpos = LongNote.transform.position.x - EditManager.Instance.GetNPXpos();
@@ -197,7 +197,7 @@ public class EditManager : Singleton<EditManager>
     }
     public void GhostNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
     {
-        GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.transform);
+        GameObject AddNote = Instantiate(GhostNote_Obj, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.RhythmNote.transform);
 
         float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
@@ -211,7 +211,7 @@ public class EditManager : Singleton<EditManager>
 
     public void Obstacle(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
     {
-        GameObject AddNote = Instantiate(Obstacle_Obj, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.transform);
+        GameObject AddNote = Instantiate(Obstacle_Obj, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.RhythmNote.transform);
 
         float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
@@ -226,15 +226,15 @@ public class EditManager : Singleton<EditManager>
 
 
 
-    public void BossAppearNote(float xpos, int height, int eventType, double songtime)
+    public void BossEventNote(float xpos, int height, int eventType, double songtime)
     {
-        //GameObject AddNote = Instantiate(BossAppearNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
+        //GameObject AddNote = Instantiate(BossEventNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
 
         //float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
         //DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
 
-        GameObject AddEvent = Instantiate(BossAppearNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
+        GameObject AddEvent = Instantiate(BossEventNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.EventNote.transform);
 
         float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
 
@@ -251,7 +251,7 @@ public class EditManager : Singleton<EditManager>
 
         //DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
 
-        GameObject AddEvent = Instantiate(BossDisappearNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
+        GameObject AddEvent = Instantiate(BossDisappearNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.EventNote.transform);
 
         float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
 
@@ -262,7 +262,7 @@ public class EditManager : Singleton<EditManager>
 
     public void EndEventNote(float xpos, int height, int eventType, double songtime)
     {
-        GameObject AddEvent = Instantiate(EndEvent_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
+        GameObject AddEvent = Instantiate(EndEvent_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.EventNote.transform);
 
         float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
 
@@ -272,7 +272,7 @@ public class EditManager : Singleton<EditManager>
 
     public void NoteSpawnOutsideEvent(float xpos, int height, int eventType, double songtime)
     {
-        GameObject AddEvent = Instantiate(NoteOutSpawnEvent_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
+        GameObject AddEvent = Instantiate(NoteOutSpawnEvent_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.EventNote.transform);
 
         float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
 
@@ -281,7 +281,7 @@ public class EditManager : Singleton<EditManager>
 
     public void NoteSpawnOutsideReverseEvent(float xpos, int height, int eventType, double songtime)
     {
-        GameObject AddEvent = Instantiate(NoteOutSpawnReverseEvent_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
+        GameObject AddEvent = Instantiate(NoteOutSpawnReverseEvent_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.EventNote.transform);
 
         float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
 
