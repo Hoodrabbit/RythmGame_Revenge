@@ -31,7 +31,7 @@ public class EditManager : Singleton<EditManager>
     public GameObject Obstacle_Obj;
 
     [Header("보스 노트")]
-    public GameObject BossEventNote_Obj;
+    public GameObject BossAppearNote_Obj;
     public GameObject BossDisappearNote_Obj;
 
 
@@ -234,7 +234,7 @@ public class EditManager : Singleton<EditManager>
 
         //DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
 
-        GameObject AddEvent = Instantiate(BossEventNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.EventNote.transform);
+        GameObject AddEvent = Instantiate(BossAppearNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.EventNote.transform);
 
         float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
 
