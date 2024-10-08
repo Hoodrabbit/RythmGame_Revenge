@@ -38,7 +38,7 @@ public class SceneManagerEX : Singleton<SceneManagerEX>
 
     public void ChangeScene()
     {
-        SceneManager.LoadScene((int)scene_T);
+        SceneManager.LoadScene((int)scene_T+1);
     }
 
 
