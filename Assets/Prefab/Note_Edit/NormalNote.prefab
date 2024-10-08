@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 1863733135
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a0c6ce6796e3cc440b3e4f9cf230be82, type: 3}
   m_Color: {r: 0.9150943, g: 0.10791205, b: 0.10791205, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -163,12 +163,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TypeNum: 1
+  eventType: 0
   speed: 5
   SongTime: 0
   AudioTime: 0
   Type: 0
   Height: 0
   xpos: 0
+  ypos: 0
+  EventActivate: 0
 --- !u!95 &-6993992386579848237
 Animator:
   serializedVersion: 5

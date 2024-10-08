@@ -44,6 +44,13 @@ public class EventSlotPanel : MonoBehaviour
             case 3:
                 return "이벤트 종료";
 
+            case 100:
+                return "보스 출현";
+            case 101:
+                return "보스 퇴장";
+            case 102:
+                return "보스 돌진";
+
             default:
                 return null;
 

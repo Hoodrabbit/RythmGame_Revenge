@@ -19,6 +19,11 @@ public class GameResultPanel : MonoBehaviour
     {
         SongName.text = GameManager.Instance.musicInfo.Music_Name.ToString();
         ArtistName.text = GameManager.Instance.musicInfo.Artist_Name.ToString();
+        Score.text = GameManager.Instance.Score.ToString();
+        Combo.text = GameManager.Instance.Combo.ToString();
+        //콤보랑 점수는 게임 씬이 종료되기 전에 게임매니저에 저장할 변수하나 만들어줘서 거기다가 저장시켜서 들고 오도록
+
+
     }
 
     // Update is called once per frame

@@ -275,6 +275,7 @@ public class PlayManager : Singleton<PlayManager>
     public void MissNote()
     {
         combosystem.MissNote();
+        PlayerController.Instance.TakeHPMethod(100);
     }
 
     private int SettingHeight(int height)

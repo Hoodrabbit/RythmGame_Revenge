@@ -32,6 +32,13 @@ public class BossMonster : Note
         Boss_animator= GetComponent<Animator>();
     }
 
+    //이벤트 신호는 받되 신호에 끌려다니면 별로 좋지않음
+    //솔리드 원칙에 위반 
+    //작은 결집 
+    //큰 결집 
+
+
+
 
     protected override void Start()
     {
@@ -87,7 +94,7 @@ public class BossMonster : Note
 
         Debug.Log("출현");
 
-        GameManager.Instance.BossAppear = true;
+        //GameManager.Instance.BossAppear = true;
         bossCollider.isTrigger = true;
 
     }
@@ -107,39 +114,52 @@ public class BossMonster : Note
         }
 
         Debug.Log("퇴장");
-        GameManager.Instance.BossAppear = false;
+        //GameManager.Instance.BossAppear = false;
     }
 
-    public void BossDash(Transform parent)
+    //노래 시간을 가져오도록 해서 현재 음악의 재생 시간과 전달받은 시간동안 내 움직이도록
+    public void BossDash(float songTime)
     {
-        //invisble Mode
-        //지금은 임의로 색깔을 입힌 상태라 이렇게 코드를 짜야 하지만 나중에는 0,0,0 이렇게 적용할 듯
-        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
-       //DashCoroutine = StartCoroutine(Dash(parent));
+        
+        StartCoroutine(Dash(songTime));
+
     }
 
     public void VisualizeBoss()
     {
-
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1);
     }
 
 
-    IEnumerator Dash(Transform parent)
+    IEnumerator Dash(float songTime)
     {
-
+        
         TTime = 0;
 
         Vector2 pos = transform.position;
         float xpos = pos.x;
-        
+
+        Debug.Log("시간 차 : " + songTime + " , " +  GameManager.Instance.MainAudio.time);
+
+
+
+
+
         //시간을 어떻게 할지가 필요함
-        while (transform.position.x >= 0)
+        while (songTime > GameManager.Instance.MainAudio.time)
         {
-            transform.position = parent.position;
+            //어떻게 이동할지 방식을 다르게 적용해야 될 것 같음
+
+            transform.position = new Vector3(pos.x - GameManager.Instance.speed * GameManager.Instance.GetBPS(), transform.position.y);
+
+
+
             yield return null;
         }
-        
+
+        Debug.Log("몇번 실행되는지 확인용");
+
+
         if(transform.position.x <= 0)
         {
             Hit = true;
@@ -167,12 +187,9 @@ public class BossMonster : Note
 
         while (TTime <= MaxTime)
         {
-            Debug.Log("왜안될까");
 
             TTime += Time.deltaTime;
             
-            //아직 이상함 방식 좀 더 세밀하게 잡아서 처리해야 할 듯
-            //해당 코루틴이 실행되는 조건 이런 거 확인해봐야함
             transform.position = Vector3.Lerp(pos, endpos, TTime / MaxTime);
             yield return null;
         }

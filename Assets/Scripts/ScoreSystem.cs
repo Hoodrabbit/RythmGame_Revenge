@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ScoreSystem : MonoBehaviour
+public class ScoreSystem : Singleton<ScoreSystem>
 {
     public int Score = 0;
     public TMP_Text ScoreText;

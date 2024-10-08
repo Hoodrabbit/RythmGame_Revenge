@@ -291,6 +291,11 @@ public class Judgement : MonoBehaviour
         {
             judgetext.text = "Miss";
             Debug.Log(f_time + "          " );
+
+
+            PlayerController.Instance.TakeHPMethod(100);
+
+
             return false;
 
         }

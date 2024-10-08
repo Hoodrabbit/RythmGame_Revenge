@@ -11,6 +11,15 @@ public class GameManager : Singleton<GameManager>
 
     public MusicInfo musicInfo;
 
+
+    //게임 씬 끝날 때 저장받을 변수
+    public int Score;
+    public int Combo;
+
+
+
+
+
     public int speed = 10; //나중에 이거 다른 매니저에다가 옮길 변수 아직 안 옮김
 
     public bool BossAppear = false;
@@ -131,6 +140,15 @@ public class GameManager : Singleton<GameManager>
     {
         OffsetValue = Offset;
     }
+
+
+
+    public void GetScoreAndCombo(int score_Get, int combo_Get)
+    {
+        Score = score_Get;
+        Combo = combo_Get;
+    }
+
 
 
 

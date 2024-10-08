@@ -92,9 +92,11 @@ public class Note : MonoBehaviour
 
     private void OnDisable()
     {
+        DataManager.Instance.eventManager.RefreshNoteEvent -= EventChangeMethod;
+
         if (TypeNum == 1)
         {
-            DataManager.Instance.eventManager.RefreshNoteEvent -= EventChangeMethod;
+           
             if (GameManager.Instance.state == GameState.None && gameObject.CompareTag("Note"))
             {
                 UIManager.Instance.MusicButtonPress -= ChangeNotePos_IsPlaying;
@@ -136,10 +138,8 @@ public class Note : MonoBehaviour
                     {
                         EventActivate = true;
 
-                        if (!GameManager.Instance.MainAudio.isPlaying)
-                        {
-                            //StopAllCoroutines();
-                        }
+                            StopAllCoroutines();
+
 
                         if (Height == NoteHeight.OUTSIDE_DOWN || Height == NoteHeight.REVERSE_UP || Height == NoteHeight.DOWN)
                         {
@@ -174,6 +174,7 @@ public class Note : MonoBehaviour
         {
             if (collision.CompareTag("Finish"))
             {
+                Debug.Log("이거 작동 되지 않나요");
                 PlayManager.Instance.MissNote();
             }
         }
@@ -402,6 +403,7 @@ public class Note : MonoBehaviour
                     {
                         if (SongTime >= DataManager.Instance.eventManager.EventList[i].eventPos.SongTime && DataManager.Instance.eventManager.EventList[i].eventPos.EventType < 100)
                         {
+
                             event_TypeCheck = DataManager.Instance.eventManager.EventList[i].eventPos.EventType;
                         }
                     }
@@ -416,8 +418,11 @@ public class Note : MonoBehaviour
 
                 //이벤트에 따른 노트의 변화
                 //노트 높이 변경 관련 메서드 활성화
-
-                ChangeHeight();
+                if(TypeNum < 100)
+                {
+                    ChangeHeight();
+                }
+                
             }
             else
             {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ComboSystem : MonoBehaviour
+public class ComboSystem : Singleton<ComboSystem>
 {
     public int Combo = 0;
     int FullNoteCount = 0;

@@ -21,6 +21,9 @@ public class MusicTimeLeftLine : MonoBehaviour
         if(MusicTimeLine.fillAmount >= 1)
         {
 
+            //여기에 GameManager 내 메서드 실행시켜줌
+            GameManager.Instance.GetScoreAndCombo(ScoreSystem.Instance.Score, ComboSystem.Instance.Combo);
+
             SceneManager.LoadScene("GameResult");
 
             Debug.Log("게임 종료");

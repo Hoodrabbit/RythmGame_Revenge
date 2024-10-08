@@ -13,6 +13,17 @@ public class BossDashEvent : NoteEventScript
     bool IsTrigger = false;
 
     public bool Hit = false;
+    float songtime_value;
+
+
+
+    protected override void Start()
+    {
+        base.Start();
+       
+    }
+
+
 
     protected override void Update()
     {
@@ -60,15 +71,17 @@ public class BossDashEvent : NoteEventScript
             {
                 //보스 오브젝트에 돌진을 하라는 신호를 보냄
                 boss = collision.GetComponent<BossMonster>();
-                boss.BossDash(this.transform);
-                boss_Real = boss.gameObject;
 
-                boss_Real.transform.parent = transform;
-                //boss_Real.transform.position = Vector3.zero;
-                bossSprite = boss.GetComponent<SpriteRenderer>().sprite;
+                songtime_value = (float)GetComponent<Note>().SongTime;
+                boss.BossDash(songtime_value);
+                //boss_Real = boss.gameObject;
 
-                spriteRenderer.sprite = bossSprite;
-                IsTrigger = true;
+                //boss_Real.transform.parent = transform;
+                ////boss_Real.transform.position = Vector3.zero;
+                //bossSprite = boss.GetComponent<SpriteRenderer>().sprite;
+
+                //spriteRenderer.sprite = bossSprite;
+                //IsTrigger = true;
             }
             else
             {

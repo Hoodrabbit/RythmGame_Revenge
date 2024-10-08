@@ -5334,6 +5334,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ola_running
       objectReference: {fileID: 0}
+    - target: {fileID: 7990669377979293128, guid: 68e3ce48015c7d444ac0a80d63bf3812, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990669377979293128, guid: 68e3ce48015c7d444ac0a80d63bf3812, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
