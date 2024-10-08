@@ -6,6 +6,20 @@ using UnityEngine.UI;
 
 public class BackGroundImageScorll : MonoBehaviour
 {
+    [Header("배경 앞 레이어 속도")]
+    public float InfrontSpeed = 4;
+
+    [Header("플랫폼 레이어 속도")]
+    public float PlatformSpeed = 7;
+
+    [Header("플랫폼 앞 레이어 속도")]
+    public float Infront_PlatformSpeed = 6;
+
+
+
+
+
+
     [Header("배경 이미지")]
     public GameObject BackGround;
     public GameObject BackGround2;
@@ -54,9 +68,7 @@ public class BackGroundImageScorll : MonoBehaviour
     public GameObject Fever_Infront2;
 
     float BackSpeed = 5;
-    float InfrontSpeed = 400;
-    float PlatformSpeed = 700;
-    float Infront_PlatformSpeed = 600;
+    
 
     float scrollOffset = 15;
 
@@ -94,9 +106,9 @@ public class BackGroundImageScorll : MonoBehaviour
 
 
         BackGround2.transform.position = new Vector2(BackGround2.transform.position.x+ Width_Back,0);
-        Background_infrontRect2.anchoredPosition = new Vector2(Background_infrontRect.anchoredPosition.x+ Width_Infront, 0);
-        BackGround_PlatformRect2.anchoredPosition = new Vector2(BackGround_PlatformRect.anchoredPosition.x + Width_Platform, 0);
-        Infront_PlatformRect2.anchoredPosition = new Vector2(Infront_PlatformRect.anchoredPosition.x + Width_Infront_Platform, 0);
+        Background_infrontRect2.anchoredPosition = new Vector2(Background_infrontRect.anchoredPosition.x+ Width_Infront, Background_infrontRect.anchoredPosition.y);
+        BackGround_PlatformRect2.anchoredPosition = new Vector2(BackGround_PlatformRect.anchoredPosition.x + Width_Platform, BackGround_PlatformRect.anchoredPosition.y);
+        Infront_PlatformRect2.anchoredPosition = new Vector2(Infront_PlatformRect.anchoredPosition.x + Width_Infront_Platform, Infront_PlatformRect.anchoredPosition.y);
 
 
 
@@ -133,7 +145,7 @@ public class BackGroundImageScorll : MonoBehaviour
         if(backRect.anchoredPosition.x > -Width_Back)
         {
             //아직 수정 안됨 배경이 스크롤 되는지 안되는지 판단 못함
-            backRect.anchoredPosition = new Vector2(backRect.anchoredPosition.x - Width_Back * Time.deltaTime, 0);
+            backRect.anchoredPosition = new Vector2(backRect.anchoredPosition.x - Width_Back* Time.deltaTime, backRect.anchoredPosition.y);
         }
         
     }    
@@ -144,17 +156,17 @@ public class BackGroundImageScorll : MonoBehaviour
 
         if (InfrontBackRect.anchoredPosition.x > -Width_Infront)
         {
-            InfrontBackRect.anchoredPosition = new Vector2(InfrontBackRect.anchoredPosition.x - InfrontSpeed * Time.deltaTime, 0);
+            InfrontBackRect.anchoredPosition = new Vector2(InfrontBackRect.anchoredPosition.x - InfrontSpeed*100 * Time.deltaTime, InfrontBackRect.anchoredPosition.y);
         }
         else
         {
             if(InfrontBack == BackGround_Infront)
             {
-                InfrontBackRect.anchoredPosition = new Vector2(Background_infrontRect2.anchoredPosition.x + Width_Infront - scrollOffset, 0);
+                InfrontBackRect.anchoredPosition = new Vector2(Background_infrontRect2.anchoredPosition.x + Width_Infront - scrollOffset, Background_infrontRect2.anchoredPosition.y);
             }
             else
             {
-                InfrontBackRect.anchoredPosition = new Vector2(Background_infrontRect.anchoredPosition.x + Width_Infront - scrollOffset, 0);
+                InfrontBackRect.anchoredPosition = new Vector2(Background_infrontRect.anchoredPosition.x + Width_Infront- scrollOffset, Background_infrontRect.anchoredPosition.y);
             }
         }
     }
@@ -165,17 +177,17 @@ public class BackGroundImageScorll : MonoBehaviour
 
         if (PlatformRect.anchoredPosition.x > -Width_Platform)
         {
-            PlatformRect.anchoredPosition = new Vector2(PlatformRect.anchoredPosition.x - PlatformSpeed * Time.deltaTime, 0);
+            PlatformRect.anchoredPosition = new Vector2(PlatformRect.anchoredPosition.x - PlatformSpeed * 100 * Time.deltaTime, PlatformRect.anchoredPosition.y);
         }
         else
         {
             if(Platform == BackGround_Platform)
             {
-                PlatformRect.anchoredPosition = new Vector2(BackGround_PlatformRect2.anchoredPosition.x + Width_Platform - scrollOffset, 0);
+                PlatformRect.anchoredPosition = new Vector2(BackGround_PlatformRect2.anchoredPosition.x + Width_Platform - scrollOffset, BackGround_PlatformRect2.anchoredPosition.y);
             }
             else
             {
-                PlatformRect.anchoredPosition = new Vector2(BackGround_PlatformRect.anchoredPosition.x + Width_Platform - scrollOffset, 0);
+                PlatformRect.anchoredPosition = new Vector2(BackGround_PlatformRect.anchoredPosition.x + Width_Platform- scrollOffset, BackGround_PlatformRect.anchoredPosition.y);
             }
         }
     }
@@ -185,7 +197,7 @@ public class BackGroundImageScorll : MonoBehaviour
         RectTransform InfrontPlatformRect = InfrontPlatform.GetComponent<RectTransform>();
         if (InfrontPlatformRect.anchoredPosition.x > -Width_Infront_Platform)
         {
-            InfrontPlatformRect.anchoredPosition = new Vector2(InfrontPlatformRect.anchoredPosition.x - Infront_PlatformSpeed * Time.deltaTime, 0);
+            InfrontPlatformRect.anchoredPosition = new Vector2(InfrontPlatformRect.anchoredPosition.x - Infront_PlatformSpeed * 100 * Time.deltaTime, 0);
         }
         else
         {
@@ -195,7 +207,7 @@ public class BackGroundImageScorll : MonoBehaviour
             }
             else
             {
-                InfrontPlatformRect.anchoredPosition = new Vector2(Infront_PlatformRect.anchoredPosition.x + Width_Infront_Platform - scrollOffset, 0);
+                InfrontPlatformRect.anchoredPosition = new Vector2(Infront_PlatformRect.anchoredPosition.x + Width_Infront_Platform- scrollOffset, 0);
             }
         }
     }
