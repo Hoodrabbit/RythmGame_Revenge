@@ -264,7 +264,8 @@ public class Judgement : MonoBehaviour
     {
         Debug.Log(time);
         float f_time = Mathf.Abs((float)time);
-        TMP_Text judgetext = Instantiate(JudgeText, Vector3.zero, Quaternion.identity, transform.GetComponentInChildren<Canvas>().gameObject.transform).GetComponent<TMP_Text>();
+        TMP_Text judgetext = Instantiate(JudgeText, Vector2.zero, Quaternion.identity, transform.GetComponentInChildren<Canvas>().gameObject.transform).GetComponent<TMP_Text>();
+        judgetext.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 100);
         if (f_time <= 0.05)
         {
            
@@ -280,14 +281,14 @@ public class Judgement : MonoBehaviour
             return true;
 
         }
-        else if(f_time < 0.10 && f_time > 0.05)
+        else if(f_time <= 0.10 && f_time > 0.04)
         {
             judgetext.text = "Great";
             Debug.Log("Great");
 
             return true;
         }
-        else if(f_time >= 0.1)
+        else if(f_time > 0.1)
         {
             judgetext.text = "Miss";
             Debug.Log(f_time + "          " );

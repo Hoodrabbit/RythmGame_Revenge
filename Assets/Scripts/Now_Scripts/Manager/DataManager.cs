@@ -110,6 +110,7 @@ public class DataManager : Singleton<DataManager>
 
     public EventManager eventManager;
     public Action EventCheck= delegate { }; //해당 이벤트의 경우 특수하게 이벤트 노트 생성기 스크립트 내의 액션 변수에 구독되어 있음
+    public Action NoteReady = delegate { };
     public List<NoteInfoAll> EditNotes = new List<NoteInfoAll>();
 
     public List<EventInfoAll> EventNotes = new List<EventInfoAll>();
@@ -151,40 +152,9 @@ public class DataManager : Singleton<DataManager>
 
         EditNotes.RemoveAll(info => info.Note == null);
         EditNotes = EditNotes.OrderBy(N => N.notePos.xpos).ToList();
-        //while (i >= 0)
-        //{
-        //    if (EditNotes[i].Note == null)
-        //    {
-        //        //Debug.Log(i + "이거 지워요");
-        //        EditNotes.RemoveAt(i);
-        //    }
-        //    i--;
-        //}
 
         EventNotes.RemoveAll(info => info.EventNote== Note);
         EventNotes = EventNotes.OrderBy(N => N.eventPos.SongTime).ToList();
-
-        //int j = 0;
-        //while(j < EventNotes.Count)
-        //{
-        //    //Debug.Log(EventNotes.Count);
-        //    //Debug.Log(EventNotes[j].EventNote.gameObject.name);
-        //    //if (EventNotes[j].EventNote == null)
-        //    //{
-        //    //    Debug.Log("이벤트 제거");
-        //    //    EventNotes.RemoveAt(j);
-        //    //}
-
-        //    if(songtime == (EventNotes[j].SongTime))
-        //    {
-        //        //DataManager.Instance.ListNullCheck(hit[i].collider.GetComponent<Note>().SongTime);
-        //        NoteEventList.RemoveAt(j);
-        //    }
-
-
-        //    j++;
-        //}
-
 
 
 
@@ -390,6 +360,13 @@ public class DataManager : Singleton<DataManager>
 
         Debug.Log("실행");
         EventCheck?.Invoke();
+
+
+        if(GameManager.Instance.state == GameState.Play_Mode)
+        {
+            Debug.Log("작동");
+            NoteReady?.Invoke();
+        }
 
     }
 

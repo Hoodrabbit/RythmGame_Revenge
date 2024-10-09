@@ -54,10 +54,6 @@ public class EventManager : MonoBehaviour
 
     private void Update()
     {
-        if(SongTime < GameManager.Instance.MainAudio.time && NowEvent != EventType.End)
-        {
-           // EventCheck();
-        }
     }
 
     public void EventCheck()

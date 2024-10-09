@@ -15,6 +15,7 @@ public class LongNoteScript : MonoBehaviour
     SpriteRenderer Body_SR;
 
     public float newWidth = 3f; //시작과 끝의 길이
+    float ChangeHeight = 2f;
 
     public Vector3 initialScale;
 
@@ -46,10 +47,11 @@ public class LongNoteScript : MonoBehaviour
                 if (Body_SR.drawMode == SpriteDrawMode.Sliced || Body_SR.drawMode == SpriteDrawMode.Tiled)
                 {
                     // 현재 SpriteRenderer의 size를 가져와서 width만 변경
-                    Vector2 newSize = Body_SR.size;
-                    newSize.x = newWidth;
-                    Body_SR.size = newSize;
-
+                    //Vector2 newSize = Body_SR.size;
+                    //newSize.x = newWidth;
+                    //newSize.y = ChangeHeight;
+                    //Body_SR.size = newSize;
+                    //Body.transform.localPosition = new Vector3(newSize.x, 0);
                     IsConnect = true;
 
                 }
@@ -63,10 +65,15 @@ public class LongNoteScript : MonoBehaviour
                     if (Body_SR.drawMode == SpriteDrawMode.Sliced || Body_SR.drawMode == SpriteDrawMode.Tiled)
                     {
                         // 현재 SpriteRenderer의 size를 가져와서 width만 변경
-                        Vector2 newSize = Body_SR.size;
-                        newSize.x = newWidth;
-                        Body_SR.size = newSize;
+                        //Vector2 newSize = Body_SR.size;
 
+                        //newSize.x = newWidth;
+
+                     
+
+                        //newSize.y = ChangeHeight;
+                        //Body_SR.size = newSize;
+                        //Body.transform.localPosition = new Vector3(newSize.x, 0);
                     }
                 }
             }
@@ -88,11 +95,13 @@ public class LongNoteScript : MonoBehaviour
                     if (Body_SR.drawMode == SpriteDrawMode.Sliced || Body_SR.drawMode == SpriteDrawMode.Tiled)
                     {
                         // 현재 SpriteRenderer의 size를 가져와서 width만 변경
-                        Vector2 newSize = Body_SR.size;
-                        newSize.x = newWidth;
-                        Body_SR.size = newSize;
 
-                    }
+                    //    Vector2 newSize = Body_SR.size;
+                    //    newSize.x = newWidth;
+                    //newSize.y = ChangeHeight;
+                    //    Body_SR.size = newSize;
+                    //Body.transform.localPosition = new Vector3(newSize.x, 0);
+                }
                 }
             
         }

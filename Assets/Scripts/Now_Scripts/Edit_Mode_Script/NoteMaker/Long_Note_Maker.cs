@@ -78,7 +78,7 @@ public class Long_Note_Maker : NoteMakerBase
                             float RealXpos = LongNote.transform.position.x - EditManager.Instance.GetNPXpos();
                             //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가
 
-                            //DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, EditManager.UP, NoteType, 1, (double)RealXpos / GameManager.Instance.speed));
+                            DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, EditManager.UP, NoteType, 1, (double)RealXpos / GameManager.Instance.speed));
                         }
                         else
                         {
@@ -92,7 +92,7 @@ public class Long_Note_Maker : NoteMakerBase
 
                                     float RealXpos = Tail.transform.position.x - EditManager.Instance.GetNPXpos();
 
-                                  //  DataManager.Instance.EditNotes.Add(new NoteInfoAll(Tail, RealXpos, EditManager.UP, NoteType, 2, (double)RealXpos / GameManager.Instance.speed));
+                                   DataManager.Instance.EditNotes.Add(new NoteInfoAll(Tail, RealXpos, EditManager.UP, NoteType, 2, (double)RealXpos / GameManager.Instance.speed));
 
                                 }
 
@@ -121,7 +121,7 @@ public class Long_Note_Maker : NoteMakerBase
 
                             float RealXpos = LongNote.transform.position.x - EditManager.Instance.GetNPXpos();
 
-                       //     DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, EditManager.DOWN, NoteType, 1, (double)RealXpos / GameManager.Instance.speed));
+                           DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, EditManager.DOWN, NoteType, 1, (double)RealXpos / GameManager.Instance.speed));
 
                         }
                         else
@@ -137,7 +137,7 @@ public class Long_Note_Maker : NoteMakerBase
 
                                     float RealXpos = Tail.transform.position.x - EditManager.Instance.GetNPXpos();
 
-                         //           DataManager.Instance.EditNotes.Add(new NoteInfoAll(Tail, RealXpos, EditManager.DOWN, NoteType, 2, (double)RealXpos / GameManager.Instance.speed));
+                                 DataManager.Instance.EditNotes.Add(new NoteInfoAll(Tail, RealXpos, EditManager.DOWN, NoteType, 2, (double)RealXpos / GameManager.Instance.speed));
                                 }
 
                             }

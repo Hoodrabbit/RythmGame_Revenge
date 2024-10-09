@@ -57,7 +57,7 @@ public class SliderToNotePos : MonoBehaviour
 
             if (PressTime > 0.3f)
             {
-                Debug.Log("왜 실행이 안되죠");
+                //Debug.Log("왜 실행이 안되죠");
 
 
                 PressTime_2nd += Time.deltaTime;
@@ -115,7 +115,7 @@ public class SliderToNotePos : MonoBehaviour
                 PressTime_2nd += Time.deltaTime;
                 if (PressTime_2nd > 0.05f)
                 {
-                    Debug.Log(Mathf.Abs((musicTimeSlider.GetSliderValue() % NowBeat)) + " , " + Mathf.Abs((musicTimeSlider.GetSliderValue() % NowBeat) - NowBeat));
+                    //Debug.Log(Mathf.Abs((musicTimeSlider.GetSliderValue() % NowBeat)) + " , " + Mathf.Abs((musicTimeSlider.GetSliderValue() % NowBeat) - NowBeat));
 
                     if (Mathf.Abs((musicTimeSlider.GetSliderValue() % NowBeat)) <= 0.00001 || Mathf.Abs((musicTimeSlider.GetSliderValue() % NowBeat) - NowBeat) <= 0.00001)
                     {
@@ -191,7 +191,7 @@ public class SliderToNotePos : MonoBehaviour
         {
 
             Pos = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
-            Debug.Log(Pos);
+            //Debug.Log(Pos);
 
            // Debug.Log(musicTimeSlider.GetSliderValue());
         }

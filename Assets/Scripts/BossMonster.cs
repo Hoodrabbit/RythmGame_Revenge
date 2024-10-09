@@ -28,7 +28,7 @@ public class BossMonster : Note
 
     protected override void Awake()
     {
-        base.Awake();
+        //base.Awake();
         Boss_animator= GetComponent<Animator>();
     }
 

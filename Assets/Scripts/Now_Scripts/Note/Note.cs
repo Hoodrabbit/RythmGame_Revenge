@@ -32,6 +32,9 @@ public class Note : MonoBehaviour
     SpriteRenderer ChangeColor;
 
     public bool EventActivate = false;
+
+    bool StartSong = false;
+
     //이벤트가 활성화 즉 true일시 해당 이벤트로 발생하는 위치의 이동
     //우리가 알아야 하는 것 즉 이벤트가 발생했을 시 노트가 어느 위치(y값)로 이동하는가
 
@@ -40,12 +43,13 @@ public class Note : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         speed = GameManager.Instance.speed;
-
+        DataManager.Instance.NoteReady += StartSongMethod;
     }
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
+       
         AudioTime = AudioSettings.dspTime;
         Note_Move_Animator = GetComponent<Animator>();
         xpos = transform.position.x;
@@ -53,6 +57,11 @@ public class Note : MonoBehaviour
         ChangeColor = GetComponent<SpriteRenderer>();
 
         InitializeNote();
+
+
+       
+
+
     }
 
 
@@ -72,6 +81,8 @@ public class Note : MonoBehaviour
 
     private void RegisterEventHandlers()
     {
+
+
         DataManager.Instance.eventManager.RefreshNoteEvent += EventChangeMethod;
         if (GameManager.Instance.state == GameState.None && gameObject.CompareTag("Note"))
         {
@@ -81,10 +92,12 @@ public class Note : MonoBehaviour
 
     private void SetInitialNotePositionAndColor()
     {
-        if (transform.position.y >= 0)
-            ChangeColor.color = Color.red;
-        else
-            ChangeColor.color = Color.blue;
+        ChangeHeight();
+        //노트의 이미지가 변경될 예정
+        //if (transform.position.y >= 0)
+        //    ChangeColor.color = Color.red;
+        //else
+        //    ChangeColor.color = Color.blue;
     }
 
 
@@ -93,7 +106,7 @@ public class Note : MonoBehaviour
     private void OnDisable()
     {
         DataManager.Instance.eventManager.RefreshNoteEvent -= EventChangeMethod;
-
+        DataManager.Instance.NoteReady -= StartSongMethod;
         if (TypeNum == 1)
         {
            
@@ -109,7 +122,7 @@ public class Note : MonoBehaviour
     protected virtual void FixedUpdate()
     {
 
-        if (GameManager.Instance.state == GameState.Play_Mode)
+        if (GameManager.Instance.state == GameState.Play_Mode && StartSong)
         {
             transform.position = new Vector2(xpos - GameManager.Instance.speed * (float)(AudioSettings.dspTime - AudioTime), transform.position.y);
 
@@ -174,7 +187,6 @@ public class Note : MonoBehaviour
         {
             if (collision.CompareTag("Finish"))
             {
-                Debug.Log("이거 작동 되지 않나요");
                 PlayManager.Instance.MissNote();
             }
         }
@@ -182,6 +194,13 @@ public class Note : MonoBehaviour
 
     }
     
+    public void StartSongMethod()
+    {
+        Debug.Log("노트가 먼저 작동");
+        StartSong = true;
+    }
+
+
     public void ChangeNotePos_IsPlaying()
     {
       transform.position = new Vector3(transform.position.x, GetHeight());
@@ -228,15 +247,33 @@ public class Note : MonoBehaviour
         switch (Height)
         {
             case NoteHeight.UP:
-                return EditManager.UP;
+                if(GameManager.Instance.state != GameState.Play_Mode)
+                {
+                    return EditManager.UP;
+                }
+                else
+                {
+                    return PlayManager.UP;
+                }
             case NoteHeight.DOWN:
                 return EditManager.DOWN;
             case NoteHeight.OUTSIDE_DOWN:
             case NoteHeight.REVERSE_DOWN:
-                return EditManager.DOWN_OUTSIDE;
+                if (GameManager.Instance.state != GameState.Play_Mode)
+                {
+                    return EditManager.DOWN_OUTSIDE;
+                }
+                else return PlayManager.DOWN_OUTSIDE;
+                
+                
             case NoteHeight.OUTSIDE_UP:
             case NoteHeight.REVERSE_UP:
-                return EditManager.UP_OUTSIDE;
+                if (GameManager.Instance.state != GameState.Play_Mode)
+                {
+                    return EditManager.UP_OUTSIDE;
+                }
+                else return PlayManager.UP_OUTSIDE;
+
         }
         return 0;
     }
@@ -253,7 +290,7 @@ public class Note : MonoBehaviour
         SpriteRenderer SR = GetComponent<SpriteRenderer>();
 
         SR.color = new Color(SR.color.r, SR.color.g, SR.color.b, 0.2f);
-
+        gameObject.SetActive(false);
     }
 
     public void SetAudioTime()
@@ -272,17 +309,38 @@ public class Note : MonoBehaviour
 
         float elapsed = 0.0f;
         Vector3 StartPos = transform.position;
+        //float time = (float)(AudioSettings.dspTime - AudioTime) - GameManager.Instance.MainAudio.time;
+        //Debug.Log(time);
         //Debug.Log(GameManager.Instance.GetBPS());
 
-        while (elapsed < 2)
+        if (GameManager.Instance.state != GameState.Play_Mode)
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, EditManager.DOWN), elapsed / 2);
-            elapsed += Time.deltaTime;
-            yield return null;
+            while (elapsed < 2)
+            {
+                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, EditManager.DOWN), elapsed / 2);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            // 이동 완료 후 최종 위치를 정확히 설정
+            transform.position = new Vector3(transform.position.x, EditManager.DOWN);
+        }
+        else
+        {
+            while (elapsed < 2)
+            {
+                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, PlayManager.DOWN), elapsed /2);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            // 이동 완료 후 최종 위치를 정확히 설정
+            transform.position = new Vector3(transform.position.x, PlayManager.DOWN);
         }
 
-        // 이동 완료 후 최종 위치를 정확히 설정
-        transform.position = new Vector3(transform.position.x, EditManager.DOWN);
+      
+
+        
         //Debug.Log("체크");
         yield return null;
     }
@@ -297,16 +355,31 @@ public class Note : MonoBehaviour
     {
         float elapsed = 0.0f;
         Vector3 StartPos = transform.position;
-        while (elapsed < 2)
+        //float time = (float)(AudioSettings.dspTime - AudioTime) - GameManager.Instance.MainAudio.time;
+        if (GameManager.Instance.state != GameState.Play_Mode)
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, EditManager.UP), elapsed / 2);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
+            while (elapsed < 2)
+            {
+                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, EditManager.UP), elapsed / 2);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
 
-        // 이동 완료 후 최종 위치를 정확히 설정
-        transform.position = new Vector3(transform.position.x, EditManager.UP);
-       // Debug.Log("체크");
+            // 이동 완료 후 최종 위치를 정확히 설정
+            transform.position = new Vector3(transform.position.x, EditManager.UP);
+        }
+        else
+        {
+            while (elapsed < 2)
+            {
+                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, PlayManager.UP), elapsed / 2);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            // 이동 완료 후 최종 위치를 정확히 설정
+            transform.position = new Vector3(transform.position.x, PlayManager.UP);
+        }
         yield return null;
     }
 
@@ -445,14 +518,14 @@ public class Note : MonoBehaviour
             case EventType.None:
                 if (ypos > 0)
                 {
-                    Debug.Log("작동1111");
+                    //Debug.Log("작동1111");
                     Height = NoteHeight.UP;
                     transform.position = new Vector3(transform.position.x, GetHeight());
-                    ChangeColor.color = Color.red;
+                    //ChangeColor.color = Color.red;
                 }
                 else
                 {
-                    Debug.Log("작동222");
+                    //Debug.Log("작동222");
                     Height = NoteHeight.DOWN;
                     transform.position = new Vector3(transform.position.x, GetHeight());
 
@@ -461,7 +534,7 @@ public class Note : MonoBehaviour
                     if(ChangeColor!= null)
                     {
                         //Debug.Log(ChangeColor.gameObject);
-                        ChangeColor.color = Color.blue;
+                       // ChangeColor.color = Color.blue;
                     }
                     
                 }
@@ -480,10 +553,10 @@ public class Note : MonoBehaviour
                     transform.position = new Vector3(transform.position.x, GetHeight());
                 }
 
-                if (transform.position.y >= 0)
-                    ChangeColor.color = Color.red;
-                else
-                    ChangeColor.color = Color.blue;
+                //if (transform.position.y >= 0)
+                //    ChangeColor.color = Color.red;
+                //else
+                //    ChangeColor.color = Color.blue;
 
 
                 break;
@@ -500,10 +573,10 @@ public class Note : MonoBehaviour
                     transform.position = new Vector3(transform.position.x, GetHeight());
                 }
 
-                if (transform.position.y >= 0)
-                    ChangeColor.color = Color.blue;
-                else
-                    ChangeColor.color = Color.red;
+                //if (transform.position.y >= 0)
+                //    ChangeColor.color = Color.blue;
+                //else
+                //    ChangeColor.color = Color.red;
 
                 break;
         }

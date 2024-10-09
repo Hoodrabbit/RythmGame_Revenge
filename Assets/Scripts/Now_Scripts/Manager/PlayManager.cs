@@ -1,144 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Note_Namespace;
-
-
-//제작중
-namespace Note_Namespace
-{
-//    using System;
-//    using System.Collections.Generic;
-//    using UnityEngine;
-
-//    class NoteMethod_Type : MonoBehaviour
-//    {
-//        void NormalNote(GameObject note,float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType)
-//        {
-//            GameObject Note_Instantiate;
-
-
-
-//            NoteInfoPos NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
-//            Note_Instantiate = Instantiate(note, new Vector3(NotePos.xpos, height), Quaternion.identity, PlayManager.Instance.Note_Parent.transform);
-//            Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
-//            Note_Instantiate.GetComponent<Note>().SetNoteType(enemyType);
-//            PlayManager.Instance.Notes.Add(Note_Instantiate);
-
-//        }
-
-//        void LongNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
-//        {
-//            LongNoteInternalMethod(xpos, height, noteType, LongNoteStartEndCheck, songtime);
-//        }
-
-//        void LongNoteInternalMethod(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
-//        {
-
-
-//            GameObject LongNote;
-//            if (LongNoteStartEndCheck == 1)
-//            {
-//                NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
-//                LongNote = Instantiate(NoteTypes[1], new Vector3(NotePos.xpos, height), Quaternion.identity, PlayManager.Instance.Note_Parent.transform);
-//                LongNote.GetComponent<Note>().SetSongTime(songtime);
-//                // Debug.Log(songtime + " ���ʴ��ΰ���");
-//                Notes.Add(LongNote);
-
-//                UnCompleteLongNoteQueue.Enqueue(LongNote.GetComponent<LongNoteScript>());
-//            }
-//            else if (LongNoteStartEndCheck == 2)
-//            {
-//                Queue<LongNoteScript> newLongNoteQueue = new Queue<LongNoteScript>();
-//                foreach (var head in UnCompleteLongNoteQueue)
-//                {
-//                    if (head.transform.position.y == height) //�� ��ȣ�� 1�� ��� 2�� ��ġ��
-//                    {
-//                        NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
-//                        head.Tail.transform.position = new Vector3(NotePos.xpos, head.transform.position.y);
-
-//                        Notes.Add(head.Tail);
-//                    }
-//                    else
-//                    {
-//                        newLongNoteQueue.Enqueue(head);
-//                    }
-
-//                }
-//                UnCompleteLongNoteQueue = newLongNoteQueue;
-
-//            }
-//        }
-
-//        public void GhostNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
-//        {
-//            GameObject Note_Instantiate;
-
-//            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
-//            Note_Instantiate = Instantiate(NoteTypes[3], new Vector3(NotePos.xpos, height), Quaternion.identity, Note_Parent.transform);
-
-//            Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
-
-//            Notes.Add(Note_Instantiate);
-
-//        }
-
-//        void MakeObstacle(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
-//        {
-//            GameObject Note_Instantiate;
-
-//            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
-//            Note_Instantiate = Instantiate(NoteTypes[6], new Vector3(NotePos.xpos, height), Quaternion.identity, Note_Parent.transform);
-
-//            Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
-
-//            Notes.Add(Note_Instantiate);
-//        }
-
-
-
-
-
-
-//        public void BossEventScript(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
-//        {
-//            GameObject Note_Instantiate;
-
-//            // Debug.Log("BossEventScript Xpos : " + xpos);
-
-//            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, noteType, LongNoteStartEndCheck, songtime);
-//            Note_Instantiate = Instantiate(NoteTypes[4], new Vector3(NotePos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
-
-//            Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
-
-//            Notes.Add(Note_Instantiate);
-//        }
-
-//        public void BossDisappearNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
-//        {
-//            GameObject Note_Instantiate;
-
-//            //Debug.Log("BossDisppearNote Xpos : " + xpos);
-
-//            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, noteType, LongNoteStartEndCheck, songtime);
-//            Note_Instantiate = Instantiate(NoteTypes[5], new Vector3(NotePos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
-
-//            Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
-
-//            Notes.Add(Note_Instantiate);
-
-//        }
-
-
-//    }
-
-
-  
-
-
-
-}
-
 
 public class PlayManager : Singleton<PlayManager>
 {
@@ -164,14 +26,14 @@ public class PlayManager : Singleton<PlayManager>
 
     int NoteCount_Now =0;
 
-    const int UP = 3;
-    const int DOWN = -1;
+    public const int UP = 5;
+    public const int DOWN = -1;
     const int MIDDLE = (UP + DOWN) / 2;
-    const int OBSTACLE_UP = 4;
+    public const int OBSTACLE_UP = 6;
     const int OBSTACLE_DOWN = -2;
 
-    const int UP_OUTSIDE = 8;
-    const int DOWN_OUTSIDE = -6;
+    public const int UP_OUTSIDE = 12;
+    public const int DOWN_OUTSIDE = -8;
 
 
 
