@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7019406883910468606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8839901648153371692}
+  - component: {fileID: 4422416092033533415}
+  m_Layer: 0
+  m_Name: SpriteLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8839901648153371692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7019406883910468606}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.1147356, y: -1.1378348, z: -10.093349}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4422416092033533415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7019406883910468606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a02cf53b69c651418a12cee614e5d61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoteSpriteList:
+  - {fileID: 21300000, guid: aa35fe2235805044f89211cbd43774da, type: 3}
+  - {fileID: 21300000, guid: 50a933e04cc860b43b66f12b4c04fbc8, type: 3}
+  - {fileID: 21300000, guid: ff53ec7174e1b1944b87510de88e8350, type: 3}
+  - {fileID: 21300000, guid: a2a64d45cdbec5843b0564d73bad70d1, type: 3}
+  LongNoteSpriteList:
+  - {fileID: 21300000, guid: 6074ee07234fc1f45bcccc1e0f7e574e, type: 3}
+  - {fileID: 21300000, guid: dcc9d698fe9b43848944ee89f3230c4d, type: 3}
+  - {fileID: 21300000, guid: 3003307e5b2632a4b955d9f8446c59ee, type: 3}
+  - {fileID: 21300000, guid: 0f168e9f69d8cfb4d9218c2631a9ee39, type: 3}
+  ETCSpriteList: []
+  asdf: []

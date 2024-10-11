@@ -25,6 +25,9 @@ public class Normal_Note_Maker : NoteMakerBase
 
     protected override void AreaCheck(GameObject Note, Vector2 Pos, bool DeleteMode)
     {
+
+        //hit = Physics2D.BoxCastAll(Pos, new Vector2(2, 50), 0, transform.forward,10);
+
         hit = Physics2D.RaycastAll(Pos, transform.forward, 10);
 
 
