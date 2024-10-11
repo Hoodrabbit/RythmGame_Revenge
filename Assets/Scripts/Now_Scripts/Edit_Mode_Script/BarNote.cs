@@ -16,7 +16,7 @@ public class BarNote : MonoBehaviour
 
     [Header("박자 노트 종류")]
     public GameObject ContanierNote;
-    public GameObject NextNote;
+
     public GameObject MinutenessContanierNote2;
     public GameObject MinutenessContanierNote4;
     public GameObject MinutenessContanierNote8;

@@ -36,11 +36,14 @@ public class Normal_Note_Maker : NoteMakerBase
             if (hit[i].collider.CompareTag("Note"))
             {
                 Checkduplication = true;
-                Note thisNote = hit[i].collider.gameObject.GetComponent<Note>();
+                NormalNote thisNote = hit[i].collider.gameObject.GetComponent<NormalNote>();
                 ChangeMelodyType(thisNote);
                 NoteInfoAll infoAll = DataManager.Instance.FindNoteData(hit[i].collider.gameObject);
                 DataManager.Instance.ListNullCheck(hit[i].collider.gameObject);
-                DataManager.Instance.EditNotes.Add(new NoteInfoAll(hit[i].collider.gameObject, infoAll.notePos.xpos, infoAll.notePos.HeightValue, infoAll.notePos.NoteType, 0, infoAll.notePos.SongTime, (int)thisNote.Type));
+
+                //find NotePos and change Data
+                infoAll.ChangeEnemyType((int)thisNote.melodyType);
+                //DataManager.Instance.EditNotes.Add(new NoteInfoAll(hit[i].collider.gameObject, infoAll.notePos.xpos, infoAll.notePos.HeightValue, infoAll.notePos.NoteType, 0, infoAll.notePos.SongTime, (int)thisNote.melodyType));
 
                 //제대로 제거 되지 않음
                 //수정해야 함
@@ -145,19 +148,22 @@ public class Normal_Note_Maker : NoteMakerBase
 
     }
 
-    void ChangeMelodyType(Note note)
+    void ChangeMelodyType(NormalNote note)
     {
-        switch (note.Type)
+        switch (note.melodyType)
         {
             case MelodyType.Normal:
-                note.Type = MelodyType.White;
+                //note.melodyType = MelodyType.Yellow;
+                note.SetNoteType(1);
                 break;
 
-            case MelodyType.White:
-                note.Type = MelodyType.Dark;
+            case MelodyType.Yellow:
+                //note.melodyType = MelodyType.Purple;
+                note.SetNoteType(2);
                 break;
-            case MelodyType.Dark:
-                note.Type = MelodyType.Normal;
+            case MelodyType.Purple:
+                //note.melodyType = MelodyType.Normal;
+                note.SetNoteType(0);
                 break;
 
             case MelodyType.Obstacle: break;

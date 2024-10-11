@@ -170,8 +170,8 @@ public class PlayManager : Singleton<PlayManager>
 
         NoteInfoPos NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
         Note_Instantiate = Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, height), Quaternion.identity, PlayManager.Instance.Note_Parent.transform);
-        Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
-        Note_Instantiate.GetComponent<Note>().SetNoteType(enemyType);
+        Note_Instantiate.GetComponent<NormalNote>().SetSongTime(songtime);
+        Note_Instantiate.GetComponent<NormalNote>().SetNoteType(enemyType);
         PlayManager.Instance.Notes.Add(Note_Instantiate);
 
     }

@@ -22,7 +22,7 @@ public class Note : MonoBehaviour
 
     public double AudioTime;
 
-    public MelodyType Type = MelodyType.Normal;
+    public MelodyType melodyType = MelodyType.Normal;
     public NoteHeight Height;
 
     public float xpos;
@@ -212,35 +212,7 @@ public class Note : MonoBehaviour
         SongTime = songTime;
     }
 
-    public void SetNoteType(int num)
-    {
-        SpriteRenderer SR = GetComponent<SpriteRenderer>();
-
-
-        switch (num)
-        {
-
-
-            case 0:
-                Type = MelodyType.Normal; break;
-            case 1:
-                Type = MelodyType.White;
-                SR.color = Color.gray;
-                break;
-            case 2:
-                Type = MelodyType.Dark;
-                SR.color = Color.black;
-                break;
-
-
-        }
-
-    }
-
-    public MelodyType GetMelodyType()
-    {
-        return Type;
-    }
+    
 
     public int GetHeight()
     {

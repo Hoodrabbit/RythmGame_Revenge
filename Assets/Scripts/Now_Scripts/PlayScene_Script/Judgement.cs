@@ -22,7 +22,7 @@ public class Judgement : MonoBehaviour
     public KeyCode ChangeWeaponKey3;
 
 
-    public MelodyType type = MelodyType.Normal;
+    public MelodyType melody_type = MelodyType.Normal;
 
 
     public GameObject note;
@@ -125,7 +125,7 @@ public class Judgement : MonoBehaviour
             {
                 foreach (Note note in notes)
                 {
-                    if (note.Type == type || note.Type == MelodyType.Normal && note != null)
+                    if (note.melodyType == melody_type || note.melodyType == MelodyType.Normal && note != null)
                     {
                         if (ManageJudgeMent((note.transform.position.x+ GameManager.Instance.OffsetValue - transform.position.x)/GameManager.Instance.speed))
                         {
@@ -180,21 +180,21 @@ public class Judgement : MonoBehaviour
         if(Input.GetKeyDown(ChangeWeaponKey) ||  Input.GetKeyDown(ChangeWeaponKey2) || Input.GetKeyDown(ChangeWeaponKey3))
         {
             SpriteRenderer SR = GetComponent<SpriteRenderer>();
-            if (type == MelodyType.Normal)
+            if (melody_type == MelodyType.Normal)
             {
-                type = MelodyType.White;
+                melody_type = MelodyType.Yellow;
                 SR.color = Color.gray;
             }
 
-            else if(type == MelodyType.White) 
+            else if(melody_type == MelodyType.Yellow) 
             {
-                type = MelodyType.Dark;
+                melody_type = MelodyType.Purple;
                 SR.color = Color.black;
             }
 
-            else if(type == MelodyType.Dark)
+            else if(melody_type == MelodyType.Purple)
             {
-                type = MelodyType.White;
+                melody_type = MelodyType.Yellow;
                 SR.color = Color.gray;
             }
 
@@ -235,17 +235,18 @@ public class Judgement : MonoBehaviour
                     LScript.StopHeadPos(transform.position);
                 
 
-                pressTime += Time.deltaTime;
+                //pressTime += Time.deltaTime;
 
-                if (pressTime >= GameManager.Instance.GetBPS() / 2)
-                {
-                    PlayManager.Instance.HitNote();
-                    pressTime -= GameManager.Instance.GetBPS() / 2;
-                }
+                //if (pressTime >= GameManager.Instance.GetBPS() / 2)
+                //{
+                //    PlayManager.Instance.HitNote();
+                //    pressTime -= GameManager.Instance.GetBPS() / 2;
+                //}
             }
             else
             {
                 Debug.Log("꺼짐");
+                PlayManager.Instance.HitNote();
                 longnotePress = false;
             }
 

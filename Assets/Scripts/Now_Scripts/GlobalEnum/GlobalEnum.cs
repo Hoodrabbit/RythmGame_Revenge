@@ -56,9 +56,9 @@ public enum MelodyType
 {
     Normal,
 
-    White,
+    Yellow,
 
-    Dark,
+    Purple,
 
     Obstacle
 

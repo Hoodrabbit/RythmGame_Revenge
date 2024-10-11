@@ -50,6 +50,10 @@ public class NoteInfoAll //찍은 노트에 대한 정보를 담아 줄 클래스
         notePos = new NoteInfoPos(x, h, noteType, LongNoteStartEndCheck, songtime, enemyType);
     }
 
+    public void ChangeEnemyType(int num)
+    {
+        notePos.EnemyType = num;
+    }
 
 
 }
@@ -88,6 +92,7 @@ public class EventInfoAll
         EventNote = eventNote;
         eventPos = new NoteEventInfoPos(x, h, eventType, songtime);
     }
+
 
 
 }

@@ -143,7 +143,7 @@ public class EditManager : Singleton<EditManager>
         GameObject AddNote = Instantiate(NormalNote_Obj, EditManager.Instance.barNote.RhythmNote.transform);
 
         AddNote.transform.position = new Vector3(xpos, height/* SettingHeight(height)*/);
-        AddNote.GetComponent<Note>().SetNoteType(enemyType);
+        AddNote.GetComponent<NormalNote>().SetNoteType(enemyType);
 
 
         float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
