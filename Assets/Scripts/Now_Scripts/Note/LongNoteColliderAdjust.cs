@@ -34,7 +34,7 @@ public class LongNoteColliderAdjust : MonoBehaviour
         transform.position = newPosition;
 
         //bodyCollider.offset = new Vector2(spriteRenderer.size.x/2, 0);
-        //bodyCollider.size = new Vector2(spriteRenderer.size.x-1,transform.localScale.y);
+        bodyCollider.size = new Vector2(spriteRenderer.size.x-1,transform.localScale.y);
     }
 }
 
