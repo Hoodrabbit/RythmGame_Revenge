@@ -291,6 +291,16 @@ class MakeNoteOutSpawnReverseEvent : IButton
 }
 
 
+class GamePauseButton : IButton
+{
+    readonly string name = "GamePauseButton";
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        GameManager.Instance.PauseAudio();
+    }
+}
 
 
 

@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 5711989204684295688}
   m_Layer: 0
   m_Name: Judgement_obj
-  m_TagString: Untagged
+  m_TagString: Judgement
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -233,7 +233,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4, y: 1}
+  m_Size: {x: 4, y: 4}
   m_EdgeRadius: 0
 --- !u!82 &708377394431780246
 AudioSource:
@@ -344,13 +344,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JudgeText: {fileID: 5522866733952597342, guid: 5488c371803f53344967de2bca48bfac, type: 3}
-  key: 106
-  key2: 275
-  Key3: 107
+  key: 102
+  key2: 276
+  Key3: 100
   ChangeWeaponKey: 0
   ChangeWeaponKey2: 0
   ChangeWeaponKey3: 0
-  type: 0
+  melody_type: 0
   note: {fileID: 0}
   notes: []
   longnotePress: 0

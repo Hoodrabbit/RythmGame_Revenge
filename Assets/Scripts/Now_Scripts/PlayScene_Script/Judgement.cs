@@ -32,9 +32,9 @@ public class Judgement : MonoBehaviour
 
     //public List<JudgeMentDummy> JudgeMentsColliders;
 
-    bool active = false;
+    //bool active = false;
 
-    bool AlreadyDelete = false;
+    //bool AlreadyDelete = false;
 
 
     public bool longnotePress = false;
@@ -50,8 +50,10 @@ public class Judgement : MonoBehaviour
     public static float PlayTime;
     public List<double> songtimes = new List<double>();
     AudioSource audioSource;
-    LongNoteScript LScript;
 
+
+    LongNoteScript LScript;
+    BossMonster BossNote;
 
 
 
@@ -130,8 +132,18 @@ public class Judgement : MonoBehaviour
                         if (ManageJudgeMent((note.transform.position.x+ GameManager.Instance.OffsetValue - transform.position.x)/GameManager.Instance.speed))
                         {
                             LScript = note.GetComponent<LongNoteScript>();
+                            BossNote = note.GetComponent<BossMonster>();
 
-                            if (LScript == null)
+                            if(BossNote != null)
+                            {
+                                //note.HitNote();
+                                BossNote.StopAllCoroutines();
+                                BossNote.HitAction?.Invoke();
+                                audioSource.Play();
+                                PlayManager.Instance.HitNote();
+                                notes.Remove(note);
+                            }
+                            else if (LScript == null)
                             {
 
                                 if(LongNoteFail == true)
@@ -309,7 +321,7 @@ public class Judgement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Note"))
+        if (collision.gameObject.CompareTag("Note") )
         {
             //active = true;
             if(collision.GetComponent<LongNoteColliderAdjust>() == null)
@@ -318,6 +330,14 @@ public class Judgement : MonoBehaviour
             }
 
         }
+
+        if(collision.gameObject.CompareTag("Boss"))
+        {
+            Debug.Log("보스 노트 트리거 체크되는지 확인");
+            notes.Add(collision.gameObject.GetComponent<Note>());
+        }
+
+
 
 
     }

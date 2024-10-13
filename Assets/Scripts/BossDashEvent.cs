@@ -13,8 +13,7 @@ public class BossDashEvent : NoteEventScript
     bool IsTrigger = false;
 
     public bool Hit = false;
-    float songtime_value;
-
+    float Songtime_value;
 
 
     protected override void Start()
@@ -27,35 +26,43 @@ public class BossDashEvent : NoteEventScript
 
     protected override void Update()
     {
-        if (!Hit)
-        {
-            if (boss != null && CheckGetOutofCamera())
-            {
-                //보스 상태 해제
-                boss.VisualizeBoss();
-                boss.Appear();
 
-                IsTrigger = true;
-            }
-        }
-        else
+        if(boss != null)
         {
-            if (boss != null)
+            if (!Hit)
             {
 
-                boss_Real.transform.parent = null;
+                //Debug.Log("타격 실패");
+                //boss.Turnback();
 
-                boss.Turnback();
-                boss.VisualizeBoss();
+                //if (boss != null && CheckGetOutofCamera())
+                //{
+                //    //보스 상태 해제
+                //    boss.VisualizeBoss();
+                //   // boss.Appear();
 
-                spriteRenderer.color = Color.clear;
-                gameObject.SetActive(false);
+                //    IsTrigger = true;
+                //}
             }
+            else
+            {
+              
+
+                    boss_Real.transform.parent = null;
+
+                    boss.Turnback();
+                    boss.VisualizeBoss();
+
+                    spriteRenderer.color = Color.clear;
+                    gameObject.SetActive(false);
+                
 
 
 
-            //gameObject.SetActive(false);
+                //gameObject.SetActive(false);
+            }
         }
+        
 
 
         //transform.position = new Vector2(transform.position.x - 5 * Time.deltaTime, transform.position.y);
@@ -67,13 +74,21 @@ public class BossDashEvent : NoteEventScript
         if (collision.tag == "Boss")
         {
 
-            if (!IsTrigger)
+            Debug.Log("보스 체크");
+
+
+            if (!IsTrigger && !Used)
             {
                 //보스 오브젝트에 돌진을 하라는 신호를 보냄
                 boss = collision.GetComponent<BossMonster>();
 
-                songtime_value = (float)GetComponent<Note>().SongTime;
-                boss.BossDash(songtime_value);
+
+                Songtime_value = (float)GetComponent<Note>().SongTime;
+                //Audiotime_value = (float)GetComponent<Note>().AudioTime;
+                boss.BossDash(transform,Songtime_value);
+
+                Used = true;
+
                 //boss_Real = boss.gameObject;
 
                 //boss_Real.transform.parent = transform;
@@ -100,15 +115,33 @@ public class BossDashEvent : NoteEventScript
 
         if (collision.tag == "Judgement")
         {
-
-
-
+            //Debug.Log("닿음");
+          //  boss.Turnback();
+            //어느 방향에서 닿았는지 체크해서 적용을 시킬지 안 시킬지 정하면 될 것 같음
 
 
         }
 
 
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        ContactPoint2D contact = collision.GetContact(0);
+        Vector2 collisionPoint = contact.point;
+
+        //if (collisionPoint.x < transform.position.x)
+        //{
+        //    Debug.Log("왼쪽에서 충돌");
+        //}
+        if (collisionPoint.x > transform.position.x && collision.gameObject.CompareTag("Judgement"))
+        {
+            Debug.Log("오른쪽에서 충돌");
+            boss.Turnback();
+
+        }
+    }
+
 
 
 

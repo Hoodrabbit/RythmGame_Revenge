@@ -127,6 +127,12 @@ public class EditManager : Singleton<EditManager>
                 Debug.Log("퇴장노트 ");
                 BossDisappearNote(xpos, height, eventType, songtime);
                 break;
+            case 102:
+                Debug.Log("돌진노트 ");
+                BossDashNote(xpos, height, eventType, songtime);
+                break;
+
+
         }
 
     }
@@ -204,6 +210,7 @@ public class EditManager : Singleton<EditManager>
 
         DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
 
+
     }
 
 
@@ -229,11 +236,6 @@ public class EditManager : Singleton<EditManager>
 
     public void BossAppearNote(float xpos, int height, int eventType, double songtime)
     {
-        //GameObject AddNote = Instantiate(BossEventScript_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
-
-        //float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
-
-        //DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
 
         GameObject AddEvent = Instantiate(BossAppearNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.EventNote.transform);
 
@@ -241,16 +243,11 @@ public class EditManager : Singleton<EditManager>
 
         DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, height, eventType, (double)AddEvent.transform.localPosition.x / GameManager.Instance.speed));
 
-
+        AddEvent.GetComponent<Note>().SetSongTime(songtime);
     }
 
     public void BossDisappearNote(float xpos, int height, int eventType, double songtime)
     {
-        //GameObject AddNote = Instantiate(BossDisappearNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.transform);
-
-        //float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
-
-        //DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
 
         GameObject AddEvent = Instantiate(BossDisappearNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.EventNote.transform);
 
@@ -258,7 +255,21 @@ public class EditManager : Singleton<EditManager>
 
         DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, height, eventType, (double)AddEvent.transform.localPosition.x / GameManager.Instance.speed));
 
+        AddEvent.GetComponent<Note>().SetSongTime(songtime);
     }
+
+    public void BossDashNote(float xpos, int height, int eventType, double songtime)
+    {
+        GameObject AddEvent = Instantiate(BossDashNote_Obj, new Vector3(xpos, MIDDLE), Quaternion.identity, EditManager.Instance.barNote.EventNote.transform);
+
+        float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
+
+        DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, height, eventType, (double)AddEvent.transform.localPosition.x / GameManager.Instance.speed));
+
+        AddEvent.GetComponent<Note>().SetSongTime(songtime);
+    }
+
+
 
 
     public void EndEventNote(float xpos, int height, int eventType, double songtime)
@@ -269,6 +280,7 @@ public class EditManager : Singleton<EditManager>
 
         DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, height, eventType, (double)AddEvent.transform.localPosition.x / GameManager.Instance.speed));
 
+        AddEvent.GetComponent<Note>().SetSongTime(songtime);
     }
 
     public void NoteSpawnOutsideEvent(float xpos, int height, int eventType, double songtime)
@@ -278,6 +290,8 @@ public class EditManager : Singleton<EditManager>
         float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
 
         DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, height, eventType, (double)AddEvent.transform.localPosition.x / GameManager.Instance.speed));
+
+        AddEvent.GetComponent<Note>().SetSongTime(songtime);
     }
 
     public void NoteSpawnOutsideReverseEvent(float xpos, int height, int eventType, double songtime)
@@ -287,6 +301,8 @@ public class EditManager : Singleton<EditManager>
         float RealXpos = AddEvent.transform.position.x - EditManager.Instance.GetNPXpos();
 
         DataManager.Instance.EventNotes.Add(new EventInfoAll(AddEvent, RealXpos, height, eventType, (double)AddEvent.transform.localPosition.x / GameManager.Instance.speed));
+
+        AddEvent.GetComponent<Note>().SetSongTime(songtime);
     }
 
 

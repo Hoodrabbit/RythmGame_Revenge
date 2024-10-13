@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossMonster : Note
@@ -22,7 +22,7 @@ public class BossMonster : Note
     Coroutine TurnBack_SuccessCoroutine;
     Coroutine TurnBack_FailCoroutine;
 
-    Action HitAction;
+    public Action HitAction;
 
     Animator Boss_animator;
 
@@ -49,6 +49,7 @@ public class BossMonster : Note
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = BossImg;
         startpos = transform.position;
+        //endpos = new Vector2(GameManager.Instance.GetBPS() * 30, transform.position.y);
         //endpos = new Vector3(25, 1);
 
         HitAction += HitCheck;
@@ -82,8 +83,9 @@ public class BossMonster : Note
     {
        
         TTime = 0;
-        
-        while(TTime <= MaxTime)
+        GameManager.Instance.BossAppear = true;
+        bossCollider.isTrigger = true;
+        while (TTime <= MaxTime)
         {
             TTime += Time.deltaTime;
             float t = TTime / MaxTime;
@@ -94,8 +96,7 @@ public class BossMonster : Note
 
         Debug.Log("출현");
 
-        //GameManager.Instance.BossAppear = true;
-        bossCollider.isTrigger = true;
+        
 
     }
 
@@ -114,14 +115,14 @@ public class BossMonster : Note
         }
 
         Debug.Log("퇴장");
-        //GameManager.Instance.BossAppear = false;
+        GameManager.Instance.BossAppear = false;
     }
 
     //노래 시간을 가져오도록 해서 현재 음악의 재생 시간과 전달받은 시간동안 내 움직이도록
-    public void BossDash(float songTime)
+    public void BossDash(Transform DashEvent, float songTime)
     {
-        
-        StartCoroutine(Dash(songTime));
+        //xpos - GameManager.Instance.speed * (float)(AudioSettings.dspTime - AudioTime)
+        StartCoroutine(Dash(DashEvent, songTime));
 
     }
 
@@ -131,45 +132,89 @@ public class BossMonster : Note
     }
 
 
-    IEnumerator Dash(float songTime)
+
+
+
+    //해당 코루틴이 작동되는 중에 노트를 누르면 코루틴을 종료하고 히트 처리 발생시키기
+    //보스
+    IEnumerator Dash(Transform DashEvent, float songTime)
     {
         
         TTime = 0;
+        SongTime = songTime;
 
-        Vector2 pos = transform.position;
-        float xpos = pos.x;
+        //단순히 속도로 하는게 아니라 현재 재생시간 체크하고 그 시간에 맞게 이동 위치 조절해주도록 다시 만들어줘야 함
+        Vector2 startpos = transform.position;
 
-        Debug.Log("시간 차 : " + songTime + " , " +  GameManager.Instance.MainAudio.time);
+        float offsetTime = GameManager.Instance.GetBPS() * 1.5f;
+        Debug.Log("offsetTime : " + offsetTime);
 
+        float actualMoveTime = (float)SongTime - GameManager.Instance.MainAudio.time - offsetTime;
+        Debug.Log("시간 : " + actualMoveTime);
 
+        float elapsedTime = 0;
 
-
-
-        //시간을 어떻게 할지가 필요함
-        while (songTime > GameManager.Instance.MainAudio.time)
+        while (elapsedTime < offsetTime)
         {
-            //어떻게 이동할지 방식을 다르게 적용해야 될 것 같음
+            float t = elapsedTime / offsetTime;
+            
+            if(t >= 0.7f)
+            {
+                spriteRenderer.color = Color.red;
+            }
+            elapsedTime += Time.deltaTime;
+            yield return null;
 
-            transform.position = new Vector3(pos.x - GameManager.Instance.speed * GameManager.Instance.GetBPS(), transform.position.y);
+        }
 
+        //yield return new WaitForSeconds(offsetTime);
+        spriteRenderer.color = Color.red;
+       elapsedTime = 0;
+        while (elapsedTime <= actualMoveTime)
+        {
+            //Debug.Log("되는지 확인");
+            //transform.position = DashEvent.position;
+            float t = elapsedTime / actualMoveTime;
+            transform.position = Vector2.Lerp(startpos, new Vector3(0, startpos.y), t * GameManager.Instance.speed);
 
-
+            elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        Debug.Log("몇번 실행되는지 확인용");
+        
+        //float xpos = pos.x;
+
+        //Debug.Log("시간 차 : " + songTime + " , " +  GameManager.Instance.MainAudio.time);
 
 
-        if(transform.position.x <= 0)
-        {
-            Hit = true;
-            HitAction?.Invoke();
-            Debug.Log("눌렀는지 체크할꺼임");
-        }
+
+
+
+        ////시간을 어떻게 할지가 필요함
+        //while (songTime > GameManager.Instance.MainAudio.time)
+        //{
+        //    //어떻게 이동할지 방식을 다르게 적용해야 될 것 같음
+
+        //    transform.position = new Vector3(pos.x - GameManager.Instance.speed * GameManager.Instance.GetBPS(), transform.position.y);
+
+
+
+        //    yield return null;
+        //}
+
+        //Debug.Log("몇번 실행되는지 확인용");
+
+
+        //if(transform.position.x <= 0)
+        //{
+        //    Hit = true;
+        //    HitAction?.Invoke();
+        //    Debug.Log("눌렀는지 체크할꺼임");
+        //}
            
 
 
-        //yield return null;
+        ////yield return null;
 
     }
 
@@ -183,7 +228,7 @@ public class BossMonster : Note
     {
         Vector2 pos = transform.position;
         TTime = 0;
-
+        spriteRenderer.color = Color.white;
 
         while (TTime <= MaxTime)
         {

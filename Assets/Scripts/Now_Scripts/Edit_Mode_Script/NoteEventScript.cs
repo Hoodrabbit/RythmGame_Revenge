@@ -10,7 +10,7 @@ public class NoteEventScript : MonoBehaviour
     float SongTime;
 
 
-    bool Used = false;
+    protected bool Used = false;
 
     public Animator Boss_Animator;
 

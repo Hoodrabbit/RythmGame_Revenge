@@ -117,7 +117,10 @@ public class PlayManager : Singleton<PlayManager>
                 Debug.Log("퇴장노트 ");
                 BossDisappearNote(xpos, height, eventType, songtime);
                 break;
-
+            case 102:
+                Debug.Log("돌진노트 ");
+                BossDashNote(xpos, height, eventType, songtime);
+                break;
 
 
 
@@ -328,7 +331,17 @@ public class PlayManager : Singleton<PlayManager>
        // DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
     }
 
+    public void BossDashNote(float xpos, int height, int eventType, double songtime)
+    {
+        GameObject EventNote;
 
+        NoteEventInfoPos EventPos = new NoteEventInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, eventType, songtime);
+
+
+        EventNote = Instantiate(EventTypes[5], new Vector3(xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
+
+        EventNote.GetComponent<Note>().SetSongTime(songtime);
+    }
 
 
 

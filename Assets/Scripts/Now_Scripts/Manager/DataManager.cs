@@ -294,8 +294,8 @@ public class DataManager : Singleton<DataManager>
             }
             else
             {
-                EventInfoAll noteEvent = new EventInfoAll(new GameObject(), xpos, height, EventType, SongTime);
-                EventNotes.Add(noteEvent);
+                //EventInfoAll noteEvent = new EventInfoAll(new GameObject(), xpos, height, EventType, SongTime);
+                //EventNotes.Add(noteEvent);
                 PlayManager.Instance.PlayScene_EventMaker(xpos * GameManager.Instance.speed, height, EventType, SongTime);
             }
 

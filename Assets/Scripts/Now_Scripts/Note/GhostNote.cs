@@ -8,7 +8,7 @@ public class GhostNote : MonoBehaviour
     //특정 구간 지나면 점점 안보여요
     SpriteRenderer GhostNoteSprite;
 
-    bool test = false;
+    //bool test = false;
 
     // Start is called before the first frame update
     void Start()

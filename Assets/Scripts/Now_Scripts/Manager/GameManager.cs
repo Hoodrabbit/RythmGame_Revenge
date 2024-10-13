@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
@@ -67,8 +68,31 @@ public class GameManager : Singleton<GameManager>
         DataManager.Instance.LoadNote();
         MainAudio.PlayScheduled(AudioSettings.dspTime + 3f);
 
+    }
+
+    public void PauseAudio()
+    {
+        if(AudioListener.pause == false)
+        {
+            AudioListener.pause = true;
+        }
+        else
+        {
+            StartCoroutine(UnPauseGameAudio());
+        }
+        
+    }
+    IEnumerator UnPauseGameAudio()
+    {
+        yield return new WaitForSeconds(2f);
+
+        AudioListener.pause = false;
 
     }
+
+
+
+
 
     public int GetSongValue()
     {

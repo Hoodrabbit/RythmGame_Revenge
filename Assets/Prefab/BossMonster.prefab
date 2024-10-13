@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -15546109
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1517819035, guid: 7f5c4ca341ecae34daf05192da52ff2f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -95,7 +95,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1768186727778023260}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 277d81cbb98c45e40a131e5908368311, type: 2}
   m_CullingMode: 0
@@ -125,14 +125,14 @@ MonoBehaviour:
   speed: 0
   SongTime: 0
   AudioTime: 0
-  Type: 0
+  melodyType: 0
   Height: 0
   xpos: 0
   ypos: 0
   EventActivate: 0
   BossImg: {fileID: 21300000, guid: 2eb4edb9c070dae4d8503b0e709dbaef, type: 3}
   Trigger: 0
-  endpos: {x: 12, y: 1}
+  endpos: {x: 23, y: 1}
 --- !u!58 &7990669377979293128
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -165,6 +165,6 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1, y: 0}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 1
