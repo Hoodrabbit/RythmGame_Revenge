@@ -7,7 +7,12 @@ public class MusicManager : Singleton<MusicManager>
 {
     public List<MusicInfo> musicInfos;
 
-    
+    protected override void Awake()
+    {
+        base.Awake();
+        musicInfos.Clear();
+        musicInfos = new List<MusicInfo>(Resources.LoadAll<MusicInfo>("MusicScript/"));
+    }
 
 
     public void SetMusic(int value)
