@@ -301,7 +301,7 @@ public class PlayManager : Singleton<PlayManager>
 
         EventNote.GetComponent<Note>().SetSongTime(songtime);
 
-        //DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
+        DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
 
     }
 
@@ -315,7 +315,7 @@ public class PlayManager : Singleton<PlayManager>
 
         EventNote.GetComponent<Note>().SetSongTime(songtime);
 
-        //DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
+        DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
     }
 
     public void NoteSpawnOutsideReverseEvent(float xpos, int height, int eventType, double songtime)
@@ -328,7 +328,7 @@ public class PlayManager : Singleton<PlayManager>
 
         EventNote.GetComponent<Note>().SetSongTime(songtime);
 
-       // DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
+       DataManager.Instance.EventNotes.Add(new EventInfoAll(EventNote, EventNote.transform.position.x, height, eventType, songtime));
     }
 
     public void BossDashNote(float xpos, int height, int eventType, double songtime)

@@ -95,7 +95,7 @@ public class MusicSelectPanel : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             Debug.Log("윗방향키 누름");
 
@@ -103,7 +103,7 @@ public class MusicSelectPanel : MonoBehaviour
             StartCoroutine(UpRotate());
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
             StartCoroutine(DownRotate());
 
