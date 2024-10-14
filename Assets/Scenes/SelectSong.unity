@@ -622,6 +622,101 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &558332403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 558332404}
+  - component: {fileID: 558332407}
+  - component: {fileID: 558332406}
+  - component: {fileID: 558332408}
+  m_Layer: 5
+  m_Name: Image (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &558332404
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558332403}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2125195841}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 150, y: 0}
+  m_SizeDelta: {x: 300, y: 300}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &558332406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558332403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &558332407
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558332403}
+  m_CullTransparentMesh: 1
+--- !u!114 &558332408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558332403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d10ec4d3d38fd7947bf88ea59c6efe2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MusicImage: {fileID: 7376229208074089989, guid: 61fe6c52009baed41bc16f2e1d257c44, type: 3}
+  MusicSlots: []
+  musicCount: 0
+  slotList_Sorting: []
+  SelectDetailPanel: {fileID: 161093445}
+  HoldTime: 0.2
+  KeyHold: 0
 --- !u!1 &698587202
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,9 +754,9 @@ RectTransform:
   - {fileID: 1701836044}
   m_Father: {fileID: 1096861079}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -75}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -250, y: -75}
   m_SizeDelta: {x: 500, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &698587204
@@ -2671,7 +2766,6 @@ GameObject:
   - component: {fileID: 2125195841}
   - component: {fileID: 2125195843}
   - component: {fileID: 2125195842}
-  - component: {fileID: 2125195845}
   - component: {fileID: 2125195846}
   m_Layer: 5
   m_Name: MusicSelectPanelobj
@@ -2691,7 +2785,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 558332404}
   m_Father: {fileID: 1096861079}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2737,25 +2832,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2125195840}
   m_CullTransparentMesh: 1
---- !u!114 &2125195845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2125195840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d10ec4d3d38fd7947bf88ea59c6efe2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MusicImage: {fileID: 7376229208074089989, guid: 61fe6c52009baed41bc16f2e1d257c44, type: 3}
-  MusicSlots: []
-  musicCount: 0
-  slotList_Sorting: []
-  SelectDetailPanel: {fileID: 161093445}
-  HoldTime: 0.2
-  KeyHold: 0
 --- !u!95 &2125195846
 Animator:
   serializedVersion: 5
@@ -2764,7 +2840,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2125195840}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 71660956829ba564a8b176dfa5dc0dd8, type: 2}
   m_CullingMode: 0
@@ -2785,6 +2861,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4422416092033533415, guid: 8ed66dfe70cd41f4d92f8043c777172b, type: 3}
+      propertyPath: NoteSpriteList.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 50a933e04cc860b43b66f12b4c04fbc8, type: 3}
+    - target: {fileID: 4422416092033533415, guid: 8ed66dfe70cd41f4d92f8043c777172b, type: 3}
+      propertyPath: NoteSpriteList.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: aa35fe2235805044f89211cbd43774da, type: 3}
+    - target: {fileID: 4422416092033533415, guid: 8ed66dfe70cd41f4d92f8043c777172b, type: 3}
+      propertyPath: NoteSpriteList.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: a2a64d45cdbec5843b0564d73bad70d1, type: 3}
+    - target: {fileID: 4422416092033533415, guid: 8ed66dfe70cd41f4d92f8043c777172b, type: 3}
+      propertyPath: NoteSpriteList.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: ff53ec7174e1b1944b87510de88e8350, type: 3}
     - target: {fileID: 7019406883910468606, guid: 8ed66dfe70cd41f4d92f8043c777172b, type: 3}
       propertyPath: m_Name
       value: SpriteLoader

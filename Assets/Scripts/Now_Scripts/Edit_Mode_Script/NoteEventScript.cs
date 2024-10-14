@@ -23,9 +23,12 @@ public class NoteEventScript : MonoBehaviour
             SpriteRenderer SR = GetComponent<SpriteRenderer>();
 
             
+            if(transform.childCount > 0)
+            {
+                GameObject childobj = GetComponentInChildren<Canvas>().gameObject;
+                childobj.SetActive(false);
 
-            GameObject childobj = GetComponentInChildren<Canvas>().gameObject;
-            childobj.SetActive(false);       
+            }
             SR.color = new Color(0, 0, 0, 0);
         }
     }

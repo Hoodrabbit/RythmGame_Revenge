@@ -327,6 +327,7 @@ public class DataManager : Singleton<DataManager>
             if (split_Text[4] != null)
             {
                 SongTime = double.Parse(split_Text[4]);
+                //xpos = float.Parse(split_Text[4]);
             }
             else
             SongTime = 0;

@@ -7,6 +7,11 @@ using UnityEngine;
 
 public class Note : MonoBehaviour
 {
+    [Header("노트 ID")]
+    public int ID;
+
+    [Space(20)]
+
     [Header("노트 타입")]
     public int TypeNum;
 
@@ -29,7 +34,7 @@ public class Note : MonoBehaviour
     public float ypos;
 
     Animator Note_Move_Animator;
-    SpriteRenderer ChangeColor;
+    SpriteRenderer spriteRenderer;
 
     public bool EventActivate = false;
 
@@ -54,7 +59,7 @@ public class Note : MonoBehaviour
         Note_Move_Animator = GetComponent<Animator>();
         xpos = transform.position.x;
         ypos = transform.position.y;
-        ChangeColor = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         InitializeNote();
 
@@ -86,19 +91,62 @@ public class Note : MonoBehaviour
         DataManager.Instance.eventManager.RefreshNoteEvent += EventChangeMethod;
         if (GameManager.Instance.state == GameState.None && gameObject.CompareTag("Note"))
         {
-            UIManager.Instance.MusicButtonPress += ChangeNotePos_IsPlaying;
+
+            if(UIManager.Instance != null)
+            {
+                UIManager.Instance.MusicButtonPress += ChangeNotePos_IsPlaying;
+            }
+
+            
         }
     }
 
-    private void SetInitialNotePositionAndColor()
+    protected void SetInitialNotePositionAndColor()
     {
         ChangeHeight();
+
+        ChangeSprite();
+
         //노트의 이미지가 변경될 예정
         //if (transform.position.y >= 0)
-        //    ChangeColor.color = Color.red;
+        //    spriteRenderer.color = Color.red;
         //else
-        //    ChangeColor.color = Color.blue;
+        //    spriteRenderer.color = Color.blue;
     }
+
+    void ChangeSprite()
+    {
+        if (GetComponent<LongNoteScript>() != null || TypeNum == 2)
+        {
+            if (transform.position.y >= 0)
+            {
+                spriteRenderer.sprite = SpriteLoaderScript.Instance.LongNoteSpriteList[ID - 100];
+            }
+            else
+            {
+                spriteRenderer.sprite = SpriteLoaderScript.Instance.LongNoteSpriteList[ID - 100 + 1];
+            }
+
+
+
+        }
+        else
+        {
+            if (transform.position.y >= 0)
+            {
+                spriteRenderer.sprite = SpriteLoaderScript.Instance.NoteSpriteList[ID];
+            }
+            else
+            {
+                spriteRenderer.sprite = SpriteLoaderScript.Instance.NoteSpriteList[ID + 1];
+            }
+        }
+        
+
+
+    }
+
+
 
 
 
@@ -112,7 +160,10 @@ public class Note : MonoBehaviour
            
             if (GameManager.Instance.state == GameState.None && gameObject.CompareTag("Note"))
             {
-                UIManager.Instance.MusicButtonPress -= ChangeNotePos_IsPlaying;
+                if (UIManager.Instance != null)
+                {
+                    UIManager.Instance.MusicButtonPress -= ChangeNotePos_IsPlaying;
+                }
             }
         }
     }
@@ -493,7 +544,7 @@ public class Note : MonoBehaviour
                     //Debug.Log("작동1111");
                     Height = NoteHeight.UP;
                     transform.position = new Vector3(transform.position.x, GetHeight());
-                    //ChangeColor.color = Color.red;
+                    //spriteRenderer.color = Color.red;
                 }
                 else
                 {
@@ -503,10 +554,10 @@ public class Note : MonoBehaviour
 
                     //Debug.Log(gameObject.name);
 
-                    if(ChangeColor!= null)
+                    if(spriteRenderer!= null)
                     {
-                        //Debug.Log(ChangeColor.gameObject);
-                       // ChangeColor.color = Color.blue;
+                        //Debug.Log(spriteRenderer.gameObject);
+                       // spriteRenderer.color = Color.blue;
                     }
                     
                 }
@@ -526,9 +577,9 @@ public class Note : MonoBehaviour
                 }
 
                 //if (transform.position.y >= 0)
-                //    ChangeColor.color = Color.red;
+                //    spriteRenderer.color = Color.red;
                 //else
-                //    ChangeColor.color = Color.blue;
+                //    spriteRenderer.color = Color.blue;
 
 
                 break;
@@ -546,9 +597,9 @@ public class Note : MonoBehaviour
                 }
 
                 //if (transform.position.y >= 0)
-                //    ChangeColor.color = Color.blue;
+                //    spriteRenderer.color = Color.blue;
                 //else
-                //    ChangeColor.color = Color.red;
+                //    spriteRenderer.color = Color.red;
 
                 break;
         }

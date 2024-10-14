@@ -21,6 +21,9 @@ public class MusicSelectPanel : MonoBehaviour
 
     public GameObject SelectDetailPanel;
 
+    float RotateAngle;
+
+
     float pressTime = 0;
     public float HoldTime = 0.2f;
 
@@ -48,34 +51,38 @@ public class MusicSelectPanel : MonoBehaviour
         int median = musicCount / 2;
         medianValue = median;
         NowSelect = median;
-        for (int i = 0; i < musicCount; i++)
-        {
-            MusicSlot MusicSlot_ = Instantiate(MusicImage, transform).GetComponent<MusicSlot>();
-            RectTransform rectT = MusicSlot_.GetComponent<RectTransform>();
 
-            int indexOffset = (i - (medianValue));
-
-            rectT.anchoredPosition = new Vector2(600 * indexOffset, 0);
-            MusicSlot_.SetMusic(MusicManager.Instance.musicInfos[i]);
-            MusicSlots.Add(MusicSlot_);
-        }
+        MakingMusicSlot();
 
 
-        foreach (var slot in MusicManager.Instance.musicInfos)
-        {
-            slotList_Sorting.Add(slot);
-            //슬롯 데이터를 하나씩 저장해줌
-        }
+        //for (int i = 0; i < musicCount; i++)
+        //{
+        //    MusicSlot MusicSlot_ = Instantiate(MusicImage, transform).GetComponent<MusicSlot>();
+        //    RectTransform rectT = MusicSlot_.GetComponent<RectTransform>();
+
+        //    int indexOffset = (i - (medianValue));
+
+        //    rectT.anchoredPosition = new Vector2(600 * indexOffset, 0);
+        //    MusicSlot_.SetMusic(MusicManager.Instance.musicInfos[i]);
+        //    MusicSlots.Add(MusicSlot_);
+        //}
 
 
-        RectTransform centerRect = transform.GetChild(medianValue).GetComponent<RectTransform>();
-        centerRect.anchoredPosition = Vector2.zero;
+        //foreach (var slot in MusicManager.Instance.musicInfos)
+        //{
+        //    slotList_Sorting.Add(slot);
+        //    //슬롯 데이터를 하나씩 저장해줌
+        //}
 
-        if (GameManager.Instance.NowSelectValue != 0)
-        {
-            median = SetNowSelectValue();
-        }
-        SortingMusic(median);
+
+        ////RectTransform centerRect = transform.GetChild(medianValue).GetComponent<RectTransform>();
+        ////centerRect.anchoredPosition = Vector2.zero;
+
+        //if (GameManager.Instance.NowSelectValue != 0)
+        //{
+        //    median = SetNowSelectValue();
+        //}
+        //SortingMusic(median);
     }
 
 
@@ -88,7 +95,27 @@ public class MusicSelectPanel : MonoBehaviour
 
     private void Update()
     {
-        ChoosingSong();
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Debug.Log("윗방향키 누름");
+
+
+            StartCoroutine(UpRotate());
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            StartCoroutine(DownRotate());
+
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CloseDetailPanel();
+        }
+
+        //ChoosingSong();
     }
 
 
@@ -285,37 +312,106 @@ public class MusicSelectPanel : MonoBehaviour
         }
     }
 
+
+    void MakingMusicSlot()
+    {
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        float centerX = rectTransform.anchoredPosition.x;
+        float centerY = rectTransform.anchoredPosition.y;
+
+        //Debug.Log("pos : " + centerX + ", " + centerY);
+        RotateAngle = (360 / musicCount);
+
+        float radius = rectTransform.rect.width * 3;
+        for (int i = 0; i < musicCount; i++)
+        {
+            float angle = i * (360 / musicCount);
+            float angleRadians = i * (2 * Mathf.PI / musicCount);
+            float x = radius * Mathf.Cos(angleRadians);
+            float y = radius * Mathf.Sin(angleRadians);
+
+            MusicSlot MusicSlot_ = Instantiate(MusicImage, transform.position, Quaternion.Euler(0, 0, angle), transform).GetComponent<MusicSlot>();
+            RectTransform childrect = MusicSlot_.GetComponent<RectTransform>();
+            if (childrect != rectTransform)
+            {
+               // Debug.Log("anchoredpos : " + x + ", " + y);
+                childrect.anchoredPosition = new Vector3(x, y, 0);
+                //Debug.Log(childrect.anchoredPosition);
+            }
+            MusicSlot_.SetMusic(MusicManager.Instance.musicInfos[i]);
+            MusicSlots.Add(MusicSlot_);
+
+        }
+        transform.GetChild(1).transform.SetAsLastSibling();
+        transform.GetChild(0).transform.SetAsLastSibling();
+
+    }
+
+    IEnumerator DownRotate()
+    {
+        RectTransform rectt = GetComponent<RectTransform>();
+
+        Vector3 currentRotation = rectt.rotation.eulerAngles;
+        Vector3 targetRotation = new Vector3(0, 0, currentRotation.z - (RotateAngle));
+        Debug.Log(RotateAngle);
+
+        float rotationDuration = 0.1f;
+        float timeElapsed = 0f;
+
+
+        Quaternion startRotation = Quaternion.Euler(currentRotation);
+        Quaternion endRotation = Quaternion.Euler(targetRotation);
+
+
+        while (timeElapsed < rotationDuration)
+        {
+            float t = timeElapsed / rotationDuration;
+
+            rectt.rotation = Quaternion.Lerp(startRotation, endRotation, t);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        Debug.Log("작동");
+
+        rectt.rotation = endRotation;
+
+        transform.GetChild(1).transform.SetAsLastSibling();
+        transform.GetChild(0).transform.SetAsLastSibling();
+    }
+
+    IEnumerator UpRotate()
+    {
+        Vector3 currentRotation = transform.rotation.eulerAngles;
+
+        Debug.Log(currentRotation);
+
+        Quaternion transformR = Quaternion.Euler(currentRotation);
+        Quaternion ChangeR = Quaternion.Euler(0, 0, currentRotation.z + RotateAngle);
+
+
+        float rotationDuration = 0.1f;
+        float timeElapsed = 0f;
+        while (timeElapsed < rotationDuration)
+        {
+            float t = timeElapsed / rotationDuration;
+
+            transform.rotation = Quaternion.Lerp(transformR, ChangeR, t);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        Debug.Log("작동");
+
+
+
+        Debug.Log("1 " + ChangeR.z);
+        Debug.Log("2 " + Quaternion.Euler(0, 0, ChangeR.z));
+
+
+        transform.rotation = ChangeR;
+
+        transform.GetChild(musicCount - 2).transform.SetAsLastSibling();
+    }
+
 }
 
-
-//IEnumerator Decrease()
-//{
-//    //float poscheck = transform.position.x - NextPos.x;
-//    //Debug.Log(poscheck);
-//    //while(Mathf.Abs(poscheck - transform.position.x)>0.1f)
-//    //{
-//    //    transform.position = Vector2.Lerp(transform.position, new Vector2(transform.position.x - NextPos.x, transform.position.y), Time.deltaTime * 5f);
-//    //}
-
-//    //yield return new WaitForSeconds(0.5f);
-//    //transform.position = new Vector2(transform.position.x - NextPos.x, transform.position.y);
-//    MusicSlotPanelAnimator.SetBool("Left", true);
-//    yield return new WaitUntil(() => MusicSlotPanelAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.5f);
-//    MusicSlotPanelAnimator.SetBool("Left", false);
-//}
-
-//IEnumerator Increase()
-//{
-//    //float poscheck = transform.position.x - NextPos.x;
-//    //while (Mathf.Abs(poscheck - transform.position.x)> 0.1f)
-//    //{
-
-//    //    transform.position = Vector2.Lerp(transform.position, new Vector2(transform.position.x + NextPos.x, transform.position.y), Time.deltaTime * 5f);
-
-//    //}        
-//    //yield return new WaitForSeconds(0.5f);
-//    //transform.position = new Vector2(transform.position.x + NextPos.x, transform.position.y);
-//    MusicSlotPanelAnimator.SetBool("Right", true);
-//    yield return new WaitUntil(() => MusicSlotPanelAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.5f);
-//    MusicSlotPanelAnimator.SetBool("Right", false);
-//}

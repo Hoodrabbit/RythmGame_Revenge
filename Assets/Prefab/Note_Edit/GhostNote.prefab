@@ -162,13 +162,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9295c761605220428c5ff51a534fa2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 10
   TypeNum: 3
+  eventType: 0
   speed: 5
   SongTime: 0
   AudioTime: 0
-  Type: 0
+  melodyType: 0
   Height: 0
   xpos: 0
+  ypos: 0
+  EventActivate: 0
 --- !u!114 &3445701198409382765
 MonoBehaviour:
   m_ObjectHideFlags: 0

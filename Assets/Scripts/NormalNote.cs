@@ -6,6 +6,9 @@ public class NormalNote : Note
 {
     public GameObject MelodyObj;
     public List<Sprite> melodySprite;
+    
+
+
 
 
     public void SetNoteType(int num)

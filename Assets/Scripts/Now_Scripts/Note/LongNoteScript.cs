@@ -34,6 +34,8 @@ public class LongNoteScript : MonoBehaviour
         HeadSR = GetComponent<SpriteRenderer>();
         Body_SR = Body.GetComponent<SpriteRenderer>();
         HeadCollider = GetComponent<BoxCollider2D>();
+        n_Y = GetComponent<Note>();
+        ChangeSprite();
     }
 
     public void Update()
@@ -140,6 +142,21 @@ public class LongNoteScript : MonoBehaviour
         //HeadCollider.enabled = false;
         HeadSR.color = new Color(159, 0, 255, 50);
     }
+
+    public void ChangeSprite()
+    {
+        Tail.GetComponent<SpriteRenderer>().sprite = HeadSR.sprite;
+        if(transform.position.y >0)
+        {
+            Body_SR.sprite = SpriteLoaderScript.Instance.LongNoteSpriteList[n_Y.ID - 100 + 2];
+        }
+        else
+        {
+            Body_SR.sprite = SpriteLoaderScript.Instance.LongNoteSpriteList[n_Y.ID - 100 + 3];
+        }
+        
+    }
+
 
 
 }
