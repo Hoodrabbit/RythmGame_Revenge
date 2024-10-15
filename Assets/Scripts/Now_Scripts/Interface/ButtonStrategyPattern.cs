@@ -299,6 +299,7 @@ class GamePauseButton : IButton
     public void Click()
     {
         GameManager.Instance.PauseAudio();
+       
     }
 }
 

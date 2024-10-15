@@ -49,10 +49,10 @@ public class EditManager : Singleton<EditManager>
     public const int UP = 3;
     public const int DOWN = -1;
     public const int MIDDLE = (UP + DOWN) / 2;
-    public const int OBSTACLE_UP = 4;
+    public const int OBSTACLE_UP = 6;
     public const int OBSTACLE_DOWN = -2;
 
-    public const int UP_OUTSIDE = 6;
+    public const int UP_OUTSIDE = 8;
     public const int DOWN_OUTSIDE = -4;
 
 

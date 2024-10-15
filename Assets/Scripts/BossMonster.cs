@@ -9,7 +9,7 @@ public class BossMonster : Note
 
     public bool Trigger = false;
     CircleCollider2D bossCollider;
-    SpriteRenderer spriteRenderer;
+    //SpriteRenderer spriteRenderer;
 
     bool Hit = true;
     float MaxTime = 0.3f;
@@ -146,7 +146,7 @@ public class BossMonster : Note
         //단순히 속도로 하는게 아니라 현재 재생시간 체크하고 그 시간에 맞게 이동 위치 조절해주도록 다시 만들어줘야 함
         Vector2 startpos = transform.position;
 
-        float offsetTime = GameManager.Instance.GetBPS() * 1.5f;
+        float offsetTime = GameManager.Instance.GetBPS();
         Debug.Log("offsetTime : " + offsetTime);
 
         float actualMoveTime = (float)SongTime - GameManager.Instance.MainAudio.time - offsetTime;
@@ -179,6 +179,8 @@ public class BossMonster : Note
 
             elapsedTime += Time.deltaTime;
             yield return null;
+        
+        
         }
 
         

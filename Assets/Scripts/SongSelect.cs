@@ -54,7 +54,7 @@ public class SongSelect : MonoBehaviour
         {
             if(!SongAudio.isPlaying)
             {
-                SongAudio.volume = 0.5f;
+                SongAudio.volume = 0.2f;
                 SongAudio.PlayScheduled(0);
             }
 

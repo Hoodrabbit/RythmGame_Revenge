@@ -443,7 +443,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a43dce0a3d473ff469ab35aa58831cb0, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -635,7 +635,7 @@ GameObject:
   - component: {fileID: 558332406}
   - component: {fileID: 558332408}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -657,7 +657,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 150, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &558332406
@@ -717,6 +717,7 @@ MonoBehaviour:
   SelectDetailPanel: {fileID: 161093445}
   HoldTime: 0.2
   KeyHold: 0
+  NowSelect: 0
 --- !u!1 &698587202
 GameObject:
   m_ObjectHideFlags: 0
@@ -2481,7 +2482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4951111140421694825, guid: ac29c1e0990df664aa7c469658d4d46e, type: 3}
       propertyPath: speed
-      value: 20
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 4951111140421694825, guid: ac29c1e0990df664aa7c469658d4d46e, type: 3}
       propertyPath: state

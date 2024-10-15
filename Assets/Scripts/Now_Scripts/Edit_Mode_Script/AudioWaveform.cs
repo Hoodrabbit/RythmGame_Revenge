@@ -3,100 +3,100 @@ using UnityEngine.UI;
 
 public class AudioWaveform : MonoBehaviour
 {
-    public AudioSource audioSource;
-    //public RectTransform WaveFormRect;
+    //public AudioSource audioSource;
+    ////public RectTransform WaveFormRect;
     
-    public Image image;
+    //public Image image;
 
-    AudioClip audioClip;
+    //AudioClip audioClip;
 
-    SpriteRenderer spriteRenderer;
-    int samplesize;
-    public int width = 1024;
-    public int height = 64;
+    //SpriteRenderer spriteRenderer;
+    //int samplesize;
+    //public int width = 1024;
+    //public int height = 64;
 
-    float[] waveform = null;
-    float[] samples= null;
-    void Start()
-    {
+    //float[] waveform = null;
+    //float[] samples= null;
+    //void Start()
+    //{
 
-        audioClip = GameManager.Instance.musicInfo.Music;
-        image = GetComponent<Image>();
-        //spriteRenderer = GetComponent<SpriteRenderer>();
+    //    audioClip = GameManager.Instance.musicInfo.Music;
+    //    image = GetComponent<Image>();
+    //    //spriteRenderer = GetComponent<SpriteRenderer>();
         
-        //WaveFormRect = GetComponent<RectTransform>();
-
-        
+    //    //WaveFormRect = GetComponent<RectTransform>();
 
         
-        //width = (int)EditManager.Instance.barNote.GetDistance() *6;
-        //Debug.Log(width);
 
-        //WaveFormRect.sizeDelta = new Vector2(width, height);
-
-        transform.localScale = new Vector2(1, 3);
-        //spriteRenderer = GetComponent<SpriteRenderer>();
-        Texture2D texWav = GetWaveform();
-
-        Rect rect = new Rect(Vector2.zero, new Vector2(width, height));
-        image.sprite = Sprite.Create(texWav, rect, Vector2.zero);
         
-        //float[] samples = new float[audioClip.samples * audioClip.channels];
-        //audioClip.GetData(samples, 0);
+    //    //width = (int)EditManager.Instance.barNote.GetDistance() *6;
+    //    //Debug.Log(width);
 
-        //// 필요한 포인트 수
-        //int pointCount = 1000;
-        //Vector3[] points = new Vector3[pointCount];
+    //    //WaveFormRect.sizeDelta = new Vector2(width, height);
 
-        //// 샘플 데이터를 사용하여 포인트 계산
-        //for (int i = 0; i < pointCount; i++)
-        //{
-        //    float sampleValue = samples[i * audioClip.samples / pointCount];
-        //    points[i] = new Vector3(i / (float)pointCount * 1000, sampleValue, 0);
-        //}
+    //    transform.localScale = new Vector2(1, 3);
+    //    //spriteRenderer = GetComponent<SpriteRenderer>();
+    //    Texture2D texWav = GetWaveform();
 
-        //// LineRenderer 설정
-        //lineRenderer.positionCount = pointCount;
-        //lineRenderer.SetPositions(points);
-    }
+    //    Rect rect = new Rect(Vector2.zero, new Vector2(width, height));
+    //    image.sprite = Sprite.Create(texWav, rect, Vector2.zero);
+        
+    //    //float[] samples = new float[audioClip.samples * audioClip.channels];
+    //    //audioClip.GetData(samples, 0);
 
-    Texture2D GetWaveform()
-    {
-        Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
-        waveform = new float[width];
+    //    //// 필요한 포인트 수
+    //    //int pointCount = 1000;
+    //    //Vector3[] points = new Vector3[pointCount];
 
-        samplesize = audioClip.samples * audioClip.channels;
+    //    //// 샘플 데이터를 사용하여 포인트 계산
+    //    //for (int i = 0; i < pointCount; i++)
+    //    //{
+    //    //    float sampleValue = samples[i * audioClip.samples / pointCount];
+    //    //    points[i] = new Vector3(i / (float)pointCount * 1000, sampleValue, 0);
+    //    //}
 
-        samples = new float[samplesize];
-        audioClip.GetData(samples, 0);
+    //    //// LineRenderer 설정
+    //    //lineRenderer.positionCount = pointCount;
+    //    //lineRenderer.SetPositions(points);
+    //}
 
-        int packsize = (samplesize / width);
-        for(int w= 0; w<width; w++)
-        {
-            waveform[w] = Mathf.Abs(samples[w * packsize]);
-        }
+    //Texture2D GetWaveform()
+    //{
+    //    Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+    //    waveform = new float[width];
 
-        for(int x= 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                tex.SetPixel(x, y, Color.black);
-            }
-        }
+    //    samplesize = audioClip.samples * audioClip.channels;
 
-        for(int x= 0; x < width; x++)
-        {
-            for (int y = 0; y < waveform[x] * height *0.75f; y++)
-            {
-                tex.SetPixel(x, height / 2 + y, Color.white);
-                tex.SetPixel(x, height/2 - y, Color.white);
-            }
-        }
+    //    samples = new float[samplesize];
+    //    audioClip.GetData(samples, 0);
 
-        tex.Apply();
+    //    int packsize = (samplesize / width);
+    //    for(int w= 0; w<width; w++)
+    //    {
+    //        waveform[w] = Mathf.Abs(samples[w * packsize]);
+    //    }
 
-        return tex;
-    }
+    //    for(int x= 0; x < width; x++)
+    //    {
+    //        for (int y = 0; y < height; y++)
+    //        {
+    //            tex.SetPixel(x, y, Color.black);
+    //        }
+    //    }
+
+    //    for(int x= 0; x < width; x++)
+    //    {
+    //        for (int y = 0; y < waveform[x] * height *0.75f; y++)
+    //        {
+    //            tex.SetPixel(x, height / 2 + y, Color.white);
+    //            tex.SetPixel(x, height/2 - y, Color.white);
+    //        }
+    //    }
+
+    //    tex.Apply();
+
+    //    return tex;
+    //}
 
 
 }

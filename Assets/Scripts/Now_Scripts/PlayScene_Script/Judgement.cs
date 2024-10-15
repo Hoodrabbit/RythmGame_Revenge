@@ -76,49 +76,6 @@ public class Judgement : MonoBehaviour
     void Update()
     {
 
-        //오토모드 임시
-        //if (notes.Count > 0)
-        //{
-        //    foreach (Note note in notes)
-        //    {
-        //        if (note.SongTime == GameManager.Instance.MainAudio.time)
-        //        {
-        //            LScript = note.GetComponent<LongNoteScript>();
-
-        //            if (LScript == null)
-        //            {
-        //                note.HitNote();
-        //                audioSource.Play();
-        //                PlayManager.Instance.HitNote();
-        //                songtimes.Add(GameManager.Instance.MainAudio.time);
-        //                break;
-        //            }
-        //            else
-        //            {
-
-
-        //                if (longnotePress == false)
-        //                {
-        //                    audioSource.Play();
-        //                    songtimes.Add(GameManager.Instance.MainAudio.time);
-        //                }
-
-        //                longnotePress = true;
-        //                break;
-        //            }
-
-
-
-
-        //        }
-
-
-        //    }
-        //}
-
-
-
-
 
         if (Input.GetKeyDown(key) || Input.GetKeyDown(key2) || Input.GetKeyDown(Key3))
         {
@@ -175,7 +132,7 @@ public class Judgement : MonoBehaviour
                         else
                         {
                             note.MissNote();
-                            Debug.Log("미스났어요" + +note.SongTime + "      " + GameManager.Instance.MainAudio.time);
+                            Debug.Log("미스났어요" + +note.SongTime + "      " + GameManager.Instance.MainAudio.time); 
                             PlayManager.Instance.MissNote();
                             break;
                         }

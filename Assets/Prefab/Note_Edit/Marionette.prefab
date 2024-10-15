@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8557576016896229041}
   - component: {fileID: 8288947683503557723}
   - component: {fileID: 1544619962534056680}
-  - component: {fileID: 3427757792095548354}
+  - component: {fileID: 4699660802229024337}
   m_Layer: 0
   m_Name: Marionette
   m_TagString: Note
@@ -149,22 +149,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &3427757792095548354
+--- !u!114 &4699660802229024337
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5612370883487808057}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9295c761605220428c5ff51a534fa2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 876a08e792976a946b582a27806d8069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TypeNum: 4
-  speed: 5
+  eventType: 0
+  speed: 0
   SongTime: 0
   AudioTime: 0
-  Type: 0
+  melodyType: 0
   Height: 0
   xpos: 0
+  ypos: 0
+  EventActivate: 0

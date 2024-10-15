@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3210990702238462234}
   - component: {fileID: 3505856014102510414}
   - component: {fileID: 6769098838675601728}
-  - component: {fileID: 5175105850907118633}
+  - component: {fileID: 7999879755346623482}
   m_Layer: 0
   m_Name: Tail
   m_TagString: Note
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5175105850907118633
+--- !u!114 &7999879755346623482
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6143954083052771896}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9295c761605220428c5ff51a534fa2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 876a08e792976a946b582a27806d8069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 100
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 3472630597451549889}
   - component: {fileID: 6639074378139729599}
   - component: {fileID: 5715799422078636730}
-  - component: {fileID: -8896001686497402160}
+  - component: {fileID: 2174863092856231457}
   m_Layer: 0
   m_Name: LongNote
   m_TagString: Note
@@ -335,7 +335,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &-8896001686497402160
+--- !u!114 &2174863092856231457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -344,7 +344,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7824795879292237692}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9295c761605220428c5ff51a534fa2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 876a08e792976a946b582a27806d8069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 100

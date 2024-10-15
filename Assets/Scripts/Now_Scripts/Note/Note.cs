@@ -34,7 +34,7 @@ public class Note : MonoBehaviour
     public float ypos;
 
     Animator Note_Move_Animator;
-    SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
 
     public bool EventActivate = false;
 

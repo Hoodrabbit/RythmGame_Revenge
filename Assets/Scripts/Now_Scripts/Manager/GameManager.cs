@@ -75,6 +75,7 @@ public class GameManager : Singleton<GameManager>
         if(AudioListener.pause == false)
         {
             AudioListener.pause = true;
+            Time.timeScale = 0;
         }
         else
         {
@@ -87,7 +88,7 @@ public class GameManager : Singleton<GameManager>
         yield return new WaitForSeconds(2f);
 
         AudioListener.pause = false;
-
+        Time.timeScale = 1;
     }
 
 

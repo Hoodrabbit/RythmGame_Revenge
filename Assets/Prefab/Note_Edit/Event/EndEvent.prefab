@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: -5245250085202998599}
   - component: {fileID: 4550381852937025239}
   - component: {fileID: -8833634049205542693}
-  - component: {fileID: 517625483864929790}
+  - component: {fileID: -5545932230510614472}
   m_Layer: 0
   m_Name: EndEvent
   m_TagString: EventNote
@@ -309,7 +309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventType: 3
   Boss_Animator: {fileID: 0}
---- !u!114 &517625483864929790
+--- !u!114 &-5545932230510614472
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -318,15 +318,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5612370883487808057}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9295c761605220428c5ff51a534fa2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 876a08e792976a946b582a27806d8069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TypeNum: 200
   eventType: 0
   speed: 0
   SongTime: 0
   AudioTime: 0
-  Type: 0
+  melodyType: 0
   Height: 0
   xpos: 0
   ypos: 0

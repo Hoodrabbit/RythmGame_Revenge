@@ -51,7 +51,7 @@ public class ObstacleMaker : NoteMakerBase
                         //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가
 
 
-                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, -1, NoteType, 0, (double)RealXpos / 10));
+                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, EditManager.OBSTACLE_UP, NoteType, 0, (double)RealXpos / 10));
                     }
 
                 }
@@ -69,7 +69,7 @@ public class ObstacleMaker : NoteMakerBase
                         float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                         //위와 동일 
 
-                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, -2, NoteType, 0, (double)RealXpos / 10));
+                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, EditManager.OBSTACLE_DOWN, NoteType, 0, (double)RealXpos / 10));
                     }
                 }
             }

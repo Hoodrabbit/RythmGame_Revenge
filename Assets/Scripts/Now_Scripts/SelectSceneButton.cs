@@ -15,6 +15,15 @@ public class SelectSceneButton : MonoBehaviour
         button.onClick.AddListener(SceneChange);
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            button.onClick.Invoke();
+        }
+    }
+
+
     void SceneChange()
     {
         SceneManagerEX.Instance.ChangeScene();

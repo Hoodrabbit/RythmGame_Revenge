@@ -8,11 +8,14 @@ public class ComboSystem : Singleton<ComboSystem>
     public int Combo = 0;
     int FullNoteCount = 0;
     public TMP_Text ComboText;
+    Animator Combo_Animator;
+
 
     // Start is called before the first frame update
     void Start()
     {
         ComboText = GetComponent<TMP_Text>();
+        Combo_Animator =GetComponent<Animator>();
         ComboText.enabled = false;
     }
 
@@ -32,7 +35,9 @@ public class ComboSystem : Singleton<ComboSystem>
 
     public void HitNote()
     {
+        Combo_Animator.Play("IncreaseCombo");
         Combo++;
+       
     }    
 
     public void MissNote()
