@@ -15,6 +15,7 @@ public class SongSelect : MonoBehaviour
        // Debug.Log("내가 먼저 실행");
        // Debug.Log("내가 먼저 실행");
         InitializeSongSelect();
+      
     }
 
     public void InitializeSongSelect()

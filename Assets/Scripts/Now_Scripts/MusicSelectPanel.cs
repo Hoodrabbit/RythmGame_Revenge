@@ -64,8 +64,8 @@ public class MusicSelectPanel : MonoBehaviour
             SortingMusic(NowSelect);
         }
 
-
-
+        SelectingSlot();
+        SortingMusic(NowSelect);
 
     }
 
@@ -80,7 +80,6 @@ public class MusicSelectPanel : MonoBehaviour
     private void Update()
     {
         UpdatingMusicSlot();
-
     }
 
     //현재 노래 슬롯을 체크해서 반으로 나눈다음에 노래가 몇곡 정도 있는지 체크해서 정렬해주기
@@ -100,7 +99,7 @@ public class MusicSelectPanel : MonoBehaviour
             }
             SortingMusic(NowSelect);
 
-            SlotChangeCheck();
+          
         }
 
         else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
@@ -116,7 +115,7 @@ public class MusicSelectPanel : MonoBehaviour
                 NowSelect--;
             }
             SortingMusic(NowSelect);
-            SlotChangeCheck();
+           
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
@@ -166,9 +165,11 @@ public class MusicSelectPanel : MonoBehaviour
     {
         int changevalue = selectValue;
 
+
+
         for (int i = 0; i < 6; i++)
         {
-            Debug.Log("실행됨");
+           // Debug.Log("실행됨");
             if (i < 4)
             {
                     if (changevalue == musicCount)
@@ -180,11 +181,6 @@ public class MusicSelectPanel : MonoBehaviour
                     {
                         MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[changevalue++]);
                     }
-
-
-
-                
-
                
             }
             else if (i == 4)
@@ -206,7 +202,6 @@ public class MusicSelectPanel : MonoBehaviour
                 {
                     MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check-1]);
                 }
-                
             }
             else
             {
@@ -221,63 +216,39 @@ public class MusicSelectPanel : MonoBehaviour
                     MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check - 1]);
                 }
 
-
-               // MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[changevalue - 2]);
             }
-            //changevalue++;
         }
 
-
-
-        //transform.rotation = Quaternion.Euler(0, 0, -selectValue * RotateAngle);
+        SlotChangeCheck();
     }
     void SlotChangeCheck()
     {
-        //RectTransform selectMusicSlot = MusicSlots[0].GetComponent<RectTransform>();
+       // Debug.Log("check");
 
-        //selectMusicSlot.anchoredPosition = new Vector2()
-
+        GameManager.Instance.NowSelectValue = NowSelect;
         AudioManager.Instance.SetValue(MusicSlots[0].musicInfo);
         MusicManager.Instance.SetMusic(MusicSlots[0].musicInfo);
+        //SelectingSlot();
     }
 
+    void SelectingSlot()
+    {
+        MusicImage_Selected.SetActive(true);
+        MusicSlot SelectSlot = MusicImage_Selected.GetComponent<MusicSlot>();
+        SelectSlot.SetMusic(MusicSlots[0].musicInfo);
 
+        if (SelectSlot.slotAnimator.enabled == false)
+        {
+            SelectSlot.slotAnimator.enabled = true;
+        }
+        
+        SelectSlot.slotAnimator.Play("MusicSlotChoosed");
 
+        MusicSlots[0].gameObject.SetActive(false);
+        
 
+    }
 
-
-    //public void SlotChangedRight()
-    //{
-    //    NowSelect--;
-    //    if (NowSelect < 0)
-    //    {
-    //        NowSelect = musicCount - 1;
-    //    }
-
-    //    SortingMusic(NowSelect);
-    //    AudioManager.Instance.SetValue(MusicSlots[medianValue].musicInfo);
-    //    MusicManager.Instance.SetMusic(MusicSlots[medianValue].musicInfo);
-    //    Debug.Log(NowSelect);
-
-
-
-    //}
-
-
-    //public void SlotChangedLeft()
-    //{
-
-    //    NowSelect++;
-    //    if (NowSelect > musicCount - 1)
-    //    {
-    //        NowSelect = 0;
-    //    }
-    //    SortingMusic(NowSelect);
-    //    AudioManager.Instance.SetValue(MusicSlots[medianValue].musicInfo);
-    //    MusicManager.Instance.SetMusic(MusicSlots[medianValue].musicInfo);
-    //    Debug.Log(NowSelect);
-
-    //}
 
 
     public int GetNowSelect()
@@ -323,9 +294,6 @@ public class MusicSelectPanel : MonoBehaviour
         for (int i = 0; i < 6; i++)
         {
 
-
-
-
             int angle = i * (360 / 6);
             float angleRadians = i * (2 * Mathf.PI / /*musicCount*/6);
             float x = radius * Mathf.Cos(angleRadians);
@@ -335,9 +303,7 @@ public class MusicSelectPanel : MonoBehaviour
             RectTransform childrect = MusicSlot_.GetComponent<RectTransform>();
             if (childrect != rectTransform)
             {
-                // Debug.Log("anchoredpos : " + x + ", " + y);
                 childrect.anchoredPosition = new Vector3(x, y, 0);
-                //Debug.Log(childrect.anchoredPosition);
             }
 
 
@@ -356,8 +322,6 @@ public class MusicSelectPanel : MonoBehaviour
             }
             MusicSlots.Add(MusicSlot_);
 
-            //MusicSlots.Add(MusicSlot_);
-
         }
 
         MusicImage_Selected=Instantiate(MusicImage, Vector2.zero, Quaternion.Euler(0, 0, 0), transform.parent);
@@ -367,6 +331,15 @@ public class MusicSelectPanel : MonoBehaviour
 
     IEnumerator DownRotate()
     {
+
+        if (MusicSlots[0].gameObject.activeSelf == false)
+        {
+            MusicSlots[0].gameObject.SetActive(true);
+            MusicImage_Selected.SetActive(false);
+        }
+
+
+
         RectTransform rectt = GetComponent<RectTransform>();
 
         Vector3 currentRotation = rectt.rotation.eulerAngles;
@@ -390,17 +363,23 @@ public class MusicSelectPanel : MonoBehaviour
             yield return null;
         }
 
-        //Debug.Log("작동");
 
         rectt.rotation = endRotation;
 
-
+        SelectingSlot();
 
 
     }
 
     IEnumerator UpRotate()
     {
+        if (MusicSlots[0].gameObject.activeSelf == false)
+        {
+            MusicSlots[0].gameObject.SetActive(true);
+            MusicImage_Selected.SetActive(false);
+        }
+
+
         Vector3 currentRotation = transform.rotation.eulerAngles;
 
         Debug.Log(currentRotation);
@@ -419,74 +398,10 @@ public class MusicSelectPanel : MonoBehaviour
             timeElapsed += Time.deltaTime;
             yield return null;
         }
-        //Debug.Log("작동");
-
-
-
-        //Debug.Log("1 " + ChangeR.z);
-        //Debug.Log("2 " + Quaternion.Euler(0, 0, ChangeR.z));
-
 
         transform.rotation = ChangeR;
-        //SortingMusic(NowSelect);
-
-
-
-
+        SelectingSlot();
 
     }
 
 }
-
-//if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
-//{
-//    pressTime += Time.deltaTime;
-//    if (pressTime > HoldTime)
-//    {
-
-//        KeyHold = true;
-
-//        Debug.Log("윗방향키 누름");
-//        if (NowSelect == musicCount - 1)
-//        {
-//            NowSelect = 0;
-//        }
-//        else
-//        {
-//            NowSelect++;
-//        }
-
-//        SlotChangeCheck();
-//        StartCoroutine(UpRotate());
-//        transform.GetChild(musicCount - 2).transform.SetAsLastSibling();
-
-//        pressTime -= HoldTime;
-//    }
-//}
-//else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-//{
-//    pressTime += Time.deltaTime;
-//    if (pressTime > HoldTime)
-//    {
-//        KeyHold = true;
-
-//        if (NowSelect == 0)
-//        {
-//            NowSelect = musicCount - 1;
-//        }
-//        else
-//        {
-//            NowSelect--;
-//        }
-
-
-
-//        SlotChangeCheck();
-//        transform.GetChild(1).transform.SetAsLastSibling();
-//        transform.GetChild(0).transform.SetAsLastSibling();
-//        StartCoroutine(DownRotate());
-//        pressTime -= HoldTime;
-//    }
-
-
-//}

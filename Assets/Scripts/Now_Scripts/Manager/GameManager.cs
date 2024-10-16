@@ -49,7 +49,8 @@ public class GameManager : Singleton<GameManager>
     {
         Debug.Log("게임매니저 먼저 실행");
         //InitializeSongSelect();
-        MusicManager.Instance.SetMusic(0);
+        //MusicManager.Instance.SetMusic(0);
+
     }
 
     public void Update()

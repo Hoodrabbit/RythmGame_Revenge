@@ -15,7 +15,7 @@ public class MusicSlot : MonoBehaviour, IPointerClickHandler
     public Image SquareIMG;
 
     public TMP_Text text;
-
+    public Animator slotAnimator;
 
 
     public Action Clicked;
@@ -26,22 +26,13 @@ public class MusicSlot : MonoBehaviour, IPointerClickHandler
     // Start is called before the first frame update
     void Start()
     {
-        //int rand = UnityEngine.Random.Range(0, 2);
-
-        //if(rand ==0)
-        //{
-        //    SquareIMG.color = Color.black;
-        //}
-        //else
-        //{
-        //    SquareIMG.color = Color.red;
-        //}
 
     }
 
     private void OnEnable()
     {
         //Debug.Log("구독시작");
+        
         Clicked += MusicSelectPanel.SlotClicked;
     }
 
