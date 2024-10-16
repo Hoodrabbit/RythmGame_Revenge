@@ -83,7 +83,7 @@ public class LongNoteScript : MonoBehaviour
         else
         {
 
-            if (Vector3.Distance(transform.position, Tail.transform.position) <= 0.2f || transform.position.x >= Tail.transform.position.x)
+            if (Vector3.Distance(transform.position, Tail.transform.position) <= 1.3f || transform.position.x >= Tail.transform.position.x)
                 {
                     Debug.Log("²¨Áü");
                 Delete = true;
