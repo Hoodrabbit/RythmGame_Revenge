@@ -17,6 +17,12 @@ public class Note : MonoBehaviour
 
     public EventType eventType;
 
+    [Header("노트 점수")]
+    public int score;
+    [Header("피버 게이지")]
+    public int fever_Count;
+    [Header("충돌 시 체력 감소량")]
+    public int HP;
 
 
     Rigidbody2D rb;
@@ -27,6 +33,9 @@ public class Note : MonoBehaviour
 
     public double AudioTime;
 
+
+
+    public SelectStage StageSelect;
     public MelodyType melodyType = MelodyType.Normal;
     public NoteHeight Height;
 
@@ -39,6 +48,7 @@ public class Note : MonoBehaviour
     public bool EventActivate = false;
 
     bool StartSong = false;
+    bool AlreadyHit = false;
 
     //이벤트가 활성화 즉 true일시 해당 이벤트로 발생하는 위치의 이동
     //우리가 알아야 하는 것 즉 이벤트가 발생했을 시 노트가 어느 위치(y값)로 이동하는가
@@ -101,7 +111,7 @@ public class Note : MonoBehaviour
         }
     }
 
-    protected void SetInitialNotePositionAndColor()
+    void SetInitialNotePositionAndColor()
     {
         ChangeHeight();
 
@@ -114,7 +124,7 @@ public class Note : MonoBehaviour
         //    spriteRenderer.color = Color.blue;
     }
 
-    void ChangeSprite()
+    protected virtual void ChangeSprite()
     {
         if (GetComponent<LongNoteScript>() != null || TypeNum == 2)
         {
@@ -239,6 +249,7 @@ public class Note : MonoBehaviour
             if (collision.CompareTag("Finish"))
             {
                 PlayManager.Instance.MissNote();
+                gameObject.SetActive(false);
             }
         }
 
@@ -301,7 +312,14 @@ public class Note : MonoBehaviour
         return 0;
     }
 
-
+    public bool GetAlreadyHit()
+    {
+        return AlreadyHit;
+    }
+    public void HitNoteCheck()
+    {
+        AlreadyHit = true;
+    }
 
     public void HitNote()
     {

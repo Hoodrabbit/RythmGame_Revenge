@@ -9,7 +9,7 @@ public class LongNoteScript : MonoBehaviour
     //일단 어떻게 될 지 궁금하니까 놔둬보고 해보는 걸로
     public GameObject Tail;
 
-    Note n_Y;
+    public Note n_Y;
 
     SpriteRenderer HeadSR;
     SpriteRenderer Body_SR;

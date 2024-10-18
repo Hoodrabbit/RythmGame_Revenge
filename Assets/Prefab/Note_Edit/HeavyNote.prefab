@@ -190,6 +190,7 @@ MonoBehaviour:
   speed: 0
   SongTime: 0
   AudioTime: 0
+  Stage: 0
   melodyType: 0
   Height: 0
   xpos: 0
@@ -197,6 +198,7 @@ MonoBehaviour:
   EventActivate: 0
   MelodyObj: {fileID: 5172337232593037241}
   melodySprite: []
+  NowNoteSize: 1
 --- !u!1001 &6087494351118091656
 PrefabInstance:
   m_ObjectHideFlags: 0

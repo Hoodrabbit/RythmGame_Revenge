@@ -338,7 +338,7 @@ public class PlayManager : Singleton<PlayManager>
         NoteEventInfoPos EventPos = new NoteEventInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, eventType, songtime);
 
 
-        EventNote = Instantiate(EventTypes[5], new Vector3(xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
+        EventNote = Instantiate(EventTypes[5], new Vector3(EventPos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
 
         EventNote.GetComponent<Note>().SetSongTime(songtime);
     }

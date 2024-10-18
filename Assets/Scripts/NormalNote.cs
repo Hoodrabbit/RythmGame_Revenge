@@ -6,7 +6,50 @@ public class NormalNote : Note
 {
     public GameObject MelodyObj;
     public List<Sprite> melodySprite;
-    
+
+    public NormalNoteType NowNoteSize;
+
+    protected override void ChangeSprite()
+    {
+        //노트 변경할 꺼
+        //스테이지 크기에 따라 노트 변경시키기
+
+        if(StageSelect == SelectStage.Stage1)
+        {
+            if(NowNoteSize == NormalNoteType.Normal)
+            {
+                if (transform.position.y >= 0)
+                {
+                    spriteRenderer.sprite = SpriteLoaderScript.Instance.NoteSpriteList[ID];
+                }
+                else
+                {
+                    spriteRenderer.sprite = SpriteLoaderScript.Instance.NoteSpriteList[ID + 1];
+                }
+            }
+            else
+            {
+                if (transform.position.y >= 0)
+                {
+                    spriteRenderer.sprite = SpriteLoaderScript.Instance.NoteSpriteList[ID+2];
+                }
+                else
+                {
+                    spriteRenderer.sprite = SpriteLoaderScript.Instance.NoteSpriteList[ID + 3];
+                }
+            }
+
+
+
+
+
+        }
+
+      
+    }
+
+
+
 
 
 

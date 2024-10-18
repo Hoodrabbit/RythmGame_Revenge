@@ -21,6 +21,7 @@ public class EditManager : Singleton<EditManager>
 
     [Header("일반 노트")]
     public GameObject NormalNote_Obj;
+    public GameObject HeavyNote_Obj;
     public GameObject LongNote_Obj;
 
     [Header("특수 노트들")]

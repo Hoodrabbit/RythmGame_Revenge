@@ -75,7 +75,19 @@ public enum NoteHeight
     REVERSE_DOWN
 }
 
+public enum NormalNoteType
+{
+    Normal,
+    Big
+}
 
+public enum SelectStage
+{
+    Stage1,
+    Stage2
+
+
+}
 
 
 

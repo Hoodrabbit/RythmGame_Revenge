@@ -13,6 +13,8 @@ using UnityEngine.EventSystems;
 public class Normal_Note_Maker : NoteMakerBase
 {
     public GameObject NormalNote;
+
+
     public int SpriteNum;
 
 

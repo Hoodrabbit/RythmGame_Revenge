@@ -91,16 +91,18 @@ public class Judgement : MonoBehaviour
                             LScript = note.GetComponent<LongNoteScript>();
                             BossNote = note.GetComponent<BossMonster>();
 
-                            if(BossNote != null)
+                            if(BossNote != null && LScript == null)
                             {
                                 //note.HitNote();
+                                Debug.Log("작동ㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
+
                                 BossNote.StopAllCoroutines();
                                 BossNote.HitAction?.Invoke();
                                 audioSource.Play();
                                 PlayManager.Instance.HitNote();
                                 notes.Remove(note);
                             }
-                            else if (LScript == null)
+                            else if (BossNote == null && LScript == null)
                             {
 
                                 if(LongNoteFail == true)
@@ -115,8 +117,13 @@ public class Judgement : MonoBehaviour
 
                                 note.HitNote();
                                 audioSource.Play();
-                                PlayManager.Instance.HitNote();
-                                songtimes.Add(GameManager.Instance.MainAudio.time);
+                                Debug.Log("여기에서 발동");
+                                //if (!LScript.n_Y.GetAlreadyHit())
+                                //{
+                                //    LScript.n_Y.HitNoteCheck();
+                                   PlayManager.Instance.HitNote();
+                                //}
+                                    songtimes.Add(GameManager.Instance.MainAudio.time);
 
                             }
                             else
@@ -215,7 +222,10 @@ public class Judgement : MonoBehaviour
             else
             {
                 Debug.Log("꺼짐");
+                
                 PlayManager.Instance.HitNote();
+                
+                
                 longnotePress = false;
             }
 
