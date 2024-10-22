@@ -19,6 +19,7 @@ public class NoteMaker_EditScene : MonoBehaviour
 
     public List<GameObject> MakerObjList;
     GameObject Note_Normal;
+    GameObject Note_Middle;
     GameObject Note_Long;
     GameObject Ghost_Note;
     GameObject MakeBossAppearNote;
@@ -62,8 +63,7 @@ public class NoteMaker_EditScene : MonoBehaviour
         NoteSpawnOutsideEventMaker = MakerObjList[7];
         NoteSpawnOutsideReverseEventMaker = MakerObjList[8];
         BossDashNoteMaker = MakerObjList[9];
-
-
+        Note_Middle = MakerObjList[10];
         //NoteMakerButton = GetComponent<Button>();
 
         //NoteMakerButton.onClick.AddListener(Instantiate_NormalNote);
@@ -104,6 +104,29 @@ public class NoteMaker_EditScene : MonoBehaviour
         }
         
     }
+
+    public void Instantiate_MiddleNote()
+    {
+        if (Note_Middle.activeSelf == false)
+        {
+            if (!Already_Using)
+            {
+                Note_Middle.SetActive(true);
+            }
+            else
+            {
+                TurnOffMaker();
+                Note_Middle.SetActive(true);
+            }
+            Already_Using = true;
+        }
+        else
+        {
+            Note_Middle.SetActive(false);
+            Already_Using = false;
+        }
+    }
+
 
     public void Instantiate_LongNote()
     {

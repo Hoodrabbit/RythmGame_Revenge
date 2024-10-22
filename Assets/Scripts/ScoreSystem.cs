@@ -30,9 +30,18 @@ public class ScoreSystem : Singleton<ScoreSystem>
         
     }
 
-    public void IncreaseScore()
+    public void IncreaseScore(int score)
     {
-        Score += 200;
+
+        if (FeverSystem.Instance.FeverCheck())
+        {
+            Score += score *2;
+        }
+        else
+        {
+            Score += score;
+        }
+        
     }
 
 

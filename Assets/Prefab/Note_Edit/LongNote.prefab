@@ -146,9 +146,13 @@ MonoBehaviour:
   ID: 100
   TypeNum: 2
   eventType: 0
+  score: 200
+  fever_Count: 2
+  HP: 0
   speed: 0
   SongTime: 0
   AudioTime: 0
+  StageSelect: 0
   melodyType: 0
   Height: 0
   xpos: 0
@@ -258,6 +262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Body: {fileID: 8204148498064322795}
   Tail: {fileID: 6143954083052771896}
+  n_Y: {fileID: 0}
   newWidth: 0
   initialScale: {x: 0, y: 0, z: 0}
   EndPos: {x: 0, y: 0, z: 0}
@@ -350,9 +355,13 @@ MonoBehaviour:
   ID: 100
   TypeNum: 2
   eventType: 0
+  score: 200
+  fever_Count: 2
+  HP: 0
   speed: 0
   SongTime: 0
   AudioTime: 0
+  StageSelect: 0
   melodyType: 0
   Height: 0
   xpos: 0

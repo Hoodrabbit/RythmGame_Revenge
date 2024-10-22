@@ -143,8 +143,17 @@ public enum EventType
 
     Dash
 
-    
+
 
 }
+
+public enum JudgementHeight_State
+{
+    UP,
+    DOWN
+}
+
+
+
 
 

@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 7821729175093233135}
   - component: {fileID: 776972744887411239}
   - component: {fileID: 4992068465447224363}
+  - component: {fileID: 2475229280915347504}
   m_Layer: 5
   m_Name: FeverGaugeBack
   m_TagString: Untagged
@@ -175,9 +176,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1322174409417472700}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7005906979101258583}
@@ -228,6 +229,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2475229280915347504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322174409417472700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82af023b53138bf4396edd97d9b5d642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HpGaugeImg: {fileID: 1636971802155015629}
+  StartHP: 0
+  FeverGaugeImg: {fileID: 5702501550895403082}
+  StartFever: 0
 --- !u!1 &3534739679047735966
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +538,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 782777458, guid: 3a33874265ae910438c9b5f004e9eecc, type: 3}
+  m_Sprite: {fileID: -950896519, guid: 2f2761a39017bb844b52336c31c65923, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -88,6 +88,21 @@ class MakeNormalNote : IButton
 
 }
 
+class MakeMediumNote : IButton
+{
+    readonly string name = "MakeMediumNote";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        NoteMaker_EditScene.instance.Instantiate_MiddleNote();
+    }
+
+}
+
+
+
 class MakeLongNote : IButton
 {
     readonly string name = "MakeLongNote";
@@ -298,9 +313,27 @@ class GamePauseButton : IButton
     public void Click()
     {
         GameManager.Instance.PauseAudio();
-       
+        //UI버튼도 켜주기 
     }
 }
+
+class GameMenuPanelCloseButton : IButton
+{
+    readonly string name = "GameMenuPanelCloseButton";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+
+
+        GameManager.Instance.PauseAudio();
+    }
+
+
+}
+
+
 
 
 

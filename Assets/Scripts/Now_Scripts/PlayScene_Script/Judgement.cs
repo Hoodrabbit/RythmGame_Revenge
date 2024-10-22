@@ -2,11 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class Judgement : MonoBehaviour
 {
+    [Header("위 아래 체크")]
+    public JudgementHeight_State HEIGHT;
+    [Space(10f)]
 
     public GameObject JudgeText;
+
+
+
 
     //나중에 따로 판정마다 스프라이트를 가지고 있는 스크립트 혹은 변수가 추가될 예정
 
@@ -30,22 +37,10 @@ public class Judgement : MonoBehaviour
     public List<Note> notes;
     Note LongNote;
 
-    //public List<JudgeMentDummy> JudgeMentsColliders;
-
-    //bool active = false;
-
-    //bool AlreadyDelete = false;
-
-
     public bool longnotePress = false;
     bool LongNoteFail = false;
 
     float pressTime = 0;
-
-    //public string txt;
-    //public TMP_Text judgeText;
-
-
 
     public static float PlayTime;
     public List<double> songtimes = new List<double>();
@@ -55,7 +50,7 @@ public class Judgement : MonoBehaviour
     LongNoteScript LScript;
     BossMonster BossNote;
 
-
+    public Action<JudgementHeight_State> PressEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -76,22 +71,34 @@ public class Judgement : MonoBehaviour
     void Update()
     {
 
+        OperatingJudgeMent();
 
+
+
+
+    }
+
+    void OperatingJudgeMent()
+    {
         if (Input.GetKeyDown(key) || Input.GetKeyDown(key2) || Input.GetKeyDown(Key3))
         {
-            
+            PressEvent?.Invoke(HEIGHT);
+
+
+
+
             if (notes.Count > 0)
             {
                 foreach (Note note in notes)
                 {
                     if (note.melodyType == melody_type || note.melodyType == MelodyType.Normal && note != null)
                     {
-                        if (ManageJudgeMent((note.transform.position.x+ GameManager.Instance.OffsetValue - transform.position.x)/GameManager.Instance.speed))
+                        if (ManageJudgeMent((note.transform.position.x + GameManager.Instance.OffsetValue - transform.position.x) / GameManager.Instance.speed))
                         {
                             LScript = note.GetComponent<LongNoteScript>();
                             BossNote = note.GetComponent<BossMonster>();
 
-                            if(BossNote != null && LScript == null)
+                            if (BossNote != null && LScript == null)
                             {
                                 //note.HitNote();
                                 Debug.Log("작동ㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
@@ -99,16 +106,16 @@ public class Judgement : MonoBehaviour
                                 BossNote.StopAllCoroutines();
                                 BossNote.HitAction?.Invoke();
                                 audioSource.Play();
-                                PlayManager.Instance.HitNote();
+                                PlayManager.Instance.HitNote(note);
                                 notes.Remove(note);
                             }
                             else if (BossNote == null && LScript == null)
                             {
 
-                                if(LongNoteFail == true)
+                                if (LongNoteFail == true)
                                 {
                                     LongNoteTail LNT = note.GetComponent<LongNoteTail>();
-                                    if(LNT != null)
+                                    if (LNT != null)
                                     {
                                         note.MissNote();
                                         PlayManager.Instance.MissNote();
@@ -121,9 +128,9 @@ public class Judgement : MonoBehaviour
                                 //if (!LScript.n_Y.GetAlreadyHit())
                                 //{
                                 //    LScript.n_Y.HitNoteCheck();
-                                   PlayManager.Instance.HitNote();
+                                PlayManager.Instance.HitNote(note);
                                 //}
-                                    songtimes.Add(GameManager.Instance.MainAudio.time);
+                                songtimes.Add(GameManager.Instance.MainAudio.time);
 
                             }
                             else
@@ -139,7 +146,7 @@ public class Judgement : MonoBehaviour
                         else
                         {
                             note.MissNote();
-                            Debug.Log("미스났어요" + +note.SongTime + "      " + GameManager.Instance.MainAudio.time); 
+                            Debug.Log("미스났어요" + +note.SongTime + "      " + GameManager.Instance.MainAudio.time);
                             PlayManager.Instance.MissNote();
                             break;
                         }
@@ -153,7 +160,7 @@ public class Judgement : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(ChangeWeaponKey) ||  Input.GetKeyDown(ChangeWeaponKey2) || Input.GetKeyDown(ChangeWeaponKey3))
+        if (Input.GetKeyDown(ChangeWeaponKey) || Input.GetKeyDown(ChangeWeaponKey2) || Input.GetKeyDown(ChangeWeaponKey3))
         {
             SpriteRenderer SR = GetComponent<SpriteRenderer>();
             if (melody_type == MelodyType.Normal)
@@ -162,13 +169,13 @@ public class Judgement : MonoBehaviour
                 SR.color = Color.gray;
             }
 
-            else if(melody_type == MelodyType.Yellow) 
+            else if (melody_type == MelodyType.Yellow)
             {
                 melody_type = MelodyType.Purple;
                 SR.color = Color.black;
             }
 
-            else if(melody_type == MelodyType.Purple)
+            else if (melody_type == MelodyType.Purple)
             {
                 melody_type = MelodyType.Yellow;
                 SR.color = Color.gray;
@@ -188,7 +195,7 @@ public class Judgement : MonoBehaviour
                 LongNote.SetAudioTime();
                 LScript.CancelStopHeadPos();
                 LongNote.MissNote();
-                LongNote= null;
+                LongNote = null;
                 //notes.Remove(LongNote);
                 pressTime = 0;
                 PlayManager.Instance.MissNote();
@@ -201,43 +208,31 @@ public class Judgement : MonoBehaviour
         }
         if (longnotePress == true)
         {
-            
+
 
 
 
             if (LScript.Delete == false)
             {
 
-                    LScript.StopHeadPos(transform.position);
-                
-
-                //pressTime += Time.deltaTime;
-
-                //if (pressTime >= GameManager.Instance.GetBPS() / 2)
-                //{
-                //    PlayManager.Instance.HitNote();
-                //    pressTime -= GameManager.Instance.GetBPS() / 2;
-                //}
+                LScript.StopHeadPos(transform.position);
             }
             else
             {
                 Debug.Log("꺼짐");
-                
-                PlayManager.Instance.HitNote();
-                
-                
+
+                PlayManager.Instance.HitLongNote();
+
+
                 longnotePress = false;
             }
-
-            
-            //노래의 16비트마다 콤보 증가시키기
-
-            //if()
-
         }
-
-
     }
+
+
+
+
+
 
 
     public bool ManageJudgeMent(double time)

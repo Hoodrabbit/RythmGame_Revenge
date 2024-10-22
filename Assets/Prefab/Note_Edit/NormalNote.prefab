@@ -161,7 +161,7 @@ Animator:
   m_GameObject: {fileID: 5612370883487808057}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b1ebbb61df390fe458f015a75a86cfb6, type: 2}
+  m_Controller: {fileID: 9100000, guid: fdf55a18abf362a47b2a88900d54f678, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -184,11 +184,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e53cac6268c435c4bbb1cccbcd700026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TypeNum: 1
   eventType: 0
+  score: 0
+  fever_Count: 0
+  HP: 0
   speed: 0
   SongTime: 0
   AudioTime: 0
+  StageSelect: 0
   melodyType: 0
   Height: 0
   xpos: 0
@@ -196,6 +201,7 @@ MonoBehaviour:
   EventActivate: 0
   MelodyObj: {fileID: 5172337232593037241}
   melodySprite: []
+  NowNoteSize: 0
 --- !u!1001 &6087494351118091656
 PrefabInstance:
   m_ObjectHideFlags: 0

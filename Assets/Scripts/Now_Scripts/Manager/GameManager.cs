@@ -68,7 +68,7 @@ public class GameManager : Singleton<GameManager>
     {
         DataManager.Instance.LoadNote();
         MainAudio.PlayScheduled(AudioSettings.dspTime + 3f);
-
+        
     }
 
     public void PauseAudio()
@@ -76,7 +76,7 @@ public class GameManager : Singleton<GameManager>
         if(AudioListener.pause == false)
         {
             AudioListener.pause = true;
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
         }
         else
         {

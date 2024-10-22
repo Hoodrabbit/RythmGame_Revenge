@@ -21,7 +21,15 @@ public class EditManager : Singleton<EditManager>
 
     [Header("일반 노트")]
     public GameObject NormalNote_Obj;
+    public GameObject NormalNote_Obj_Up;
+
+
+    public GameObject MiddleNote_Obj;
+    public GameObject MiddleNote_Obj_Up;
+
     public GameObject HeavyNote_Obj;
+
+
     public GameObject LongNote_Obj;
 
     [Header("특수 노트들")]
@@ -90,6 +98,10 @@ public class EditManager : Singleton<EditManager>
                 GhostNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
 
                 break;
+            case 4:
+                MiddleNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
+                break;
+
 
             default:
                 break;
@@ -147,7 +159,19 @@ public class EditManager : Singleton<EditManager>
 
     public void NormalNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
     {
-        GameObject AddNote = Instantiate(NormalNote_Obj, EditManager.Instance.barNote.RhythmNote.transform);
+
+
+
+        GameObject AddNote;
+        if(height >0)
+        {
+            AddNote = Instantiate(NormalNote_Obj_Up, EditManager.Instance.barNote.RhythmNote.transform);
+        }
+        else
+        {
+            AddNote = Instantiate(NormalNote_Obj, EditManager.Instance.barNote.RhythmNote.transform);
+        }
+        
 
         AddNote.transform.position = new Vector3(xpos, height/* SettingHeight(height)*/);
         AddNote.GetComponent<NormalNote>().SetNoteType(enemyType);
@@ -161,6 +185,35 @@ public class EditManager : Singleton<EditManager>
 
 
     }
+
+
+    public void MiddleNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
+    {
+
+        GameObject AddNote;
+        if (height > 0)
+        {
+            AddNote = Instantiate(MiddleNote_Obj_Up, EditManager.Instance.barNote.RhythmNote.transform);
+        }
+        else
+        {
+            AddNote = Instantiate(MiddleNote_Obj, EditManager.Instance.barNote.RhythmNote.transform);
+        }
+
+
+        AddNote.transform.position = new Vector3(xpos, height/* SettingHeight(height)*/);
+        AddNote.GetComponent<NormalNote>().SetNoteType(enemyType);
+
+
+        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+        AddNote.GetComponent<Note>().SongTime = (double)RealXpos / GameManager.Instance.speed;
+
+        //height 부분 나중에 바꿀거임
+        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed, enemyType));
+    }
+
+
+
 
     public void LongNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
     {

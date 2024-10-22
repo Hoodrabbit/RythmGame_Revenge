@@ -9,41 +9,76 @@ public class NormalNote : Note
 
     public NormalNoteType NowNoteSize;
 
-    protected override void ChangeSprite()
-    {
-        //노트 변경할 꺼
-        //스테이지 크기에 따라 노트 변경시키기
+    bool event_On = false;
 
-        if(StageSelect == SelectStage.Stage1)
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        if (GameManager.Instance.state == GameState.Play_Mode && StartSong)
         {
-            if(NowNoteSize == NormalNoteType.Normal)
+            if(ypos<0)
             {
-                if (transform.position.y >= 0)
-                {
-                    spriteRenderer.sprite = SpriteLoaderScript.Instance.NoteSpriteList[ID];
-                }
-                else
-                {
-                    spriteRenderer.sprite = SpriteLoaderScript.Instance.NoteSpriteList[ID + 1];
-                }
+                transform.position = new Vector2(xpos - GameManager.Instance.speed * (float)(AudioSettings.dspTime - AudioTime), ypos);
             }
             else
             {
-                if (transform.position.y >= 0)
-                {
-                    spriteRenderer.sprite = SpriteLoaderScript.Instance.NoteSpriteList[ID+2];
-                }
-                else
-                {
-                    spriteRenderer.sprite = SpriteLoaderScript.Instance.NoteSpriteList[ID + 3];
-                }
+                transform.position = new Vector2(xpos - GameManager.Instance.speed * (float)(AudioSettings.dspTime - AudioTime), ypos );
             }
-
-
-
-
+            
 
         }
+
+
+
+        if (transform.position.x <= 20 && !event_On)
+        {
+            event_On = true;
+            Determining_NoteCurve();
+            
+        }
+
+
+    }
+
+
+
+
+    protected override void ChangeSprite()
+    {
+        ////노트 변경할 꺼
+        ////스테이지 크기에 따라 노트 변경시키기
+
+        //if(StageSelect == SelectStage.Stage1)
+        //{
+        //    if(NowNoteSize == NormalNoteType.Normal)
+        //    {
+        //        if (transform.position.y >= 0)
+        //        {
+        //            spriteRenderer.sprite = SpriteLoaderScript.Instance.NoteSpriteList[ID];
+        //        }
+        //        else
+        //        {
+        //            spriteRenderer.sprite = SpriteLoaderScript.Instance.NoteSpriteList[ID + 1];
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (transform.position.y >= 0)
+        //        {
+        //            spriteRenderer.sprite = SpriteLoaderScript.Instance.NoteSpriteList[ID+2];
+        //        }
+        //        else
+        //        {
+        //            spriteRenderer.sprite = SpriteLoaderScript.Instance.NoteSpriteList[ID + 3];
+        //        }
+        //    }
+
+
+
+
+
+       //}
 
       
     }

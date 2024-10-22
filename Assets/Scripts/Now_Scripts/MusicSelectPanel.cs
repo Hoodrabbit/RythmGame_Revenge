@@ -4,22 +4,20 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
-
+using UnityEngine.UI;
 
 public class MusicSelectPanel : MonoBehaviour
 {
+    public GameObject SelectDetailPanel;
     public GameObject MusicImage;
     GameObject MusicImage_Selected;
+
     public List<MusicSlot> MusicSlots = new List<MusicSlot>();
-
-    public int musicCount;
-
     public List<MusicInfo> slotList_Sorting = new List<MusicInfo>();
 
     public static Action SlotClicked;
 
-    public GameObject SelectDetailPanel;
+    public int musicCount;
 
     [Header("화면에 출력시킬 횟수 6개 고정으로 제작해서 다른 수로는 변경하면 오류남")]
     public int visualCount;
@@ -33,12 +31,14 @@ public class MusicSelectPanel : MonoBehaviour
     public float HoldTime = 0.2f;
 
     public bool KeyHold = false;
+    bool KeyPressCheck = false;
+
+
 
     public int NowSelect;
-    int medianValue;
-    Animator MusicSlotPanelAnimator;
 
-    Vector2 NextPos;
+
+
 
 
     private void Start()
@@ -51,10 +51,6 @@ public class MusicSelectPanel : MonoBehaviour
         musicCount = MusicManager.Instance.musicInfos.Count;
         SlotClicked += OpenDetailPanel;
         SlotClicked += SlotChangeCheck;
-        MusicSlotPanelAnimator = GetComponent<Animator>();
-        NextPos = new Vector2(600, 0);
-        //int median = musicCount / 2;
-        //medianValue = median;
         NowSelect = 0;
 
         MakingMusicSlot();
@@ -85,48 +81,52 @@ public class MusicSelectPanel : MonoBehaviour
     //현재 노래 슬롯을 체크해서 반으로 나눈다음에 노래가 몇곡 정도 있는지 체크해서 정렬해주기
     void UpdatingMusicSlot()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+        if(!KeyPressCheck)
         {
-            StartCoroutine(UpRotate());
-            ChangingSlot_UP();
-            if (NowSelect + 1 == musicCount)
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             {
-                NowSelect = 0;
+                StartCoroutine(UpRotate());
+                ChangingSlot_UP();
+                if (NowSelect + 1 == musicCount)
+                {
+                    NowSelect = 0;
+                }
+                else
+                {
+                    NowSelect++;
+                }
+                SortingMusic(NowSelect);
+
+
             }
-            else
+
+            else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
             {
-                NowSelect++;
+                StartCoroutine(DownRotate());
+                ChangingSlot_Down();
+                if (NowSelect == 0)
+                {
+                    NowSelect = musicCount - 1;
+                }
+                else
+                {
+                    NowSelect--;
+                }
+                SortingMusic(NowSelect);
+
             }
-            SortingMusic(NowSelect);
 
-          
-        }
-
-        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-           {
-            StartCoroutine(DownRotate());
-            ChangingSlot_Down();
-            if (NowSelect == 0)
+            if (Input.GetKeyDown(KeyCode.Return))
             {
-                NowSelect = musicCount - 1;
+                OpenDetailPanel();
             }
-            else
+
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                NowSelect--;
+                CloseDetailPanel();
             }
-            SortingMusic(NowSelect);
-           
         }
-
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            OpenDetailPanel();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            CloseDetailPanel();
-        }
+       
     }
 
 
@@ -241,7 +241,7 @@ public class MusicSelectPanel : MonoBehaviour
         {
             SelectSlot.slotAnimator.enabled = true;
         }
-        
+        MusicImage_Selected.GetComponent<Image>().SetNativeSize();
         SelectSlot.slotAnimator.Play("MusicSlotChoosed");
 
         MusicSlots[0].gameObject.SetActive(false);
@@ -290,7 +290,7 @@ public class MusicSelectPanel : MonoBehaviour
 
 
 
-        float radius = rectTransform.rect.width;
+        float radius = rectTransform.rect.width/5;
         for (int i = 0; i < 6; i++)
         {
 
@@ -301,6 +301,7 @@ public class MusicSelectPanel : MonoBehaviour
 
             MusicSlot MusicSlot_ = Instantiate(MusicImage, transform.position, Quaternion.Euler(0, 0, angle), transform).GetComponent<MusicSlot>();
             RectTransform childrect = MusicSlot_.GetComponent<RectTransform>();
+           
             if (childrect != rectTransform)
             {
                 childrect.anchoredPosition = new Vector3(x, y, 0);
@@ -321,17 +322,18 @@ public class MusicSelectPanel : MonoBehaviour
                 MusicSlot_.SetMusic(MusicManager.Instance.musicInfos[musicCount - 1]);
             }
             MusicSlots.Add(MusicSlot_);
-
+            Image musicslotimage = MusicSlot_.GetComponent<Image>();
+            musicslotimage.SetNativeSize();
         }
 
         MusicImage_Selected=Instantiate(MusicImage, Vector2.zero, Quaternion.Euler(0, 0, 0), transform.parent);
-        MusicImage_Selected.GetComponent<RectTransform>().anchoredPosition = new Vector2(-660, 0);
+        MusicImage_Selected.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         MusicImage_Selected.SetActive(false);
     }
 
     IEnumerator DownRotate()
     {
-
+        KeyPressCheck = true;
         if (MusicSlots[0].gameObject.activeSelf == false)
         {
             MusicSlots[0].gameObject.SetActive(true);
@@ -368,11 +370,13 @@ public class MusicSelectPanel : MonoBehaviour
 
         SelectingSlot();
 
-
+        KeyPressCheck = false;
     }
 
     IEnumerator UpRotate()
     {
+        KeyPressCheck = true;
+
         if (MusicSlots[0].gameObject.activeSelf == false)
         {
             MusicSlots[0].gameObject.SetActive(true);
@@ -402,6 +406,7 @@ public class MusicSelectPanel : MonoBehaviour
         transform.rotation = ChangeR;
         SelectingSlot();
 
+        KeyPressCheck = false;
     }
 
 }

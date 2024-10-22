@@ -13,7 +13,11 @@ using UnityEngine.EventSystems;
 public class Normal_Note_Maker : NoteMakerBase
 {
     public GameObject NormalNote;
+    public GameObject NormalNote_UP;
 
+
+    public override GameObject Note { get => NormalNote; set => NormalNote = value; }
+    GameObject Note_UP { get => NormalNote_UP; set => NormalNote_UP = value; }
 
     public int SpriteNum;
 
@@ -22,11 +26,11 @@ public class Normal_Note_Maker : NoteMakerBase
     protected override void Awake()
     {
         base.Awake();
-        NoteType = 1;
+        //NoteType = 1;
     }
 
 
-    public override GameObject Note { get => NormalNote; set => NormalNote = value; }
+    
 
     protected override void AreaCheck(GameObject Note, Vector2 Pos, bool DeleteMode)
     {
@@ -77,7 +81,18 @@ public class Normal_Note_Maker : NoteMakerBase
 
                 if (NoteCheck(InstantiatePos))
                 {
-                    GameObject AddNote = Instantiate(Note, InstantiatePos, Quaternion.identity, barNote.RhythmNote.transform);
+                    GameObject AddNote;
+                    if (Pos.y > 0)
+                    {
+                        AddNote = Instantiate(Note_UP, InstantiatePos, Quaternion.identity, barNote.RhythmNote.transform);
+                    }
+                    else
+                    {
+                        AddNote = Instantiate(Note, InstantiatePos, Quaternion.identity, barNote.RhythmNote.transform);
+                    }
+
+
+                    
 
                     float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                     //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가

@@ -47,7 +47,7 @@ public class Note : MonoBehaviour
 
     public bool EventActivate = false;
 
-    bool StartSong = false;
+    protected bool StartSong = false;
     bool AlreadyHit = false;
 
     //이벤트가 활성화 즉 true일시 해당 이벤트로 발생하는 위치의 이동
@@ -328,9 +328,9 @@ public class Note : MonoBehaviour
 
     public void MissNote()
     {
-        SpriteRenderer SR = GetComponent<SpriteRenderer>();
+        //SpriteRenderer SR = GetComponent<SpriteRenderer>();
 
-        SR.color = new Color(SR.color.r, SR.color.g, SR.color.b, 0.2f);
+        //SR.color = new Color(SR.color.r, SR.color.g, SR.color.b, 0.2f);
         gameObject.SetActive(false);
     }
 
@@ -626,44 +626,9 @@ public class Note : MonoBehaviour
 
 
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-
-        if (TypeNum == 1)
-        {
-            // 충돌한 객체의 콜라이더 정보를 가져옴
-
-            if (collision.collider.CompareTag("Curve"))
-            {
-                Vector2 collisionPoint = collision.GetContact(0).point; // 충돌 지점
-                Vector2 thisObjectPosition = transform.position; // 현재 객체의 위치
-
-                // 충돌한 객체와의 상대 위치 계산
-                Vector2 collisionDirection = collisionPoint - thisObjectPosition;
-
-                if (collisionDirection.x > 0) //Left
-                {
-                    //StopAllCoroutines();
-                    //Debug.Log("역순 노트 작동");
-                    //Note_Move_Animator.SetTrigger("ReverseCurve");
-                }
-                else //Right
-                {
-                    //StopAllCoroutines();
 
 
-                    Determining_NoteCurve();
-                }
-
-            }
-        }
-
-
-
-
-    }
-
-    void Determining_NoteCurve()
+    protected void Determining_NoteCurve()
     {
 
         if (Height == NoteHeight.OUTSIDE_UP)

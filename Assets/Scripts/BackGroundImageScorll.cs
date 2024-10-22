@@ -62,10 +62,22 @@ public class BackGroundImageScorll : MonoBehaviour
     [Header("피버 이미지")]
 
     public GameObject Fever_BackGround;
+    RectTransform Fever_BackGroundRect;
+
     public GameObject Fever_BackGround2;
+    RectTransform Fever_BackGround2Rect;
 
     public GameObject Fever_Infront;
+    RectTransform Fever_InfrontRect;
+
     public GameObject Fever_Infront2;
+    RectTransform Fever_Infront2Rect;
+
+    public GameObject Fever_Infront_AnotherVer;
+    public GameObject Fever_Infront_AnotherVer2;
+
+
+
 
     float BackSpeed = 5;
     
@@ -85,6 +97,12 @@ public class BackGroundImageScorll : MonoBehaviour
 
         Infront_PlatformRect = Infront_Platform.GetComponent<RectTransform>();
         Infront_PlatformRect2 = Infront_Platform2.GetComponent<RectTransform>();
+
+        Fever_BackGroundRect = Fever_BackGround.GetComponent<RectTransform>();
+        Fever_BackGround2Rect = Fever_BackGround2.GetComponent<RectTransform>();
+
+        Fever_InfrontRect = Fever_Infront.GetComponent<RectTransform>();
+        Fever_Infront2Rect = Fever_Infront2.GetComponent <RectTransform>();
 
     }
 
@@ -111,12 +129,26 @@ public class BackGroundImageScorll : MonoBehaviour
         Infront_PlatformRect2.anchoredPosition = new Vector2(Infront_PlatformRect.anchoredPosition.x + Width_Infront_Platform, Infront_PlatformRect.anchoredPosition.y);
 
 
+        //Fever_BackGroundRect.anchoredPosition = new Vector2(Fever_BackGroundRect.anchoredPosition.x +)
+        Fever_BackGround2Rect.anchoredPosition = new Vector2(Fever_BackGround2Rect.anchoredPosition.x + Width_Back, 0);
+        Fever_Infront2Rect.anchoredPosition = new Vector2(Fever_Infront2Rect.anchoredPosition.x + Width_Infront, 0);
 
     }
 
     private void FixedUpdate()
     {
         //UI로 맵스크롤 하는게 맞나?
+
+        MoveBackground(Fever_BackGround);
+        MoveBackground(Fever_BackGround2);
+
+        MoveInfrontBackground(Fever_Infront);
+        MoveInfrontBackground(Fever_Infront2);
+
+
+
+
+
 
         MoveInfrontBackground(BackGround_Infront);
         MoveInfrontBackground(BackGround_Infront2);
@@ -142,10 +174,25 @@ public class BackGroundImageScorll : MonoBehaviour
     void MoveBackground(GameObject back)
     {
         RectTransform backRect = back.GetComponent<RectTransform>();
-        if(backRect.anchoredPosition.x > -Width_Back)
+        if(backRect.anchoredPosition.x >= -Width_Back)
         {
             //아직 수정 안됨 배경이 스크롤 되는지 안되는지 판단 못함
-            backRect.anchoredPosition = new Vector2(backRect.anchoredPosition.x - Width_Back* Time.deltaTime, backRect.anchoredPosition.y);
+            backRect.anchoredPosition = new Vector2(backRect.anchoredPosition.x - 300* Time.deltaTime, backRect.anchoredPosition.y);
+        }
+        else
+        {
+
+            if (back == Fever_BackGround)
+            {
+                backRect.anchoredPosition = new Vector2(Fever_BackGround2Rect.anchoredPosition.x + Width_Back - scrollOffset, backRect.anchoredPosition.y);
+            }
+            else
+            {
+                backRect.anchoredPosition = new Vector2(Fever_BackGroundRect.anchoredPosition.x + Width_Back - scrollOffset, backRect.anchoredPosition.y);
+            }
+            
+
+               
         }
         
     }    
@@ -164,10 +211,23 @@ public class BackGroundImageScorll : MonoBehaviour
             {
                 InfrontBackRect.anchoredPosition = new Vector2(Background_infrontRect2.anchoredPosition.x + Width_Infront - scrollOffset, Background_infrontRect2.anchoredPosition.y);
             }
-            else
+            else if (InfrontBack == BackGround_Infront2)
             {
                 InfrontBackRect.anchoredPosition = new Vector2(Background_infrontRect.anchoredPosition.x + Width_Infront- scrollOffset, Background_infrontRect.anchoredPosition.y);
             }
+
+            if(InfrontBack == Fever_Infront)
+            {
+                InfrontBackRect.anchoredPosition = new Vector2(Fever_Infront2Rect.anchoredPosition.x + Width_Infront - scrollOffset, Fever_InfrontRect.anchoredPosition.y);
+            }
+            else if (InfrontBack == Fever_Infront2)
+            {
+                InfrontBackRect.anchoredPosition = new Vector2(Fever_InfrontRect.anchoredPosition.x + Width_Infront - scrollOffset, Fever_InfrontRect.anchoredPosition.y);
+            }
+
+
+
+
         }
     }
 

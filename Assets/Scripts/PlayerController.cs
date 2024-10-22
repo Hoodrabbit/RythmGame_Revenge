@@ -7,14 +7,10 @@ public class PlayerController : Singleton<PlayerController>
     public int hp = 300;
     int TakeHP; // 감소할 HP 값
 
-    public Animator Playeranimator;
 
     public void Start()
     {
-        Playeranimator = GetComponent<Animator>();
-    
-        
-    
+       //Playeranimator = GetComponent<Animator>();
     }
 
 
