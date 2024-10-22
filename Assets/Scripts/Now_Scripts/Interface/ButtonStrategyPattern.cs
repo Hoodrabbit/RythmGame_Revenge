@@ -325,9 +325,8 @@ class GameMenuPanelCloseButton : IButton
 
     public void Click()
     {
-
-
         GameManager.Instance.PauseAudio();
+        
     }
 
 
