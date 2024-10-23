@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3630473614684917140}
   - component: {fileID: 7353531963180542043}
   - component: {fileID: 7815866587189078284}
+  - component: {fileID: -2417868561321385137}
   m_Layer: 0
   m_Name: NormalNote_Down
   m_TagString: Note
@@ -57,7 +58,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -127,6 +128,27 @@ MonoBehaviour:
   MelodyObj: {fileID: 5948785530357906491}
   melodySprite: []
   NowNoteSize: 0
+--- !u!95 &-2417868561321385137
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005329354076692010}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b1ebbb61df390fe458f015a75a86cfb6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &7692686988843678380
 PrefabInstance:
   m_ObjectHideFlags: 0

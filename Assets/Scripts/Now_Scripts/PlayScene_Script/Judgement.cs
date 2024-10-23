@@ -51,6 +51,8 @@ public class Judgement : MonoBehaviour
     BossMonster BossNote;
 
     public Action<JudgementHeight_State> PressEvent;
+    public Action<JudgementHeight_State> HoldingEvent;
+    public Action<JudgementHeight_State> HoldingEndEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -138,6 +140,7 @@ public class Judgement : MonoBehaviour
                                 audioSource.Play();
                                 longnotePress = true;
                                 LongNote = note;
+                                HoldingEvent?.Invoke(HEIGHT);
                                 songtimes.Add(GameManager.Instance.MainAudio.time);
                             }
 
@@ -199,6 +202,7 @@ public class Judgement : MonoBehaviour
                 //notes.Remove(LongNote);
                 pressTime = 0;
                 PlayManager.Instance.MissNote();
+                HoldingEndEvent?.Invoke(HEIGHT);
                 //떼는 순간 완전히 찾지 못하도록 해야 될 것 같음
 
                 //active = false;
@@ -222,7 +226,7 @@ public class Judgement : MonoBehaviour
                 Debug.Log("꺼짐");
 
                 PlayManager.Instance.HitLongNote();
-
+                HoldingEndEvent?.Invoke(HEIGHT);
 
                 longnotePress = false;
             }
@@ -269,7 +273,7 @@ public class Judgement : MonoBehaviour
             Debug.Log(f_time + "          " );
 
 
-            PlayerController.Instance.TakeHPMethod(100);
+            //PlayerController.Instance.TakeHPMethod(100);
 
 
             return false;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class FeverSystem : Singleton<FeverSystem>
 
 
     bool IsFever = false;
+
+    public Action FeverUPAction;
 
 
 
@@ -46,6 +49,7 @@ public class FeverSystem : Singleton<FeverSystem>
     {
         if(!IsFever)
         FeverGaugeValue += FeverValue;
+        FeverUPAction?.Invoke();
     }
 
     public bool FeverCheck()
@@ -59,7 +63,7 @@ public class FeverSystem : Singleton<FeverSystem>
 
         //피버 오브젝트 ON
         FeverBackGround.SetActive(true);
-        FeverBackGround.GetComponent<Animator>().SetTrigger(0);
+        //FeverBackGround.GetComponent<Animator>().SetTrigger(0);
         //지금 당장은 SetActive로 했는데 투명했다가 점점 선명해지게 만들어줘야 함
 
 

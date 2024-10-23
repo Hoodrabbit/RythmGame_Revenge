@@ -41,5 +41,10 @@ public class SceneManagerEX : Singleton<SceneManagerEX>
         SceneManager.LoadScene((int)scene_T+1);
     }
 
+    public void GoPlayScene()
+    {
+        SceneManager.LoadScene("Play");
+    }
+
 
 }

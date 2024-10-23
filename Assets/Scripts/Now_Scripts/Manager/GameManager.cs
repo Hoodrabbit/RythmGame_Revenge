@@ -84,12 +84,19 @@ public class GameManager : Singleton<GameManager>
         }
         
     }
+
+    public void PlayAudio()
+    {
+        AudioListener.pause = false;
+        //Time.timeScale = 1;
+    }
+
     IEnumerator UnPauseGameAudio()
     {
         yield return new WaitForSeconds(2f);
 
         AudioListener.pause = false;
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
     }
 
 

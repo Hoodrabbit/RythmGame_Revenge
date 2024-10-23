@@ -326,12 +326,26 @@ class GameMenuPanelCloseButton : IButton
     public void Click()
     {
         GameManager.Instance.PauseAudio();
-        
+
     }
 
 
 }
 
+class Retry_button : IButton
+{
+    readonly string name = "Retry_button";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        SceneManagerEX.Instance.GoPlayScene();
+        GameManager.Instance.PlayAudio();
+    }
+
+
+}
 
 
 

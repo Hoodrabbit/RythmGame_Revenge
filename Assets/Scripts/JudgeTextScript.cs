@@ -26,21 +26,28 @@ public class JudgeTextScript : MonoBehaviour
     {
         if(TTIme >= LifeTime)
         {
-            Destroy(gameObject);
+           
         }
     }
 
 
     IEnumerator MoveUP()
     {
-        while(TTIme < LifeTime)
-        {
-                rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y+0.5f);
+       
+            while (TTIme < LifeTime)
+            {
+                if (Time.timeScale == 1)
+                {
+                rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y + 0.5f);
                 TTIme += Time.deltaTime;
-                yield return null;
-        }
-
+                
+                }
+            yield return null;
+            }
+            Destroy(gameObject);
         
+        
+
     }
 
 

@@ -60,6 +60,8 @@ public class PlayerAnimationController : MonoBehaviour
             foreach (var judge in Judgements)
             {
                 judge.PressEvent += SetRandom;
+                judge.HoldingEndEvent += HoldingEnd;
+                judge.HoldingEvent += Holding;
             }
         }
         
@@ -77,6 +79,8 @@ public class PlayerAnimationController : MonoBehaviour
             foreach (var judge in Judgements)
             {
                 judge.PressEvent += SetRandom;
+                judge.HoldingEndEvent -= HoldingEnd;
+                judge.HoldingEvent -= Holding;
             }
         }
     }
@@ -131,12 +135,24 @@ public class PlayerAnimationController : MonoBehaviour
         AttackMotion(randNum);
     }
 
+    void Holding(JudgementHeight_State height)
+    {
+        PlayerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
+        PlayerRigid.isKinematic = true;
+    }
+
+    void HoldingEnd(JudgementHeight_State height)
+    {
+        PlayerRigid.constraints = normalConstraints;
+        PlayerRigid.isKinematic = false;
+    }
+
+
     IEnumerator JumpRoutine()
     {
         float StartTime = 0f;
-        float EndTime = 0.05f;
-        PlayerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
-        PlayerRigid.isKinematic = true;
+        float EndTime = 0.1f;
+        
         while (StartTime < EndTime)
         {
            // Debug.Log("작동이 되나요");
@@ -168,6 +184,25 @@ public class PlayerAnimationController : MonoBehaviour
         transform.position = DownPos;
 
     }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Note"))
+        {
+            PlayerController.Instance.TakeHPMethod(20);
+            gameObject.layer = LayerMask.NameToLayer("Damaged");
+            MainAnimator.SetTrigger("Damaged");
+            collision.gameObject.SetActive(false);
+            
+        }
+    }
+
+    public void SetNormal()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Player");
+    }
+
 
 
     public void AttackMotion(int num)

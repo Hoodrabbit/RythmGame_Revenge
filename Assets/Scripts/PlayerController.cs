@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class PlayerController : Singleton<PlayerController>
     public int hp = 300;
     int TakeHP; // 감소할 HP 값
 
+    public Action ChangeHPAction;
 
     public void Start()
     {
@@ -21,6 +23,7 @@ public class PlayerController : Singleton<PlayerController>
     {
         TakeHP = hp_Get;
         hp -= TakeHP;
+        ChangeHPAction?.Invoke();
         //플레이어 데미지 받는 애니메이션 실행
 
     }
