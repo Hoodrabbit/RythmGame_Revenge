@@ -30,12 +30,18 @@ public class GameManager : Singleton<GameManager>
 
 
     double startDSPtimeValue;
+    
     double CurDspTimeValue; //노래가 시작된 순간의 dsptime 체크용 변수
+    Coroutine checkCoroutine;
+
+
 
     int SongValue = 0;
     int SceneModeValue = 0;
 
     public int NowSelectValue = 0; //임시로 여기서 선택한 곡 보관 나중에 다른 스크립트에서 옮길 예정
+
+    public int SongDelayTime = 4;
 
 
     protected override void Awake()
@@ -71,13 +77,15 @@ public class GameManager : Singleton<GameManager>
     {
         DataManager.Instance.LoadNote();
         startDSPtimeValue = AudioSettings.dspTime;
-        MainAudio.PlayScheduled(AudioSettings.dspTime + 3f);
-        StartCoroutine(GoToGameResult());
+        MainAudio.PlayScheduled(AudioSettings.dspTime + SongDelayTime);
+        checkCoroutine = StartCoroutine(GoToGameResult(MainAudio.clip.length + SongDelayTime));
+        StartCoroutine(StartCountdown(SongDelayTime-1));
+        
     }
-    IEnumerator GoToGameResult()
+    IEnumerator GoToGameResult(float Value)
     {
         Debug.Log("작동확인 전");
-        yield return new WaitForSeconds(MainAudio.clip.length + 3f);
+        yield return new WaitForSeconds(Value);
 
         Debug.Log("작동확인");
 
@@ -86,6 +94,25 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadScene("GameResult");
     }
 
+    IEnumerator StartCountdown(int countdownNum)
+    {
+        PlayMainUIScript.Instance.CountdownText.gameObject.SetActive(true);
+        int count = countdownNum;
+
+        while (count > 0)
+        {
+            PlayMainUIScript.Instance.CountdownText.text = count.ToString();
+            yield return new WaitForSeconds(1f);
+            count--;
+        }
+
+        PlayMainUIScript.Instance.CountdownText.text = "Start!";
+        yield return new WaitForSeconds(0.5f);
+        //텍스트 꺼주기
+        PlayMainUIScript.Instance.CountdownText.gameObject.SetActive(false);
+    }
+
+
 
 
     public void PauseAudio()
@@ -93,6 +120,7 @@ public class GameManager : Singleton<GameManager>
         if(AudioListener.pause == false)
         {
             AudioListener.pause = true;
+            StopCoroutine(checkCoroutine);
             //Time.timeScale = 0;
         }
         else
@@ -110,8 +138,10 @@ public class GameManager : Singleton<GameManager>
 
     IEnumerator UnPauseGameAudio()
     {
-        yield return new WaitForSeconds(2f);
-
+        StartCoroutine(StartCountdown(SongDelayTime - 1));
+        checkCoroutine = StartCoroutine(GoToGameResult(MainAudio.clip.length - MainAudio.time + SongDelayTime));
+        yield return new WaitForSeconds(SongDelayTime);
+        
         AudioListener.pause = false;
         //Time.timeScale = 1;
     }

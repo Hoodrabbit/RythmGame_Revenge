@@ -182,7 +182,7 @@ public class PlayManager : Singleton<PlayManager>
 
 
 
-        NoteInfoPos NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
+        NoteInfoPos NotePos = new NoteInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
 
         if(height > 0)
         {
@@ -213,7 +213,7 @@ public class PlayManager : Singleton<PlayManager>
         GameObject LongNote;
         if (LongNoteStartEndCheck == 1)
         {
-            NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
+            NotePos = new NoteInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
             LongNote = Instantiate(NoteTypes[2], new Vector3(NotePos.xpos, height), Quaternion.identity, PlayManager.Instance.Note_Parent.transform);
             LongNote.GetComponent<Note>().SetSongTime(songtime);
             // Debug.Log(songtime + " ���ʴ��ΰ���");
@@ -228,7 +228,7 @@ public class PlayManager : Singleton<PlayManager>
             {
                 if (head.transform.position.y == height) //�� ��ȣ�� 1�� ��� 2�� ��ġ��
                 {
-                    NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
+                    NotePos = new NoteInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
                     head.Tail.transform.position = new Vector3(NotePos.xpos, head.transform.position.y);
 
                     Notes.Add(head.Tail);
@@ -248,7 +248,7 @@ public class PlayManager : Singleton<PlayManager>
     {
         GameObject Note_Instantiate;
 
-        NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
+        NotePos = new NoteInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
         Note_Instantiate = Instantiate(NoteTypes[3], new Vector3(NotePos.xpos, height), Quaternion.identity, Note_Parent.transform);
 
         Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
@@ -261,7 +261,7 @@ public class PlayManager : Singleton<PlayManager>
     {
         GameObject Note_Instantiate;
 
-        NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
+        NotePos = new NoteInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
         Note_Instantiate = Instantiate(NoteTypes[4], new Vector3(NotePos.xpos, height), Quaternion.identity, Note_Parent.transform);
 
         Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
@@ -275,7 +275,7 @@ public class PlayManager : Singleton<PlayManager>
 
 
 
-        NoteInfoPos NotePos = new NoteInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
+        NoteInfoPos NotePos = new NoteInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
 
         if (height > 0)
         {
@@ -304,7 +304,7 @@ public class PlayManager : Singleton<PlayManager>
     {
         GameObject EventNote;
 
-        NoteEventInfoPos EventPos  = new NoteEventInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, eventType, songtime);
+        NoteEventInfoPos EventPos  = new NoteEventInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, MIDDLE, eventType, songtime);
 
         EventNote = Instantiate(EventTypes[0], new Vector3(EventPos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
 
@@ -316,7 +316,7 @@ public class PlayManager : Singleton<PlayManager>
     {
         GameObject EventNote;
 
-        NoteEventInfoPos EventPos = new NoteEventInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, eventType, songtime);
+        NoteEventInfoPos EventPos = new NoteEventInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, MIDDLE, eventType, songtime);
 
         EventNote = Instantiate(EventTypes[1], new Vector3(EventPos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
 
@@ -342,7 +342,7 @@ public class PlayManager : Singleton<PlayManager>
     {
         GameObject EventNote;
 
-        NoteEventInfoPos EventPos = new NoteEventInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, eventType, songtime);
+        NoteEventInfoPos EventPos = new NoteEventInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, MIDDLE, eventType, songtime);
 
         EventNote = Instantiate(EventTypes[2], new Vector3(EventPos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
 
@@ -356,7 +356,7 @@ public class PlayManager : Singleton<PlayManager>
     {
         GameObject EventNote;
 
-        NoteEventInfoPos EventPos = new NoteEventInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, eventType, songtime);
+        NoteEventInfoPos EventPos = new NoteEventInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, MIDDLE, eventType, songtime);
 
         EventNote = Instantiate(EventTypes[3], new Vector3(EventPos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
 
@@ -369,7 +369,7 @@ public class PlayManager : Singleton<PlayManager>
     {
         GameObject EventNote;
 
-        NoteEventInfoPos EventPos = new NoteEventInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, eventType, songtime);
+        NoteEventInfoPos EventPos = new NoteEventInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, MIDDLE, eventType, songtime);
 
         EventNote = Instantiate(EventTypes[4], new Vector3(EventPos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);
 
@@ -382,7 +382,7 @@ public class PlayManager : Singleton<PlayManager>
     {
         GameObject EventNote;
 
-        NoteEventInfoPos EventPos = new NoteEventInfoPos(xpos + 1 * 3 * GameManager.Instance.speed, MIDDLE, eventType, songtime);
+        NoteEventInfoPos EventPos = new NoteEventInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, MIDDLE, eventType, songtime);
 
 
         EventNote = Instantiate(EventTypes[5], new Vector3(EventPos.xpos, MIDDLE), Quaternion.identity, Note_Parent.transform);

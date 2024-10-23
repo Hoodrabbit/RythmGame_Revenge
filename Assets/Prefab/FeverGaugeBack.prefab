@@ -161,7 +161,6 @@ GameObject:
   - component: {fileID: 7821729175093233135}
   - component: {fileID: 776972744887411239}
   - component: {fileID: 4992068465447224363}
-  - component: {fileID: 2475229280915347504}
   m_Layer: 5
   m_Name: FeverGaugeBack
   m_TagString: Untagged
@@ -229,22 +228,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2475229280915347504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1322174409417472700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82af023b53138bf4396edd97d9b5d642, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HpGaugeImg: {fileID: 1636971802155015629}
-  StartHP: 0
-  FeverGaugeImg: {fileID: 5702501550895403082}
-  StartFever: 0
 --- !u!1 &3534739679047735966
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +298,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

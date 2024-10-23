@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
+using TMPro;
 
-public class PlayMainUIScript : MonoBehaviour
+public class PlayMainUIScript : Singleton<PlayMainUIScript>
 {
+    [Header("카운트다운 텍스트")]
+    public TMP_Text CountdownText;
+
+
 
     [Header("체력")]
     public Image HpGaugeImg;
