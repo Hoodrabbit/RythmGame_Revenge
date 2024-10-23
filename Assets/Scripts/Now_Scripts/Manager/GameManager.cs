@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>
 {
     public GameDataState DataState = GameDataState.Data_UnLoad;
@@ -62,14 +62,31 @@ public class GameManager : Singleton<GameManager>
     {
         startDSPtimeValue = AudioSettings.dspTime;
         MainAudio.PlayScheduled(AudioSettings.dspTime + MainAudio.time);
+       
     }
+
+    
 
     public void PlayMusic()
     {
         DataManager.Instance.LoadNote();
+        startDSPtimeValue = AudioSettings.dspTime;
         MainAudio.PlayScheduled(AudioSettings.dspTime + 3f);
-        
+        StartCoroutine(GoToGameResult());
     }
+    IEnumerator GoToGameResult()
+    {
+        Debug.Log("작동확인 전");
+        yield return new WaitForSeconds(MainAudio.clip.length + 3f);
+
+        Debug.Log("작동확인");
+
+        GetScoreAndCombo(ScoreSystem.Instance.Score, ComboSystem.Instance.MaxCombo);
+
+        SceneManager.LoadScene("GameResult");
+    }
+
+
 
     public void PauseAudio()
     {

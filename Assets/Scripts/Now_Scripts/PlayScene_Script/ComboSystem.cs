@@ -6,6 +6,7 @@ using TMPro;
 public class ComboSystem : Singleton<ComboSystem>
 {
     public int Combo = 0;
+    public int MaxCombo = 0;
     int FullNoteCount = 0;
     public TMP_Text ComboText;
     Animator Combo_Animator;
@@ -37,7 +38,9 @@ public class ComboSystem : Singleton<ComboSystem>
     {
         Combo_Animator.Play("IncreaseCombo");
         Combo++;
-       
+        MaxCombo++;
+
+
     }    
 
     public void MissNote()

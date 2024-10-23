@@ -10,9 +10,9 @@ public class Button_Expand : MonoBehaviour
     private void Start()
     {
         btn = GetComponent<Button>();
-        Navigation nav = btn.navigation;
-        nav.mode = Navigation.Mode.None;
-        btn.navigation = nav;
+        //Navigation nav = btn.navigation;
+        //nav.mode = Navigation.Mode.None;
+        //btn.navigation = nav;
         btn.onClick.AddListener(DisableInteraction);
     }
 
