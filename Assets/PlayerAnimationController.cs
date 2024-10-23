@@ -59,7 +59,8 @@ public class PlayerAnimationController : MonoBehaviour
         {
             foreach (var judge in Judgements)
             {
-                judge.PressEvent += SetRandom;
+                judge.PressEvent_NoneHit += SetRandom;
+                judge.PressEvent_Hit += SetRandom_Hit;
                 judge.HoldingEndEvent += HoldingEnd;
                 judge.HoldingEvent += Holding;
             }
@@ -78,7 +79,8 @@ public class PlayerAnimationController : MonoBehaviour
         {
             foreach (var judge in Judgements)
             {
-                judge.PressEvent += SetRandom;
+                judge.PressEvent_NoneHit += SetRandom;
+                judge.PressEvent_Hit -= SetRandom_Hit;
                 judge.HoldingEndEvent -= HoldingEnd;
                 judge.HoldingEvent -= Holding;
             }
@@ -116,8 +118,7 @@ public class PlayerAnimationController : MonoBehaviour
             //PlayerRigid.AddForce(Vector2.up*10, ForceMode2D.Impulse);
             Debug.Log("점프 작동 확인");
             //SwordJumpMotion();
-            StopCoroutine(FallRoutine());
-            StartCoroutine(JumpRoutine());
+            transform.position = UpPos;
 
             //이걸 애니메이션 스크립트에 넣어야 할 것 같음
             //Vector2.Lerp(transform.position, UpPos, 1);
@@ -130,21 +131,62 @@ public class PlayerAnimationController : MonoBehaviour
             StopCoroutine(JumpRoutine());
             StartCoroutine(FallRoutine());
         }
-
+        PlayerRigid.constraints = normalConstraints;
+        PlayerRigid.isKinematic = false;
 
         AttackMotion(randNum);
     }
 
+    void SetRandom_Hit(JudgementHeight_State height)
+    {
+        int randNum = Random.Range(0, 3);
+
+        if (height == JudgementHeight_State.UP)
+        {
+            //addforce impulse
+            //PlayerRigid.AddForce(Vector2.up*10, ForceMode2D.Impulse);
+            Debug.Log("점프 작동 확인");
+            //SwordJumpMotion();
+            StopCoroutine(FallRoutine());
+            transform.position = UpPos;
+
+            //이걸 애니메이션 스크립트에 넣어야 할 것 같음
+            //Vector2.Lerp(transform.position, UpPos, 1);
+
+
+        }
+
+        if (height == JudgementHeight_State.DOWN)
+        {
+            StopCoroutine(JumpRoutine());
+            StartCoroutine(FallRoutine());
+        }
+        PlayerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
+        //PlayerRigid.isKinematic = true;
+
+        AttackMotion(randNum);
+    }
+
+
+
     void Holding(JudgementHeight_State height)
     {
+        if(height == JudgementHeight_State.UP)
+        {
+            transform.position = UpPos;
+        }
+        else
+        {
+            transform.position = DownPos;
+        }
         PlayerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
         PlayerRigid.isKinematic = true;
     }
 
     void HoldingEnd(JudgementHeight_State height)
     {
-        PlayerRigid.constraints = normalConstraints;
         PlayerRigid.isKinematic = false;
+        PlayerRigid.constraints = normalConstraints;
     }
 
 
@@ -165,7 +207,7 @@ public class PlayerAnimationController : MonoBehaviour
             yield return null;
         }
 
-        transform.position = UpPos;
+        
     }
 
     IEnumerator FallRoutine()
@@ -201,6 +243,9 @@ public class PlayerAnimationController : MonoBehaviour
     public void SetNormal()
     {
         gameObject.layer = LayerMask.NameToLayer("Player");
+
+        PlayerRigid.constraints = normalConstraints;
+        PlayerRigid.isKinematic = false;
     }
 
 
@@ -222,8 +267,7 @@ public class PlayerAnimationController : MonoBehaviour
         }
 
 
-        PlayerRigid.constraints = normalConstraints;
-        PlayerRigid.isKinematic = false;
+        
         //MainAnimator.SetTrigger(num);
 
 

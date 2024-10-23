@@ -50,7 +50,8 @@ public class Judgement : MonoBehaviour
     LongNoteScript LScript;
     BossMonster BossNote;
 
-    public Action<JudgementHeight_State> PressEvent;
+    public Action<JudgementHeight_State> PressEvent_NoneHit;
+    public Action<JudgementHeight_State> PressEvent_Hit;
     public Action<JudgementHeight_State> HoldingEvent;
     public Action<JudgementHeight_State> HoldingEndEvent;
 
@@ -84,7 +85,7 @@ public class Judgement : MonoBehaviour
     {
         if (Input.GetKeyDown(key) || Input.GetKeyDown(key2) || Input.GetKeyDown(Key3))
         {
-            PressEvent?.Invoke(HEIGHT);
+           
 
 
 
@@ -109,6 +110,7 @@ public class Judgement : MonoBehaviour
                                 BossNote.HitAction?.Invoke();
                                 audioSource.Play();
                                 PlayManager.Instance.HitNote(note);
+                                
                                 notes.Remove(note);
                             }
                             else if (BossNote == null && LScript == null)
@@ -127,6 +129,7 @@ public class Judgement : MonoBehaviour
                                 note.HitNote();
                                 audioSource.Play();
                                 Debug.Log("여기에서 발동");
+                                PressEvent_Hit?.Invoke(HEIGHT);
                                 //if (!LScript.n_Y.GetAlreadyHit())
                                 //{
                                 //    LScript.n_Y.HitNoteCheck();
@@ -160,6 +163,10 @@ public class Judgement : MonoBehaviour
                 }
 
 
+            }
+            else
+            {
+                PressEvent_NoneHit?.Invoke(HEIGHT);
             }
         }
 

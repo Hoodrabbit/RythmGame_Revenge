@@ -347,6 +347,20 @@ class Retry_button : IButton
 
 }
 
+class Offsetbutton : IButton 
+{
+    readonly string name = "Offsetbutton";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        SceneManagerEX.Instance.GoOffsetScene();
+    }
+
+}
+
+
 
 
 
