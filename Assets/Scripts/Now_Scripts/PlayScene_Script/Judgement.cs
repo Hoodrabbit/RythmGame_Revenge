@@ -73,8 +73,12 @@ public class Judgement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        OperatingJudgeMent();
+        if(AudioListener.pause == false && 
+           GameManager.Instance.MainAudio.time > 0)
+        {
+            OperatingJudgeMent();
+        }
+        
 
 
 
@@ -206,10 +210,11 @@ public class Judgement : MonoBehaviour
                 LScript.CancelStopHeadPos();
                 LongNote.MissNote();
                 LongNote = null;
+                HoldingEndEvent?.Invoke(HEIGHT);
                 //notes.Remove(LongNote);
                 pressTime = 0;
                 PlayManager.Instance.MissNote();
-                HoldingEndEvent?.Invoke(HEIGHT);
+                
                 //떼는 순간 완전히 찾지 못하도록 해야 될 것 같음
 
                 //active = false;

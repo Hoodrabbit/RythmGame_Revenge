@@ -78,8 +78,12 @@ public class GameManager : Singleton<GameManager>
         DataManager.Instance.LoadNote();
         startDSPtimeValue = AudioSettings.dspTime;
         MainAudio.PlayScheduled(AudioSettings.dspTime + SongDelayTime);
-        checkCoroutine = StartCoroutine(GoToGameResult(MainAudio.clip.length + SongDelayTime));
-        StartCoroutine(StartCountdown(SongDelayTime-1));
+        if(state == GameState.Play_Mode)
+        {
+            checkCoroutine = StartCoroutine(GoToGameResult(MainAudio.clip.length + SongDelayTime));
+            StartCoroutine(StartCountdown(SongDelayTime - 1));
+        }
+        
         
     }
     IEnumerator GoToGameResult(float Value)

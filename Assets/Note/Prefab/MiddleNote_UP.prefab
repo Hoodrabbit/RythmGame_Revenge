@@ -66,6 +66,7 @@ MonoBehaviour:
   MelodyObj: {fileID: 4659535048803434351}
   melodySprite: []
   NowNoteSize: 1
+  MonsterAnimator: {fileID: 5836111883855831079}
 --- !u!58 &2436928327631557673
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -237,6 +238,11 @@ PrefabInstance:
 --- !u!1 &4659535048803434351 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1877692422246279337, guid: 0a1f1c2464e75c84995a4076c4cade63, type: 3}
+  m_PrefabInstance: {fileID: 6532217546304100294}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5836111883855831079 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 745646908175693793, guid: 0a1f1c2464e75c84995a4076c4cade63, type: 3}
   m_PrefabInstance: {fileID: 6532217546304100294}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &5941019249002366627 stripped

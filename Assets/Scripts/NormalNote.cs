@@ -9,7 +9,17 @@ public class NormalNote : Note
 
     public NormalNoteType NowNoteSize;
 
+    public Animator MonsterAnimator;
+
+
     bool event_On = false;
+
+    protected override void Start()
+    {
+        base.Start();
+        MonsterAnimator.enabled = false;
+    }
+
 
 
     protected override void FixedUpdate()
@@ -34,6 +44,10 @@ public class NormalNote : Note
         if (transform.position.x <= 20 && !event_On)
         {
             event_On = true;
+
+            MonsterAnimator.enabled = true;
+
+
             Determining_NoteCurve();
             
         }

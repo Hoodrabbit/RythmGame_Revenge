@@ -117,7 +117,7 @@ public class PlayerAnimationController : MonoBehaviour
             //addforce impulse
             //PlayerRigid.AddForce(Vector2.up*10, ForceMode2D.Impulse);
             Debug.Log("점프 작동 확인");
-            //SwordJumpMotion();
+            PlayerRigid.velocity = Vector2.zero;
             transform.position = UpPos;
 
             //이걸 애니메이션 스크립트에 넣어야 할 것 같음
@@ -128,8 +128,9 @@ public class PlayerAnimationController : MonoBehaviour
 
         if(height == JudgementHeight_State.DOWN)
         {
-            StopCoroutine(JumpRoutine());
-            StartCoroutine(FallRoutine());
+            transform.position = DownPos;
+            //StopCoroutine(JumpRoutine());
+            //StartCoroutine(FallRoutine());
         }
         PlayerRigid.constraints = normalConstraints;
         PlayerRigid.isKinematic = false;
@@ -147,7 +148,7 @@ public class PlayerAnimationController : MonoBehaviour
             //PlayerRigid.AddForce(Vector2.up*10, ForceMode2D.Impulse);
             Debug.Log("점프 작동 확인");
             //SwordJumpMotion();
-            StopCoroutine(FallRoutine());
+            PlayerRigid.velocity = Vector2.zero;
             transform.position = UpPos;
 
             //이걸 애니메이션 스크립트에 넣어야 할 것 같음
@@ -158,8 +159,7 @@ public class PlayerAnimationController : MonoBehaviour
 
         if (height == JudgementHeight_State.DOWN)
         {
-            StopCoroutine(JumpRoutine());
-            StartCoroutine(FallRoutine());
+            transform.position = DownPos;
         }
         PlayerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
         //PlayerRigid.isKinematic = true;
@@ -174,18 +174,19 @@ public class PlayerAnimationController : MonoBehaviour
         if(height == JudgementHeight_State.UP)
         {
             transform.position = UpPos;
+            PlayerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
         }
         else
         {
             transform.position = DownPos;
         }
-        PlayerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
-        PlayerRigid.isKinematic = true;
+        
+        //PlayerRigid.isKinematic = true;
     }
 
     void HoldingEnd(JudgementHeight_State height)
     {
-        PlayerRigid.isKinematic = false;
+        //PlayerRigid.isKinematic = false;
         PlayerRigid.constraints = normalConstraints;
     }
 
@@ -213,9 +214,9 @@ public class PlayerAnimationController : MonoBehaviour
     IEnumerator FallRoutine()
     {
         float StartTime = 0f;
-        float EndTime = 0.03f;
-        PlayerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
-        while (StartTime < EndTime)
+        float EndTime = 0.2f;
+        //PlayerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
+        while (StartTime <= EndTime)
         {
             Debug.Log("작동이 되나요");
             Vector2.Lerp(transform.position, DownPos, StartTime / EndTime);
