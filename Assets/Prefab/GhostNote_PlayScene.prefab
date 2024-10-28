@@ -60,11 +60,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9295c761605220428c5ff51a534fa2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
+  TypeNum: 0
+  eventType: 0
+  score: 0
+  fever_Count: 0
+  HP: 0
   speed: 5
   SongTime: 0
   AudioTime: 0
-  Type: 0
+  StageSelect: 0
+  melodyType: 0
+  Height: 0
   xpos: 0
+  ypos: 0
+  EventActivate: 0
 --- !u!212 &8557576016896229041
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -106,7 +116,7 @@ SpriteRenderer:
   m_SortingLayerID: 1863733135
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 63ef565e97615e64aa28c373445fb5e1, type: 3}
   m_Color: {r: 0.57040185, g: 0.109803915, b: 0.9137255, a: 0.2901961}
   m_FlipX: 0
   m_FlipY: 0
@@ -179,8 +189,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.42672122, y: 0.49659166}
+    oldSize: {x: 4, y: 4}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

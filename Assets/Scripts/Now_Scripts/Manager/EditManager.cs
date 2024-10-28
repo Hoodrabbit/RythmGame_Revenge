@@ -34,6 +34,8 @@ public class EditManager : Singleton<EditManager>
 
     [Header("특수 노트들")]
     public GameObject GhostNote_Obj;
+    public GameObject PowerfulNote_Obj;
+
 
 
     [Header("장애물")]
@@ -280,7 +282,15 @@ public class EditManager : Singleton<EditManager>
         DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
     }
 
+    public void NantaNote(float xpos , int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    {
+        GameObject AddNote = Instantiate(PowerfulNote_Obj, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.RhythmNote.transform);
 
+        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
+
+    }
 
 
 

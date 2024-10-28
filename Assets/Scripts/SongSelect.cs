@@ -25,16 +25,10 @@ public class SongSelect : MonoBehaviour
         {
             AudioManager.Instance.SetAudio(this.GetComponent<SongSelect>());
         }
-        
 
-        //SongAudio = GetComponent<AudioSource>();
+        GameManager.Instance.StopGameManagerCoroutine();
         GameManager.Instance.MainAudio = SongAudio;
-        
-        //if (GameManager.Instance.DataState == GameDataState.FinishData_Load)
-        //{
-        //    PlaySong();
-        //}
-        
+
     }
 
     public void PlaySong() //이벤트로 설정해줘야 할 것 같음

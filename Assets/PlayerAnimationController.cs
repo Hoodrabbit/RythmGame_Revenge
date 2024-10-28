@@ -93,7 +93,12 @@ public class PlayerAnimationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        Vector3 position = transform.position;
+        position.y = Mathf.Clamp(position.y, DOWN_Player, UP_Player);
+        transform.position = position;
+
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if(!MainAnimator.GetBool("IsHammer"))
             {
@@ -161,7 +166,7 @@ public class PlayerAnimationController : MonoBehaviour
         {
             transform.position = DownPos;
         }
-        PlayerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
+        //PlayerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
         //PlayerRigid.isKinematic = true;
 
         AttackMotion(randNum);
@@ -186,8 +191,10 @@ public class PlayerAnimationController : MonoBehaviour
 
     void HoldingEnd(JudgementHeight_State height)
     {
+        Debug.Log("홀딩 종료 확인");
         //PlayerRigid.isKinematic = false;
         PlayerRigid.constraints = normalConstraints;
+        PlayerRigid.velocity = Vector2.down;
     }
 
 
@@ -228,8 +235,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     }
 
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Note"))
         {
@@ -237,10 +243,9 @@ public class PlayerAnimationController : MonoBehaviour
             gameObject.layer = LayerMask.NameToLayer("Damaged");
             MainAnimator.SetTrigger("Damaged");
             collision.gameObject.SetActive(false);
-            
+
         }
     }
-
     public void SetNormal()
     {
         gameObject.layer = LayerMask.NameToLayer("Player");

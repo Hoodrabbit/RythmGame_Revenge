@@ -265,6 +265,24 @@ class MakeBossDashNote : IButton
 
 }
 
+//강적 노트
+class MakePowerfulNote : IButton
+{
+    readonly string name = "MakePowerfulNote";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        NoteMaker_EditScene.instance.Instantiate_PowerfulNote();
+    }
+
+
+}
+
+
+
+
 
 
 

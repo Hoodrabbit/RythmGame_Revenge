@@ -24,7 +24,7 @@ public class GhostNote : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("TriggerCollider"))
+        if(collision.CompareTag("Curve"))
         {
             StartCoroutine(invisibleNote());
         }
@@ -39,7 +39,7 @@ public class GhostNote : MonoBehaviour
         {
             CurrentTime += Time.deltaTime;
 
-            float CurrentValue = Mathf.Lerp(GhostNoteSprite.color.a, 0, CurrentTime / 1f);
+            float CurrentValue = Mathf.Lerp(GhostNoteSprite.color.a, 0, CurrentTime / 2f);
             
             GhostNoteSprite.color = new Color(GhostNoteSprite.color.r, GhostNoteSprite.color.g, GhostNoteSprite.color.b,CurrentValue);
 

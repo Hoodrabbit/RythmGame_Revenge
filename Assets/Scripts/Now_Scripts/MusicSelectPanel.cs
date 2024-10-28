@@ -346,7 +346,7 @@ public class MusicSelectPanel : MonoBehaviour
 
         Vector3 currentRotation = rectt.rotation.eulerAngles;
         Vector3 targetRotation = new Vector3(0, 0, (int)currentRotation.z + (int)(RotateAngle));
-        Debug.Log(RotateAngle);
+        //Debug.Log(RotateAngle);
 
         float rotationDuration = 0.1f;
         float timeElapsed = 0f;
@@ -386,7 +386,7 @@ public class MusicSelectPanel : MonoBehaviour
 
         Vector3 currentRotation = transform.rotation.eulerAngles;
 
-        Debug.Log(currentRotation);
+        //Debug.Log(currentRotation);
 
         Quaternion transformR = Quaternion.Euler(currentRotation);
         Quaternion ChangeR = Quaternion.Euler(0, 0, (int)currentRotation.z - (int)RotateAngle);

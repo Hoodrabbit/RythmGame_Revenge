@@ -48,12 +48,6 @@ public class LongNoteScript : MonoBehaviour
 
                 if (Body_SR.drawMode == SpriteDrawMode.Sliced || Body_SR.drawMode == SpriteDrawMode.Tiled)
                 {
-                    // 현재 SpriteRenderer의 size를 가져와서 width만 변경
-                    //Vector2 newSize = Body_SR.size;
-                    //newSize.x = newWidth;
-                    //newSize.y = ChangeHeight;
-                    //Body_SR.size = newSize;
-                    //Body.transform.localPosition = new Vector3(newSize.x, 0);
                     IsConnect = true;
 
                 }
@@ -96,13 +90,7 @@ public class LongNoteScript : MonoBehaviour
 
                     if (Body_SR.drawMode == SpriteDrawMode.Sliced || Body_SR.drawMode == SpriteDrawMode.Tiled)
                     {
-                        // 현재 SpriteRenderer의 size를 가져와서 width만 변경
 
-                    //    Vector2 newSize = Body_SR.size;
-                    //    newSize.x = newWidth;
-                    //newSize.y = ChangeHeight;
-                    //    Body_SR.size = newSize;
-                    //Body.transform.localPosition = new Vector3(newSize.x, 0);
                 }
                 }
             

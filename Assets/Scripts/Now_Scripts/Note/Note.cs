@@ -79,6 +79,24 @@ public class Note : MonoBehaviour
 
     }
 
+    private void OnDisable()
+    {
+        DataManager.Instance.eventManager.RefreshNoteEvent -= EventChangeMethod;
+        DataManager.Instance.NoteReady -= StartSongMethod;
+        if (TypeNum == 1)
+        {
+
+            if (GameManager.Instance.state == GameState.None && gameObject.CompareTag("Note"))
+            {
+                if (UIManager.Instance != null)
+                {
+                    UIManager.Instance.MusicButtonPress -= ChangeNotePos_IsPlaying;
+                }
+            }
+        }
+    }
+
+
 
     private void InitializeNote()
     {
@@ -161,24 +179,6 @@ public class Note : MonoBehaviour
 
 
 
-    private void OnDisable()
-    {
-        DataManager.Instance.eventManager.RefreshNoteEvent -= EventChangeMethod;
-        DataManager.Instance.NoteReady -= StartSongMethod;
-        if (TypeNum == 1)
-        {
-           
-            if (GameManager.Instance.state == GameState.None && gameObject.CompareTag("Note"))
-            {
-                if (UIManager.Instance != null)
-                {
-                    UIManager.Instance.MusicButtonPress -= ChangeNotePos_IsPlaying;
-                }
-            }
-        }
-    }
-
-
     // Update is called once per frame
     protected virtual void FixedUpdate()
     {
@@ -258,7 +258,7 @@ public class Note : MonoBehaviour
     
     public void StartSongMethod()
     {
-        Debug.Log("노트가 먼저 작동");
+        //Debug.Log("노트가 먼저 작동");
         StartSong = true;
     }
 

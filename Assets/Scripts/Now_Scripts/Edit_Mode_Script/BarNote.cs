@@ -68,7 +68,7 @@ public class BarNote : MonoBehaviour
     void InitializeBarNoteScript() //BarNote 스크립트 내 변수들 초기화 시켜주는 메서드
     {
         B_V_S = BeatNoteLine_Visble_Status.OneNoteInBar;
-        Debug.Log(this);
+        //Debug.Log(this);
         //EditManager.Instance.barNote = this;
 
         NowBPM = GameManager.Instance.musicInfo.BPM;

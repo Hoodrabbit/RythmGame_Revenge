@@ -233,6 +233,12 @@ public class GameManager : Singleton<GameManager>
         Combo = combo_Get;
     }
 
+    public void StopGameManagerCoroutine()
+    {
+        StopAllCoroutines();
+    }
+
+
 
 
 

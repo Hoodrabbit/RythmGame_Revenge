@@ -38,6 +38,7 @@ public class Judgement : MonoBehaviour
     Note LongNote;
 
     public bool longnotePress = false;
+    float longnoteTime = 0;
     bool LongNoteFail = false;
 
     float pressTime = 0;
@@ -89,10 +90,6 @@ public class Judgement : MonoBehaviour
     {
         if (Input.GetKeyDown(key) || Input.GetKeyDown(key2) || Input.GetKeyDown(Key3))
         {
-           
-
-
-
 
             if (notes.Count > 0)
             {
@@ -129,22 +126,26 @@ public class Judgement : MonoBehaviour
                                         PlayManager.Instance.MissNote();
                                     }
                                 }
-
-                                note.HitNote();
-                                audioSource.Play();
-                                Debug.Log("여기에서 발동");
-                                PressEvent_Hit?.Invoke(HEIGHT);
-                                //if (!LScript.n_Y.GetAlreadyHit())
-                                //{
-                                //    LScript.n_Y.HitNoteCheck();
-                                PlayManager.Instance.HitNote(note);
-                                //}
-                                songtimes.Add(GameManager.Instance.MainAudio.time);
+                                if(!longnotePress)
+                                {
+                                    note.HitNote();
+                                    audioSource.Play();
+                                    Debug.Log("여기에서 발동");
+                                    PressEvent_Hit?.Invoke(HEIGHT);
+                                    //if (!LScript.n_Y.GetAlreadyHit())
+                                    //{
+                                    //    LScript.n_Y.HitNoteCheck();
+                                    PlayManager.Instance.HitNote(note);
+                                    //}
+                                    songtimes.Add(GameManager.Instance.MainAudio.time);
+                                }
+                               
 
                             }
                             else
                             {
                                 audioSource.Play();
+                                longnoteTime = 0;
                                 longnotePress = true;
                                 LongNote = note;
                                 HoldingEvent?.Invoke(HEIGHT);
@@ -224,9 +225,17 @@ public class Judgement : MonoBehaviour
         }
         if (longnotePress == true)
         {
+            //롱노트 
+            longnoteTime += Time.deltaTime;
 
+            if(longnoteTime >0.3)
+            {
+                HoldingText();
+                PlayManager.Instance.HoldingLongNote();
+                longnoteTime -= 0.3f;
+            }
 
-
+            
 
             if (LScript.Delete == false)
             {
@@ -236,9 +245,9 @@ public class Judgement : MonoBehaviour
             else
             {
                 Debug.Log("꺼짐");
-
-                PlayManager.Instance.HitLongNote();
                 HoldingEndEvent?.Invoke(HEIGHT);
+                PlayManager.Instance.HitLongNote();
+                
 
                 longnotePress = false;
             }
@@ -246,52 +255,58 @@ public class Judgement : MonoBehaviour
     }
 
 
+    public void HoldingText()
+    {
+        TMP_Text judgetext = Instantiate(JudgeText, Vector2.zero, Quaternion.identity, transform.GetComponentInChildren<Canvas>().gameObject.transform).GetComponent<TMP_Text>();
+        judgetext.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 100);
 
+        judgetext.text = "Holdling";
+
+    }
 
 
 
 
     public bool ManageJudgeMent(double time)
     {
-        Debug.Log(time);
-        float f_time = Mathf.Abs((float)time);
-        TMP_Text judgetext = Instantiate(JudgeText, Vector2.zero, Quaternion.identity, transform.GetComponentInChildren<Canvas>().gameObject.transform).GetComponent<TMP_Text>();
-        judgetext.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 100);
-        if (f_time <= 0.05)
+        if (!longnotePress)
         {
-           
-
-            //정확한 판정을 켰을 경우
-            if (f_time <= 0.04)
+            float f_time = Mathf.Abs((float)time);
+            TMP_Text judgetext = Instantiate(JudgeText, Vector2.zero, Quaternion.identity, transform.GetComponentInChildren<Canvas>().gameObject.transform).GetComponent<TMP_Text>();
+            judgetext.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 100);
+            if (f_time <= 0.05)
             {
-                judgetext.text = "Perfect";
-                Debug.Log("Perfect");
+
+
+                //정확한 판정을 켰을 경우
+                if (f_time <= 0.04)
+                {
+                    judgetext.text = "Perfect";
+                    Debug.Log("Perfect");
+
+                }
+
+                return true;
+
+            }
+            else if (f_time <= 0.10 && f_time > 0.04)
+            {
+                judgetext.text = "Great";
+                Debug.Log("Great");
+
+                return true;
+            }
+            else if (f_time > 0.1)
+            {
+                judgetext.text = "Miss";
+                Debug.Log(f_time + "          ");
+
+                return false;
 
             }
 
-            return true;
-
-        }
-        else if(f_time <= 0.10 && f_time > 0.04)
-        {
-            judgetext.text = "Great";
-            Debug.Log("Great");
-
-            return true;
-        }
-        else if(f_time > 0.1)
-        {
-            judgetext.text = "Miss";
-            Debug.Log(f_time + "          " );
-
-
-            //PlayerController.Instance.TakeHPMethod(100);
-
-
             return false;
-
         }
-
         return false;
     }
 

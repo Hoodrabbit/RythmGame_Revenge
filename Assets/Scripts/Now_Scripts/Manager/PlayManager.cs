@@ -148,6 +148,13 @@ public class PlayManager : Singleton<PlayManager>
     }
 
 
+    public void HoldingLongNote()
+    {
+        scoresystem.IncreaseScore(10);
+    }
+
+
+
     public void MissNote()
     {
         combosystem.MissNote();
