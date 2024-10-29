@@ -4491,6 +4491,7 @@ MonoBehaviour:
   - {fileID: 5612370883487808057, guid: dd48af849dcdf0249be456f665ee2e3f, type: 3}
   - {fileID: 4605745088624135850, guid: 326d417e9d02964439fab5b77e714306, type: 3}
   - {fileID: 2008871919235602639, guid: b5f7a1899757d3846bd7029c817a12a3, type: 3}
+  - {fileID: 3465644816913888172, guid: 0579ccec954549745bd10dbfceb27261, type: 3}
   EventTypes:
   - {fileID: 5612370883487808057, guid: e8d9bafe715f7204ab477ff0b653a4c0, type: 3}
   - {fileID: 5612370883487808057, guid: 1bc5797df5cfe0148bd1604980f96b27, type: 3}
@@ -9808,6 +9809,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8982161567800402618, guid: 043fee36ccdedaf4bbf031bdf0423eaa, type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11696,6 +11701,10 @@ PrefabInstance:
     - target: {fileID: 8963176180577193336, guid: 043fee36ccdedaf4bbf031bdf0423eaa, type: 3}
       propertyPath: HEIGHT
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982161567800402618, guid: 043fee36ccdedaf4bbf031bdf0423eaa, type: 3}
+      propertyPath: m_Size.x
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8982161567800402618, guid: 043fee36ccdedaf4bbf031bdf0423eaa, type: 3}
       propertyPath: m_Size.y

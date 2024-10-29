@@ -49,6 +49,9 @@ public class Note : MonoBehaviour
 
     protected bool StartSong = false;
     bool AlreadyHit = false;
+    bool StopNote = false;
+
+
 
     //이벤트가 활성화 즉 true일시 해당 이벤트로 발생하는 위치의 이동
     //우리가 알아야 하는 것 즉 이벤트가 발생했을 시 노트가 어느 위치(y값)로 이동하는가
@@ -183,7 +186,7 @@ public class Note : MonoBehaviour
     protected virtual void FixedUpdate()
     {
 
-        if (GameManager.Instance.state == GameState.Play_Mode && StartSong)
+        if (GameManager.Instance.state == GameState.Play_Mode && StartSong && !StopNote)
         {
             transform.position = new Vector2(xpos - GameManager.Instance.speed * (float)(AudioSettings.dspTime - AudioTime), transform.position.y);
 
@@ -248,6 +251,7 @@ public class Note : MonoBehaviour
         {
             if (collision.CompareTag("Finish"))
             {
+                Debug.Log("노트 제거");
                 PlayManager.Instance.MissNote();
                 gameObject.SetActive(false);
             }
@@ -261,6 +265,12 @@ public class Note : MonoBehaviour
         //Debug.Log("노트가 먼저 작동");
         StartSong = true;
     }
+
+    public void StopNoteMethod()
+    {
+        StopNote = true;
+    }
+
 
 
     public void ChangeNotePos_IsPlaying()

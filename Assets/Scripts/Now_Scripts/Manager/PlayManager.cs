@@ -42,6 +42,7 @@ public class PlayManager : Singleton<PlayManager>
     public GameObject[] HidingJudgementObj;
 
     Queue<LongNoteScript> UnCompleteLongNoteQueue = new Queue<LongNoteScript>();
+    Queue<NantaNote> UnCompleteNantaNoteQueue = new Queue<NantaNote>();
 
 
     public void PlayScene_NoteMaker(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0 )
@@ -75,6 +76,11 @@ public class PlayManager : Singleton<PlayManager>
 
                 break;
 
+            case 5:
+                MakeNantaNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
+                //난타노트
+
+                break;
             default:
                 break;
         }
@@ -189,15 +195,15 @@ public class PlayManager : Singleton<PlayManager>
 
 
 
-        NoteInfoPos NotePos = new NoteInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
+        NotePos = new NoteInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
 
         if(height > 0)
         {
-            Note_Instantiate = Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, height+2), Quaternion.identity, PlayManager.Instance.Note_Parent.transform);
+            Note_Instantiate = Instantiate(NoteTypes[0], new Vector3(NotePos.xpos, height+2), Quaternion.identity, Note_Parent.transform);
         }
         else
         {
-            Note_Instantiate = Instantiate(NoteTypes[1], new Vector3(NotePos.xpos, height), Quaternion.identity, PlayManager.Instance.Note_Parent.transform);
+            Note_Instantiate = Instantiate(NoteTypes[1], new Vector3(NotePos.xpos, height), Quaternion.identity, Note_Parent.transform);
         }
 
 
@@ -300,7 +306,34 @@ public class PlayManager : Singleton<PlayManager>
         PlayManager.Instance.Notes.Add(Note_Instantiate);
     }
 
+    void MakeNantaNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    {
 
+        GameObject Note_Instantiate;
+
+
+        if (LongNoteStartEndCheck == 1)
+        {
+            NotePos = new NoteInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
+
+            Note_Instantiate = Instantiate(NoteTypes[7], new Vector3(NotePos.xpos, height + 1), Quaternion.identity, Note_Parent.transform);
+
+            UnCompleteNantaNoteQueue.Enqueue(Note_Instantiate.GetComponent<NantaNote>());
+
+        }
+        else
+        {
+         
+            NotePos = new NoteInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
+            foreach (var Head in UnCompleteNantaNoteQueue)
+            {
+                //Debug.Log("끝점 위치 : " + NotePos.xpos);
+                Head.End.transform.position = new Vector3(NotePos.xpos, Head.transform.position.y);
+            }
+            UnCompleteNantaNoteQueue.Dequeue();
+        }
+
+    }
 
 
 

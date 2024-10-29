@@ -56,6 +56,9 @@ public class EditManager : Singleton<EditManager>
 
 
     Queue<LongNoteScript> UnCompleteLongNoteQueue = new Queue<LongNoteScript>(); //아직 꼬리위치가 제대로 할당되지 않은 롱노트를 쉽게 관리하기 위해 만들어줌
+    Queue<NantaNote> UnCompleteNantaNoteQueue = new Queue<NantaNote>(); //이하 동문
+
+
 
     public const int UP = 3;
     public const int DOWN = -1;
@@ -104,6 +107,9 @@ public class EditManager : Singleton<EditManager>
                 MiddleNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 break;
 
+            case 5:
+                NantaNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
+                break;
 
             default:
                 break;
@@ -284,11 +290,70 @@ public class EditManager : Singleton<EditManager>
 
     public void NantaNote(float xpos , int height, int noteType, int LongNoteStartEndCheck, double songtime)
     {
-        GameObject AddNote = Instantiate(PowerfulNote_Obj, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.RhythmNote.transform);
 
-        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+        if (LongNoteStartEndCheck == 1)
+        {
+            GameObject AddNote = Instantiate(PowerfulNote_Obj, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.RhythmNote.transform);
 
-        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
+            UnCompleteNantaNoteQueue.Enqueue(AddNote.GetComponent<NantaNote>());
+
+
+            float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+            DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
+        }
+        else
+        {
+            Queue<NantaNote> newNantaNoteQueue = new Queue<NantaNote>();
+
+            foreach(var Head in UnCompleteNantaNoteQueue)
+            {
+                Head.End.transform.position = new Vector3(xpos, Head.transform.position.y);
+
+                float RealXpos = Head.End.transform.position.x - GetNPXpos();
+
+                DataManager.Instance.EditNotes.Add(new NoteInfoAll(Head.End, RealXpos,height, noteType, LongNoteStartEndCheck, (double)Head.transform.localPosition.x / GameManager.Instance.speed));
+            }
+            UnCompleteNantaNoteQueue = newNantaNoteQueue;
+        }
+
+        
+
+
+
+        //GameObject LongNote;
+        //if (LongNoteStartEndCheck == 1)
+        //{
+        //    LongNote = Instantiate(LongNote_Obj, new Vector3(xpos, height/*SettingHeight(height)*/), Quaternion.identity, EditManager.Instance.barNote.RhythmNote.transform);
+        //    UnCompleteLongNoteQueue.Enqueue(LongNote.GetComponent<LongNoteScript>());
+
+        //    float RealXpos = LongNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+        //    DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)LongNote.transform.localPosition.x / GameManager.Instance.speed));
+        //}
+        //else if (LongNoteStartEndCheck == 2)
+        //{
+        //    Queue<LongNoteScript> newLongNoteQueue = new Queue<LongNoteScript>();
+        //    foreach (var head in UnCompleteLongNoteQueue)
+        //    {
+        //        if (head.transform.position.y == height) //줄 번호가 1일 경우 2의 위치임
+        //        {
+        //            head.Tail.transform.position = new Vector3(xpos, head.transform.position.y);
+
+        //            float RealXpos = head.Tail.transform.position.x - EditManager.Instance.GetNPXpos();
+
+        //            DataManager.Instance.EditNotes.Add(new NoteInfoAll(head.Tail, RealXpos, height, noteType, LongNoteStartEndCheck, (double)(head.transform.position.x + head.Tail.transform.localPosition.x) / GameManager.Instance.speed));
+        //        }
+        //        else
+        //        {
+        //            newLongNoteQueue.Enqueue(head); //해당 조건을 만족하지 않는 큐만 따로 추가함
+        //        }
+
+        //    }
+        //    UnCompleteLongNoteQueue = newLongNoteQueue;
+
+        //}
+
 
     }
 

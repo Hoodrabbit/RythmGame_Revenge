@@ -41,6 +41,9 @@ public class Judgement : MonoBehaviour
     float longnoteTime = 0;
     bool LongNoteFail = false;
 
+    bool NantaStart = false;
+
+
     float pressTime = 0;
 
     public static float PlayTime;
@@ -50,6 +53,8 @@ public class Judgement : MonoBehaviour
 
     LongNoteScript LScript;
     BossMonster BossNote;
+    NantaNote nantaNote;
+
 
     public Action<JudgementHeight_State> PressEvent_NoneHit;
     public Action<JudgementHeight_State> PressEvent_Hit;
@@ -101,6 +106,35 @@ public class Judgement : MonoBehaviour
                         {
                             LScript = note.GetComponent<LongNoteScript>();
                             BossNote = note.GetComponent<BossMonster>();
+                            nantaNote = note.GetComponent<NantaNote>();
+
+                            if(nantaNote != null)
+                            {
+                                //난타노트의 트리거 온
+                                //따로 누를때마다 히트 체크를 해주도록 만들어줘야 함
+
+                                if(!NantaStart)
+                                {
+                                    NantaStart = true;
+                                    nantaNote.NantaStart();
+                                    nantaNote.HitNantaNote();
+                                    nantaNote.StopNoteMethod();
+                                    HitText();
+                                    PressEvent_Hit?.Invoke(HEIGHT);
+                                }
+                                else
+                                {
+                                    nantaNote.HitNantaNote();
+                                    PressEvent_Hit?.Invoke(HEIGHT);
+                                    HitText();
+                                }
+
+
+
+
+
+                                break;
+                            }
 
                             if (BossNote != null && LScript == null)
                             {
@@ -264,12 +298,21 @@ public class Judgement : MonoBehaviour
 
     }
 
+    public void HitText()
+    {
+        TMP_Text judgetext = Instantiate(JudgeText, Vector2.zero, Quaternion.identity, transform.GetComponentInChildren<Canvas>().gameObject.transform).GetComponent<TMP_Text>();
+        judgetext.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 100);
+
+        judgetext.text = "Hit";
+    }
+
+
 
 
 
     public bool ManageJudgeMent(double time)
     {
-        if (!longnotePress)
+        if (!longnotePress )
         {
             float f_time = Mathf.Abs((float)time);
             TMP_Text judgetext = Instantiate(JudgeText, Vector2.zero, Quaternion.identity, transform.GetComponentInChildren<Canvas>().gameObject.transform).GetComponent<TMP_Text>();
@@ -289,20 +332,12 @@ public class Judgement : MonoBehaviour
                 return true;
 
             }
-            else if (f_time <= 0.10 && f_time > 0.04)
+            else if (f_time > 0.04)
             {
                 judgetext.text = "Great";
                 Debug.Log("Great");
 
                 return true;
-            }
-            else if (f_time > 0.1)
-            {
-                judgetext.text = "Miss";
-                Debug.Log(f_time + "          ");
-
-                return false;
-
             }
 
             return false;
