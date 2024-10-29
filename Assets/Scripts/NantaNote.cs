@@ -47,6 +47,7 @@ public class NantaNote : Note
 
             if (hitStart)
         {
+            //때릴 때 파티클도 나오면 좋을 것 같음
             TimeCheck += Time.deltaTime;
         }
         if (hitinSeconds < TimeCheck)

@@ -286,6 +286,12 @@ public class Judgement : MonoBehaviour
                 longnotePress = false;
             }
         }
+
+        if (notes.Count == 0)
+        {
+            NantaStart = false;
+        }
+
     }
 
 
