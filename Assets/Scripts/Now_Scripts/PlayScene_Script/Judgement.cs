@@ -55,6 +55,8 @@ public class Judgement : MonoBehaviour
     BossMonster BossNote;
     NantaNote nantaNote;
 
+    HitParticlePooling ActivatingParticle;
+
 
     public Action<JudgementHeight_State> PressEvent_NoneHit;
     public Action<JudgementHeight_State> PressEvent_Hit;
@@ -65,6 +67,7 @@ public class Judgement : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        ActivatingParticle = GetComponent<HitParticlePooling>();
         //Debug.Log("PlayTime : " + PlayTime);
         Debug.Log(GameManager.Instance.GetBPS());
         // InitalizeJudgeMents();
@@ -162,15 +165,12 @@ public class Judgement : MonoBehaviour
                                 }
                                 if(!longnotePress)
                                 {
+                                    ActivatingParticle.GetParticle(transform.position);
                                     note.HitNote();
                                     audioSource.Play();
                                     Debug.Log("여기에서 발동");
                                     PressEvent_Hit?.Invoke(HEIGHT);
-                                    //if (!LScript.n_Y.GetAlreadyHit())
-                                    //{
-                                    //    LScript.n_Y.HitNoteCheck();
                                     PlayManager.Instance.HitNote(note);
-                                    //}
                                     songtimes.Add(GameManager.Instance.MainAudio.time);
                                 }
                                
