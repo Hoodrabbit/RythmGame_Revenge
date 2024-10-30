@@ -33,11 +33,11 @@ public class BossEventScript : NoteEventScript
                 if (!Use)
                 {
                     Use = true;
-                    if (eventType == EventType.Appear)
+                    if (eventType == Game_NoteEventType.Appear)
                     {
                         BossAppear();
                     }
-                    else if (eventType == EventType.Disappear)
+                    else if (eventType == Game_NoteEventType.Disappear)
                     {
                         BossDisappear();
                     }
@@ -53,11 +53,11 @@ public class BossEventScript : NoteEventScript
                         if (Use)
                         {
                             Use = false;
-                            if (eventType == EventType.Appear )
+                            if (eventType == Game_NoteEventType.Appear )
                             {
                                 BossAppear();
                             }
-                            else if (eventType == EventType.Disappear )
+                            else if (eventType == Game_NoteEventType.Disappear )
                             {
                                 BossDisappear();
                             }

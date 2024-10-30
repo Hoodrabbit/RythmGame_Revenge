@@ -15,7 +15,7 @@ public class Note : MonoBehaviour
     [Header("노트 타입")]
     public int TypeNum;
 
-    public EventType eventType;
+    public Game_NoteEventType eventType;
 
     [Header("노트 점수")]
     public int score;
@@ -202,7 +202,7 @@ public class Note : MonoBehaviour
         else
         {
             //노트의 현재 위치가 12보다 큰지 작은지 체크해서 위치설정해주기
-            if (eventType != EventType.None)
+            if (eventType != Game_NoteEventType.None)
             {
                 if (!GameManager.Instance.MainAudio.isPlaying && gameObject.CompareTag("Note") && TypeNum == 1 || TypeNum == 2)
                 {
@@ -307,9 +307,13 @@ public class Note : MonoBehaviour
                 {
                     return EditManager.DOWN_OUTSIDE;
                 }
-                else return PlayManager.DOWN_OUTSIDE;
-                
-                
+                else
+                {
+                    return PlayManager.DOWN_OUTSIDE;
+                }
+
+
+
             case NoteHeight.OUTSIDE_UP:
             case NoteHeight.REVERSE_UP:
                 if (GameManager.Instance.state != GameState.Play_Mode)
@@ -378,9 +382,9 @@ public class Note : MonoBehaviour
         }
         else
         {
-            while (elapsed < 2)
+            while (elapsed < (GameManager.Instance.GetBPS() * 2))
             {
-                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, PlayManager.DOWN), elapsed /2);
+                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, PlayManager.DOWN), elapsed /(GameManager.Instance.GetBPS() * 2));
                 elapsed += Time.deltaTime;
                 yield return null;
             }
@@ -421,9 +425,9 @@ public class Note : MonoBehaviour
         }
         else
         {
-            while (elapsed < 2)
+            while (elapsed < GameManager.Instance.GetBPS() * 2)
             {
-                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, PlayManager.UP), elapsed / 2);
+                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, PlayManager.UP), elapsed / (GameManager.Instance.GetBPS() * 2));
                 elapsed += Time.deltaTime;
                 yield return null;
             }
@@ -446,7 +450,7 @@ public class Note : MonoBehaviour
     {
         float elapsed = 0.0f;
         Vector3 StartPos = transform.position;
-        while (elapsed < GameManager.Instance.GetBPS())
+        while (elapsed < GameManager.Instance.GetBPS()*2)
         {
             transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, GetHeight()), elapsed / ((GameManager.Instance.GetBPS()*2)));
             elapsed += Time.deltaTime;
@@ -460,16 +464,16 @@ public class Note : MonoBehaviour
     }
 
 
-    EventType EventChecker(int num)
+    Game_NoteEventType EventChecker(int num)
     {
         switch (num)
         {
             case 1:
-                return EventType.SpawnOutside;
+                return Game_NoteEventType.SpawnOutside;
             case 2:
-                return EventType.SpawnOutside_Reverse;
+                return Game_NoteEventType.SpawnOutside_Reverse;
             default:
-                return EventType.None;
+                return Game_NoteEventType.None;
         }
     }
 
@@ -477,7 +481,7 @@ public class Note : MonoBehaviour
     {
         if (GameManager.Instance.state == GameState.None)
         {
-            if (eventType != EventType.None)
+            if (eventType != Game_NoteEventType.None)
             {
                 if (!GameManager.Instance.MainAudio.isPlaying)
                 {
@@ -514,7 +518,7 @@ public class Note : MonoBehaviour
             int event_TypeCheck = 0;
             bool ReverseCheck = false;
 
-            if (eventType == EventType.SpawnOutside_Reverse)
+            if (eventType == Game_NoteEventType.SpawnOutside_Reverse)
             {
                 ReverseCheck = true;
             }
@@ -566,7 +570,7 @@ public class Note : MonoBehaviour
         //{
         switch (eventType)
         {
-            case EventType.None:
+            case Game_NoteEventType.None:
                 if (ypos > 0)
                 {
                     //Debug.Log("작동1111");
@@ -592,7 +596,7 @@ public class Note : MonoBehaviour
 
                 break;
 
-            case EventType.SpawnOutside:
+            case Game_NoteEventType.SpawnOutside:
                 if (ypos > 0)
                 {
                     Height = NoteHeight.OUTSIDE_UP;
@@ -612,7 +616,7 @@ public class Note : MonoBehaviour
 
                 break;
 
-            case EventType.SpawnOutside_Reverse:
+            case Game_NoteEventType.SpawnOutside_Reverse:
                 if (ypos > 0)
                 {
                     Height = NoteHeight.REVERSE_UP;

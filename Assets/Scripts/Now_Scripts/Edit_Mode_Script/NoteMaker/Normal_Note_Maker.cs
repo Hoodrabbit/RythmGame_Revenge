@@ -126,9 +126,9 @@ public class Normal_Note_Maker : NoteMakerBase
 
     int SetHeight_Event(float Ypos)
     {
-        EventType GameEventState = DataManager.Instance.eventManager.GetEvent();
+        Game_NoteEventType GameEventState = DataManager.Instance.eventManager.GetEvent();
 
-        if (GameEventState == EventType.SpawnOutside_Reverse)
+        if (GameEventState == Game_NoteEventType.SpawnOutside_Reverse)
         {
 
             if (Ypos > 0)
@@ -142,7 +142,7 @@ public class Normal_Note_Maker : NoteMakerBase
 
 
         }
-        else if (GameEventState == EventType.SpawnOutside)
+        else if (GameEventState == Game_NoteEventType.SpawnOutside)
         {
 
             if (Ypos > 0)

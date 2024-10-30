@@ -130,7 +130,7 @@ public enum NoteEditOperatingState
 }
 
 
-public enum EventType
+public enum Game_NoteEventType
 {
     None,
     SpawnOutside,

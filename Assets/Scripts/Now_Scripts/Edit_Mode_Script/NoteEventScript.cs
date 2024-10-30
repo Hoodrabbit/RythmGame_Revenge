@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class NoteEventScript : MonoBehaviour
 {
-    public EventType eventType;
+    public Game_NoteEventType eventType;
 
     float SongTime;
 

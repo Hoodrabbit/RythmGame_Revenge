@@ -27,7 +27,7 @@ public class PlayManager : Singleton<PlayManager>
     int NoteCount_Now =0;
 
     public const int UP = 5;
-    public const int DOWN = -3;
+    public const int DOWN = -1;
     const int MIDDLE = (UP + DOWN) / 2;
     public const int OBSTACLE_UP = 6;
     const int OBSTACLE_DOWN = -2;

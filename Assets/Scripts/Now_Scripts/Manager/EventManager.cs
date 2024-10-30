@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-    public EventType NowEvent;
+    public Game_NoteEventType NowEvent;
     float SongTime; //일단 지금은 xpos로 체크하도록 하는게 좋을 듯함
 
     public List<EventInfoAll> EventList = new List<EventInfoAll>();
@@ -35,12 +35,12 @@ public class EventManager : MonoBehaviour
     }
 
 
-    public EventType GetEvent()
+    public Game_NoteEventType GetEvent()
     {
         return NowEvent;
     }
     
-    public void SetEvent(EventType EventT, float Time)
+    public void SetEvent(Game_NoteEventType EventT, float Time)
     {
         NowEvent = EventT;
         SongTime = Time;
@@ -48,7 +48,7 @@ public class EventManager : MonoBehaviour
 
     public void EndEvent()
     {
-        NowEvent = EventType.End;
+        NowEvent = Game_NoteEventType.End;
     }
 
 
@@ -60,7 +60,7 @@ public class EventManager : MonoBehaviour
     {
         switch(NowEvent)
         {
-            case EventType.SpawnOutside:
+            case Game_NoteEventType.SpawnOutside:
 
 
                 
@@ -68,13 +68,13 @@ public class EventManager : MonoBehaviour
                 Debug.Log("바깥쪽 노트 스폰");
 
                 break;
-            case EventType.SpawnOutside_Reverse:
+            case Game_NoteEventType.SpawnOutside_Reverse:
 
                 Debug.Log("역순 바깥쪽 노트 스폰");
 
                 break;
 
-            case EventType.End:
+            case Game_NoteEventType.End:
 
                 Debug.Log("이벤트 종료");
 
