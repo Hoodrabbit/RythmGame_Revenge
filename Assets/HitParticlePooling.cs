@@ -5,36 +5,66 @@ using static UnityEngine.ParticleSystem;
 
 public class HitParticlePooling : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem AttackParticle;
+    [SerializeField] private GameObject Normal_p;
+    //일반 노트 파티클
+    [SerializeField] private ParticleSystem NormalAttackParticle;
 
-    [SerializeField] private int poolsize = 100;
-    //[SerializeField] private int poolsize_Down = 20;
+    [SerializeField] private GameObject Long_p;
+    //롱 노트 파티클
+    [SerializeField] private ParticleSystem LongAttackParticle;
 
-    private Queue<ParticleSystem> particlePool = new Queue<ParticleSystem>();
 
+    [SerializeField] private int NormalNormalParticleQueuesize = 100;
+    [SerializeField] private int LongNoteParticleQueuesize = 3;
+
+    //[SerializeField] private int NormalNormalParticleQueuesize_Down = 20;
+
+    private Queue<ParticleSystem> NormalParticleQueue = new Queue<ParticleSystem>();
+    private Queue<ParticleSystem> LongParticleQueue = new Queue<ParticleSystem>();
 
     private void Start()
     {
-        for(int i=0; i< poolsize; i++)
+        for(int i=0; i< NormalNormalParticleQueuesize; i++)
         {
-            ParticleSystem particle = Instantiate(AttackParticle,transform);
+            ParticleSystem particle = Instantiate(NormalAttackParticle, Normal_p.transform);
             particle.gameObject.SetActive(false);
-            particlePool.Enqueue(particle);
-            
+            NormalParticleQueue.Enqueue(particle);
         }
-        
+
+        for(int i=0; i< LongNoteParticleQueuesize; i++)
+        {
+            ParticleSystem particle = Instantiate(LongAttackParticle, Long_p.transform);
+            particle.gameObject.SetActive(false);
+            LongParticleQueue.Enqueue(particle);
+        }
+
 
     }
 
-    public ParticleSystem GetParticle(Vector3 position)
+    public ParticleSystem GetLongParticle(Vector3 position)
     {
-        if (particlePool.Count == 0)
+        //ParticleSystem LongnewParticle = Instantiate(LongAttackParticle, transform);
+        //LongParticleQueue.Enqueue(LongnewParticle);
+
+        ParticleSystem particle = LongParticleQueue.Dequeue();
+        particle.transform.position = position;
+        particle.gameObject.SetActive(true);
+        particle.Play();
+
+        return particle;
+    }
+
+
+
+    public ParticleSystem GetNormalParticle(Vector3 position)
+    {
+        if (NormalParticleQueue.Count == 0)
         {
-            ParticleSystem newParticle = Instantiate(AttackParticle, transform);
-            particlePool.Enqueue(newParticle);
+            ParticleSystem newParticle = Instantiate(NormalAttackParticle, transform);
+            NormalParticleQueue.Enqueue(newParticle);
         }
 
-        ParticleSystem particle = particlePool.Dequeue();
+        ParticleSystem particle = NormalParticleQueue.Dequeue();
         particle.transform.position = position;
         particle.gameObject.SetActive(true);
         particle.Play();
@@ -47,7 +77,7 @@ public class HitParticlePooling : MonoBehaviour
     {
         yield return new WaitForSeconds(particle.main.duration);
         particle.gameObject.SetActive(false);
-        particlePool.Enqueue(particle);
+        NormalParticleQueue.Enqueue(particle);
     }
 }
 

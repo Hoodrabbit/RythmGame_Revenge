@@ -165,7 +165,7 @@ public class Judgement : MonoBehaviour
                                 }
                                 if(!longnotePress)
                                 {
-                                    ActivatingParticle.GetParticle(transform.position);
+                                    ActivatingParticle.GetNormalParticle(transform.position);
                                     note.HitNote();
                                     audioSource.Play();
                                     Debug.Log("여기에서 발동");
@@ -183,6 +183,7 @@ public class Judgement : MonoBehaviour
                                 longnotePress = true;
                                 LongNote = note;
                                 HoldingEvent?.Invoke(HEIGHT);
+                                ActivatingParticle.GetLongParticle(transform.position);
                                 songtimes.Add(GameManager.Instance.MainAudio.time);
                             }
 
@@ -266,6 +267,7 @@ public class Judgement : MonoBehaviour
             {
                 HoldingText();
                 PlayManager.Instance.HoldingLongNote();
+                
                 longnoteTime -= 0.3f;
             }
 
