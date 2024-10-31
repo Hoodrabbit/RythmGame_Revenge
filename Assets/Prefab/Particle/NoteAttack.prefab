@@ -4887,7 +4887,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.99215686, g: 0.81830066, b: 0.47058818, a: 1}
-  m_Intensity: 3.0969348
+  m_Intensity: 0
   m_Range: 4
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -10524,7 +10524,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 0
+    type: 10
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -14801,7 +14801,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8511206226355435580}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 2.5482771, y: 0.9224591, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14811,7 +14811,7 @@ Transform:
   - {fileID: 666187327601544101}
   - {fileID: 5910110339346479586}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!199 &7176020219271335880
 ParticleSystemRenderer:
   serializedVersion: 6
