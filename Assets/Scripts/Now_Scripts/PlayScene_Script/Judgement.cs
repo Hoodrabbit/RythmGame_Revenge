@@ -83,7 +83,7 @@ public class Judgement : MonoBehaviour
     void Update()
     {
         if(AudioListener.pause == false && 
-           GameManager.Instance.MainAudio.time > 0)
+           GameManager.Instance.MainAudio.isPlaying)
         {
             OperatingJudgeMent();
         }
@@ -165,7 +165,6 @@ public class Judgement : MonoBehaviour
                                 }
                                 if(!longnotePress)
                                 {
-                                    ActivatingParticle.GetNormalParticle(transform.position);
                                     note.HitNote();
                                     audioSource.Play();
                                     Debug.Log("여기에서 발동");
@@ -183,7 +182,6 @@ public class Judgement : MonoBehaviour
                                 longnotePress = true;
                                 LongNote = note;
                                 HoldingEvent?.Invoke(HEIGHT);
-                                ActivatingParticle.GetLongParticle(transform.position);
                                 songtimes.Add(GameManager.Instance.MainAudio.time);
                             }
 

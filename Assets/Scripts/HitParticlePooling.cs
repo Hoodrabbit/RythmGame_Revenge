@@ -5,6 +5,8 @@ using static UnityEngine.ParticleSystem;
 
 public class HitParticlePooling : MonoBehaviour
 {
+    Judgement nowjudge;
+
     [SerializeField] private GameObject Normal_p;
     //일반 노트 파티클
     [SerializeField] private ParticleSystem NormalAttackParticle;
@@ -20,11 +22,19 @@ public class HitParticlePooling : MonoBehaviour
     //[SerializeField] private int NormalNormalParticleQueuesize_Down = 20;
 
     private Queue<ParticleSystem> NormalParticleQueue = new Queue<ParticleSystem>();
+
     private Queue<ParticleSystem> LongParticleQueue = new Queue<ParticleSystem>();
+    private ParticleSystem nowLongQueue;
+    
+
+
+
 
     private void Start()
     {
-        for(int i=0; i< NormalNormalParticleQueuesize; i++)
+        nowjudge = GetComponent<Judgement>();
+
+        for (int i=0; i< NormalNormalParticleQueuesize; i++)
         {
             ParticleSystem particle = Instantiate(NormalAttackParticle, Normal_p.transform);
             particle.gameObject.SetActive(false);
@@ -38,25 +48,50 @@ public class HitParticlePooling : MonoBehaviour
             LongParticleQueue.Enqueue(particle);
         }
 
+        nowjudge.PressEvent_Hit += GetNormalParticle;
+        nowjudge.HoldingEvent += GetLongParticle;
+        nowjudge.HoldingEndEvent += StopLongParticle;
+
+        /*
+         public Action<JudgementHeight_State> PressEvent_NoneHit;
+    public Action<JudgementHeight_State> PressEvent_Hit;
+    public Action<JudgementHeight_State> HoldingEvent;
+    public Action<JudgementHeight_State> HoldingEndEvent;
+
+         
+         
+         */
+
+
+
 
     }
 
-    public ParticleSystem GetLongParticle(Vector3 position)
+    public void GetLongParticle(JudgementHeight_State state)
     {
         //ParticleSystem LongnewParticle = Instantiate(LongAttackParticle, transform);
         //LongParticleQueue.Enqueue(LongnewParticle);
 
         ParticleSystem particle = LongParticleQueue.Dequeue();
-        particle.transform.position = position;
+        nowLongQueue = particle;
+        particle.transform.position = transform.position;
         particle.gameObject.SetActive(true);
         particle.Play();
+    }
 
-        return particle;
+    public void StopLongParticle(JudgementHeight_State state)
+    {
+        LongParticleQueue.Enqueue(nowLongQueue);
+        nowLongQueue.Stop();
+        nowLongQueue.gameObject.SetActive(false);
     }
 
 
 
-    public ParticleSystem GetNormalParticle(Vector3 position)
+
+
+
+    public void GetNormalParticle(JudgementHeight_State state)
     {
         if (NormalParticleQueue.Count == 0)
         {
@@ -65,12 +100,11 @@ public class HitParticlePooling : MonoBehaviour
         }
 
         ParticleSystem particle = NormalParticleQueue.Dequeue();
-        particle.transform.position = position;
+        particle.transform.position = transform.position;
         particle.gameObject.SetActive(true);
         particle.Play();
 
         StartCoroutine(ReturnToPool(particle));
-        return particle;
     }
 
     private IEnumerator ReturnToPool(ParticleSystem particle)

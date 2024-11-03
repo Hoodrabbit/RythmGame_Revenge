@@ -146,77 +146,62 @@ public class BossMonster : Note
         //단순히 속도로 하는게 아니라 현재 재생시간 체크하고 그 시간에 맞게 이동 위치 조절해주도록 다시 만들어줘야 함
         Vector2 startpos = transform.position;
 
-        float offsetTime = GameManager.Instance.GetBPS();
+        float offsetTime = GameManager.Instance.GetBPS()*2;
         Debug.Log("offsetTime : " + offsetTime);
 
         float actualMoveTime = (float)SongTime - GameManager.Instance.MainAudio.time - offsetTime;
         Debug.Log("시간 : " + actualMoveTime);
-
+        
         float elapsedTime = 0;
-
-        while (elapsedTime < offsetTime)
+        
+        
+        if (actualMoveTime > 0) 
         {
-            float t = elapsedTime / offsetTime;
-            
-            if(t >= 0.7f)
+            while (elapsedTime < offsetTime)
             {
-                spriteRenderer.color = Color.red;
+                float t = elapsedTime / offsetTime;
+
+                if (t >= 0.7f)
+                {
+                    spriteRenderer.color = Color.red;
+                }
+                elapsedTime += Time.deltaTime;
+                yield return null;
+
             }
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            spriteRenderer.color = Color.red;
+
+            elapsedTime = 0;
+            while (elapsedTime <= actualMoveTime)
+            {
+                float t = elapsedTime / actualMoveTime;
+                transform.position = Vector2.Lerp(startpos, new Vector3(0, startpos.y), t);
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
 
         }
-
-        //yield return new WaitForSeconds(offsetTime);
-        spriteRenderer.color = Color.red;
-       elapsedTime = 0;
-        while (elapsedTime <= actualMoveTime)
+        else
         {
-            //Debug.Log("되는지 확인");
-            //transform.position = DashEvent.position;
-            float t = elapsedTime / actualMoveTime;
-            transform.position = Vector2.Lerp(startpos, new Vector3(0, startpos.y), t * GameManager.Instance.speed);
+            actualMoveTime = (float)SongTime - GameManager.Instance.MainAudio.time;
 
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        
-        
+            spriteRenderer.color = Color.red;
+            while (elapsedTime <= actualMoveTime)
+            {
+                float t = elapsedTime / actualMoveTime;
+                transform.position = Vector2.Lerp(startpos, new Vector3(0, startpos.y), t);
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+
+            }
         }
 
         
-        //float xpos = pos.x;
+      
 
-        //Debug.Log("시간 차 : " + songTime + " , " +  GameManager.Instance.MainAudio.time);
-
-
-
-
-
-        ////시간을 어떻게 할지가 필요함
-        //while (songTime > GameManager.Instance.MainAudio.time)
-        //{
-        //    //어떻게 이동할지 방식을 다르게 적용해야 될 것 같음
-
-        //    transform.position = new Vector3(pos.x - GameManager.Instance.speed * GameManager.Instance.GetBPS(), transform.position.y);
-
-
-
-        //    yield return null;
-        //}
-
-        //Debug.Log("몇번 실행되는지 확인용");
-
-
-        //if(transform.position.x <= 0)
-        //{
-        //    Hit = true;
-        //    HitAction?.Invoke();
-        //    Debug.Log("눌렀는지 체크할꺼임");
-        //}
-           
-
-
-        ////yield return null;
+       
 
     }
 
@@ -247,6 +232,22 @@ public class BossMonster : Note
 
     IEnumerator TurnBack_Fail()
     {
+
+        Vector2 pos = transform.position;
+        TTime = 0;
+        spriteRenderer.color = Color.white;
+
+        while (TTime <= MaxTime)
+        {
+
+            TTime += Time.deltaTime;
+
+            transform.position = Vector3.Lerp(pos, endpos, TTime / MaxTime);
+            yield return null;
+        }
+        transform.position = endpos;
+
+
         //보스를 히트시키지 못했을 경우 
         //다른 방식으로 돌아와야 함
 

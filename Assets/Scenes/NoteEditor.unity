@@ -1741,7 +1741,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -2761,7 +2761,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1863733135
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e12327c4e340fd342badb5441d62ac2c, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.16470589}
@@ -4805,7 +4805,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1863733135
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e12327c4e340fd342badb5441d62ac2c, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.57254905}
@@ -9605,6 +9605,7 @@ GameObject:
   - component: {fileID: 1857500012}
   - component: {fileID: 1857500013}
   - component: {fileID: 1857500014}
+  - component: {fileID: 1857500015}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -9855,6 +9856,18 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &1857500015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857500007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a83e04bea7bd75f488fd106c9297769d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1861120050
 PrefabInstance:
   m_ObjectHideFlags: 0
