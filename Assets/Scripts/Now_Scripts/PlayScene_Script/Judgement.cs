@@ -62,6 +62,8 @@ public class Judgement : MonoBehaviour
     public Action<JudgementHeight_State> PressEvent_Hit;
     public Action<JudgementHeight_State> HoldingEvent;
     public Action<JudgementHeight_State> HoldingEndEvent;
+    public Action NantaHit;
+
 
     // Start is called before the first frame update
     void Start()
@@ -96,6 +98,7 @@ public class Judgement : MonoBehaviour
 
     void OperatingJudgeMent()
     {
+        float offsetValue=0;
         if (Input.GetKeyDown(key) || Input.GetKeyDown(key2) || Input.GetKeyDown(Key3))
         {
 
@@ -105,8 +108,10 @@ public class Judgement : MonoBehaviour
                 {
                     if (note.melodyType == melody_type || note.melodyType == MelodyType.Normal && note != null)
                     {
-                        if (ManageJudgeMent((note.transform.position.x + GameManager.Instance.OffsetValue - transform.position.x) / GameManager.Instance.speed))
-                        {
+
+                        offsetValue = (note.transform.position.x + GameManager.Instance.OffsetValue - transform.position.x) / GameManager.Instance.speed;
+
+
                             LScript = note.GetComponent<LongNoteScript>();
                             BossNote = note.GetComponent<BossMonster>();
                             nantaNote = note.GetComponent<NantaNote>();
@@ -115,6 +120,9 @@ public class Judgement : MonoBehaviour
                             {
                                 //난타노트의 트리거 온
                                 //따로 누를때마다 히트 체크를 해주도록 만들어줘야 함
+                                //
+
+
 
                                 if(!NantaStart)
                                 {
@@ -123,33 +131,27 @@ public class Judgement : MonoBehaviour
                                     nantaNote.HitNantaNote();
                                     nantaNote.StopNoteMethod();
                                     HitText();
-                                    PressEvent_Hit?.Invoke(HEIGHT);
-                                }
+
+                                NantaHit?.Invoke();
+                            }
                                 else
                                 {
                                     nantaNote.HitNantaNote();
-                                    PressEvent_Hit?.Invoke(HEIGHT);
-                                    HitText();
+                                NantaHit?.Invoke();
+                                HitText();
                                 }
-
-
-
-
-
                                 break;
                             }
 
                             if (BossNote != null && LScript == null)
                             {
-                                //note.HitNote();
-                                Debug.Log("작동ㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
-
                                 BossNote.StopAllCoroutines();
                                 BossNote.HitAction?.Invoke();
                                 audioSource.Play();
+                                Instantiate_JudgeText(offsetValue);
                                 PlayManager.Instance.HitNote(note);
-                                
-                                notes.Remove(note);
+                            NantaHit?.Invoke();
+                            notes.Remove(note);
                             }
                             else if (BossNote == null && LScript == null)
                             {
@@ -160,6 +162,7 @@ public class Judgement : MonoBehaviour
                                     if (LNT != null)
                                     {
                                         note.MissNote();
+                                        HoldingEndEvent?.Invoke(HEIGHT);
                                         PlayManager.Instance.MissNote();
                                     }
                                 }
@@ -169,6 +172,7 @@ public class Judgement : MonoBehaviour
                                     audioSource.Play();
                                     Debug.Log("여기에서 발동");
                                     PressEvent_Hit?.Invoke(HEIGHT);
+                                    Instantiate_JudgeText(offsetValue);
                                     PlayManager.Instance.HitNote(note);
                                     songtimes.Add(GameManager.Instance.MainAudio.time);
                                 }
@@ -182,6 +186,7 @@ public class Judgement : MonoBehaviour
                                 longnotePress = true;
                                 LongNote = note;
                                 HoldingEvent?.Invoke(HEIGHT);
+                                Instantiate_JudgeText(offsetValue);
                                 songtimes.Add(GameManager.Instance.MainAudio.time);
                             }
 
@@ -198,7 +203,7 @@ public class Judgement : MonoBehaviour
 
                     }
 
-                }
+                
 
 
             }
@@ -237,6 +242,9 @@ public class Judgement : MonoBehaviour
 
         if (Input.GetKeyUp(key))
         {
+
+           
+
             if (longnotePress == true)
             {
                 longnotePress = false;
@@ -280,6 +288,7 @@ public class Judgement : MonoBehaviour
             {
                 Debug.Log("꺼짐");
                 HoldingEndEvent?.Invoke(HEIGHT);
+                Instantiate_JudgeText(offsetValue);
                 PlayManager.Instance.HitLongNote();
                 
 
@@ -313,42 +322,49 @@ public class Judgement : MonoBehaviour
     }
 
 
-
-
-
-    public bool ManageJudgeMent(double time)
+    void Instantiate_JudgeText(double time)
     {
-        if (!longnotePress )
+
+        if (!longnotePress)
         {
             float f_time = Mathf.Abs((float)time);
             TMP_Text judgetext = Instantiate(JudgeText, Vector2.zero, Quaternion.identity, transform.GetComponentInChildren<Canvas>().gameObject.transform).GetComponent<TMP_Text>();
             judgetext.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 100);
-            if (f_time <= 0.05)
-            {
 
 
                 //정확한 판정을 켰을 경우
-                if (f_time <= 0.04)
-                {
+            if (f_time <= 0.04)
+             {
                     judgetext.text = "Perfect";
                     Debug.Log("Perfect");
 
-                }
+             }
 
-                return true;
+                //return true;
 
-            }
+            
             else if (f_time > 0.04)
             {
                 judgetext.text = "Great";
                 Debug.Log("Great");
 
-                return true;
+                //return true;
             }
 
-            return false;
+            //return false;
         }
-        return false;
+        //return false;
+    }
+
+
+    public bool ManageJudgeMent(double time)
+    {
+        //if(Mathf.Abs((float)time) <= 0.05)
+        //{
+            return true;
+        //}
+        //return false;
+
     }
 
 

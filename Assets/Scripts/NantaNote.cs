@@ -1,13 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+
 
 public class NantaNote : Note
 {
     public GameObject End;
 
     public Animator MonsterAnimator;
+
+    public TMP_Text HitText;
+
     
+
     //최소 히트 수 
     public int MaxhitCount;
 
@@ -20,6 +26,7 @@ public class NantaNote : Note
 
     //시간 측정을 위한 변수
     float TimeCheck = 0;
+
 
     private void Update()
     {
@@ -70,7 +77,10 @@ public class NantaNote : Note
         hitStart = true;
     }
 
-
+    void IncreaseHitText()
+    {
+        //히트 텍스트 증가
+    }
 
 
 
