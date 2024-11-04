@@ -10007,7 +10007,7 @@ ParticleSystem:
   m_GameObject: {fileID: 5031494620625837454}
   serializedVersion: 8
   lengthInSec: 0.5
-  simulationSpeed: 1
+  simulationSpeed: 0.7
   stopAction: 0
   cullingMode: 1
   ringBufferMode: 0
@@ -14871,14 +14871,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5441587849836437165}
   serializedVersion: 8
-  lengthInSec: 0.1
+  lengthInSec: 0.5
   simulationSpeed: 0.5
   stopAction: 0
   cullingMode: 1
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -15017,7 +15017,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.4517107, g: 0.33459416, b: 0.9716981, a: 1}
+      maxColor: {r: 0.65897155, g: 0.17702027, b: 0.735849, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -19637,7 +19637,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5178510475363744749}
   - component: {fileID: 5599820721731477896}
-  - component: {fileID: 2765437674633554039}
+  - component: {fileID: 382654085618608952}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -19722,7 +19722,7 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &2765437674633554039
+--- !u!114 &382654085618608952
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19793,7 +19793,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -24699,7 +24699,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9036545319947615883, guid: 9eef21fea2540ce4683b02f629054693, type: 3}
       propertyPath: lengthInSec
-      value: 1
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036545319947615883, guid: 9eef21fea2540ce4683b02f629054693, type: 3}
+      propertyPath: simulationSpeed
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 9036545319947615883, guid: 9eef21fea2540ce4683b02f629054693, type: 3}
       propertyPath: ShapeModule.type

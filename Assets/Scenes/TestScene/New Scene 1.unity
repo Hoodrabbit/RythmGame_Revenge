@@ -6194,6 +6194,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1907845263228207804, guid: c5a922f309a419c4fbd72e6d5306e74d, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 1907845263228207804, guid: c5a922f309a419c4fbd72e6d5306e74d, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.17702027
+      objectReference: {fileID: 0}
+    - target: {fileID: 1907845263228207804, guid: c5a922f309a419c4fbd72e6d5306e74d, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.65897155
+      objectReference: {fileID: 0}
     - target: {fileID: 3399926073084802485, guid: c5a922f309a419c4fbd72e6d5306e74d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.19712257
@@ -6257,6 +6269,22 @@ PrefabInstance:
     - target: {fileID: 5599820721731477896, guid: c5a922f309a419c4fbd72e6d5306e74d, type: 3}
       propertyPath: m_Intensity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361345795393400978, guid: c5a922f309a419c4fbd72e6d5306e74d, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361345795393400978, guid: c5a922f309a419c4fbd72e6d5306e74d, type: 3}
+      propertyPath: lengthInSec
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8361345795393400978, guid: c5a922f309a419c4fbd72e6d5306e74d, type: 3}
+      propertyPath: simulationSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8788717893179932045, guid: c5a922f309a419c4fbd72e6d5306e74d, type: 3}
+      propertyPath: simulationSpeed
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6380,6 +6408,10 @@ PrefabInstance:
     - target: {fileID: 7680900537556279518, guid: 969c21bf3235bf74fbd2574a18ace876, type: 3}
       propertyPath: m_Name
       value: CFXR3 Hit Misc B
+      objectReference: {fileID: 0}
+    - target: {fileID: 7680900537556279518, guid: 969c21bf3235bf74fbd2574a18ace876, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7680900537556279519, guid: 969c21bf3235bf74fbd2574a18ace876, type: 3}
       propertyPath: simulationSpeed
