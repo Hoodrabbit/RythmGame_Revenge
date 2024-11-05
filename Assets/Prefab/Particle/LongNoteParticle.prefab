@@ -19518,7 +19518,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -20073,8 +20073,8 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    gravitySource: 0
-    maxNumParticles: 20
+    gravitySource: 1
+    maxNumParticles: 10
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -20788,7 +20788,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 1
+    enabled: 0
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -22173,7 +22173,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
   NoiseModule:
-    enabled: 1
+    enabled: 0
     strength:
       serializedVersion: 2
       minMaxState: 0
@@ -24342,7 +24342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9205bc1bbacc90040a998067b5643d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clearBehavior: 2
+  clearBehavior: 1
   cameraShake:
     enabled: 0
     useMainCamera: 1
@@ -24573,6 +24573,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ring
       objectReference: {fileID: 0}
+    - target: {fileID: 4169451184266079238, guid: b1813c3349ff06a4996c2ad5725de732, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4655169109830537946, guid: b1813c3349ff06a4996c2ad5725de732, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -24612,6 +24616,30 @@ PrefabInstance:
     - target: {fileID: 4655169109830537946, guid: b1813c3349ff06a4996c2ad5725de732, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6274136523612342771, guid: b1813c3349ff06a4996c2ad5725de732, type: 3}
+      propertyPath: SizeModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6274136523612342771, guid: b1813c3349ff06a4996c2ad5725de732, type: 3}
+      propertyPath: ColorModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6274136523612342771, guid: b1813c3349ff06a4996c2ad5725de732, type: 3}
+      propertyPath: ShapeModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6274136523612342771, guid: b1813c3349ff06a4996c2ad5725de732, type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6274136523612342771, guid: b1813c3349ff06a4996c2ad5725de732, type: 3}
+      propertyPath: CustomDataModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6274136523612342771, guid: b1813c3349ff06a4996c2ad5725de732, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

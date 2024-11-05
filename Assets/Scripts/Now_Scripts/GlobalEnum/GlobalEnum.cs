@@ -39,6 +39,17 @@ public enum GameState
     Finish_Play
 };
 
+public enum DifficultState
+{
+    Easy,
+
+    Normal,
+
+    Hard
+}
+
+
+
 public enum JudgeMentState
 {
     Perfect,

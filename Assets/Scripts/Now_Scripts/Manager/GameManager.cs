@@ -5,8 +5,10 @@ public class GameManager : Singleton<GameManager>
 {
     public GameDataState DataState = GameDataState.Data_UnLoad;
 
-
     public GameState state = GameState.None;
+
+    public DifficultState difficultState;
+
 
     public AudioSource MainAudio;
 
@@ -199,7 +201,10 @@ public class GameManager : Singleton<GameManager>
         SceneModeValue = num;
     }
 
-
+    public void SetDifficultValue(int num)
+    {
+        difficultState = (DifficultState)num;
+    }
 
     public void SetAudio(AudioSource audio)
     {

@@ -188,7 +188,9 @@ public class Judgement : MonoBehaviour
                                 HoldingEvent?.Invoke(HEIGHT);
                                 Instantiate_JudgeText(offsetValue);
                                 songtimes.Add(GameManager.Instance.MainAudio.time);
-                            }
+                                float time = (float)LongNote.SongTime;
+                                LScript.StopHeadPos(time);
+                        }
 
                             break;
                         }
@@ -279,18 +281,13 @@ public class Judgement : MonoBehaviour
 
             
 
-            if (LScript.Delete == false)
-            {
-                float time = (float)LongNote.SongTime;
-                LScript.StopHeadPos(time);
-            }
-            else
+            if (LScript.Delete == true)
             {
                 Debug.Log("꺼짐");
                 HoldingEndEvent?.Invoke(HEIGHT);
                 Instantiate_JudgeText(offsetValue);
                 PlayManager.Instance.HitLongNote();
-                
+
 
                 longnotePress = false;
             }

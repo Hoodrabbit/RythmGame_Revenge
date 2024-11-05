@@ -109,8 +109,14 @@ public class DataManager : Singleton<DataManager>
     string NoteDataFolder = Application.streamingAssetsPath + "\\NOTEDATA_Folder";
     string NoteEventDataFolder = Application.streamingAssetsPath + "\\NOTEEVENTDATA_Folder";
 
+    string Difficulty_Classifying; //나중에 세이브랑 로드 버튼 누를때 이거 변수 바꿔줘야할 것 같음
+
+
     string NoteDataPath;
     string NoteEventDataPath;
+
+    string eventdatapath;
+    string notedatapath;
 
 
     public EventManager eventManager;
@@ -138,8 +144,12 @@ public class DataManager : Singleton<DataManager>
         }
 
 
-        NoteEventDataPath = Path.Combine(NoteEventDataFolder, GameManager.Instance.musicInfo.Music_Name + "_EventData.txt");
-        NoteDataPath = Path.Combine(NoteDataFolder, GameManager.Instance.musicInfo.Music_Name + "_NoteData.txt");
+        NoteEventDataPath = Path.Combine(NoteEventDataFolder, GameManager.Instance.musicInfo.Music_Name + "_EventData");
+        NoteDataPath = Path.Combine(NoteDataFolder, GameManager.Instance.musicInfo.Music_Name + "_NoteData");
+
+        eventdatapath = NoteEventDataPath;
+        notedatapath = NoteDataPath;
+
         if (eventManager != null)
         {
             EventCheck += eventManager.RefreshNoteEventMethod;
@@ -185,6 +195,11 @@ public class DataManager : Singleton<DataManager>
         EditNotes = EditNotes.OrderBy(N => N.notePos.xpos).ToList();
         EventNotes = EventNotes.OrderBy(N => N.eventPos.SongTime).ToList();
 
+
+        
+
+        NoteEventDataPath = eventdatapath + "_" + GameManager.Instance.difficultState.ToString() + ".txt";
+        NoteDataPath = notedatapath +  "_" + GameManager.Instance.difficultState.ToString() + ".txt";
 
         if (File.Exists(NoteDataPath))
         {
@@ -253,6 +268,11 @@ public class DataManager : Singleton<DataManager>
     public void LoadNote()
     {
         //이미 생성되어 있으면 해당 데이터를 지우고 다시 깔아줘야 함
+        
+
+        NoteEventDataPath = eventdatapath + "_" + GameManager.Instance.difficultState.ToString() + ".txt";
+        NoteDataPath = notedatapath + "_" + GameManager.Instance.difficultState.ToString() + ".txt";
+
 
         StreamReader NoteParsing = new StreamReader(NoteDataPath);
         int NoteCount = Int32.Parse(NoteParsing.ReadLine());

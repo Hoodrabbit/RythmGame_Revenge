@@ -3,19 +3,19 @@ using UnityEngine.UI;
 
 public class SceneModeDropDown : MonoBehaviour
 {
-    Dropdown dropdown;
+    //Dropdown dropdown;
     //Scene_Type scene_t = Scene_Type.NoteEdit;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        dropdown = GetComponent<Dropdown>();
-        dropdown.onValueChanged.AddListener(GetValue);
-        dropdown.value = GameManager.Instance.GetSceneModeValue();
+        //dropdown = GetComponent<Dropdown>();
+        //dropdown.onValueChanged.AddListener(GetValue);
+        //dropdown.value = GameManager.Instance.GetSceneModeValue();
     }
 
-    void GetValue(int Value)
+    public void GetValue(int Value)
     {
         //스도코드
         //드롭다운에서 선택한 버튼에 따라서 옮길 씬을 정할 수 있음

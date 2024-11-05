@@ -4934,7 +4934,6 @@ GameObject:
   - component: {fileID: 1267583159}
   - component: {fileID: 1267583158}
   - component: {fileID: 1267583160}
-  - component: {fileID: 1267583161}
   m_Layer: 0
   m_Name: PlayManager
   m_TagString: Untagged
@@ -5009,23 +5008,6 @@ MonoBehaviour:
   FeverGaugeMaxValue: 120
   FeverTimeValue: 5
   FeverBackGround: {fileID: 1179703741}
---- !u!114 &1267583161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1267583157}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0c2b5cf2c4b4a940bceb845b3fb0560, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Normal_p: {fileID: 0}
-  NormalAttackParticle: {fileID: 0}
-  Long_p: {fileID: 0}
-  LongAttackParticle: {fileID: 0}
-  NormalNormalParticleQueuesize: 100
 --- !u!1 &1278491242
 GameObject:
   m_ObjectHideFlags: 0
