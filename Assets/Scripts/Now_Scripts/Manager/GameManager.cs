@@ -81,7 +81,7 @@ public class GameManager : Singleton<GameManager>
         if(state == GameState.Play_Mode)
         {
             checkCoroutine = StartCoroutine(GoToGameResult(MainAudio.clip.length + SongDelayTime));
-            StartCoroutine(StartCountdown(SongDelayTime - 1));
+            StartCoroutine(StartCountdown(SongDelayTime - 2));
         }
         
         
@@ -97,6 +97,22 @@ public class GameManager : Singleton<GameManager>
 
         SceneManager.LoadScene("GameResult");
     }
+
+    public IEnumerator GoToGameOver()
+    {
+        Debug.Log("작동되는지 확인");
+
+
+        yield return new WaitForSeconds(3f);
+
+        SceneManager.LoadScene("GameOver");
+
+
+    }
+
+
+
+
 
     IEnumerator StartCountdown(int countdownNum)
     {

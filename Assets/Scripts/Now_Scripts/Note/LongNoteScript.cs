@@ -105,12 +105,25 @@ public class LongNoteScript : MonoBehaviour
 
     }
 
-    public void StopHeadPos(Vector3 judgepos)
+
+
+
+
+
+    //실제로 멈추는게 아니라 현재 위치에서 x값이 0이 되도록 서서히 움직이게 함
+    public void StopHeadPos(double songTime)
     {
         //Vector2.Lerp(transform.position, judgepos, Time.deltaTime * 10);
         n_Y = GetComponent<Note>();
         n_Y.enabled = false;
         Tail.GetComponent<Note>().enabled = true;
+
+
+        float value = Mathf.Abs((float)songTime - GameManager.Instance.MainAudio.time);
+
+        StartCoroutine(MovetoJudge(value));
+        //x가 0의 위치로 서서히 이동학도록 만들어주는 코루틴을 추가해줘야 함
+
     }
 
     public void CancelStopHeadPos()
@@ -144,6 +157,27 @@ public class LongNoteScript : MonoBehaviour
         }
         
     }
+
+
+
+    //매개변수로 현재 시간과 노래의 시간을 받음 해당 노래의 차이 값
+    IEnumerator MovetoJudge(float DifferTime)
+    {
+        float startTime = 0;
+
+
+        while(startTime < DifferTime) 
+        {
+            Debug.Log("작동되는 중");
+
+
+            transform.position = Vector3.Lerp(transform.position, new Vector3(0, transform.position.y), startTime/DifferTime);
+            startTime += Time.deltaTime;
+            yield return null;
+        }
+        transform.position = new Vector3(0, transform.position.y);
+    }
+
 
 
 

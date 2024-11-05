@@ -11,7 +11,7 @@ public class Judgement : MonoBehaviour
     [Space(10f)]
 
     public GameObject JudgeText;
-
+    public GameObject HitImage;
 
 
 
@@ -281,8 +281,8 @@ public class Judgement : MonoBehaviour
 
             if (LScript.Delete == false)
             {
-
-                LScript.StopHeadPos(transform.position);
+                float time = (float)LongNote.SongTime;
+                LScript.StopHeadPos(time);
             }
             else
             {

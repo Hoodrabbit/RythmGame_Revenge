@@ -8,6 +8,8 @@ public class PlayerController : Singleton<PlayerController>
     public int hp = 300;
     int TakeHP; // 감소할 HP 값
 
+    bool IsHPEmpty = false;
+
     public Action ChangeHPAction;
 
     public void Start()
@@ -15,7 +17,14 @@ public class PlayerController : Singleton<PlayerController>
        //Playeranimator = GetComponent<Animator>();
     }
 
-
+    private void Update()
+    {
+        if(!IsHPEmpty && hp <=0)
+        {
+            GameOver();
+            IsHPEmpty =true;
+        }
+    }
 
 
 
@@ -53,6 +62,13 @@ public class PlayerController : Singleton<PlayerController>
 
     public void GameOver()
     {
+        GameManager.Instance.StopAllCoroutines();
+        GameManager.Instance.MainAudio.Stop();
+
+        StartCoroutine(GameManager.Instance.GoToGameOver());
+
+
+        //화면 서서히 변하는 연출 및 기능 추가해야함
         //게임오버 창 출력 혹은 씬 변경??
     }
 
