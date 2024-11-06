@@ -23,14 +23,14 @@ public class ComboSystem : Singleton<ComboSystem>
     // Update is called once per frame
     void Update()
     {
-       // if (Combo >=5)
-      //  {
+       if (Combo >=5)
+       {
             ComboText.enabled = true;
-        ComboText.text = Combo.ToString();
-      //  }
-      //  else
+            ComboText.text = Combo.ToString();
+       }
+        else
         {
-      //      ComboText.enabled = false;
+            ComboText.enabled = false;
         }
     }
 

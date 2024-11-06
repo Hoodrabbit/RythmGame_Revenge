@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using static TreeEditor.TreeEditorHelper;
 public class PlayManager : Singleton<PlayManager>
 {
 
@@ -26,10 +27,10 @@ public class PlayManager : Singleton<PlayManager>
 
     int NoteCount_Now =0;
 
-    public const int UP = 5;
-    public const int DOWN = -1;
+    public const int UP = 6;
+    public const int DOWN = 0;
     const int MIDDLE = (UP + DOWN) / 2;
-    public const int OBSTACLE_UP = 6;
+    public const int OBSTACLE_UP = 7;
     const int OBSTACLE_DOWN = -2;
 
     public const int UP_OUTSIDE = 12;
@@ -79,8 +80,11 @@ public class PlayManager : Singleton<PlayManager>
             case 5:
                 MakeNantaNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 //난타노트
-
                 break;
+            case 6:
+                Marionette(xpos, height, noteType, LongNoteStartEndCheck, songtime);
+                break;
+
             default:
                 break;
         }
@@ -265,10 +269,31 @@ public class PlayManager : Singleton<PlayManager>
         Note_Instantiate = Instantiate(NoteTypes[3], new Vector3(NotePos.xpos, height), Quaternion.identity, Note_Parent.transform);
 
         Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
-
         Notes.Add(Note_Instantiate);
-
     }
+
+    public void Marionette(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    {
+        GameObject Note_Instantiate;
+
+        NotePos = new NoteInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
+
+        if (height > 0)
+        {
+            Note_Instantiate = Instantiate(NoteTypes[8], new Vector3(NotePos.xpos, height+2), Quaternion.identity, Note_Parent.transform);
+        }
+        else
+        {
+            Note_Instantiate = Instantiate(NoteTypes[8], new Vector3(NotePos.xpos, height), Quaternion.identity, Note_Parent.transform);
+        }
+
+
+       
+
+        Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
+        Notes.Add(Note_Instantiate);
+    }
+
 
     void MakeObstacle(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
     {

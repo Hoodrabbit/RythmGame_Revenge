@@ -30,7 +30,7 @@ public class NoteMaker_EditScene : MonoBehaviour
     GameObject NoteSpawnOutsideReverseEventMaker;
     GameObject BossDashNoteMaker;
     GameObject PowerfulNoteMaker;
-
+    GameObject MarionetteNoteMaker;
 
 
 
@@ -66,6 +66,9 @@ public class NoteMaker_EditScene : MonoBehaviour
         BossDashNoteMaker = MakerObjList[9];
         Note_Middle = MakerObjList[10];
         PowerfulNoteMaker = MakerObjList[11];
+        MarionetteNoteMaker = MakerObjList[12];
+
+
         //NoteMakerButton = GetComponent<Button>();
 
         //NoteMakerButton.onClick.AddListener(Instantiate_NormalNote);
@@ -336,7 +339,7 @@ public class NoteMaker_EditScene : MonoBehaviour
 
     public void Instantiate_PowerfulNote()
     {
-        if (Note_Normal.activeSelf == false)
+        if (PowerfulNoteMaker.activeSelf == false)
         {
             if (!Already_Using)
             {
@@ -355,6 +358,29 @@ public class NoteMaker_EditScene : MonoBehaviour
             Already_Using = false;
         }
     }
+
+    public void Instantiate_MarioNetteMaker()
+    {
+        if (MarionetteNoteMaker.activeSelf == false)
+        {
+            if (!Already_Using)
+            {
+                MarionetteNoteMaker.SetActive(true);
+            }
+            else
+            {
+                TurnOffMaker();
+                MarionetteNoteMaker.SetActive(true);
+            }
+            Already_Using = true;
+        }
+        else
+        {
+            MarionetteNoteMaker.SetActive(false);
+            Already_Using = false;
+        }
+    }
+
 
 
 }

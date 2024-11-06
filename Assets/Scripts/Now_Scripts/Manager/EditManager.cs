@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,7 +36,7 @@ public class EditManager : Singleton<EditManager>
     [Header("특수 노트들")]
     public GameObject GhostNote_Obj;
     public GameObject PowerfulNote_Obj;
-
+    public GameObject Marionette_Obj;
 
 
     [Header("장애물")]
@@ -110,6 +111,11 @@ public class EditManager : Singleton<EditManager>
             case 5:
                 NantaNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 break;
+
+            case 6:
+                Marionette(xpos, height, noteType, LongNoteStartEndCheck, songtime);
+                break;
+
 
             default:
                 break;
@@ -316,47 +322,17 @@ public class EditManager : Singleton<EditManager>
             }
             UnCompleteNantaNoteQueue = newNantaNoteQueue;
         }
-
-        
-
-
-
-        //GameObject LongNote;
-        //if (LongNoteStartEndCheck == 1)
-        //{
-        //    LongNote = Instantiate(LongNote_Obj, new Vector3(xpos, height/*SettingHeight(height)*/), Quaternion.identity, EditManager.Instance.barNote.RhythmNote.transform);
-        //    UnCompleteLongNoteQueue.Enqueue(LongNote.GetComponent<LongNoteScript>());
-
-        //    float RealXpos = LongNote.transform.position.x - EditManager.Instance.GetNPXpos();
-
-        //    DataManager.Instance.EditNotes.Add(new NoteInfoAll(LongNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)LongNote.transform.localPosition.x / GameManager.Instance.speed));
-        //}
-        //else if (LongNoteStartEndCheck == 2)
-        //{
-        //    Queue<LongNoteScript> newLongNoteQueue = new Queue<LongNoteScript>();
-        //    foreach (var head in UnCompleteLongNoteQueue)
-        //    {
-        //        if (head.transform.position.y == height) //줄 번호가 1일 경우 2의 위치임
-        //        {
-        //            head.Tail.transform.position = new Vector3(xpos, head.transform.position.y);
-
-        //            float RealXpos = head.Tail.transform.position.x - EditManager.Instance.GetNPXpos();
-
-        //            DataManager.Instance.EditNotes.Add(new NoteInfoAll(head.Tail, RealXpos, height, noteType, LongNoteStartEndCheck, (double)(head.transform.position.x + head.Tail.transform.localPosition.x) / GameManager.Instance.speed));
-        //        }
-        //        else
-        //        {
-        //            newLongNoteQueue.Enqueue(head); //해당 조건을 만족하지 않는 큐만 따로 추가함
-        //        }
-
-        //    }
-        //    UnCompleteLongNoteQueue = newLongNoteQueue;
-
-        //}
-
-
     }
 
+    public void Marionette(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    {
+        GameObject AddNote = Instantiate(Marionette_Obj, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.RhythmNote.transform);
+
+        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
+
+    }
 
 
 

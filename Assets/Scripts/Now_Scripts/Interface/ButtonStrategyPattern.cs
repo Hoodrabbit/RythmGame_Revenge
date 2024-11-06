@@ -12,6 +12,51 @@ interface IButton
 
 }
 
+class PressEasyDifficult : IButton
+{
+    readonly string name = "PressEasyDifficult";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        GameManager.Instance.SetDifficultValue(0);
+    
+    }
+}
+
+class PressNormalDifficult : IButton
+{
+    readonly string name = "PressNormalDifficult";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        GameManager.Instance.SetDifficultValue(1);
+
+    }
+}
+
+class PressHardDifficult : IButton 
+{
+    readonly string name = "PressHardDifficult";
+
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        GameManager.Instance.SetDifficultValue(2);
+    }
+
+}
+
+
+
+
+
+
+
 
 class Back : IButton
 {
@@ -142,7 +187,20 @@ class MakeObstacle : IButton
 
 }
 
+class MakePuppet : IButton
+{
+    readonly string name = "MakePuppet";
 
+    public string ButtonName => name;
+
+    public void Click()
+    {
+        NoteMaker_EditScene.instance.Instantiate_MarioNetteMaker();
+    }
+
+
+
+}
 
 class UsingKeyboard : IButton
 {
