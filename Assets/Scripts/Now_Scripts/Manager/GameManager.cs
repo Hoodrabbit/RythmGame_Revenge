@@ -1,6 +1,18 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+
+
+
+
+
+
+
+
+
+
+
 public class GameManager : Singleton<GameManager>
 {
     public GameDataState DataState = GameDataState.Data_UnLoad;
@@ -16,9 +28,7 @@ public class GameManager : Singleton<GameManager>
 
 
     //게임 씬 끝날 때 저장받을 변수
-    public int Score;
-    public int Combo;
-
+    public SongStat songStatus;
 
 
 
@@ -53,17 +63,16 @@ public class GameManager : Singleton<GameManager>
 
     }
 
-    public void Start()
+    /// <summary>
+    /// 노래의 점수 및 기타 콤보와 같은 정보들을 초기화 시켜줌
+    /// </summary>
+    public void Init_SongStat()
     {
-        Debug.Log("게임매니저 먼저 실행");
-        //InitializeSongSelect();
-        //MusicManager.Instance.SetMusic(0);
-
+        songStatus.Init();
     }
 
-    public void Update()
-    {
-    }
+
+
 
 
     public void PlayMusicOnly()
@@ -73,11 +82,12 @@ public class GameManager : Singleton<GameManager>
        
     }
 
-    
-
     public void PlayMusic()
     {
         DataManager.Instance.LoadNote();
+
+        Init_SongStat(); 
+
         startDSPtimeValue = AudioSettings.dspTime;
         MainAudio.PlayScheduled(AudioSettings.dspTime + SongDelayTime);
         if(state == GameState.Play_Mode)
@@ -169,6 +179,11 @@ public class GameManager : Singleton<GameManager>
     }
 
 
+    public void SetSongStat(SongStat songStat)
+    {
+        songStatus = songStat;
+
+    }
 
 
 
@@ -184,11 +199,15 @@ public class GameManager : Singleton<GameManager>
         SongValue = num;
         DataState = GameDataState.FinishData_Load;
         AudioManager.Instance.GetAudio().PlaySong();
+        
     }
 
     public void SetSongValue(MusicInfo musicInfo)
     {
         this.musicInfo = musicInfo;
+        Init_SongStat();
+        SongStatusManager.instance.LoadSongStat();
+        SongDetailPanelScript.instance.Init_MusicInfo(this.musicInfo, songStatus);
     }
 
 
@@ -204,6 +223,9 @@ public class GameManager : Singleton<GameManager>
     public void SetDifficultValue(int num)
     {
         difficultState = (DifficultState)num;
+        Init_SongStat();
+        SongStatusManager.instance.LoadSongStat();
+        SongDetailPanelScript.instance.Init_MusicInfo(this.musicInfo, songStatus);
     }
 
     public void SetAudio(AudioSource audio)
@@ -246,13 +268,36 @@ public class GameManager : Singleton<GameManager>
         OffsetValue = Offset;
     }
 
-
+    public int GetScore()
+    {
+        return songStatus.Score;
+    }
+    public int GetCombo()
+    {
+        return songStatus.Combo;
+    }
 
     public void GetScoreAndCombo(int score_Get, int combo_Get)
     {
-        Score = score_Get;
-        Combo = combo_Get;
+        songStatus.Get_Score(score_Get);
+        songStatus.Get_Combo(combo_Get);
     }
+
+    public void Increase_Perfect()
+    {
+        songStatus.Increase_Perfect();
+    }
+    public void Increase_Great()
+    {
+        songStatus.Increase_Great();
+    }
+    public void Increase_Miss()
+    {
+        songStatus.Increase_Miss();
+    }
+
+
+
 
     public void StopGameManagerCoroutine()
     {

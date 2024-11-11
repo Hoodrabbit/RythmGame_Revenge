@@ -5,9 +5,11 @@ using UnityEngine;
 public class MarionetteMaker : NoteMakerBase
 {
     public GameObject Marionette;
+    public GameObject Marionette_UP;
+
 
     public override GameObject Note { get => Marionette; set => Marionette = value; }
-
+    GameObject Note_UP { get => Marionette_UP; set => Marionette_UP = value; }
 
     protected override void AreaCheck(GameObject Note, Vector2 Pos, bool DeleteMode)
     {
@@ -25,18 +27,6 @@ public class MarionetteMaker : NoteMakerBase
             if (hit[i].collider.CompareTag("Note"))
             {
                 Checkduplication = true;
-               // GhostNote thisNote = hit[i].collider.gameObject.GetComponent<GhostNote>();
-                //ChangeMelodyType(thisNote);
-               // NoteInfoAll infoAll = DataManager.Instance.FindNoteData(hit[i].collider.gameObject);
-              //  DataManager.Instance.ListNullCheck(hit[i].collider.gameObject);
-
-                //find NotePos and change Data
-                //infoAll.ChangeEnemyType((int)thisNote.melodyType);
-                //DataManager.Instance.EditNotes.Add(new NoteInfoAll(hit[i].collider.gameObject, infoAll.notePos.xpos, infoAll.notePos.HeightValue, infoAll.notePos.NoteType, 0, infoAll.notePos.SongTime, (int)thisNote.melodyType));
-
-                //제대로 제거 되지 않음
-                //수정해야 함
-
 
             }
 
@@ -60,7 +50,15 @@ public class MarionetteMaker : NoteMakerBase
                 {
                     GameObject AddNote;
 
-                    AddNote = Instantiate(Note, InstantiatePos, Quaternion.identity, barNote.RhythmNote.transform);
+
+                    if (Pos.y > 0)
+                    {
+                        AddNote = Instantiate(Note_UP, InstantiatePos, Quaternion.identity, barNote.RhythmNote.transform);
+                    }
+                    else
+                    {
+                        AddNote = Instantiate(Note, InstantiatePos, Quaternion.identity, barNote.RhythmNote.transform);
+                    }
 
                     float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
                     //슬라이더로 값을 옮기면서 해당 위치가 계속해서 변하기 때문에 변하더라도 유동적으로 대응할 수 있도록 코드 추가

@@ -125,8 +125,7 @@ MonoBehaviour:
   xpos: 0
   ypos: 0
   EventActivate: 0
-  MelodyObj: {fileID: 5948785530357906491}
-  melodySprite: []
+  MelodyObj: {fileID: 5237349782719930980}
   NowNoteSize: 0
   MonsterAnimator: {fileID: 3590626918791803403}
 --- !u!95 &-2417868561321385137
@@ -200,7 +199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1149775910966601322, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1149775910966601322, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
       propertyPath: m_SortingLayerID
@@ -208,15 +207,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2564854237128969910, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2564854237128969910, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
       propertyPath: m_SortingLayerID
       value: 1863733135
       objectReference: {fileID: 0}
+    - target: {fileID: 2771161579377415747, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5863197702909297810, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5863197702909297810, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
       propertyPath: m_SortingLayerID
@@ -224,7 +227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6249307433606310581, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6249307433606310581, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
       propertyPath: m_SortingLayerID
@@ -236,7 +239,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6638836470564431442, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6638836470564431442, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
       propertyPath: m_SortingLayerID
@@ -248,7 +251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7587265551089733470, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7587265551089733470, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
       propertyPath: m_SortingLayerID
@@ -256,7 +259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8964393651183964418, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8964393651183964418, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
       propertyPath: m_SortingLayerID
@@ -272,11 +275,17 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 6563312730676234407, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
   m_PrefabInstance: {fileID: 7692686988843678380}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5948785530357906491 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4057671679902254743, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
+--- !u!114 &5237349782719930980 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2481245831336188104, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}
   m_PrefabInstance: {fileID: 7692686988843678380}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be5a6c5614f60044b80687db15e9163, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7821513684633963749 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 453301493500294729, guid: af4e12db3e86869418ab0b0049d6df00, type: 3}

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class NormalNote : Note
 {
-    public GameObject MelodyObj;
-    public List<Sprite> melodySprite;
+    public MelodyTypeScript MelodyObj;
 
     public NormalNoteType NowNoteSize;
 
@@ -17,7 +16,10 @@ public class NormalNote : Note
     protected override void Start()
     {
         base.Start();
+        MelodyObj = GetComponentInChildren<MelodyTypeScript>();
         MonsterAnimator.enabled = false;
+
+
     }
 
 
@@ -71,23 +73,26 @@ public class NormalNote : Note
     public void SetNoteType(int num)
     {
         //SpriteRenderer SR = GetComponent<SpriteRenderer>();
-        SpriteRenderer SR = MelodyObj.GetComponent<SpriteRenderer>();
-
+       
+        if(MelodyObj == null)
+        {
+            Debug.Log("none");
+        }
         switch (num)
         {
             case 0:
                 melodyType = MelodyType.Normal;
-                SR.color = Color.clear;
+                MelodyObj.ChangeMelody(num);
                 break;
             case 1:
                 melodyType = MelodyType.Yellow;
-                //SR.sprite = melodysprite[0];
-                SR.color = Color.yellow;
+                MelodyObj.ChangeMelody(num);
+
+
                 break;
             case 2:
                 melodyType = MelodyType.Purple;
-
-                SR.color = Color.cyan;
+                MelodyObj.ChangeMelody(num);
                 break;
 
 

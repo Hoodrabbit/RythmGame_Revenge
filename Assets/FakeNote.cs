@@ -16,7 +16,7 @@ public class FakeNote : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(transform.position.y > 3)
+        if(transform.position.y >= 3)
         {
             fakeNoteSpriteRenderer.sprite = Up;
         }

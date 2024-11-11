@@ -14,7 +14,7 @@ public class TitleTitle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.anyKeyDown)
+        if(Input.anyKeyDown && Camera.main.GetComponent<AudioSource>().time >=5)
         {
             SceneManager.LoadScene("SelectSong");
         }

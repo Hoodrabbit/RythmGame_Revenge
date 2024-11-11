@@ -284,7 +284,7 @@ public class PlayManager : Singleton<PlayManager>
         }
         else
         {
-            Note_Instantiate = Instantiate(NoteTypes[8], new Vector3(NotePos.xpos, height), Quaternion.identity, Note_Parent.transform);
+            Note_Instantiate = Instantiate(NoteTypes[9], new Vector3(NotePos.xpos, height), Quaternion.identity, Note_Parent.transform);
         }
 
 

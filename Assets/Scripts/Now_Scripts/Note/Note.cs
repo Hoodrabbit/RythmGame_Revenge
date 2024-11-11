@@ -337,6 +337,7 @@ public class Note : MonoBehaviour
 
     public void HitNote()
     {
+        //AlreadyHit = true;
         gameObject.SetActive(false);
     }
 

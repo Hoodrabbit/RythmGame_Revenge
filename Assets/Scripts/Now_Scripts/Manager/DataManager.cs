@@ -314,8 +314,6 @@ public class DataManager : Singleton<DataManager>
             }
             else
             {
-                //EventInfoAll noteEvent = new EventInfoAll(new GameObject(), xpos, height, EventType, SongTime);
-                //EventNotes.Add(noteEvent);
                 PlayManager.Instance.PlayScene_EventMaker(xpos * GameManager.Instance.speed, height, EventType, SongTime);
             }
 
@@ -347,7 +345,6 @@ public class DataManager : Singleton<DataManager>
             if (split_Text[4] != null)
             {
                 SongTime = double.Parse(split_Text[4]);
-                //xpos = float.Parse(split_Text[4]);
             }
             else
             SongTime = 0;
@@ -375,11 +372,6 @@ public class DataManager : Singleton<DataManager>
             }
         
         }
-
-  
-
-
-
         NoteParsing.Close();
         EventNoteParsing.Close();
 
@@ -394,11 +386,6 @@ public class DataManager : Singleton<DataManager>
             NoteReady?.Invoke();
         }
 
-    }
-
-    void SaveGameResult()
-    {
-        //Debug.Log(PlayManager.Instance);
     }
 
     public void DestroyEvent()
