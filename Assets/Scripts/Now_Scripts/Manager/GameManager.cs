@@ -107,6 +107,8 @@ public class GameManager : Singleton<GameManager>
 
         GetScoreAndCombo(ScoreSystem.Instance.Score, ComboSystem.Instance.MaxCombo);
 
+        //모든 노트들의 구독을 취소함
+
         SceneManager.LoadScene("GameResult");
     }
 
@@ -116,6 +118,9 @@ public class GameManager : Singleton<GameManager>
 
 
         yield return new WaitForSeconds(3f);
+
+
+        //모든 노트들의 구독을 취소함
 
         SceneManager.LoadScene("GameOver");
 

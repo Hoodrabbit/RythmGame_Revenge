@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using static TreeEditor.TreeEditorHelper;
 public class PlayManager : Singleton<PlayManager>
 {
 

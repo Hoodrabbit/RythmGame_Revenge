@@ -8,7 +8,7 @@ public class DifficultyControlDropDown : MonoBehaviour
 {
     TMP_Dropdown Difficultydropdown;
 
-    readonly List<string> difficult = new List<string> { "Easy", "Normal", "Hard" };
+    readonly List<string> difficult = new List<string> { "Normal", "Hard" };
 
     private void Start()
     {
@@ -25,12 +25,9 @@ public class DifficultyControlDropDown : MonoBehaviour
         switch (value)
         {
             case 0:
-                GameManager.Instance.difficultState = DifficultState.Easy;
-                break;
-            case 1:
                 GameManager.Instance.difficultState = DifficultState.Normal;
                 break;
-            case 2:
+            case 1:
                 GameManager.Instance.difficultState = DifficultState.Hard;
                 break;
         }

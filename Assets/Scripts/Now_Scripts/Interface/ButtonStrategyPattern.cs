@@ -12,18 +12,6 @@ interface IButton
 
 }
 
-class PressEasyDifficult : IButton
-{
-    readonly string name = "PressEasyDifficult";
-
-    public string ButtonName => name;
-
-    public void Click()
-    {
-        GameManager.Instance.SetDifficultValue(0);
-    
-    }
-}
 
 class PressNormalDifficult : IButton
 {
@@ -33,8 +21,8 @@ class PressNormalDifficult : IButton
 
     public void Click()
     {
-        GameManager.Instance.SetDifficultValue(1);
-
+        GameManager.Instance.SetDifficultValue(0);
+        DifficultButtonController.instance.PressNormal();
     }
 }
 
@@ -46,9 +34,9 @@ class PressHardDifficult : IButton
 
     public void Click()
     {
-        GameManager.Instance.SetDifficultValue(2);
+        GameManager.Instance.SetDifficultValue(1);
+        DifficultButtonController.instance.PressHard();
     }
-
 }
 
 

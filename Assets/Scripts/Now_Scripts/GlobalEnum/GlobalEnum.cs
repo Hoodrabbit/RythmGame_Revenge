@@ -41,8 +41,6 @@ public enum GameState
 
 public enum DifficultState
 {
-    Easy,
-
     Normal,
 
     Hard
