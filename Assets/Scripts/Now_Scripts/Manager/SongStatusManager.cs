@@ -102,7 +102,13 @@ public class SongStatusManager : MonoBehaviour
 
             StreamWriter writer = File.CreateText(songStatsDataPath);
 
-            writer.WriteLine(GameManager.Instance.songStatus);
+            //writer.WriteLine(GameManager.Instance.songStatus);
+            writer.WriteLine(GameManager.Instance.songStatus.Score);
+            writer.WriteLine(GameManager.Instance.songStatus.Combo);
+            writer.WriteLine(GameManager.Instance.songStatus.Perfect);
+            writer.WriteLine(GameManager.Instance.songStatus.Great);
+            writer.WriteLine(GameManager.Instance.songStatus.Miss);
+
 
             writer.Close();
         }
