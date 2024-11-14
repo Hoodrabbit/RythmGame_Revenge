@@ -124,6 +124,8 @@ public class BossMonster : Note
         //xpos - GameManager.Instance.speed * (float)(AudioSettings.dspTime - AudioTime)
         StartCoroutine(Dash(DashEvent, songTime));
 
+        //만약 노래의 시간을 초과했는데 히트 체크가 되지 않았다면 플레이어를 공격하면서 다시 뒤로 돌아오도록 만들면 좋을 것 같음
+
     }
 
     public void VisualizeBoss()

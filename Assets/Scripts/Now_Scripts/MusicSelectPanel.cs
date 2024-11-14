@@ -116,15 +116,15 @@ public class MusicSelectPanel : MonoBehaviour
 
             }
 
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                OpenDetailPanel();
-            }
+            //if (Input.GetKeyDown(KeyCode.Return))
+            //{
+            //    OpenDetailPanel();
+            //}
 
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                CloseDetailPanel();
-            }
+            //if (Input.GetKeyDown(KeyCode.Escape))
+            //{
+            //    CloseDetailPanel();
+            //}
         }
        
     }
