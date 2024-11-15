@@ -125,7 +125,7 @@ public class BossMonster : Note
         StartCoroutine(Dash(DashEvent, songTime));
 
         //만약 노래의 시간을 초과했는데 히트 체크가 되지 않았다면 플레이어를 공격하면서 다시 뒤로 돌아오도록 만들면 좋을 것 같음
-
+        //색변화 취소 
     }
 
     public void VisualizeBoss()
@@ -148,20 +148,23 @@ public class BossMonster : Note
         //단순히 속도로 하는게 아니라 현재 재생시간 체크하고 그 시간에 맞게 이동 위치 조절해주도록 다시 만들어줘야 함
         Vector2 startpos = transform.position;
 
-        float offsetTime = GameManager.Instance.GetBPS()*2;
-        Debug.Log("offsetTime : " + offsetTime);
+        float actualMoveTime = (float)SongTime - GameManager.Instance.MainAudio.time;
 
-        float actualMoveTime = (float)SongTime - GameManager.Instance.MainAudio.time - offsetTime;
-        Debug.Log("시간 : " + actualMoveTime);
+        float waitTime = actualMoveTime * 0.9f;
+
+        float actionTime = actualMoveTime * 0.1f;
         
         float elapsedTime = 0;
         
         
         if (actualMoveTime > 0) 
         {
-            while (elapsedTime < offsetTime)
+            Debug.Log(1);
+
+
+            while (elapsedTime < waitTime)
             {
-                float t = elapsedTime / offsetTime;
+                float t = elapsedTime / waitTime;
 
                 if (t >= 0.7f)
                 {
@@ -174,9 +177,9 @@ public class BossMonster : Note
             spriteRenderer.color = Color.red;
 
             elapsedTime = 0;
-            while (elapsedTime <= actualMoveTime)
+            while (elapsedTime < actionTime)
             {
-                float t = elapsedTime / actualMoveTime;
+                float t = elapsedTime / actionTime;
                 transform.position = Vector2.Lerp(startpos, new Vector3(0, startpos.y), t);
 
                 elapsedTime += Time.deltaTime;
@@ -186,7 +189,10 @@ public class BossMonster : Note
         }
         else
         {
-            actualMoveTime = (float)SongTime - GameManager.Instance.MainAudio.time;
+
+            Debug.Log(2);
+
+            //actionTime = (float)SongTime - GameManager.Instance.MainAudio.time;
 
             spriteRenderer.color = Color.red;
             while (elapsedTime <= actualMoveTime)
