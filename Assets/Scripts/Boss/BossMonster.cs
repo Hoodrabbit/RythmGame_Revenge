@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class BossMonster : Note
 {
-    public Sprite BossImg;
-
     public bool Trigger = false;
     CircleCollider2D bossCollider;
     //SpriteRenderer spriteRenderer;
@@ -24,21 +22,15 @@ public class BossMonster : Note
 
     public Action HitAction;
 
-    Animator Boss_animator;
+    BossAnimationController bossAnimation;
+
+    //Animator Boss_animator;
 
     protected override void Awake()
     {
         //base.Awake();
-        Boss_animator= GetComponent<Animator>();
+        bossAnimation = GetComponent<BossAnimationController>();
     }
-
-    //이벤트 신호는 받되 신호에 끌려다니면 별로 좋지않음
-    //솔리드 원칙에 위반 
-    //작은 결집 
-    //큰 결집 
-
-
-
 
     protected override void Start()
     {
@@ -47,7 +39,6 @@ public class BossMonster : Note
 
         bossCollider = GetComponent<CircleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = BossImg;
         startpos = transform.position;
         //endpos = new Vector2(GameManager.Instance.GetBPS() * 30, transform.position.y);
         //endpos = new Vector3(25, 1);
@@ -68,13 +59,14 @@ public class BossMonster : Note
 
     public void Appear()
     {
-        
+        bossAnimation.BossAnimator.SetBool("GetOut", false);
         StartCoroutine(AppearBoss());
 
     }
 
     public void Disappear()
     {
+        bossAnimation.BossAnimator.SetBool("GetOut", true);
         bossCollider.isTrigger = false;
         StartCoroutine (DisappearBoss());
     }
@@ -121,6 +113,7 @@ public class BossMonster : Note
     //노래 시간을 가져오도록 해서 현재 음악의 재생 시간과 전달받은 시간동안 내 움직이도록
     public void BossDash(Transform DashEvent, float songTime)
     {
+        bossAnimation.BossAnimator.SetBool("Dash", true);
         //xpos - GameManager.Instance.speed * (float)(AudioSettings.dspTime - AudioTime)
         StartCoroutine(Dash(DashEvent, songTime));
 
@@ -166,15 +159,15 @@ public class BossMonster : Note
             {
                 float t = elapsedTime / waitTime;
 
-                if (t >= 0.7f)
-                {
-                    spriteRenderer.color = Color.red;
-                }
+                //if (t >= 0.7f)
+                //{
+                //    //spriteRenderer.color = Color.red;
+                //}
                 elapsedTime += Time.deltaTime;
                 yield return null;
 
             }
-            spriteRenderer.color = Color.red;
+            //spriteRenderer.color = Color.red;
 
             elapsedTime = 0;
             while (elapsedTime < actionTime)
@@ -278,10 +271,7 @@ public class BossMonster : Note
         }
     }
 
-    public Animator GetAnimator()
-    {
-        return Boss_animator;
-    }
+    
 
 
 

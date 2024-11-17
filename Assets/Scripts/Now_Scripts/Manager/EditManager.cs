@@ -36,7 +36,8 @@ public class EditManager : Singleton<EditManager>
     [Header("특수 노트들")]
     public GameObject GhostNote_Obj;
     public GameObject PowerfulNote_Obj;
-    public GameObject Marionette_Obj;
+    public GameObject Marionette_Obj_Up;
+    public GameObject Marionette_Obj_Down;
 
 
     [Header("장애물")]
@@ -326,7 +327,16 @@ public class EditManager : Singleton<EditManager>
 
     public void Marionette(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
     {
-        GameObject AddNote = Instantiate(Marionette_Obj, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.RhythmNote.transform);
+        GameObject AddNote;
+
+        if (height > 0)
+        {
+            AddNote = Instantiate(Marionette_Obj_Up, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.RhythmNote.transform);
+        }
+        else
+        {
+            AddNote = Instantiate(Marionette_Obj_Down, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.RhythmNote.transform);
+        }
 
         float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
 

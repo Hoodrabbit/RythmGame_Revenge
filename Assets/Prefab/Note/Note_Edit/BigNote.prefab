@@ -76,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1863733135
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: b1ac7d96d9cc6f14487a0c84bca0fd03, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -187,16 +187,21 @@ MonoBehaviour:
   ID: 1
   TypeNum: 1
   eventType: 0
+  score: 0
+  fever_Count: 0
+  HP: 0
   speed: 0
   SongTime: 0
   AudioTime: 0
+  StageSelect: 0
   melodyType: 0
   Height: 0
   xpos: 0
   ypos: 0
   EventActivate: 0
-  MelodyObj: {fileID: 5172337232593037241}
-  melodySprite: []
+  MelodyObj: {fileID: 6766460820117715430}
+  NowNoteSize: 0
+  MonsterAnimator: {fileID: 0}
 --- !u!1001 &6087494351118091656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -211,7 +216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8248816942986054939, guid: a465237687046c8458948b8ad69bd502, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8248816942986054939, guid: a465237687046c8458948b8ad69bd502, type: 3}
       propertyPath: m_SortingOrder
@@ -270,11 +275,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a465237687046c8458948b8ad69bd502, type: 3}
---- !u!1 &5172337232593037241 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1422234315280572977, guid: a465237687046c8458948b8ad69bd502, type: 3}
+--- !u!114 &6766460820117715430 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 692520355060890734, guid: a465237687046c8458948b8ad69bd502, type: 3}
   m_PrefabInstance: {fileID: 6087494351118091656}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be5a6c5614f60044b80687db15e9163, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7431513337276527801 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3700012610501390641, guid: a465237687046c8458948b8ad69bd502, type: 3}
