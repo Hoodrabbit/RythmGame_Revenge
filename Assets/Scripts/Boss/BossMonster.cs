@@ -9,7 +9,7 @@ public class BossMonster : Note
     CircleCollider2D bossCollider;
     //SpriteRenderer spriteRenderer;
 
-    bool Hit = true;
+    public bool Hit = true;
     float MaxTime = 0.3f;
     //일단 노트화 시켜서 다른 노트처럼 똑같이 움직이되 보스가 나오는 
     float TTime = 0;
@@ -208,6 +208,7 @@ public class BossMonster : Note
 
     public void Turnback()
     {
+        
         StartCoroutine(TurnBack_Success());
     }
 
@@ -216,8 +217,9 @@ public class BossMonster : Note
     {
         Vector2 pos = transform.position;
         TTime = 0;
-        spriteRenderer.color = Color.white;
-
+        //aaaaaspriteRenderer.color = Color.white;
+        bossAnimation.BossAnimator.SetBool("Dash", false);
+        bossAnimation.BossAnimator.SetTrigger("Damaged");
         while (TTime <= MaxTime)
         {
 

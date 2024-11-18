@@ -2,277 +2,359 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements.Experimental;
+
+
+[System.Serializable]
+public struct BackGroundLayer
+{
+    public string Layername;
+    public float scrollSpeed;
+    public Transform[] backgrounds;
+    public float ResetXpos;
+    public float StartXpos;
+
+
+}
+
 
 
 public class BackGroundImageScorll : MonoBehaviour
 {
-    [Header("배경 앞 레이어 속도")]
-    public float InfrontSpeed = 4;
-
-    [Header("플랫폼 레이어 속도")]
-    public float PlatformSpeed = 7;
-
-    [Header("플랫폼 앞 레이어 속도")]
-    public float Infront_PlatformSpeed = 6;
-
-
-
-
-
-
-    [Header("배경 이미지")]
-    public GameObject BackGround;
-    public GameObject BackGround2;
-    public float Width_Back;
-    //메인 뒷배경은 안움직이나??
-
-
-
-    [Space(10f)]
-    public GameObject BackGround_Infront;
-    RectTransform Background_infrontRect;
-
-
-    public GameObject BackGround_Infront2;
-    RectTransform Background_infrontRect2;
-
-    public float Width_Infront;
-    
-    [Space(10f)]
-    public GameObject BackGround_Platform;
-    RectTransform BackGround_PlatformRect;
-
-    public GameObject BackGround_Platform2;
-    RectTransform BackGround_PlatformRect2;
-
-    public float Width_Platform;
-
-    [Space(10f)]
-    public GameObject Infront_Platform;
-    RectTransform Infront_PlatformRect;
-
-    public GameObject Infront_Platform2;
-    RectTransform Infront_PlatformRect2;
-
-    public float Width_Infront_Platform;
-
-   
-
-    [Space(10f)]
-    [Header("피버 이미지")]
-
-    public GameObject Fever_BackGround;
-    RectTransform Fever_BackGroundRect;
-
-    public GameObject Fever_BackGround2;
-    RectTransform Fever_BackGround2Rect;
-
-    public GameObject Fever_Infront;
-    RectTransform Fever_InfrontRect;
-
-    public GameObject Fever_Infront2;
-    RectTransform Fever_Infront2Rect;
-
-    public GameObject Fever_Infront_AnotherVer;
-    public GameObject Fever_Infront_AnotherVer2;
-
-
-
-
-    float BackSpeed = 5;
-    
-
-    float scrollOffset = 15;
-
-
-
-    void InitializingRect()
-    {
-        Background_infrontRect = BackGround_Infront.GetComponent<RectTransform>();
-        Background_infrontRect2 = BackGround_Infront2.GetComponent<RectTransform>();
-    
-        BackGround_PlatformRect = BackGround_Platform.GetComponent<RectTransform>();
-        BackGround_PlatformRect2 = BackGround_Platform2.GetComponent<RectTransform>();
-
-
-        Infront_PlatformRect = Infront_Platform.GetComponent<RectTransform>();
-        Infront_PlatformRect2 = Infront_Platform2.GetComponent<RectTransform>();
-
-        Fever_BackGroundRect = Fever_BackGround.GetComponent<RectTransform>();
-        Fever_BackGround2Rect = Fever_BackGround2.GetComponent<RectTransform>();
-
-        Fever_InfrontRect = Fever_Infront.GetComponent<RectTransform>();
-        Fever_Infront2Rect = Fever_Infront2.GetComponent <RectTransform>();
-
-    }
-
-
-
+    public List<BackGroundLayer> layers = new List<BackGroundLayer>();
 
     private void Start()
     {
-
-        //여기나 다른 곳에 이미지 스프라이트 심어주는 관련 기능 추가 예정
-
-        InitializingRect();
-
-
-        Width_Back = BackGround.GetComponent<RectTransform>().rect.width;
-        Width_Infront = Background_infrontRect.rect.width;
-        Width_Platform = BackGround_PlatformRect.rect.width;
-        Width_Infront_Platform = Infront_PlatformRect.rect.width;
-
-
-        BackGround2.transform.position = new Vector2(BackGround2.transform.position.x+ Width_Back,0);
-        Background_infrontRect2.anchoredPosition = new Vector2(Background_infrontRect.anchoredPosition.x+ Width_Infront, Background_infrontRect.anchoredPosition.y);
-        BackGround_PlatformRect2.anchoredPosition = new Vector2(BackGround_PlatformRect.anchoredPosition.x + Width_Platform, BackGround_PlatformRect.anchoredPosition.y);
-        Infront_PlatformRect2.anchoredPosition = new Vector2(Infront_PlatformRect.anchoredPosition.x + Width_Infront_Platform, Infront_PlatformRect.anchoredPosition.y);
-
-
-        //Fever_BackGroundRect.anchoredPosition = new Vector2(Fever_BackGroundRect.anchoredPosition.x +)
-        Fever_BackGround2Rect.anchoredPosition = new Vector2(Fever_BackGround2Rect.anchoredPosition.x + Width_Back, 0);
-        Fever_Infront2Rect.anchoredPosition = new Vector2(Fever_Infront2Rect.anchoredPosition.x + Width_Infront, 0);
-
+        foreach (var layer in layers)
+        {
+            Debug.Log("layer.StartXpos : " + layer.StartXpos);
+            layer.backgrounds[1].localPosition = new Vector3(0+layer.StartXpos, layer.backgrounds[1].transform.localPosition.y);
+        }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        //UI로 맵스크롤 하는게 맞나?
-
-        MoveBackground(Fever_BackGround);
-        MoveBackground(Fever_BackGround2);
-
-        MoveInfrontBackground(Fever_Infront);
-        MoveInfrontBackground(Fever_Infront2);
-
-
-
-
-
-
-        MoveInfrontBackground(BackGround_Infront);
-        MoveInfrontBackground(BackGround_Infront2);
-
-        MovePlatform(BackGround_Platform);
-        MovePlatform(BackGround_Platform2);
-
-        MoveInfrontPlatform(Infront_Platform);
-        MoveInfrontPlatform(Infront_Platform2);
-
-
-
-
-    }
-
-
-
-
-
-    //약간의 딜레이가 있어서 오프셋 정도로 10 더 빼줌
-
-
-    void MoveBackground(GameObject back)
-    {
-        RectTransform backRect = back.GetComponent<RectTransform>();
-        if(backRect.anchoredPosition.x >= -Width_Back)
-        {
-            //아직 수정 안됨 배경이 스크롤 되는지 안되는지 판단 못함
-            backRect.anchoredPosition = new Vector2(backRect.anchoredPosition.x - 300* Time.deltaTime, backRect.anchoredPosition.y);
-        }
-        else
-        {
-
-            if (back == Fever_BackGround)
-            {
-                backRect.anchoredPosition = new Vector2(Fever_BackGround2Rect.anchoredPosition.x + Width_Back - scrollOffset, backRect.anchoredPosition.y);
-            }
-            else
-            {
-                backRect.anchoredPosition = new Vector2(Fever_BackGroundRect.anchoredPosition.x + Width_Back - scrollOffset, backRect.anchoredPosition.y);
-            }
-            
-
-               
-        }
         
-    }    
-
-    void MoveInfrontBackground(GameObject InfrontBack)
-    {
-        RectTransform InfrontBackRect = InfrontBack.GetComponent<RectTransform>();
-
-        if (InfrontBackRect.anchoredPosition.x > -Width_Infront)
+        foreach(var layer in layers) 
         {
-            InfrontBackRect.anchoredPosition = new Vector2(InfrontBackRect.anchoredPosition.x - InfrontSpeed*100 * Time.deltaTime, InfrontBackRect.anchoredPosition.y);
-        }
-        else
-        {
-            if(InfrontBack == BackGround_Infront)
-            {
-                InfrontBackRect.anchoredPosition = new Vector2(Background_infrontRect2.anchoredPosition.x + Width_Infront - scrollOffset, Background_infrontRect2.anchoredPosition.y);
-            }
-            else if (InfrontBack == BackGround_Infront2)
-            {
-                InfrontBackRect.anchoredPosition = new Vector2(Background_infrontRect.anchoredPosition.x + Width_Infront- scrollOffset, Background_infrontRect.anchoredPosition.y);
-            }
+            layer.backgrounds[0].localPosition = new Vector3(layer.backgrounds[0].localPosition.x - layer.scrollSpeed * Time.deltaTime, layer.backgrounds[0].localPosition.y);
+            layer.backgrounds[1].localPosition = new Vector3(layer.backgrounds[1].localPosition.x - layer.scrollSpeed * Time.deltaTime, layer.backgrounds[0].localPosition.y);
 
-            if(InfrontBack == Fever_Infront)
+            if (layer.backgrounds[0].localPosition.x <= layer.ResetXpos)
             {
-                InfrontBackRect.anchoredPosition = new Vector2(Fever_Infront2Rect.anchoredPosition.x + Width_Infront - scrollOffset, Fever_InfrontRect.anchoredPosition.y);
+                layer.backgrounds[0].localPosition = new Vector3(layer.StartXpos - layer.scrollSpeed * Time.deltaTime, layer.backgrounds[0].localPosition.y);
             }
-            else if (InfrontBack == Fever_Infront2)
+            if (layer.backgrounds[1].localPosition.x <= layer.ResetXpos)
             {
-                InfrontBackRect.anchoredPosition = new Vector2(Fever_InfrontRect.anchoredPosition.x + Width_Infront - scrollOffset, Fever_InfrontRect.anchoredPosition.y);
+                layer.backgrounds[1].localPosition = new Vector3(layer.StartXpos - layer.scrollSpeed * Time.deltaTime, layer.backgrounds[1].localPosition.y);
             }
-
-
 
 
         }
+
+
+
     }
 
-    void MovePlatform(GameObject Platform)
-    {
-        RectTransform PlatformRect = Platform.GetComponent<RectTransform>();
-
-        if (PlatformRect.anchoredPosition.x > -Width_Platform)
-        {
-            PlatformRect.anchoredPosition = new Vector2(PlatformRect.anchoredPosition.x - PlatformSpeed * 100 * Time.deltaTime, PlatformRect.anchoredPosition.y);
-        }
-        else
-        {
-            if(Platform == BackGround_Platform)
-            {
-                PlatformRect.anchoredPosition = new Vector2(BackGround_PlatformRect2.anchoredPosition.x + Width_Platform - scrollOffset, BackGround_PlatformRect2.anchoredPosition.y);
-            }
-            else
-            {
-                PlatformRect.anchoredPosition = new Vector2(BackGround_PlatformRect.anchoredPosition.x + Width_Platform- scrollOffset, BackGround_PlatformRect.anchoredPosition.y);
-            }
-        }
-    }
-
-    void MoveInfrontPlatform(GameObject InfrontPlatform)
-    {
-        RectTransform InfrontPlatformRect = InfrontPlatform.GetComponent<RectTransform>();
-        if (InfrontPlatformRect.anchoredPosition.x > -Width_Infront_Platform)
-        {
-            InfrontPlatformRect.anchoredPosition = new Vector2(InfrontPlatformRect.anchoredPosition.x - Infront_PlatformSpeed * 100 * Time.deltaTime, 0);
-        }
-        else
-        {
-            if(InfrontPlatform == Infront_Platform)
-            {
-                InfrontPlatformRect.anchoredPosition = new Vector2(Infront_PlatformRect2.anchoredPosition.x + Width_Infront_Platform - scrollOffset, 0);
-            }
-            else
-            {
-                InfrontPlatformRect.anchoredPosition = new Vector2(Infront_PlatformRect.anchoredPosition.x + Width_Infront_Platform- scrollOffset, 0);
-            }
-        }
-    }
 
 
 
 
 }
+
+
+
+
+    //[Header("배경 레이어 속도")]
+    //[SerializeField] private float BGScrollSpeed = 4;
+
+    //[Header("배경 앞 레이어 속도")]
+    //[SerializeField] private float BGInfrontSpeed = 6;
+
+    //[Header("배경 앞 앞 레이어 속도")]
+    //[SerializeField] private float BGInfrontInfrontSpeed = 6;
+
+    //[Header("배경 앞 앞 앞 레이어 속도")]
+    //[SerializeField] private float BGInfrontInfrontInfrontSpeed = 6;
+
+    //[Header("플랫폼 레이어 속도")]
+    //[SerializeField] private float PlatformSpeed = 7;
+
+    //[Header("플랫폼 앞 레이어 속도")]
+    //[SerializeField] private float Infront_PlatformSpeed = 6;
+
+
+
+
+
+
+//    [Header("배경 앞 레이어 속도")]
+//    public float InfrontSpeed = 4;
+
+//    [Header("플랫폼 레이어 속도")]
+//    public float PlatformSpeed = 7;
+
+//    [Header("플랫폼 앞 레이어 속도")]
+//    public float Infront_PlatformSpeed = 6;
+
+
+
+
+
+
+//    [Header("배경 이미지")]
+//    public GameObject BackGround;
+//    public GameObject BackGround2;
+//    public float Width_Back;
+//    //메인 뒷배경은 안움직이나??
+
+
+
+//    [Space(10f)]
+//    public GameObject BackGround_Infront;
+//    RectTransform Background_infrontRect;
+
+
+//    public GameObject BackGround_Infront2;
+//    RectTransform Background_infrontRect2;
+
+//    public float Width_Infront;
+
+//    [Space(10f)]
+//    public GameObject BackGround_Platform;
+//    RectTransform BackGround_PlatformRect;
+
+//    public GameObject BackGround_Platform2;
+//    RectTransform BackGround_PlatformRect2;
+
+//    public float Width_Platform;
+
+//    [Space(10f)]
+//    public GameObject Infront_Platform;
+//    RectTransform Infront_PlatformRect;
+
+//    public GameObject Infront_Platform2;
+//    RectTransform Infront_PlatformRect2;
+
+//    public float Width_Infront_Platform;
+
+
+
+//    [Space(10f)]
+//    [Header("피버 이미지")]
+
+//    public GameObject Fever_BackGround;
+//    RectTransform Fever_BackGroundRect;
+
+//    public GameObject Fever_BackGround2;
+//    RectTransform Fever_BackGround2Rect;
+
+//    public GameObject Fever_Infront;
+//    RectTransform Fever_InfrontRect;
+
+//    public GameObject Fever_Infront2;
+//    RectTransform Fever_Infront2Rect;
+
+//    public GameObject Fever_Infront_AnotherVer;
+//    public GameObject Fever_Infront_AnotherVer2;
+
+
+
+
+//    float BackSpeed = 5;
+
+
+//    float scrollOffset = 15;
+
+
+
+//    void InitializingRect()
+//    {
+//        Background_infrontRect = BackGround_Infront.GetComponent<RectTransform>();
+//        Background_infrontRect2 = BackGround_Infront2.GetComponent<RectTransform>();
+
+//        BackGround_PlatformRect = BackGround_Platform.GetComponent<RectTransform>();
+//        BackGround_PlatformRect2 = BackGround_Platform2.GetComponent<RectTransform>();
+
+
+//        Infront_PlatformRect = Infront_Platform.GetComponent<RectTransform>();
+//        Infront_PlatformRect2 = Infront_Platform2.GetComponent<RectTransform>();
+
+//        Fever_BackGroundRect = Fever_BackGround.GetComponent<RectTransform>();
+//        Fever_BackGround2Rect = Fever_BackGround2.GetComponent<RectTransform>();
+
+//        Fever_InfrontRect = Fever_Infront.GetComponent<RectTransform>();
+//        Fever_Infront2Rect = Fever_Infront2.GetComponent <RectTransform>();
+
+//    }
+
+
+
+
+//    private void Start()
+//    {
+
+//        //여기나 다른 곳에 이미지 스프라이트 심어주는 관련 기능 추가 예정
+
+//        InitializingRect();
+
+
+//        Width_Back = BackGround.GetComponent<RectTransform>().rect.width;
+//        Width_Infront = Background_infrontRect.rect.width;
+//        Width_Platform = BackGround_PlatformRect.rect.width;
+//        Width_Infront_Platform = Infront_PlatformRect.rect.width;
+
+
+//        BackGround2.transform.position = new Vector2(BackGround2.transform.position.x+ Width_Back,0);
+//        Background_infrontRect2.anchoredPosition = new Vector2(Background_infrontRect.anchoredPosition.x+ Width_Infront, Background_infrontRect.anchoredPosition.y);
+//        BackGround_PlatformRect2.anchoredPosition = new Vector2(BackGround_PlatformRect.anchoredPosition.x + Width_Platform, BackGround_PlatformRect.anchoredPosition.y);
+//        Infront_PlatformRect2.anchoredPosition = new Vector2(Infront_PlatformRect.anchoredPosition.x + Width_Infront_Platform, Infront_PlatformRect.anchoredPosition.y);
+
+
+//        //Fever_BackGroundRect.anchoredPosition = new Vector2(Fever_BackGroundRect.anchoredPosition.x +)
+//        Fever_BackGround2Rect.anchoredPosition = new Vector2(Fever_BackGround2Rect.anchoredPosition.x + Width_Back, 0);
+//        Fever_Infront2Rect.anchoredPosition = new Vector2(Fever_Infront2Rect.anchoredPosition.x + Width_Infront, 0);
+
+//    }
+
+//    private void FixedUpdate()
+//    {
+//        //UI로 맵스크롤 하는게 맞나?
+
+//        MoveBackground(Fever_BackGround);
+//        MoveBackground(Fever_BackGround2);
+
+//        MoveInfrontBackground(Fever_Infront);
+//        MoveInfrontBackground(Fever_Infront2);
+
+
+
+
+
+
+//        MoveInfrontBackground(BackGround_Infront);
+//        MoveInfrontBackground(BackGround_Infront2);
+
+//        MovePlatform(BackGround_Platform);
+//        MovePlatform(BackGround_Platform2);
+
+//        MoveInfrontPlatform(Infront_Platform);
+//        MoveInfrontPlatform(Infront_Platform2);
+
+
+
+
+//    }
+
+
+
+
+
+//    //약간의 딜레이가 있어서 오프셋 정도로 10 더 빼줌
+
+
+//    void MoveBackground(GameObject back)
+//    {
+//        RectTransform backRect = back.GetComponent<RectTransform>();
+//        if(backRect.anchoredPosition.x >= -Width_Back)
+//        {
+//            //아직 수정 안됨 배경이 스크롤 되는지 안되는지 판단 못함
+//            backRect.anchoredPosition = new Vector2(backRect.anchoredPosition.x - 300* Time.deltaTime, backRect.anchoredPosition.y);
+//        }
+//        else
+//        {
+
+//            if (back == Fever_BackGround)
+//            {
+//                backRect.anchoredPosition = new Vector2(Fever_BackGround2Rect.anchoredPosition.x + Width_Back - scrollOffset, backRect.anchoredPosition.y);
+//            }
+//            else
+//            {
+//                backRect.anchoredPosition = new Vector2(Fever_BackGroundRect.anchoredPosition.x + Width_Back - scrollOffset, backRect.anchoredPosition.y);
+//            }
+
+
+
+//        }
+
+//    }    
+
+//    void MoveInfrontBackground(GameObject InfrontBack)
+//    {
+//        RectTransform InfrontBackRect = InfrontBack.GetComponent<RectTransform>();
+
+//        if (InfrontBackRect.anchoredPosition.x > -Width_Infront)
+//        {
+//            InfrontBackRect.anchoredPosition = new Vector2(InfrontBackRect.anchoredPosition.x - InfrontSpeed*100 * Time.deltaTime, InfrontBackRect.anchoredPosition.y);
+//        }
+//        else
+//        {
+//            if(InfrontBack == BackGround_Infront)
+//            {
+//                InfrontBackRect.anchoredPosition = new Vector2(Background_infrontRect2.anchoredPosition.x + Width_Infront - scrollOffset, Background_infrontRect2.anchoredPosition.y);
+//            }
+//            else if (InfrontBack == BackGround_Infront2)
+//            {
+//                InfrontBackRect.anchoredPosition = new Vector2(Background_infrontRect.anchoredPosition.x + Width_Infront- scrollOffset, Background_infrontRect.anchoredPosition.y);
+//            }
+
+//            if(InfrontBack == Fever_Infront)
+//            {
+//                InfrontBackRect.anchoredPosition = new Vector2(Fever_Infront2Rect.anchoredPosition.x + Width_Infront - scrollOffset, Fever_InfrontRect.anchoredPosition.y);
+//            }
+//            else if (InfrontBack == Fever_Infront2)
+//            {
+//                InfrontBackRect.anchoredPosition = new Vector2(Fever_InfrontRect.anchoredPosition.x + Width_Infront - scrollOffset, Fever_InfrontRect.anchoredPosition.y);
+//            }
+
+
+
+
+//        }
+//    }
+
+//    void MovePlatform(GameObject Platform)
+//    {
+//        RectTransform PlatformRect = Platform.GetComponent<RectTransform>();
+
+//        if (PlatformRect.anchoredPosition.x > -Width_Platform)
+//        {
+//            PlatformRect.anchoredPosition = new Vector2(PlatformRect.anchoredPosition.x - PlatformSpeed * 100 * Time.deltaTime, PlatformRect.anchoredPosition.y);
+//        }
+//        else
+//        {
+//            if(Platform == BackGround_Platform)
+//            {
+//                PlatformRect.anchoredPosition = new Vector2(BackGround_PlatformRect2.anchoredPosition.x + Width_Platform - scrollOffset, BackGround_PlatformRect2.anchoredPosition.y);
+//            }
+//            else
+//            {
+//                PlatformRect.anchoredPosition = new Vector2(BackGround_PlatformRect.anchoredPosition.x + Width_Platform- scrollOffset, BackGround_PlatformRect.anchoredPosition.y);
+//            }
+//        }
+//    }
+
+//    void MoveInfrontPlatform(GameObject InfrontPlatform)
+//    {
+//        RectTransform InfrontPlatformRect = InfrontPlatform.GetComponent<RectTransform>();
+//        if (InfrontPlatformRect.anchoredPosition.x > -Width_Infront_Platform)
+//        {
+//            InfrontPlatformRect.anchoredPosition = new Vector2(InfrontPlatformRect.anchoredPosition.x - Infront_PlatformSpeed * 100 * Time.deltaTime, 0);
+//        }
+//        else
+//        {
+//            if(InfrontPlatform == Infront_Platform)
+//            {
+//                InfrontPlatformRect.anchoredPosition = new Vector2(Infront_PlatformRect2.anchoredPosition.x + Width_Infront_Platform - scrollOffset, 0);
+//            }
+//            else
+//            {
+//                InfrontPlatformRect.anchoredPosition = new Vector2(Infront_PlatformRect.anchoredPosition.x + Width_Infront_Platform- scrollOffset, 0);
+//            }
+//        }
+//    }
+
+
+
+
+//}

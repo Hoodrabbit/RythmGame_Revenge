@@ -73,6 +73,10 @@ public class Judgement : MonoBehaviour
 
     public GameObject note;
 
+
+    public SharedNoteList sharedList;
+
+
     public List<Note> notes;
     Note LongNote;
 
@@ -110,6 +114,10 @@ public class Judgement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sharedList = PlayManager.Instance.GetComponent<SharedNoteList>();
+        notes = sharedList.GetNoteList(transform.position.y);
+
+
         audioSource = GetComponent<AudioSource>();
         ActivatingParticle = GetComponent<HitParticlePooling>();
         //Debug.Log("PlayTime : " + PlayTime);
@@ -187,6 +195,7 @@ public class Judgement : MonoBehaviour
                             BossNote.HitAction?.Invoke();
                             audioSource.Play();
                             PlayManager.Instance.HitNote(note);
+                            sharedList.DeleteBossNote();
                             NantaHit?.Invoke();
                             notes.Remove(note);
                         }
@@ -469,5 +478,13 @@ public class Judgement : MonoBehaviour
             }
 
         }
+
+        if(collision.gameObject.CompareTag("Boss"))
+        {
+            
+        }
+
+
+
     }
 }

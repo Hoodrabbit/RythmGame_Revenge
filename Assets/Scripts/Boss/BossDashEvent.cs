@@ -10,7 +10,7 @@ public class BossDashEvent : NoteEventScript
     SpriteRenderer spriteRenderer;
     public Sprite bossSprite;
 
-    bool IsTrigger = false;
+    public bool IsTrigger = false;
 
     public bool Hit = false;
     float Songtime_value;
@@ -31,18 +31,6 @@ public class BossDashEvent : NoteEventScript
         {
             if (!Hit)
             {
-
-                //Debug.Log("타격 실패");
-                //boss.Turnback();
-
-                //if (boss != null && CheckGetOutofCamera())
-                //{
-                //    //보스 상태 해제
-                //    boss.VisualizeBoss();
-                //   // boss.Appear();
-
-                //    IsTrigger = true;
-                //}
             }
             else
             {
@@ -130,15 +118,13 @@ public class BossDashEvent : NoteEventScript
         ContactPoint2D contact = collision.GetContact(0);
         Vector2 collisionPoint = contact.point;
 
-        //if (collisionPoint.x < transform.position.x)
-        //{
-        //    Debug.Log("왼쪽에서 충돌");
-        //}
+
+        //플레이 씬에서만 작동
         if (collisionPoint.x > transform.position.x && collision.gameObject.CompareTag("Judgement"))
         {
             Debug.Log("오른쪽에서 충돌");
             boss.Turnback();
-
+            Used = false;
         }
     }
 

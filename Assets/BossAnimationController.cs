@@ -45,7 +45,7 @@ public class BossAnimationController : MonoBehaviour
     public void OperatingVisaulize()
     {
         BossNormalState.SetBool("Disable", BossAnimator.GetBool("GetOut"));
-
+        BossAnimator.SetBool("GetOut", BossAnimator.GetBool("GetOut"));
 
         //비활성화 상태로 전환 보스는 뒤로 물러나는 연출을 선보임
     }
