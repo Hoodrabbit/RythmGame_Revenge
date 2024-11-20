@@ -159,7 +159,7 @@ public class PlayManager : Singleton<PlayManager>
 
     public void HoldingLongNote()
     {
-        scoresystem.IncreaseScore(10);
+        scoresystem.IncreaseScore(20);
     }
 
 

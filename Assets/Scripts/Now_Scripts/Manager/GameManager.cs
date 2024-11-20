@@ -301,6 +301,11 @@ public class GameManager : Singleton<GameManager>
         songStatus.Increase_Miss();
     }
 
+    public float GetAccuracy()
+    {
+        float value = songStatus.Perfect / (songStatus.Perfect + songStatus.Miss + songStatus.Great);
+        return value;
+    }
 
 
 

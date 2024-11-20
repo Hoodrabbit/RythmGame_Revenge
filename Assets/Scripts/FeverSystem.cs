@@ -89,7 +89,7 @@ public class FeverSystem : Singleton<FeverSystem>
         //피버 오브젝트 OFF
 
 
-        FeverBackGround.GetComponent<Animator>().SetTrigger(1);
+        //FeverBackGround.GetComponent<Animator>().SetTrigger(1);
         FeverBackGround.SetActive(false);
         IsFever = false;
 

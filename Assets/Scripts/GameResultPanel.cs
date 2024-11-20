@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 
 public class GameResultPanel : MonoBehaviour
@@ -11,7 +12,14 @@ public class GameResultPanel : MonoBehaviour
 
     public Text Score;
     public Text Combo;
-    public Text etc; //Perfect, Great, Good, Miss 이런 것들 텍스트로 나타내줄 예정 한번에 여러개 하면 좋을 듯 함
+    //public Text etc; //Perfect, Great, Good, Miss 이런 것들 텍스트로 나타내줄 예정 한번에 여러개 하면 좋을 듯 함
+
+    public Text Perfect;
+    public Text Great;
+    public Text Miss;
+    public Text HighScore;
+    public Text Accuracy;
+
 
 
     // Start is called before the first frame update
@@ -23,6 +31,13 @@ public class GameResultPanel : MonoBehaviour
             ArtistName.text = GameManager.Instance.musicInfo.Artist_Name.ToString();
             Score.text = GameManager.Instance.GetScore().ToString();
             Combo.text = GameManager.Instance.GetCombo().ToString();
+
+            Perfect.text = GameManager.Instance.songStatus.Perfect.ToString();
+            Great.text = GameManager.Instance.songStatus.Great.ToString();
+            Miss.text = GameManager.Instance.songStatus.Miss.ToString();
+            //HighScore.text = GameManager.Instance.songStatus.Score.ToString();
+
+            Accuracy.text = GameManager.Instance.GetAccuracy().ToString("P2");
 
             SongStatusManager.instance.SaveGameResult();
         }

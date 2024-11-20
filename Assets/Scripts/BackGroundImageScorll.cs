@@ -67,6 +67,23 @@ public class BackGroundImageScorll : MonoBehaviour
 
         }
 
+        foreach(var layer in Feverlayers)
+        {
+
+            layer.backgrounds[0].localPosition = new Vector3(layer.backgrounds[0].localPosition.x - layer.scrollSpeed * Time.deltaTime, layer.backgrounds[0].localPosition.y);
+            layer.backgrounds[1].localPosition = new Vector3(layer.backgrounds[1].localPosition.x - layer.scrollSpeed * Time.deltaTime, layer.backgrounds[0].localPosition.y);
+
+            if (layer.backgrounds[0].localPosition.x <= layer.ResetXpos)
+            {
+                layer.backgrounds[0].localPosition = new Vector3(layer.StartXpos - layer.scrollSpeed * Time.deltaTime, layer.backgrounds[0].localPosition.y);
+            }
+            if (layer.backgrounds[1].localPosition.x <= layer.ResetXpos)
+            {
+                layer.backgrounds[1].localPosition = new Vector3(layer.StartXpos - layer.scrollSpeed * Time.deltaTime, layer.backgrounds[1].localPosition.y);
+            }
+
+        }
+
 
 
     }

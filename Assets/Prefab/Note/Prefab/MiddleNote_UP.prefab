@@ -66,6 +66,7 @@ MonoBehaviour:
   MelodyObj: {fileID: 8425534246739668587}
   NowNoteSize: 1
   MonsterAnimator: {fileID: 5587528543725685533}
+  MeleodyTypeAnimator: {fileID: 8197651200866348004}
 --- !u!58 &2436928327631557673
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -157,6 +158,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9085290446379870958}
     m_Modifications:
+    - target: {fileID: 3689375838159731862, guid: 570d2a7555c20744292f35f163a4c55b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6796072760531398550, guid: 570d2a7555c20744292f35f163a4c55b, type: 3}
       propertyPath: m_Name
       value: MiddleNote_Up
@@ -214,6 +219,11 @@ Transform:
 --- !u!95 &5587528543725685533 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1115274268842269807, guid: 570d2a7555c20744292f35f163a4c55b, type: 3}
+  m_PrefabInstance: {fileID: 4823535050930394994}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8197651200866348004 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3689375838159731862, guid: 570d2a7555c20744292f35f163a4c55b, type: 3}
   m_PrefabInstance: {fileID: 4823535050930394994}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &8425534246739668587 stripped

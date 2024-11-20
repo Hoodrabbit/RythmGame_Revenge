@@ -48,7 +48,7 @@ public class Note : MonoBehaviour
     public bool EventActivate = false;
 
     protected bool StartSong = false;
-    bool AlreadyHit = false;
+    public bool AlreadyHit = false;
     bool StopNote = false;
 
 
@@ -338,8 +338,13 @@ public class Note : MonoBehaviour
 
     public void HitNote()
     {
-        //AlreadyHit = true;
+        AlreadyHit = true;
         gameObject.SetActive(false);
+    }
+
+    public void LongHit()
+    {
+        AlreadyHit=true;
     }
 
     public void MissNote()

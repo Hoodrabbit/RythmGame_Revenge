@@ -233,6 +233,7 @@ public class Judgement : MonoBehaviour
                             longnoteTime = 0;
                             longnotePress = true;
                             LongNote = note;
+                            LongNote.LongHit();
                             HoldingEvent?.Invoke(HEIGHT);
                             Instantiate_JudgeText(offsetValue);
                             //songtimes.Add(GameManager.Instance.MainAudio.time);
@@ -244,6 +245,7 @@ public class Judgement : MonoBehaviour
                     }
                     else
                     {
+                        Miss();
                         note.MissNote();
                         GameManager.Instance.Increase_Miss();
                         //audioSource.Stop();
@@ -307,7 +309,7 @@ public class Judgement : MonoBehaviour
                 HoldingEndEvent?.Invoke(HEIGHT);
                 //notes.Remove(LongNote);
 
-
+                Miss();
                 GameManager.Instance.Increase_Miss();
 
 
@@ -356,11 +358,40 @@ public class Judgement : MonoBehaviour
 
     }
 
+    public void Miss()
+    {
+        TMP_Text judgetext = Instantiate(JudgeText, Vector2.zero, Quaternion.identity, transform.GetComponentInChildren<Canvas>().gameObject.transform).GetComponent<TMP_Text>();
+        judgetext.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 100);
+        Color32 color_UP = HexToColor32("#bcbbbf");
+        Color32 color_Down = HexToColor32("#bcbbbf");
+        VertexGradient gradient = judgetext.colorGradient;
+
+        gradient.topLeft = color_UP;
+        gradient.topRight = color_UP;
+        gradient.bottomLeft = color_Down;
+        gradient.bottomRight = color_Down;
+
+        // 변경된 ColorGradient 적용
+        judgetext.colorGradient = gradient;
+        judgetext.text = "Miss";
+    }
+
+
     public void HoldingText()
     {
         TMP_Text judgetext = Instantiate(JudgeText, Vector2.zero, Quaternion.identity, transform.GetComponentInChildren<Canvas>().gameObject.transform).GetComponent<TMP_Text>();
         judgetext.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 100);
+        Color32 color_UP = HexToColor32("#fbbe1f");
+        Color32 color_Down = HexToColor32("#fa4e03");
+        VertexGradient gradient = judgetext.colorGradient;
 
+        gradient.topLeft = color_UP;
+        gradient.topRight = color_UP;
+        gradient.bottomLeft = color_Down;
+        gradient.bottomRight = color_Down;
+
+        // 변경된 ColorGradient 적용
+        judgetext.colorGradient = gradient;
         judgetext.text = "Holdling";
 
     }
@@ -369,6 +400,19 @@ public class Judgement : MonoBehaviour
     {
         TMP_Text judgetext = Instantiate(JudgeText, Vector2.zero, Quaternion.identity, transform.GetComponentInChildren<Canvas>().gameObject.transform).GetComponent<TMP_Text>();
         judgetext.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 100);
+
+        Color32 color_UP = HexToColor32("#9229ec");
+        Color32 color_Down = HexToColor32("#5e12f9");
+        VertexGradient gradient = judgetext.colorGradient;
+
+        gradient.topLeft = color_UP;
+        gradient.topRight = color_UP;
+        gradient.bottomLeft = color_Down;
+        gradient.bottomRight = color_Down;
+
+        // 변경된 ColorGradient 적용
+        judgetext.colorGradient = gradient;
+
 
         judgetext.text = "Hit";
     }
@@ -387,13 +431,27 @@ public class Judgement : MonoBehaviour
             //정확한 판정을 켰을 경우
             if (f_time <= 0.04)
             {
+
+
+                Color32 Left_UP = HexToColor32("#FC0174");
+                Color32 Right_Up = HexToColor32("#B034E4");
+                Color32 Left_Down = HexToColor32("#8EA5FEFF");
+                Color32 Right_Down = HexToColor32("#0070E0FF");
+                VertexGradient gradient = judgetext.colorGradient;
+
+                gradient.topLeft = Left_UP;
+                gradient.topRight = Right_Up;
+                gradient.bottomLeft = Left_Down;
+                gradient.bottomRight = Right_Down;
+
+                // 변경된 ColorGradient 적용
+                judgetext.colorGradient = gradient;
+
+
+
                 judgetext.text = "Perfect";
 
                 GameManager.Instance.Increase_Perfect();
-
-
-                //Debug.Log("Perfect");
-
             }
 
             //return true;
@@ -401,6 +459,25 @@ public class Judgement : MonoBehaviour
 
             else if (f_time > 0.04)
             {
+
+                Color32 Left_UP = HexToColor32("#0047b1");
+                Color32 Right_Up = HexToColor32("#0047b1");
+                Color32 Left_Down = HexToColor32("#00b6f9");
+                Color32 Right_Down = HexToColor32("#00b6f9");
+                VertexGradient gradient = judgetext.colorGradient;
+
+                gradient.topLeft = Left_UP;
+                gradient.topRight = Right_Up;
+                gradient.bottomLeft = Left_Down;
+                gradient.bottomRight = Right_Down;
+
+                // 변경된 ColorGradient 적용
+                judgetext.colorGradient = gradient;
+
+
+
+
+
                 judgetext.text = "Great";
                 GameManager.Instance.Increase_Great();
             }
@@ -431,7 +508,14 @@ public class Judgement : MonoBehaviour
 
     }
 
-
+    Color32 HexToColor32(string hex)
+    {
+        hex = hex.Replace("#", "");
+        byte r = byte.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+        byte g = byte.Parse(hex.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
+        byte b = byte.Parse(hex.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
+        return new Color32(r, g, b, 255);
+    }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -472,12 +556,22 @@ public class Judgement : MonoBehaviour
         //Note note_hitcheck;
         if (collision.gameObject.CompareTag("Note"))
         {
+            Note note_hitcheck = collision.gameObject.GetComponent<Note>();
 
+            if(note_hitcheck != null) 
+            {
+                if (!collision.GetComponent<Note>().GetAlreadyHit())
+                {
+                    Miss();
+                }
+            }
+            
+            
             if (notes.Count > 0)
             {
                 notes.RemoveAt(0);
             }
-
+           
         }
 
         if(collision.gameObject.CompareTag("Boss"))

@@ -9,6 +9,8 @@ public class NormalNote : Note
     public NormalNoteType NowNoteSize;
 
     public Animator MonsterAnimator;
+    public Animator MeleodyTypeAnimator;
+
 
 
     bool event_On = false;
@@ -43,12 +45,12 @@ public class NormalNote : Note
 
 
 
-        if (transform.position.x <= 20 && !event_On)
+        if (transform.position.x <= 40 && !event_On)
         {
             event_On = true;
 
             MonsterAnimator.enabled = true;
-
+            MeleodyTypeAnimator.enabled = true;
 
             Determining_NoteCurve();
             

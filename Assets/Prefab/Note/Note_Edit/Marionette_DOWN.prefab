@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1863733135
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 20a559add7c53a743ab1ac712e2e8e25, type: 3}
   m_Color: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
@@ -164,9 +164,9 @@ MonoBehaviour:
   ID: 11
   TypeNum: 6
   eventType: 0
-  score: 0
-  fever_Count: 0
-  HP: 0
+  score: 400
+  fever_Count: 4
+  HP: 40
   speed: 0
   SongTime: 0
   AudioTime: 0
@@ -176,4 +176,3 @@ MonoBehaviour:
   xpos: 0
   ypos: 0
   EventActivate: 0
-  fakeNote: {fileID: 6116192689280219325, guid: 86e958e5a10698f489e76ec6a22144d1, type: 3}

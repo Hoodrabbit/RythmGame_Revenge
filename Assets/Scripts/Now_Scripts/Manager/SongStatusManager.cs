@@ -77,7 +77,7 @@ public class SongStatusManager : MonoBehaviour
     protected void Awake()
     {
         instance = this;
-       
+        
 
     }
 
@@ -102,12 +102,37 @@ public class SongStatusManager : MonoBehaviour
 
             StreamWriter writer = File.CreateText(songStatsDataPath);
 
+            SongStat songStat = new SongStat();
+
+
+            try
+            {
+                using (StreamReader reader = new StreamReader(songStatsDataPath))
+                {
+                    // 한 줄씩 읽어서 각 변수에 할당
+                    songStat.Score = int.Parse(reader.ReadLine());
+
+                    //GameManager.Instance.SetSongStat(songStat);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error loading data: " + ex.Message);
+            }
+
+            if(GameManager.Instance.songStatus.Score > songStat.Score)
+            {
+                writer.WriteLine(GameManager.Instance.songStatus.Score);
+                writer.WriteLine(GameManager.Instance.songStatus.Combo);
+                writer.WriteLine(GameManager.Instance.songStatus.Perfect);
+                writer.WriteLine(GameManager.Instance.songStatus.Great);
+                writer.WriteLine(GameManager.Instance.songStatus.Miss);
+                writer.WriteLine(GameManager.Instance.GetAccuracy());
+            }
+
             //writer.WriteLine(GameManager.Instance.songStatus);
-            writer.WriteLine(GameManager.Instance.songStatus.Score);
-            writer.WriteLine(GameManager.Instance.songStatus.Combo);
-            writer.WriteLine(GameManager.Instance.songStatus.Perfect);
-            writer.WriteLine(GameManager.Instance.songStatus.Great);
-            writer.WriteLine(GameManager.Instance.songStatus.Miss);
+           
 
 
             writer.Close();
@@ -126,7 +151,7 @@ public class SongStatusManager : MonoBehaviour
             fileWriter.WriteLine(GameManager.Instance.songStatus.Perfect);
             fileWriter.WriteLine(GameManager.Instance.songStatus.Great);
             fileWriter.WriteLine(GameManager.Instance.songStatus.Miss);
-
+            fileWriter.WriteLine(GameManager.Instance.GetAccuracy());
             fileWriter.Close();
         }
 
@@ -151,6 +176,7 @@ public class SongStatusManager : MonoBehaviour
                 songStat.Perfect = int.Parse(reader.ReadLine());
                 songStat.Great = int.Parse(reader.ReadLine());
                 songStat.Miss = int.Parse(reader.ReadLine());
+                songStat.Accuracy = int.Parse(reader.ReadLine());
             }
 
             GameManager.Instance.SetSongStat(songStat);
