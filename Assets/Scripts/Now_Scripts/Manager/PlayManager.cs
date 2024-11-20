@@ -95,41 +95,41 @@ public class PlayManager : Singleton<PlayManager>
     public void PlayScene_EventMaker(float xpos, int height, int eventType, double songtime)
     {
 
-        Debug.Log("실행됨 : " + eventType); 
+        //Debug.Log("실행됨 : " + eventType); 
 
         switch (eventType)
         {
             
 
             case 1:
-                Debug.Log("노트 생성 바깥쪽");
+                //Debug.Log("노트 생성 바깥쪽");
                 NoteSpawnOutsideEvent(xpos, height, eventType, songtime);
                 break;
 
             case 2:
-                Debug.Log("노트 생성 바깥쪽 역순");
+                //Debug.Log("노트 생성 바깥쪽 역순");
                 NoteSpawnOutsideReverseEvent(xpos, height, eventType, songtime);
 
                 break;
 
 
             case 3:
-                Debug.Log("이벤트 종료");
+                //Debug.Log("이벤트 종료");
                 EndEventNote(xpos, height, eventType, songtime);
                 break;
 
 
             case 100:
-                Debug.Log("출현노트 ");
+                //Debug.Log("출현노트 ");
                 BossAppearNote(xpos, height, eventType, songtime);
                 break;
 
             case 101:
-                Debug.Log("퇴장노트 ");
+                //Debug.Log("퇴장노트 ");
                 BossDisappearNote(xpos, height, eventType, songtime);
                 break;
             case 102:
-                Debug.Log("돌진노트 ");
+                //Debug.Log("돌진노트 ");
                 BossDashNote(xpos, height, eventType, songtime);
                 break;
 

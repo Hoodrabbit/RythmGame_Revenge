@@ -21,15 +21,30 @@ public struct BackGroundLayer
 
 public class BackGroundImageScorll : MonoBehaviour
 {
+
+
+    [Header("일반")]
     public List<BackGroundLayer> layers = new List<BackGroundLayer>();
+
+
+    [Header("피---버")]
+    public List<BackGroundLayer> Feverlayers = new List<BackGroundLayer>();
+
+
 
     private void Start()
     {
         foreach (var layer in layers)
         {
-            Debug.Log("layer.StartXpos : " + layer.StartXpos);
+            //Debug.Log("layer.StartXpos : " + layer.StartXpos);
             layer.backgrounds[1].localPosition = new Vector3(0+layer.StartXpos, layer.backgrounds[1].transform.localPosition.y);
         }
+
+        foreach(var layer in Feverlayers)
+        {
+            layer.backgrounds[1].localPosition = new Vector3(0 + layer.StartXpos, layer.backgrounds[1].transform.localPosition.y);
+        }
+
     }
 
     private void Update()

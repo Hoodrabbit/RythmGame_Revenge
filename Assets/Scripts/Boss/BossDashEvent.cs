@@ -10,6 +10,9 @@ public class BossDashEvent : NoteEventScript
     SpriteRenderer spriteRenderer;
     public Sprite bossSprite;
 
+    Note note;
+
+
     public bool IsTrigger = false;
 
     public bool Hit = false;
@@ -19,7 +22,7 @@ public class BossDashEvent : NoteEventScript
     protected override void Start()
     {
         base.Start();
-       
+        note = GetComponent<Note>();
     }
 
 
@@ -34,7 +37,7 @@ public class BossDashEvent : NoteEventScript
             }
             else
             {
-              
+                    
 
                     boss_Real.transform.parent = null;
 
@@ -59,58 +62,11 @@ public class BossDashEvent : NoteEventScript
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Boss")
+        if(collision.CompareTag("BossEventConverter"))
         {
-
-            Debug.Log("보스 체크");
-
-
-            if (!IsTrigger && !Used)
-            {
-                //보스 오브젝트에 돌진을 하라는 신호를 보냄
-                boss = collision.GetComponent<BossMonster>();
-
-
-                Songtime_value = (float)GetComponent<Note>().SongTime;
-                //Audiotime_value = (float)GetComponent<Note>().AudioTime;
-                boss.BossDash(transform,Songtime_value);
-
-                Used = true;
-
-                //boss_Real = boss.gameObject;
-
-                //boss_Real.transform.parent = transform;
-                ////boss_Real.transform.position = Vector3.zero;
-                //bossSprite = boss.GetComponent<SpriteRenderer>().sprite;
-
-                //spriteRenderer.sprite = bossSprite;
-                //IsTrigger = true;
-            }
-            else
-            {
-                //역방향으로 노트가 이동하는 중일테고 
-                //보스 콜라이더와 닿으면 
-            }
-
-
-            //anim
-
-
-
-            //collision.transform.parent = transform;
-            //collision.transform.localPosition = Vector3.zero;
-        }
-
-        if (collision.tag == "Judgement")
-        {
-            //Debug.Log("닿음");
-          //  boss.Turnback();
-            //어느 방향에서 닿았는지 체크해서 적용을 시킬지 안 시킬지 정하면 될 것 같음
-
-
-        }
-
-
+            Debug.Log("할당");
+            collision.GetComponent<BossStateQueue>().EnqueueInBossQueue(transform, (float)note.SongTime);
+        }   
     }
 
     void OnCollisionEnter2D(Collision2D collision)

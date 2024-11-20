@@ -151,7 +151,7 @@ public class PlayerAnimationController : MonoBehaviour
         {
             //addforce impulse
             //PlayerRigid.AddForce(Vector2.up*10, ForceMode2D.Impulse);
-            Debug.Log("점프 작동 확인");
+            //Debug.Log("점프 작동 확인");
             //SwordJumpMotion();
             PlayerRigid.velocity = Vector2.zero;
             transform.position = UpPos;

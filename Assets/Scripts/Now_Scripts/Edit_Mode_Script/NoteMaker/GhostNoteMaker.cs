@@ -84,7 +84,7 @@ public class GhostNoteMaker : NoteMakerBase
 
                     if (Pos.y > 0)
                     {
-                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, EditManager.UP + 2, NoteType, 0, (double)RealXpos / GameManager.Instance.speed));
+                        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, EditManager.UP, NoteType, 0, (double)RealXpos / GameManager.Instance.speed));
                     }
                     else
                     {

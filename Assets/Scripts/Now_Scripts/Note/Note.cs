@@ -288,6 +288,7 @@ public class Note : MonoBehaviour
 
     public int GetHeight()
     {
+        
         switch (Height)
         {
             case NoteHeight.UP:
@@ -567,6 +568,7 @@ public class Note : MonoBehaviour
     //반대로 오는 노트도 있기 때문에 해당 타입이었던 경우 위치 변경 전 타입을 체크해서 위치를 설정해주도록 해야 함
     void ChangeHeight(/*bool reverseCheck*/)
     {
+        
         //if(!reverseCheck) //이전 상태가 노트 반전화가 아니었을 경우
         //{
         switch (eventType)

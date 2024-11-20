@@ -25,6 +25,7 @@ TagManager:
   - BackGround_Platform
   - BackGround_Infront_Platform
   - Judgement
+  - BossEventConverter
   - NoteEnd
   layers:
   - Default
@@ -36,7 +37,7 @@ TagManager:
   - Player
   - Damaged
   - Monster
-  - 
+  - MainUI
   - 
   - 
   - 
@@ -75,9 +76,9 @@ TagManager:
   - name: Boss
     uniqueID: 4279421187
     locked: 0
-  - name: UI
-    uniqueID: 626425845
-    locked: 0
   - name: Player
     uniqueID: 315523103
+    locked: 0
+  - name: UI
+    uniqueID: 626425845
     locked: 0

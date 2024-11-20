@@ -5,44 +5,49 @@ using UnityEngine;
 
 public class BossMonster : Note
 {
+    [Header("보스 돌진 상태 전 전조 애니메이션 시간")]
+    public float DelayTime = 0;
+    [Space(30f)]
+
+
     public bool Trigger = false;
     CircleCollider2D bossCollider;
-    //SpriteRenderer spriteRenderer;
 
     public bool Hit = true;
+
+    bool DashHit = false;
+
+
     float MaxTime = 0.3f;
-    //일단 노트화 시켜서 다른 노트처럼 똑같이 움직이되 보스가 나오는 
     float TTime = 0;
-    Vector2 startpos;
+    public Vector2 startpos;
     public Vector2 endpos;
 
-    Coroutine DashCoroutine;
-    Coroutine TurnBack_SuccessCoroutine;
-    Coroutine TurnBack_FailCoroutine;
+    BossStateQueue BossState;
+
 
     public Action HitAction;
 
-    BossAnimationController bossAnimation;
+    public BossAnimationController bossAnimation;
 
-    //Animator Boss_animator;
 
     protected override void Awake()
     {
-        //base.Awake();
+        Debug.Log(transform.position);
         bossAnimation = GetComponent<BossAnimationController>();
+        BossState = FindObjectOfType<BossStateQueue>();
     }
 
     protected override void Start()
     {
+        GameManager.Instance.BossAppear = false;
+
         DataManager.Instance.eventManager.RefreshNoteEvent += EventChangeMethod;
 
 
         bossCollider = GetComponent<CircleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         startpos = transform.position;
-        //endpos = new Vector2(GameManager.Instance.GetBPS() * 30, transform.position.y);
-        //endpos = new Vector3(25, 1);
-
         HitAction += HitCheck;
 
     }
@@ -52,9 +57,6 @@ public class BossMonster : Note
     protected override void FixedUpdate()
     {
         //보스만의 특별한 기능
-
-
-
     }
 
     public void Appear()
@@ -75,7 +77,7 @@ public class BossMonster : Note
     {
        
         TTime = 0;
-        GameManager.Instance.BossAppear = true;
+        
         bossCollider.isTrigger = true;
         while (TTime <= MaxTime)
         {
@@ -85,7 +87,12 @@ public class BossMonster : Note
             transform.position =Vector3.Lerp(startpos, endpos, t);
             yield return null;
         }
-
+        transform.position = endpos;
+        GameManager.Instance.BossAppear = true;
+        if(BossState.IsBossQueueExist())
+        {
+            BossState.StartDash();
+        }
         Debug.Log("출현");
 
         
@@ -110,15 +117,9 @@ public class BossMonster : Note
         GameManager.Instance.BossAppear = false;
     }
 
-    //노래 시간을 가져오도록 해서 현재 음악의 재생 시간과 전달받은 시간동안 내 움직이도록
     public void BossDash(Transform DashEvent, float songTime)
     {
-        bossAnimation.BossAnimator.SetBool("Dash", true);
-        //xpos - GameManager.Instance.speed * (float)(AudioSettings.dspTime - AudioTime)
         StartCoroutine(Dash(DashEvent, songTime));
-
-        //만약 노래의 시간을 초과했는데 히트 체크가 되지 않았다면 플레이어를 공격하면서 다시 뒤로 돌아오도록 만들면 좋을 것 같음
-        //색변화 취소 
     }
 
     public void VisualizeBoss()
@@ -134,7 +135,9 @@ public class BossMonster : Note
     //보스
     IEnumerator Dash(Transform DashEvent, float songTime)
     {
-        
+        Hit = false;
+
+
         TTime = 0;
         SongTime = songTime;
 
@@ -143,66 +146,123 @@ public class BossMonster : Note
 
         float actualMoveTime = (float)SongTime - GameManager.Instance.MainAudio.time;
 
-        float waitTime = actualMoveTime * 0.9f;
+        float waitTime = actualMoveTime * DelayTime;
 
-        float actionTime = actualMoveTime * 0.1f;
+        float actionTime = actualMoveTime * (1- DelayTime);
         
         float elapsedTime = 0;
-        
-        
-        if (actualMoveTime > 0) 
+
+
+
+
+        if (actualMoveTime >1.5f)
         {
-            Debug.Log(1);
+            bossAnimation.PlayDashAniStart();
 
-
-            while (elapsedTime < waitTime)
+            Debug.Log("1111대쉬" + DashEvent.position + " . " + SongTime + " , " + GameManager.Instance.MainAudio.time);
+            if (actualMoveTime > 0)
             {
-                float t = elapsedTime / waitTime;
+                Debug.Log(1);
 
-                //if (t >= 0.7f)
-                //{
-                //    //spriteRenderer.color = Color.red;
-                //}
-                elapsedTime += Time.deltaTime;
-                yield return null;
+                while (elapsedTime < waitTime)
+                {
+                    float t = elapsedTime / waitTime;
+
+                    if (t >= 0.7f)
+                    {
+                        //spriteRenderer.color = Color.red;
+                    }
+                    elapsedTime += Time.deltaTime;
+                    yield return null;
+
+                }
+                bossAnimation.PlayDashAniEnd();
+                elapsedTime = 0;
+                while (elapsedTime < actionTime)
+                {
+                    float t = elapsedTime / actionTime;
+                    transform.position = Vector2.Lerp(startpos, new Vector3(0, startpos.y), t);
+
+                    elapsedTime += Time.deltaTime;
+                    yield return null;
+                }
 
             }
-            //spriteRenderer.color = Color.red;
-
-            elapsedTime = 0;
-            while (elapsedTime < actionTime)
+            else
             {
-                float t = elapsedTime / actionTime;
-                transform.position = Vector2.Lerp(startpos, new Vector3(0, startpos.y), t);
+                Debug.Log(2);
+                while (elapsedTime <= actualMoveTime)
+                {
+                    float t = elapsedTime / actualMoveTime;
+                    transform.position = Vector2.Lerp(startpos, new Vector3(0, startpos.y), t);
 
-                elapsedTime += Time.deltaTime;
-                yield return null;
+                    elapsedTime += Time.deltaTime;
+                    yield return null;
+
+                }
             }
+
 
         }
         else
         {
+           bossAnimation.PlayDashAniEnd();
 
-            Debug.Log(2);
-
-            //actionTime = (float)SongTime - GameManager.Instance.MainAudio.time;
-
-            spriteRenderer.color = Color.red;
-            while (elapsedTime <= actualMoveTime)
+            Debug.Log("2222대쉬" + DashEvent.position + " . " + SongTime + " , " + GameManager.Instance.MainAudio.time);
+            if (actualMoveTime > 0)
             {
-                float t = elapsedTime / actualMoveTime;
-                transform.position = Vector2.Lerp(startpos, new Vector3(0, startpos.y), t);
+                Debug.Log(1);
 
-                elapsedTime += Time.deltaTime;
-                yield return null;
+                while (elapsedTime < waitTime)
+                {
+                    float t = elapsedTime / waitTime;
 
+                    if (t >= 0.7f)
+                    {
+                        //spriteRenderer.color = Color.red;
+                    }
+                    elapsedTime += Time.deltaTime;
+                    yield return null;
+
+                }
+                elapsedTime = 0;
+                while (elapsedTime < actionTime)
+                {
+                    float t = elapsedTime / actionTime;
+                    transform.position = Vector2.Lerp(startpos, new Vector3(0, startpos.y), t);
+
+                    elapsedTime += Time.deltaTime;
+                    yield return null;
+                }
+
+            }
+            else
+            {
+                Debug.Log(2);
+                while (elapsedTime <= actualMoveTime)
+                {
+                    float t = elapsedTime / actualMoveTime;
+                    transform.position = Vector2.Lerp(startpos, new Vector3(0, startpos.y), t);
+
+                    elapsedTime += Time.deltaTime;
+                    yield return null;
+
+                }
             }
         }
 
-        
-      
+
 
        
+
+
+        yield return new WaitForSeconds(0.2f);
+        Debug.Log("히트못함");
+        PlayerController.Instance.TakeHPMethod(HP);
+        SharedNoteList.Instance.DeleteBossNote();
+        HitLate();
+
+
 
     }
 
@@ -217,7 +277,6 @@ public class BossMonster : Note
     {
         Vector2 pos = transform.position;
         TTime = 0;
-        //aaaaaspriteRenderer.color = Color.white;
         bossAnimation.BossAnimator.SetBool("Dash", false);
         bossAnimation.BossAnimator.SetTrigger("Damaged");
         while (TTime <= MaxTime)
@@ -230,16 +289,16 @@ public class BossMonster : Note
         }
         transform.position = endpos;
 
+        bossAnimation.TurnOffDash();
+
        
     }
 
     IEnumerator TurnBack_Fail()
     {
-
         Vector2 pos = transform.position;
         TTime = 0;
-        spriteRenderer.color = Color.white;
-
+        bossAnimation.BossAnimator.SetBool("Dash", false);
         while (TTime <= MaxTime)
         {
 
@@ -250,74 +309,25 @@ public class BossMonster : Note
         }
         transform.position = endpos;
 
-
-        //보스를 히트시키지 못했을 경우 
-        //다른 방식으로 돌아와야 함
-
-        //현재 생각중인 방식은 판정 라인을 지나갔다가 안보이는 영역에서 위치를 이동시키고 다시 오른쪽에서 나타나도록 하는 방식
-
-
-        yield return null;
+        bossAnimation.TurnOffDash();
 
     }
 
     void HitCheck()
     {
-        if (Hit)
-        {
-            StartCoroutine(TurnBack_Success());
-        }
-        else
-        {
-
-        }
+        Hit = true;
+        StartCoroutine(TurnBack_Success());
+        BossState.StartDash();
+        
     }
 
-    
+    void HitLate()
+    {
+
+        Hit = false;
+        StartCoroutine(TurnBack_Fail());
+        BossState.StartDash();
 
 
-
-
-
-
-    /*
-
-     보스 제작 해야 함 
-
- 보스 연출 기본적으로 언제 나오는지 체크를 해줘야 하고
- 생성된 보스의 경우 
-
- expand Line 사용했을 때 처럼 해당 라인이 판정 라인을 거치면 보스가 나타나는 식으로 만들어 주는 게 좋을 것 같음 
-
- 보스가 이미 존재하고 있는 경우 노트 위치들을 조금 수정할 필요가 있을 것 같음 
- 아니면 보스가 존재할때만 생성할 수 있는 특수 노트 그런 기능도 있으면 좋을 것 같음 
-
-
-
- 이제 마커 표시를 만들어서 보스를 활성화 혹은 비활성화가 가능한 상태로 만들어서 
-
- 에디터 상에서 해당 보스를 일단 특정 영역상에서 나온다는 것은 무조건 표시하되 
-
- 해당 보스를 투명하게 만들어준다거나 아니면 잠시 비활성화 해서 존재한다는 것만 알려주는 식도 괜찮을 것 같음
- 어쨌든 보스는 언제부터 언제까지 그런 영역이 존재하기 때문에 그 영역 내에서만 작동가능한 그런 노트들을 생성해주는 방식을 차용하는 것도
- 괜찮을 것 같음
-
-
-
- 선택창 개편 필요
-
-
-
-
-
- 보스는 얼마나 존재하는지 
- 시간을 롱노트 마냥 존재하도록 해야할 것 같고 
-
- 보스가 존재하는 동안의 
- 중형 혹은 소형 노트는 보스의 위치에서 생성되는 것처럼 보여야함 
-
-
-
-
-     */
+    }
 }

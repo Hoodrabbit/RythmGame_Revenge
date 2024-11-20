@@ -90,10 +90,10 @@ public class EventManager : MonoBehaviour
         DataManager.Instance.ListNullCheck();
         EventList = DataManager.Instance.EventNotes;
 
-        Debug.Log("이벤트 총 갯수 : " + DataManager.Instance.EventNotes.Count);
+        //Debug.Log("이벤트 총 갯수 : " + DataManager.Instance.EventNotes.Count);
 
 
-        Debug.Log("이벤트 발동");
+        //Debug.Log("이벤트 발동");
         RefreshNoteEvent?.Invoke();
     }
 

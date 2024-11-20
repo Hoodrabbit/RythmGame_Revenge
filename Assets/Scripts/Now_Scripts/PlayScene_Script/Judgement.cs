@@ -121,7 +121,7 @@ public class Judgement : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         ActivatingParticle = GetComponent<HitParticlePooling>();
         //Debug.Log("PlayTime : " + PlayTime);
-        Debug.Log(GameManager.Instance.GetBPS());
+        //Debug.Log(GameManager.Instance.GetBPS());
         // InitalizeJudgeMents();
 
         ChangeWeaponKey = KeyCode.Space;
@@ -194,9 +194,10 @@ public class Judgement : MonoBehaviour
                             BossNote.StopAllCoroutines();
                             BossNote.HitAction?.Invoke();
                             audioSource.Play();
+                            PressEvent_Hit?.Invoke(HEIGHT);
                             PlayManager.Instance.HitNote(note);
                             sharedList.DeleteBossNote();
-                            NantaHit?.Invoke();
+                            //NantaHit?.Invoke();
                             notes.Remove(note);
                         }
                         else if (BossNote == null && LScript == null)
@@ -266,23 +267,23 @@ public class Judgement : MonoBehaviour
 
         if (Input.GetKeyDown(ChangeWeaponKey) || Input.GetKeyDown(ChangeWeaponKey2) || Input.GetKeyDown(ChangeWeaponKey3))
         {
-            SpriteRenderer SR = GetComponent<SpriteRenderer>();
+            //SpriteRenderer SR = GetComponent<SpriteRenderer>();
             if (melody_type == MelodyType.Normal)
             {
                 melody_type = MelodyType.Yellow;
-                SR.color = Color.gray;
+                //SR.color = Color.gray;
             }
 
             else if (melody_type == MelodyType.Yellow)
             {
                 melody_type = MelodyType.Purple;
-                SR.color = Color.black;
+                //SR.color = Color.black;
             }
 
             else if (melody_type == MelodyType.Purple)
             {
                 melody_type = MelodyType.Yellow;
-                SR.color = Color.gray;
+                //SR.color = Color.gray;
             }
 
 
@@ -457,7 +458,7 @@ public class Judgement : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Boss"))
         {
-            Debug.Log("보스 노트 트리거 체크되는지 확인");
+            //Debug.Log("보스 노트 트리거 체크되는지 확인");
             notes.Add(collision.gameObject.GetComponent<Note>());
         }
 

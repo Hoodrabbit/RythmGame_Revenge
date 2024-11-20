@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SharedNoteList : MonoBehaviour
+public class SharedNoteList : Singleton<SharedNoteList>
 {
+
     public List<Note> notes_Up;
     public List<Note> notes_Down;
 
@@ -15,6 +16,14 @@ public class SharedNoteList : MonoBehaviour
 
     //보스 노트 중복 입력 방지를 위한 감지용 큐
     public Queue<Action> NoteRemove_ActionQueue = new Queue<Action>();
+
+
+    
+
+
+
+
+
 
     #region 위쪽 노트 리스트
     public void Add_Note_Up(Note note)
