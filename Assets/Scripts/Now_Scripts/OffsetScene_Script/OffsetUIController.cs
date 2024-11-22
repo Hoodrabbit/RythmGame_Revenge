@@ -5,7 +5,7 @@ using TMPro;
 
 
 
-public class OffsetUIController : MonoBehaviour
+public class OffsetUIController : Singleton<OffsetUIController>
 {
     public TMP_Text Offset_Value_T;
 
@@ -127,8 +127,7 @@ public class OffsetUIController : MonoBehaviour
             {
                 if (PressTime <= 0.3f)
                 {
-                    OffsetValue -= 1;
-                    OffsetJudgeLine.transform.position = new Vector3(OffsetJudgeLine.transform.position.x - 0.01f, 0);
+                    DecreaseOffset();
                 }
                 PressTime = 0;
             }
@@ -141,6 +140,25 @@ public class OffsetUIController : MonoBehaviour
     {
         GameManager.Instance.SetOffset((float)OffsetValue / 1000);
     }
+
+
+    public void IncreaseOffset()
+    {
+        OffsetValue += 1;
+        OffsetJudgeLine.transform.position = new Vector3(OffsetJudgeLine.transform.position.x + 0.01f, 0);
+    }
+
+    public void DecreaseOffset()
+    {
+        OffsetValue -= 1;
+        OffsetJudgeLine.transform.position = new Vector3(OffsetJudgeLine.transform.position.x - 0.01f, 0);
+    }
+
+
+
+
+
+
 
 
 }

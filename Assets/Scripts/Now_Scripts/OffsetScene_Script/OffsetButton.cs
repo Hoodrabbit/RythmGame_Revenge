@@ -33,12 +33,12 @@ public class OffsetButton : MonoBehaviour
 
     public void IncreaseOffset()
     {
-        OffsetUIController.OffsetValue += 1;
+        OffsetUIController.Instance.IncreaseOffset();
     }
 
     public void DecreaseOffset()
     {
-        OffsetUIController.OffsetValue -=1;
+        OffsetUIController.Instance.DecreaseOffset();
     }
 
 
