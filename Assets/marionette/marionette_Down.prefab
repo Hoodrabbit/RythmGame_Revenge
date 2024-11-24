@@ -658,6 +658,7 @@ MonoBehaviour:
   xpos: 0
   ypos: 0
   EventActivate: 0
+  AlreadyHit: 0
   MonsterAnimator: {fileID: 5741969538561136828}
 --- !u!58 &6805621746108592894
 CircleCollider2D:
@@ -674,7 +675,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

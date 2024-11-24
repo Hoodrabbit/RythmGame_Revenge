@@ -1,11 +1,23 @@
+using Spine;
+using Spine.Unity.Examples;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class PlayerAnimationController : MonoBehaviour
 {
-    Animator MainAnimator;
+    public Animator MainAnimator;
+    public Animator NormalStateAnimator;
+
+
+    //public AnimatorController NormalAnimatorController;
+    //public AnimatorOverrideController AnotherAnimatorController;
+
+    public RuntimeAnimatorController MainweaponController;
+    public RuntimeAnimatorController SubWeaponController;
+
 
 
 
@@ -16,7 +28,7 @@ public class PlayerAnimationController : MonoBehaviour
 
 
     public float UP_Player = 2;
-    public float DOWN_Player= -3;
+    public float DOWN_Player = -3;
 
     Vector2 UpPos;
     Vector2 DownPos;
@@ -26,15 +38,12 @@ public class PlayerAnimationController : MonoBehaviour
 
     public List<Judgement> Judgements = new List<Judgement>();
 
-    [Header("캐릭터 검 장착 모션")]
+    [Header("캐릭터 검 공격 모션")]
     public List<GameObject> knife_motion_obj = new List<GameObject>();
-    public List<Animator> Knife_Motions = new List<Animator>();
 
-    [Header("캐릭터 망치 장착 모션")]
+    [Header("캐릭터 망치 공격 모션")]
     public List<GameObject> hammer_motion_obj = new List<GameObject>();
-    public List<Animator> Hammer_Motions = new List<Animator>();
 
-    // Start is called before the first frame update
     void Start()
     {
         MainAnimator = GetComponent<Animator>();
@@ -43,19 +52,9 @@ public class PlayerAnimationController : MonoBehaviour
         UpPos = new Vector2(transform.position.x, UP_Player);
         DownPos = new Vector2(transform.position.x, DOWN_Player);
 
+        NormalStateAnimator.keepAnimatorStateOnDisable = true;
 
-
-        foreach (var obj in knife_motion_obj)
-        {
-            Knife_Motions.Add(obj.GetComponent<Animator>());
-        }
-
-        foreach(var obj in hammer_motion_obj)
-        {
-            Hammer_Motions.Add(obj.GetComponent<Animator>());
-        }
-
-        if(Judgements.Count >0)
+        if (Judgements.Count > 0)
         {
             foreach (var judge in Judgements)
             {
@@ -65,11 +64,6 @@ public class PlayerAnimationController : MonoBehaviour
                 judge.HoldingEvent += Holding;
             }
         }
-        
-
-
-
-
 
     }
 
@@ -98,26 +92,31 @@ public class PlayerAnimationController : MonoBehaviour
         transform.position = position;
 
 
+        if(Input.GetMouseButtonDown(0))
+        {
+            PlayerAttack();
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if(!MainAnimator.GetBool("IsHammer"))
-            {
-                MainAnimator.SetBool("IsHammer", true);
-            }
-            else
-            {
-                MainAnimator.SetBool("IsHammer", false);
-            }
+            ChangeWeapon();
             
+            //if (!MainAnimator.GetBool("IsHammer"))
+            //{
+            //    MainAnimator.SetBool("IsHammer", true);
+            //}
+            //else
+            //{
+            //    MainAnimator.SetBool("IsHammer", false);
+            //}
+
         }
 
     }
 
     void SetRandom(JudgementHeight_State height)
     {
-        int randNum = Random.Range(0, 3);
-
-        if(height == JudgementHeight_State.UP)
+        if (height == JudgementHeight_State.UP)
         {
             //addforce impulse
             //PlayerRigid.AddForce(Vector2.up*10, ForceMode2D.Impulse);
@@ -131,7 +130,7 @@ public class PlayerAnimationController : MonoBehaviour
 
         }
 
-        if(height == JudgementHeight_State.DOWN)
+        if (height == JudgementHeight_State.DOWN)
         {
             transform.position = DownPos;
             //StopCoroutine(JumpRoutine());
@@ -140,12 +139,12 @@ public class PlayerAnimationController : MonoBehaviour
         PlayerRigid.constraints = normalConstraints;
         PlayerRigid.isKinematic = false;
 
-        AttackMotion(randNum);
+        PlayerAttack();
     }
 
     void SetRandom_Hit(JudgementHeight_State height)
     {
-        int randNum = Random.Range(0, 3);
+
 
         if (height == JudgementHeight_State.UP)
         {
@@ -169,14 +168,16 @@ public class PlayerAnimationController : MonoBehaviour
         //PlayerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
         //PlayerRigid.isKinematic = true;
 
-        AttackMotion(randNum);
+        PlayerAttack();
     }
 
 
 
     void Holding(JudgementHeight_State height)
     {
-        if(height == JudgementHeight_State.UP)
+        Debug.Log("홀딩 작동");
+
+        if (height == JudgementHeight_State.UP)
         {
             transform.position = UpPos;
             PlayerRigid.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -185,16 +186,23 @@ public class PlayerAnimationController : MonoBehaviour
         {
             transform.position = DownPos;
         }
-        
+
+        NormalStateAnimator.SetBool("LongNoteHold", true);
+
         //PlayerRigid.isKinematic = true;
     }
 
     void HoldingEnd(JudgementHeight_State height)
     {
         Debug.Log("홀딩 종료 확인");
+
+        NormalStateAnimator.SetBool("LongNoteHold", false);
+
         //PlayerRigid.isKinematic = false;
         PlayerRigid.constraints = normalConstraints;
         PlayerRigid.velocity = Vector2.down;
+
+        
     }
 
 
@@ -202,20 +210,20 @@ public class PlayerAnimationController : MonoBehaviour
     {
         float StartTime = 0f;
         float EndTime = 0.1f;
-        
+
         while (StartTime < EndTime)
         {
-           // Debug.Log("작동이 되나요");
+            // Debug.Log("작동이 되나요");
 
             Debug.Log(StartTime / EndTime);
 
-            Vector2.Lerp(transform.position, UpPos, StartTime/EndTime);
+            Vector2.Lerp(transform.position, UpPos, StartTime / EndTime);
 
             StartTime += Time.deltaTime;
             yield return null;
         }
 
-        
+
     }
 
     IEnumerator FallRoutine()
@@ -243,9 +251,17 @@ public class PlayerAnimationController : MonoBehaviour
             gameObject.layer = LayerMask.NameToLayer("Damaged");
             MainAnimator.SetTrigger("Damaged");
             collision.gameObject.SetActive(false);
-
+            StartCoroutine(ChangeNormalState());
         }
     }
+
+
+    IEnumerator ChangeNormalState()
+    {
+        yield return new WaitForSeconds(1.5f);
+        SetNormal();
+    }
+
     public void SetNormal()
     {
         gameObject.layer = LayerMask.NameToLayer("Player");
@@ -254,54 +270,87 @@ public class PlayerAnimationController : MonoBehaviour
         PlayerRigid.isKinematic = false;
     }
 
-
-
-    public void AttackMotion(int num)
+    public void ChangeWeapon()
     {
-        switch (num)
+        //해당 코드를 이용하여 애니메이터 변경
+        //노말 상태의 애니메이터 bool값 변경
+
+        if (MainAnimator.runtimeAnimatorController == MainweaponController)
+        {
+            MainAnimator.runtimeAnimatorController = SubWeaponController;
+            NormalStateAnimator.keepAnimatorStateOnDisable = true;
+            NormalStateAnimator.SetBool("KNIFE", false);
+            NormalStateAnimator.SetBool("HAMMER", true);
+        }
+        else
+        {
+            MainAnimator.runtimeAnimatorController = MainweaponController;
+            NormalStateAnimator.keepAnimatorStateOnDisable = true;
+            NormalStateAnimator.SetBool("KNIFE", true);
+            NormalStateAnimator.SetBool("HAMMER", false);
+        }
+
+    }
+
+    public void PlayerAttack()
+    {
+        int randomnum = Random.Range(0, 3);
+
+        switch (randomnum)
         {
             case 0:
                 MainAnimator.SetTrigger("Attack1");
                 break;
+
             case 1:
                 MainAnimator.SetTrigger("Attack2");
                 break;
-            case 2:
+            default:
                 MainAnimator.SetTrigger("Attack3");
                 break;
-        
         }
-
-
-        
-        //MainAnimator.SetTrigger(num);
-
-
-
     }
 
-
-
-    public void SwordDamagedMotion()
+    public void DamagedMotion()
     {
-        Knife_Motions[0].SetTrigger("Damaged");
+        NormalStateAnimator.SetTrigger("Damaged");
     }
 
-    public void SwordJumpMotion()
+
+
+
+    public void CopyAnimatorParameters(Animator sourceAnimator, Animator targetAnimator)
     {
-        Knife_Motions[0].SetTrigger("Jump");
+        foreach (AnimatorControllerParameter param in sourceAnimator.parameters)
+        {
+            switch (param.type)
+            {
+                case AnimatorControllerParameterType.Float:
+                    targetAnimator.SetFloat(param.name, sourceAnimator.GetFloat(param.name));
+                    break;
+                case AnimatorControllerParameterType.Int:
+                    targetAnimator.SetInteger(param.name, sourceAnimator.GetInteger(param.name));
+                    break;
+                case AnimatorControllerParameterType.Bool:
+                    targetAnimator.SetBool(param.name, sourceAnimator.GetBool(param.name));
+                    break;
+                case AnimatorControllerParameterType.Trigger:
+                    if (sourceAnimator.GetBool(param.name))
+                    {
+                        targetAnimator.SetTrigger(param.name);
+                    }
+                    break;
+            }
+        }
     }
 
-    public void HammerJumpMotion()
-    {
-        //MainAnimator.SetBool("IsHammer", true);
-        Hammer_Motions[0].SetTrigger("Jump");
-    }
 
-    public void HammerDamagedMotion()
-    {
-        Hammer_Motions[0].SetTrigger("Damaged");
-    }
+
+
+
+
+
+
 
 
 }

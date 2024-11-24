@@ -9,6 +9,8 @@ public class ComboSystem : Singleton<ComboSystem>
     public int MaxCombo = 0;
     int FullNoteCount = 0;
     public TMP_Text ComboText;
+    public GameObject ComboBackAnimation;
+    
     Animator Combo_Animator;
 
 
@@ -23,6 +25,13 @@ public class ComboSystem : Singleton<ComboSystem>
     // Update is called once per frame
     void Update()
     {
+
+        if(Combo >= 50)
+        {
+            ComboBackAnimation.SetActive(true);
+        }
+
+
        if (Combo >=5)
        {
             ComboText.enabled = true;
@@ -30,6 +39,7 @@ public class ComboSystem : Singleton<ComboSystem>
        }
         else
         {
+            ComboBackAnimation.SetActive(false);
             ComboText.enabled = false;
         }
     }

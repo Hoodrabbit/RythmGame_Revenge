@@ -303,7 +303,10 @@ public class GameManager : Singleton<GameManager>
 
     public float GetAccuracy()
     {
-        float value = songStatus.Perfect / (songStatus.Perfect + songStatus.Miss + songStatus.Great);
+        float value = (float)songStatus.Perfect / (songStatus.Perfect + songStatus.Miss + songStatus.Great);
+
+        Debug.Log("value: "  + value);
+
         return value;
     }
 

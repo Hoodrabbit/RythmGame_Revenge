@@ -249,6 +249,7 @@ public class Judgement : MonoBehaviour
                         note.MissNote();
                         GameManager.Instance.Increase_Miss();
                         //audioSource.Stop();
+                        HoldingEndEvent?.Invoke(HEIGHT);
                         Debug.Log("미스났어요" + +note.SongTime + "      " + GameManager.Instance.MainAudio.time);
                         PlayManager.Instance.MissNote();
                         break;

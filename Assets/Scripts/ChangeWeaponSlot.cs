@@ -5,32 +5,30 @@ using UnityEngine;
 
 public class ChangeWeaponSlot : MonoBehaviour
 {
+    Animator animator;
 
-    public GameObject Knife;
-    public GameObject Hammer;
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
+
+
 
     // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            if(Knife.activeSelf == true)
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("hammer"))
             {
-                Knife.SetActive(false);
-                Hammer.SetActive(true);
+                animator.SetTrigger("knife");
             }
             else
             {
-                Hammer.SetActive(false);
-                Knife.SetActive(true);
+                animator.SetTrigger("hammer");
             }
+
+
         }
 
 

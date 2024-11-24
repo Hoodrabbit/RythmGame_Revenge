@@ -11,10 +11,13 @@ public class PlayerController : Singleton<PlayerController>
     bool IsHPEmpty = false;
 
     public Action ChangeHPAction;
+    PlayerAnimationController animatorController;
+
 
     public void Start()
     {
-       //Playeranimator = GetComponent<Animator>();
+        //Playeranimator = GetComponent<Animator>();
+        animatorController = GetComponent<PlayerAnimationController>();
     }
 
     private void Update()
@@ -32,6 +35,7 @@ public class PlayerController : Singleton<PlayerController>
     {
         TakeHP = hp_Get;
         hp -= TakeHP;
+        animatorController.DamagedMotion();
         ChangeHPAction?.Invoke();
         //플레이어 데미지 받는 애니메이션 실행
 
