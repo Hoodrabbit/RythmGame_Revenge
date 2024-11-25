@@ -190,6 +190,31 @@ class MakePuppet : IButton
 
 }
 
+class MakeBossNormalAttackNote : IButton
+{
+    public string ButtonName => "MakeBossNormalAttackNote";
+
+    public void Click()
+    {
+        NoteMaker_EditScene.instance.Instantiate_BossNormalAttackMaker();
+    }
+}
+
+class MakeBossHeavyAttackNote : IButton
+{
+    public string ButtonName => "MakeBossHeavyAttackNote";
+
+    public void Click()
+    {
+        NoteMaker_EditScene.instance.Instantiate_BossHeavyAttackMaker();
+    }
+
+
+}
+
+
+
+
 class UsingKeyboard : IButton
 {
     //UI매니저에서 키보드 사용체크 마우스 인터렉션 on 

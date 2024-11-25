@@ -5,13 +5,9 @@ using UnityEngine;
 
 public class ChangeWeaponSlot : MonoBehaviour
 {
-    Animator animator;
 
-    private void Start()
-    {
-        animator = GetComponent<Animator>();
-    }
-
+    [SerializeField] GameObject KnifeWeapon;
+    [SerializeField] GameObject HammerWeapon;
 
 
     // Update is called once per frame
@@ -19,13 +15,15 @@ public class ChangeWeaponSlot : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("hammer"))
+            if(KnifeWeapon.activeSelf == true)
             {
-                animator.SetTrigger("knife");
+                KnifeWeapon.SetActive(false);
+                HammerWeapon.SetActive(true);
             }
             else
             {
-                animator.SetTrigger("hammer");
+                HammerWeapon.SetActive(false);
+                KnifeWeapon.SetActive(true);
             }
 
 

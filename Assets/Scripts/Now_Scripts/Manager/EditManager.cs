@@ -11,7 +11,6 @@ using UnityEngine;
 
 
 
-
 public class EditManager : Singleton<EditManager>
 {
     public NoteEditOperatingState OperateEditState = NoteEditOperatingState.Mouse;
@@ -47,6 +46,13 @@ public class EditManager : Singleton<EditManager>
     public GameObject BossAppearNote_Obj;
     public GameObject BossDisappearNote_Obj;
     public GameObject BossDashNote_Obj;
+
+    public GameObject BossAttackNote_Normal_Obj_Up;
+    public GameObject BossAttackNote_Normal_Obj_Down;
+    public GameObject BossAttackNote_Heavy_Obj_Up;
+    public GameObject BossAttackNote_Heavy_Obj_Down;
+
+
 
 
     [Header("이벤트 생성 노트")]
@@ -89,16 +95,11 @@ public class EditManager : Singleton<EditManager>
             case 0:
                 Obstacle(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 break;
-
             case 1:
-
                 NormalNote(xpos, height, noteType, LongNoteStartEndCheck, songtime, enemyType);
                 break;
-
             case 2:
-
                 LongNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
-                //Debug.Log("작동은 하나");
                 break;
 
             case 3:
@@ -116,9 +117,11 @@ public class EditManager : Singleton<EditManager>
             case 6:
                 Marionette(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 break;
-
-
-            default:
+            case 7:
+                BossAttackNote_Normal(xpos, height, noteType, LongNoteStartEndCheck, songtime);
+                break;
+            case 8:
+                BossAttackNote_Heavy(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 break;
         }
 
@@ -344,6 +347,41 @@ public class EditManager : Singleton<EditManager>
 
     }
 
+    public void BossAttackNote_Normal(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
+    {
+        GameObject AddNote;
+
+        if (height > 0)
+        {
+            AddNote = Instantiate(BossAttackNote_Normal_Obj_Up, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.RhythmNote.transform);
+        }
+        else
+        {
+            AddNote = Instantiate(BossAttackNote_Normal_Obj_Down, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.RhythmNote.transform);
+        }
+
+        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
+    }
+
+    public void BossAttackNote_Heavy(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime, int enemyType = 0)
+    {
+        GameObject AddNote;
+
+        if (height > 0)
+        {
+            AddNote = Instantiate(BossAttackNote_Heavy_Obj_Up, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.RhythmNote.transform);
+        }
+        else
+        {
+            AddNote = Instantiate(BossAttackNote_Heavy_Obj_Down, new Vector3(xpos, height), Quaternion.identity, EditManager.Instance.barNote.RhythmNote.transform);
+        }
+
+        float RealXpos = AddNote.transform.position.x - EditManager.Instance.GetNPXpos();
+
+        DataManager.Instance.EditNotes.Add(new NoteInfoAll(AddNote, RealXpos, height, noteType, LongNoteStartEndCheck, (double)AddNote.transform.localPosition.x / GameManager.Instance.speed));
+    }
 
 
 
@@ -384,7 +422,7 @@ public class EditManager : Singleton<EditManager>
         AddEvent.GetComponent<Note>().SetSongTime(songtime);
     }
 
-
+   
 
 
     public void EndEventNote(float xpos, int height, int eventType, double songtime)

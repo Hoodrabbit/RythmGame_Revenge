@@ -18,7 +18,7 @@ public class SongDetailPanelScript : MonoBehaviour
     public TMP_Text Accuracy;
     public TMP_Text Clear_Count;
 
-    public Image ScoreAlphaBet;
+    public VisualizeScoreAlphabet ScoreAlphaBet;
 
 
 
@@ -45,6 +45,7 @@ public class SongDetailPanelScript : MonoBehaviour
             MaxComboInfo.text = "없음";
             Accuracy.text = "없음";
             Clear_Count.text = "0";
+            ScoreAlphaBet.UnvisualizeImage();
         }
         else
         {
@@ -52,6 +53,7 @@ public class SongDetailPanelScript : MonoBehaviour
             MaxComboInfo.text = stat.Combo.ToString();
             Accuracy.text = stat.Perfect.ToString();
             Clear_Count.text = stat.ClearCount.ToString();
+            ScoreAlphaBet.VisualizeImage(stat.Accuracy);
         }
 
 

@@ -20,6 +20,7 @@ public class GameResultPanel : MonoBehaviour
     public Text HighScore;
     public Text Accuracy;
 
+    public VisualizeScoreAlphabet alphabet;
 
 
     // Start is called before the first frame update
@@ -38,7 +39,7 @@ public class GameResultPanel : MonoBehaviour
             //HighScore.text = GameManager.Instance.songStatus.Score.ToString();
 
             Accuracy.text = GameManager.Instance.GetAccuracy().ToString("P2");
-
+            alphabet.VisualizeImage(GameManager.Instance.GetAccuracy());
             SongStatusManager.instance.SaveGameResult();
         }
 

@@ -76,10 +76,6 @@ public class Note : MonoBehaviour
 
         InitializeNote();
 
-
-       
-
-
     }
 
     private void OnDisable()
@@ -88,7 +84,6 @@ public class Note : MonoBehaviour
         DataManager.Instance.NoteReady -= StartSongMethod;
         if (TypeNum == 1)
         {
-
             if (GameManager.Instance.state == GameState.None && gameObject.CompareTag("Note"))
             {
                 if (UIManager.Instance != null)
@@ -137,12 +132,6 @@ public class Note : MonoBehaviour
         ChangeHeight();
 
         ChangeSprite();
-
-        //노트의 이미지가 변경될 예정
-        //if (transform.position.y >= 0)
-        //    spriteRenderer.color = Color.red;
-        //else
-        //    spriteRenderer.color = Color.blue;
     }
 
     protected virtual void ChangeSprite()
@@ -245,7 +234,7 @@ public class Note : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if(gameObject.CompareTag("Note"))
         {
@@ -349,9 +338,6 @@ public class Note : MonoBehaviour
 
     public void MissNote()
     {
-        //SpriteRenderer SR = GetComponent<SpriteRenderer>();
-
-        //SR.color = new Color(SR.color.r, SR.color.g, SR.color.b, 0.2f);
         gameObject.SetActive(false);
     }
 
@@ -371,10 +357,6 @@ public class Note : MonoBehaviour
 
         float elapsed = 0.0f;
         Vector3 StartPos = transform.position;
-        //float time = (float)(AudioSettings.dspTime - AudioTime) - GameManager.Instance.MainAudio.time;
-        //Debug.Log(time);
-        //Debug.Log(GameManager.Instance.GetBPS());
-
         if (GameManager.Instance.state != GameState.Play_Mode)
         {
             while (elapsed < 2)
@@ -446,8 +428,6 @@ public class Note : MonoBehaviour
     }
 
 
-
-    //이름을 잘못 지었습니다.. 역순이 역순으로 꺽어서 오는게 아니라 진짜 행동이 되돌아가는 그 리버스요
     public void ReverseNoteCurving()
     {
         StartCoroutine(ReverseNoteMove());
@@ -571,35 +551,20 @@ public class Note : MonoBehaviour
     }
 
     //반대로 오는 노트도 있기 때문에 해당 타입이었던 경우 위치 변경 전 타입을 체크해서 위치를 설정해주도록 해야 함
-    void ChangeHeight(/*bool reverseCheck*/)
+    void ChangeHeight()
     {
-        
-        //if(!reverseCheck) //이전 상태가 노트 반전화가 아니었을 경우
-        //{
         switch (eventType)
         {
             case Game_NoteEventType.None:
                 if (ypos > 0)
                 {
-                    //Debug.Log("작동1111");
                     Height = NoteHeight.UP;
                     transform.position = new Vector3(transform.position.x, GetHeight());
-                    //spriteRenderer.color = Color.red;
                 }
                 else
                 {
-                    //Debug.Log("작동222");
                     Height = NoteHeight.DOWN;
                     transform.position = new Vector3(transform.position.x, GetHeight());
-
-                    //Debug.Log(gameObject.name);
-
-                    if(spriteRenderer!= null)
-                    {
-                        //Debug.Log(spriteRenderer.gameObject);
-                       // spriteRenderer.color = Color.blue;
-                    }
-                    
                 }
 
                 break;
@@ -616,12 +581,6 @@ public class Note : MonoBehaviour
                     transform.position = new Vector3(transform.position.x, GetHeight());
                 }
 
-                //if (transform.position.y >= 0)
-                //    spriteRenderer.color = Color.red;
-                //else
-                //    spriteRenderer.color = Color.blue;
-
-
                 break;
 
             case Game_NoteEventType.SpawnOutside_Reverse:
@@ -635,11 +594,6 @@ public class Note : MonoBehaviour
                     Height = NoteHeight.REVERSE_DOWN;
                     transform.position = new Vector3(transform.position.x, GetHeight());
                 }
-
-                //if (transform.position.y >= 0)
-                //    spriteRenderer.color = Color.blue;
-                //else
-                //    spriteRenderer.color = Color.red;
 
                 break;
         }
@@ -670,11 +624,5 @@ public class Note : MonoBehaviour
             Note_Move_Animator.SetTrigger("DownCurve");
         }
     }
-
-
-
-
-
-
 
 }

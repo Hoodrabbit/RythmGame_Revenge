@@ -31,7 +31,8 @@ public class NoteMaker_EditScene : MonoBehaviour
     GameObject BossDashNoteMaker;
     GameObject PowerfulNoteMaker;
     GameObject MarionetteNoteMaker;
-
+    GameObject BossNormalAttackNoteMaker;
+    GameObject BossHeavyAttackNoteMaker;
 
 
     bool Already_Using = false;
@@ -67,12 +68,8 @@ public class NoteMaker_EditScene : MonoBehaviour
         Note_Middle = MakerObjList[10];
         PowerfulNoteMaker = MakerObjList[11];
         MarionetteNoteMaker = MakerObjList[12];
-
-
-        //NoteMakerButton = GetComponent<Button>();
-
-        //NoteMakerButton.onClick.AddListener(Instantiate_NormalNote);
-
+        BossNormalAttackNoteMaker = MakerObjList[13];
+        BossHeavyAttackNoteMaker = MakerObjList[14];
     }
 
     public void TurnOffMaker()
@@ -381,6 +378,50 @@ public class NoteMaker_EditScene : MonoBehaviour
         }
     }
 
+    public void Instantiate_BossNormalAttackMaker()
+    {
+        if (BossNormalAttackNoteMaker.activeSelf == false)
+
+        {
+            if (!Already_Using)
+            {
+                BossNormalAttackNoteMaker.SetActive(true);
+            }
+            else
+            {
+                TurnOffMaker();
+                BossNormalAttackNoteMaker.SetActive(true);
+            }
+            Already_Using = true;
+        }
+        else
+        {
+            BossNormalAttackNoteMaker.SetActive(false);
+            Already_Using = false;
+        }
+    }
+
+    public void Instantiate_BossHeavyAttackMaker()
+    {
+        if (BossHeavyAttackNoteMaker.activeSelf == false)
+        {
+            if (!Already_Using)
+            {
+                BossHeavyAttackNoteMaker.SetActive(true);
+            }
+            else
+            {
+                TurnOffMaker();
+                BossHeavyAttackNoteMaker.SetActive(true);
+            }
+            Already_Using = true;
+        }
+        else
+        {
+            BossHeavyAttackNoteMaker.SetActive(false);
+            Already_Using = false;
+        }
+    }
 
 
 }

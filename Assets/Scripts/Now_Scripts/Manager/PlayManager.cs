@@ -83,7 +83,13 @@ public class PlayManager : Singleton<PlayManager>
             case 6:
                 Marionette(xpos, height, noteType, LongNoteStartEndCheck, songtime);
                 break;
+            case 7:
+                BossNormalAttackNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
+                break;
 
+            case 8:
+                BossHeavyAttackNote(xpos, height, noteType, LongNoteStartEndCheck, songtime);
+                break;
             default:
                 break;
         }
@@ -265,8 +271,14 @@ public class PlayManager : Singleton<PlayManager>
         GameObject Note_Instantiate;
 
         NotePos = new NoteInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
-        Note_Instantiate = Instantiate(NoteTypes[3], new Vector3(NotePos.xpos, height), Quaternion.identity, Note_Parent.transform);
-
+        if (height > 0)
+        {
+            Note_Instantiate = Instantiate(NoteTypes[3], new Vector3(NotePos.xpos, height + 2), Quaternion.identity, Note_Parent.transform);
+        }
+        else
+        {
+            Note_Instantiate = Instantiate(NoteTypes[3], new Vector3(NotePos.xpos, height), Quaternion.identity, Note_Parent.transform);
+        }
         Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
         Notes.Add(Note_Instantiate);
     }
@@ -292,6 +304,57 @@ public class PlayManager : Singleton<PlayManager>
         Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
         Notes.Add(Note_Instantiate);
     }
+
+    public void BossNormalAttackNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    {
+        GameObject Note_Instantiate;
+
+        NotePos = new NoteInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
+
+        if (height > 0)
+        {
+            Note_Instantiate = Instantiate(NoteTypes[10], new Vector3(NotePos.xpos, height + 2), Quaternion.identity, Note_Parent.transform);
+        }
+        else
+        {
+            Note_Instantiate = Instantiate(NoteTypes[11], new Vector3(NotePos.xpos, height), Quaternion.identity, Note_Parent.transform);
+        }
+
+
+
+
+        Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
+        Notes.Add(Note_Instantiate);
+    }
+
+    public void BossHeavyAttackNote(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)
+    {
+        GameObject Note_Instantiate;
+
+        NotePos = new NoteInfoPos(xpos + 1 * GameManager.Instance.SongDelayTime * GameManager.Instance.speed, height, noteType, LongNoteStartEndCheck, songtime);
+
+        if (height > 0)
+        {
+            Note_Instantiate = Instantiate(NoteTypes[12], new Vector3(NotePos.xpos, height + 2), Quaternion.identity, Note_Parent.transform);
+        }
+        else
+        {
+            Note_Instantiate = Instantiate(NoteTypes[13], new Vector3(NotePos.xpos, height), Quaternion.identity, Note_Parent.transform);
+        }
+
+
+
+
+        Note_Instantiate.GetComponent<Note>().SetSongTime(songtime);
+        Notes.Add(Note_Instantiate);
+    }
+
+
+
+
+
+
+
 
 
     void MakeObstacle(float xpos, int height, int noteType, int LongNoteStartEndCheck, double songtime)

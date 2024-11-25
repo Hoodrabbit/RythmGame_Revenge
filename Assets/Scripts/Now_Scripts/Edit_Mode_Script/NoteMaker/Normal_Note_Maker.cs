@@ -19,7 +19,6 @@ public class Normal_Note_Maker : NoteMakerBase
     public override GameObject Note { get => NormalNote; set => NormalNote = value; }
     GameObject Note_UP { get => NormalNote_UP; set => NormalNote_UP = value; }
 
-    public int SpriteNum;
 
 
 

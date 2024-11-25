@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossAnimationController : MonoBehaviour
+public class BossAnimationController : Singleton<BossAnimationController>
 {
 
     CircleCollider2D BossCollider;
