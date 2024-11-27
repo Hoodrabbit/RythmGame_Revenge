@@ -96,19 +96,9 @@ public class PlayerAnimationController : MonoBehaviour
             PlayerAttack();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             ChangeWeapon();
-            
-            //if (!MainAnimator.GetBool("IsHammer"))
-            //{
-            //    MainAnimator.SetBool("IsHammer", true);
-            //}
-            //else
-            //{
-            //    MainAnimator.SetBool("IsHammer", false);
-            //}
-
         }
 
     }
