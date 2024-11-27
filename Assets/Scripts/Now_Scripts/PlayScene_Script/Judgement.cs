@@ -176,15 +176,16 @@ public class Judgement : MonoBehaviour
                                 nantaNote.NantaStart();
                                 nantaNote.HitNantaNote();
                                 nantaNote.StopNoteMethod();
-                                HitText();
-
+                                nantaNote.IncreaseHitText();
+                                //HitText();
+                                nantaNote.HitNoteCheck();
                                 NantaHit?.Invoke();
                             }
                             else
                             {
                                 nantaNote.HitNantaNote();
                                 NantaHit?.Invoke();
-                                HitText();
+                                nantaNote.IncreaseHitText();
                             }
                             break;
                         }

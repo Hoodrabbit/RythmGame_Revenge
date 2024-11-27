@@ -256,8 +256,8 @@ Transform:
   m_GameObject: {fileID: 82051958}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 4.9746, z: 0}
+  m_LocalScale: {x: 1, y: 1.002, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1323496283}
@@ -300,9 +300,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1516660991
-  m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: ca9baed82a8d5a547a8ee2facee97536, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1048,7 +1048,7 @@ PrefabInstance:
       objectReference: {fileID: 8788717893179932045, guid: c5a922f309a419c4fbd72e6d5306e74d, type: 3}
     - target: {fileID: 8104062120224397544, guid: fb9fac15e9401ac4ca985353f893d9ac, type: 3}
       propertyPath: m_Size.x
-      value: 3.2105641
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8104062120224397544, guid: fb9fac15e9401ac4ca985353f893d9ac, type: 3}
       propertyPath: m_Offset.x
@@ -3256,8 +3256,8 @@ Transform:
   m_GameObject: {fileID: 1285346098}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 4.9746, z: 0}
+  m_LocalScale: {x: 1, y: 1.002, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1323496284}
@@ -3300,9 +3300,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1516660991
-  m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: ca9baed82a8d5a547a8ee2facee97536, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -6124,7 +6124,7 @@ PrefabInstance:
       objectReference: {fileID: 8788717893179932045, guid: c5a922f309a419c4fbd72e6d5306e74d, type: 3}
     - target: {fileID: 8104062120224397544, guid: fb9fac15e9401ac4ca985353f893d9ac, type: 3}
       propertyPath: m_Size.x
-      value: 3.2105641
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8104062120224397544, guid: fb9fac15e9401ac4ca985353f893d9ac, type: 3}
       propertyPath: m_Offset.x

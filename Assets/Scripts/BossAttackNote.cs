@@ -76,8 +76,11 @@ public class BossAttackNote : Note
 
         while(waitTime >nowTime)
         {
-            nowTime += Time.deltaTime;
-            yield return null;
+            if (GameManager.Instance.MainAudio.isPlaying)
+            {
+                nowTime += Time.deltaTime;
+            }
+                yield return null;
         }
 
 
@@ -89,13 +92,16 @@ public class BossAttackNote : Note
         Effect.SetActive(true);
         while (actionTime >= nowTime )
         {
-            //이 시간의 절반동안 특정 높이로 이동시키면서 현재 각도에서 0도로 맞춰줌
-            float t = nowTime / actionTime;
-            transform.position = Vector2.Lerp(Startpos, Endpos, t);
-            float currentRotation = Mathf.LerpAngle(StartRotation, 0, t);
-            transform.rotation = Quaternion.Euler(0f, 0f, currentRotation);
-            nowTime += Time.deltaTime;
-            yield return null;
+            if (GameManager.Instance.MainAudio.isPlaying)
+            {
+                //이 시간의 절반동안 특정 높이로 이동시키면서 현재 각도에서 0도로 맞춰줌
+                float t = nowTime / actionTime;
+                transform.position = Vector2.Lerp(Startpos, Endpos, t);
+                float currentRotation = Mathf.LerpAngle(StartRotation, 0, t);
+                transform.rotation = Quaternion.Euler(0f, 0f, currentRotation);
+                nowTime += Time.deltaTime;
+            }
+                yield return null;
         }
         Coroutine_Check = false;
 

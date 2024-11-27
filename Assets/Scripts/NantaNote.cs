@@ -16,6 +16,8 @@ public class NantaNote : Note
 
     //최소 히트 수 
     public int MaxhitCount;
+    int hitCount;
+
 
     bool hitStart = false;
     public bool IsConnect = false;
@@ -77,8 +79,18 @@ public class NantaNote : Note
         hitStart = true;
     }
 
-    void IncreaseHitText()
+   public void IncreaseHitText()
     {
+        hitCount++;
+        if(HitText.gameObject.activeSelf == false)
+        {
+            HitText.gameObject.SetActive(true);
+            HitText.text = hitCount.ToString();
+        }
+        else
+        {
+            HitText.text = hitCount.ToString();
+        }
         //히트 텍스트 증가
     }
 
