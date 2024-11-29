@@ -14,7 +14,7 @@ public class FeverSystem : Singleton<FeverSystem>
     public GameObject FeverBackGround;
 
 
-    bool IsFever = false;
+    public bool IsFever = false;
 
     public Action FeverUPAction;
 

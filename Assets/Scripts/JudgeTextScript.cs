@@ -10,6 +10,8 @@ public class JudgeTextScript : MonoBehaviour
     float TTIme = 0f;
     RectTransform rect;
 
+
+
     private void Awake()
     {
         rect = GetComponent<RectTransform>();
@@ -19,15 +21,19 @@ public class JudgeTextScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(MoveUP());
-    }
-
-    private void Update()
-    {
-        if(TTIme >= LifeTime)
+        if(!FeverSystem.Instance.IsFever)
         {
-           
+            StartCoroutine(MoveUP());
         }
+        else
+        {
+
+            //스케일크기 늘리기
+            Vector3 currentScale = rect.localScale;
+            rect.localScale = currentScale * 1.5f;
+            StartCoroutine(MoveUP());
+        }
+      
     }
 
 
@@ -45,9 +51,6 @@ public class JudgeTextScript : MonoBehaviour
             yield return null;
             }
             Destroy(gameObject);
-        
-        
-
     }
 
 
