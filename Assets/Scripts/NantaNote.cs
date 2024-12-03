@@ -8,6 +8,8 @@ public class NantaNote : Note
 {
     public GameObject End;
 
+    public Animator Effect;
+
     public Animator MonsterAnimator;
 
     public TMP_Text HitText;
@@ -82,7 +84,19 @@ public class NantaNote : Note
    public void IncreaseHitText()
     {
         hitCount++;
-        if(HitText.gameObject.activeSelf == false)
+
+        if(Effect.gameObject.activeSelf == false)
+        {
+            Effect.gameObject.SetActive(true);
+        }
+
+            Effect.Play(0); // 파티클 애니메이션 재생
+        
+
+
+        
+
+        if (HitText.gameObject.activeSelf == false)
         {
             HitText.gameObject.SetActive(true);
             HitText.text = hitCount.ToString();

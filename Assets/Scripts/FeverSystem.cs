@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class FeverSystem : Singleton<FeverSystem>
 {
     public int FeverGaugeValue = 0;
@@ -12,9 +13,12 @@ public class FeverSystem : Singleton<FeverSystem>
 
 
     public GameObject FeverBackGround;
-
+    public GameObject FeverText;
 
     public bool IsFever = false;
+
+
+
 
     public Action FeverUPAction;
 
@@ -40,6 +44,8 @@ public class FeverSystem : Singleton<FeverSystem>
         {
             IsFever = true;
             //코루틴 작동
+
+           
             StartCoroutine(ActivateFeverTime());
 
         }
@@ -60,7 +66,13 @@ public class FeverSystem : Singleton<FeverSystem>
     IEnumerator ActivateFeverTime()
     {
 
+        if (FeverText.activeSelf == false)
+        {
+            FeverText.SetActive(true);
+            FeverText.GetComponent<Animation>().Play();
+        }
 
+        
         //피버 오브젝트 ON
         FeverBackGround.SetActive(true);
         //FeverBackGround.GetComponent<Animator>().SetTrigger(0);
@@ -91,6 +103,7 @@ public class FeverSystem : Singleton<FeverSystem>
 
         //FeverBackGround.GetComponent<Animator>().SetTrigger(1);
         FeverBackGround.SetActive(false);
+        FeverText.SetActive(false);
         IsFever = false;
 
 

@@ -186,6 +186,13 @@ public class GameManager : Singleton<GameManager>
 
     public void SetSongStat(SongStat songStat)
     {
+        print("fffff");
+        if (songStat.IsEmpty())
+        {
+            print("asdf");
+            print(songStat.Score);
+        }
+
         songStatus = songStat;
 
     }
@@ -209,6 +216,8 @@ public class GameManager : Singleton<GameManager>
 
     public void SetSongValue(MusicInfo musicInfo)
     {
+        print("tttt");
+
         this.musicInfo = musicInfo;
         Init_SongStat();
         SongStatusManager.instance.LoadSongStat();
@@ -227,9 +236,21 @@ public class GameManager : Singleton<GameManager>
 
     public void SetDifficultValue(int num)
     {
+        print("sssss");
+
         difficultState = (DifficultState)num;
         Init_SongStat();
         SongStatusManager.instance.LoadSongStat();
+
+        if(songStatus.IsEmpty())
+        {
+            print("еж╨Ж");
+        }
+        else
+        {
+            print(songStatus.Score);
+        }
+
         SongDetailPanelScript.instance.Init_MusicInfo(this.musicInfo, songStatus);
     }
 

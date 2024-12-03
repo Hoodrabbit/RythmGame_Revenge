@@ -33,9 +33,11 @@ public class PlayerController : Singleton<PlayerController>
 
     public void TakeHPMethod(int hp_Get)
     {
+        Debug.Log("현재 실행횟수");
+
         TakeHP = hp_Get;
         hp -= TakeHP;
-        animatorController.DamagedMotion();
+        //animatorController.DamagedMotion();
         ChangeHPAction?.Invoke();
         //플레이어 데미지 받는 애니메이션 실행
 

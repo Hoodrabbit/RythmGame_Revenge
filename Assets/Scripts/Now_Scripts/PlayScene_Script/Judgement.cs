@@ -103,11 +103,15 @@ public class Judgement : MonoBehaviour
 
     HitParticlePooling ActivatingParticle;
 
+    bool ScoreDecrease = false;
+
+
 
     public Action<JudgementHeight_State> PressEvent_NoneHit;
     public Action<JudgementHeight_State> PressEvent_Hit;
     public Action<JudgementHeight_State> HoldingEvent;
     public Action<JudgementHeight_State> HoldingEndEvent;
+    public Action MissNoteEvent;
     public Action NantaHit;
 
 
@@ -196,7 +200,7 @@ public class Judgement : MonoBehaviour
                             BossNote.HitAction?.Invoke();
                             audioSource.Play();
                             PressEvent_Hit?.Invoke(HEIGHT);
-                            PlayManager.Instance.HitNote(note);
+                            PlayManager.Instance.HitNote(note, ScoreDecrease);
                             sharedList.DeleteBossNote();
                             //NantaHit?.Invoke();
                             notes.Remove(note);
@@ -222,7 +226,7 @@ public class Judgement : MonoBehaviour
 
                                 PressEvent_Hit?.Invoke(HEIGHT);
                                 Instantiate_JudgeText(offsetValue);
-                                PlayManager.Instance.HitNote(note);
+                                PlayManager.Instance.HitNote(note, ScoreDecrease);
                                 //songtimes.Add(GameManager.Instance.MainAudio.time);
                             }
 
@@ -431,7 +435,7 @@ public class Judgement : MonoBehaviour
 
 
             //정확한 판정을 켰을 경우
-            if (f_time <= 0.04)
+            if (f_time <= 0.05)
             {
 
 
@@ -454,12 +458,13 @@ public class Judgement : MonoBehaviour
                 judgetext.text = "Perfect";
 
                 GameManager.Instance.Increase_Perfect();
+                ScoreDecrease = false;
             }
 
             //return true;
 
 
-            else if (f_time > 0.04)
+            else if (f_time > 0.05)
             {
 
                 Color32 Left_UP = HexToColor32("#0047b1");
@@ -482,6 +487,7 @@ public class Judgement : MonoBehaviour
 
                 judgetext.text = "Great";
                 GameManager.Instance.Increase_Great();
+                ScoreDecrease = false;
             }
 
             //return false;
@@ -560,28 +566,25 @@ public class Judgement : MonoBehaviour
         {
             Note note_hitcheck = collision.gameObject.GetComponent<Note>();
 
-            if(note_hitcheck != null) 
+            if (note_hitcheck != null)
             {
-                if (!collision.GetComponent<Note>().GetAlreadyHit())
+                if (!note_hitcheck.GetAlreadyHit())
                 {
+                    collision.gameObject.SetActive(false);
+
+                    MissNoteEvent?.Invoke();
                     Miss();
                 }
             }
-            
-            
+
             if (notes.Count > 0)
             {
                 notes.RemoveAt(0);
             }
-           
+            else
+            {
+                Debug.LogWarning("notes 리스트가 비어 있음");
+            }
         }
-
-        if(collision.gameObject.CompareTag("Boss"))
-        {
-            
-        }
-
-
-
     }
 }

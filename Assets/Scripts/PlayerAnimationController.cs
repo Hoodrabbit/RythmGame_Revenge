@@ -10,10 +10,6 @@ public class PlayerAnimationController : MonoBehaviour
     public Animator MainAnimator;
     public Animator NormalStateAnimator;
 
-
-    //public AnimatorController NormalAnimatorController;
-    //public AnimatorOverrideController AnotherAnimatorController;
-
     public RuntimeAnimatorController MainweaponController;
     public RuntimeAnimatorController SubWeaponController;
 
@@ -61,6 +57,7 @@ public class PlayerAnimationController : MonoBehaviour
                 judge.PressEvent_Hit += SetRandom_Hit;
                 judge.HoldingEndEvent += HoldingEnd;
                 judge.HoldingEvent += Holding;
+                judge.MissNoteEvent += DamagedMotion;
             }
         }
 
@@ -76,6 +73,7 @@ public class PlayerAnimationController : MonoBehaviour
                 judge.PressEvent_Hit -= SetRandom_Hit;
                 judge.HoldingEndEvent -= HoldingEnd;
                 judge.HoldingEvent -= Holding;
+                judge.MissNoteEvent -= DamagedMotion;
             }
         }
     }
@@ -236,11 +234,7 @@ public class PlayerAnimationController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Note"))
         {
-            PlayerController.Instance.TakeHPMethod(20);
-            gameObject.layer = LayerMask.NameToLayer("Damaged");
-            MainAnimator.SetTrigger("Damaged");
-            collision.gameObject.SetActive(false);
-            StartCoroutine(ChangeNormalState());
+            
         }
     }
 
@@ -302,7 +296,12 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void DamagedMotion()
     {
-        NormalStateAnimator.SetTrigger("Damaged");
+        //Debug.Log("ÀÛµ¿È½¼ö");
+        //if(!MainAnimator.GetCurrentAnimatorClipInfo())
+        //{
+            NormalStateAnimator.SetTrigger("Damaged");
+
+        PlayerController.Instance.TakeHPMethod(20);
     }
 
 

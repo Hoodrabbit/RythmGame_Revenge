@@ -148,11 +148,19 @@ public class PlayManager : Singleton<PlayManager>
 
 
     //적마다의 점수 피버 게이지를 매개변수로 가지고 오도록 만들어줘야함
-    public void HitNote(Note note)
+    public void HitNote(Note note, bool decrease)
     {
         combosystem.HitNote();
         feversystem.GetFeverGauge(note.fever_Count);
-        scoresystem.IncreaseScore(note.score);
+        if(!decrease)
+        {
+            scoresystem.IncreaseScore(note.score);
+        }
+        else
+        {
+            scoresystem.IncreaseScore(note.score * 800 / 1000 );
+        }
+        
     }
 
     public void HitLongNote()

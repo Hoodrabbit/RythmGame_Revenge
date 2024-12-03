@@ -2,23 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
+using TMPro;
 
 
 public class GameResultPanel : MonoBehaviour
 {
-    public Text SongName;
-    public Text ArtistName;
+    public TMP_Text SongName;
+    public TMP_Text ArtistName;
 
-    public Text Score;
-    public Text Combo;
+    public TMP_Text Score;
+    public TMP_Text Combo;
     //public Text etc; //Perfect, Great, Good, Miss 이런 것들 텍스트로 나타내줄 예정 한번에 여러개 하면 좋을 듯 함
 
-    public Text Perfect;
-    public Text Great;
-    public Text Miss;
-    public Text HighScore;
-    public Text Accuracy;
+    public TMP_Text Perfect;
+    public TMP_Text Great;
+    public TMP_Text Miss;
+    public TMP_Text HighScore;
+    public TMP_Text Accuracy;
 
     public VisualizeScoreAlphabet alphabet;
 

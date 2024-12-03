@@ -30,8 +30,7 @@ public class BossAttackNote : Note
 
         }
 
-        
-        
+
 
 
 
@@ -57,6 +56,9 @@ public class BossAttackNote : Note
             Startpos = transform.position;
             Coroutine_Check = true;
             StartCoroutine(SwitchingRotation((float)SongTime));
+
+            
+
         }
     }
 
