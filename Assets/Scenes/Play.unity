@@ -946,14 +946,14 @@ RectTransform:
   - {fileID: 592358994}
   - {fileID: 2090643082}
   - {fileID: 1810252422}
-  - {fileID: 1036315793}
   - {fileID: 653893971}
   - {fileID: 1056672570}
   - {fileID: 2109900352}
+  - {fileID: 1036315793}
+  - {fileID: 906078582}
   - {fileID: 47963925}
   - {fileID: 512898780}
   - {fileID: 1019237839}
-  - {fileID: 906078582}
   - {fileID: 2083404460}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -987,6 +987,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainMenuPanel: {fileID: 47963924}
+  buttonAudio: {fileID: 1036315798}
+  CoroutineOn: 0
 --- !u!1001 &302550106
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1003,6 +1005,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1857500009}
+    - target: {fileID: 1010500139287227890, guid: fb9fac15e9401ac4ca985353f893d9ac, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 276597965
+      objectReference: {fileID: 0}
     - target: {fileID: 1582961830201327864, guid: fb9fac15e9401ac4ca985353f893d9ac, type: 3}
       propertyPath: key
       value: 106
@@ -2276,7 +2282,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 315523103
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 614f089059a4fe44a8fc237eb95933e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4967,6 +4973,7 @@ GameObject:
   - component: {fileID: 1857500014}
   - component: {fileID: 1857500015}
   - component: {fileID: 1857500016}
+  - component: {fileID: 1857500017}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5237,6 +5244,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83e04bea7bd75f488fd106c9297769d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1857500017
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857500007}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f50dea0a6af3c5040a27b1ec46622f57, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1951870327
 GameObject:
   m_ObjectHideFlags: 0
@@ -5917,7 +5945,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 626425845
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: -2
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2090643086
@@ -6259,6 +6287,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1857500009}
+    - target: {fileID: 1010500139287227890, guid: fb9fac15e9401ac4ca985353f893d9ac, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 276597965
+      objectReference: {fileID: 0}
     - target: {fileID: 2217237536134028692, guid: fb9fac15e9401ac4ca985353f893d9ac, type: 3}
       propertyPath: m_SortingLayer
       value: 3

@@ -30,8 +30,8 @@ public class NantaParticlePooling : MonoBehaviour
             }
         }
 
-        UP.NantaHit += VisualizeNantaParticle;
-        DOWN.NantaHit += VisualizeNantaParticle;
+        //UP.NantaHit += VisualizeNantaParticle;
+        //DOWN.NantaHit += VisualizeNantaParticle;
 
     }
 

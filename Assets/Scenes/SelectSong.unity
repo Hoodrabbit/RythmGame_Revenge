@@ -816,17 +816,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialImageList:
-  - {fileID: 21300000, guid: fe09787752d6b0c41ba8097f0a9a72b9, type: 3}
-  - {fileID: 21300000, guid: 23c8474d92eb24f45a974bb46735bf00, type: 3}
-  - {fileID: 21300000, guid: a915bf6f35ef8df4f80a51df4f4eed85, type: 3}
-  - {fileID: 21300000, guid: 1fde45249006b05488f33f74676df232, type: 3}
-  - {fileID: 21300000, guid: 57a840cc7ea7e864e8858ed4edb3f4e0, type: 3}
-  - {fileID: 21300000, guid: 0bbf96cd1187c494cb4a692c78b2e22a, type: 3}
-  - {fileID: 21300000, guid: 61a9215fb88ebc54aab010c588dbf2e0, type: 3}
-  - {fileID: 21300000, guid: 67486e86688c98b45bbf2fde3aaba8eb, type: 3}
-  - {fileID: 21300000, guid: 447efda98429b684396ca981dde22036, type: 3}
-  - {fileID: 21300000, guid: 88bb2383b52db094fa89b4e2a90f11da, type: 3}
-  - {fileID: 21300000, guid: cb69447fa87e109498eacc96d7a44016, type: 3}
+  - {fileID: 21300000, guid: 5c17ffcf20f118b4cbf70a4c5e5345cf, type: 3}
+  - {fileID: 21300000, guid: af624565fe15df04783d20c755af5f10, type: 3}
+  - {fileID: 21300000, guid: e2d0f472c69ad8547aaabd96feb8fc65, type: 3}
+  - {fileID: 21300000, guid: 2dd31b8303239a44488d5d17fac1f066, type: 3}
+  - {fileID: 21300000, guid: 6e2f44a09620a834d828824a796b8a1d, type: 3}
+  - {fileID: 21300000, guid: 5a61d3163ec0d5f429da322243b73eaf, type: 3}
+  - {fileID: 21300000, guid: 22c19c5910fbf2b4d8a34b9fdb16742c, type: 3}
+  - {fileID: 21300000, guid: 36ba08736b984f349acad42da3186321, type: 3}
+  - {fileID: 21300000, guid: cc422d0f024cd1b498619432e6e77aeb, type: 3}
+  - {fileID: 21300000, guid: 55171df4d7db37448979012aef6a832f, type: 3}
+  - {fileID: 21300000, guid: 2d40b2122c58ce845880704facce940e, type: 3}
   NowImage: {fileID: 816286369}
   TutorialPage_Circle: {fileID: 6941555970277711243, guid: 65b525aa62215bc4294826ddb989468c, type: 3}
   PageCheck_Panel: {fileID: 2059608959}
@@ -1671,6 +1671,7 @@ GameObject:
   - component: {fileID: 736563589}
   - component: {fileID: 736563591}
   - component: {fileID: 736563590}
+  - component: {fileID: 736563592}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -1736,6 +1737,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 736563588}
   m_CullTransparentMesh: 1
+--- !u!114 &736563592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736563588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 736563590}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 736563588}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &788635355
 GameObject:
   m_ObjectHideFlags: 0

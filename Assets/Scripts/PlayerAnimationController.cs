@@ -55,6 +55,7 @@ public class PlayerAnimationController : MonoBehaviour
             {
                 judge.PressEvent_NoneHit += SetRandom;
                 judge.PressEvent_Hit += SetRandom_Hit;
+                judge.NantaHit += SetRandom_Hit;
                 judge.HoldingEndEvent += HoldingEnd;
                 judge.HoldingEvent += Holding;
                 judge.MissNoteEvent += DamagedMotion;

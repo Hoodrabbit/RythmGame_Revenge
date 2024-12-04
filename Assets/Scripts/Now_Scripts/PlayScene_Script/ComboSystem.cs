@@ -55,6 +55,7 @@ public class ComboSystem : Singleton<ComboSystem>
 
     public void MissNote()
     {
+        ComboText.text = "0";
         Combo = 0;
     }
 

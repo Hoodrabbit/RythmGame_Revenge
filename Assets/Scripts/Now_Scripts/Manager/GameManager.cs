@@ -117,7 +117,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("작동되는지 확인");
 
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
 
 
         //모든 노트들의 구독을 취소함

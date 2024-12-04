@@ -81,19 +81,20 @@ public class Judgement : MonoBehaviour
     Note LongNote;
 
     public bool longnotePress = false;
-    float longnoteTime = 0;
+    
+
     bool LongNoteFail = false;
 
     bool NantaStart = false;
 
-
+    float longnoteTime = 0;
     float pressTime = 0;
 
     public static float PlayTime;
-    //public List<double> songtimes = new List<double>();
 
     public List<HitSoundChecker> hitSoundCheckers = new List<HitSoundChecker>();
     HitSoundChecker hit;
+
     AudioSource audioSource;
 
 
@@ -109,11 +110,13 @@ public class Judgement : MonoBehaviour
 
     public Action<JudgementHeight_State> PressEvent_NoneHit;
     public Action<JudgementHeight_State> PressEvent_Hit;
+    
     public Action<JudgementHeight_State> HoldingEvent;
     public Action<JudgementHeight_State> HoldingEndEvent;
-    public Action MissNoteEvent;
-    public Action NantaHit;
 
+    public Action<JudgementHeight_State> NantaHit;
+
+    public Action MissNoteEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -177,19 +180,29 @@ public class Judgement : MonoBehaviour
                             if (!NantaStart)
                             {
                                 NantaStart = true;
-                                nantaNote.NantaStart();
-                                nantaNote.HitNantaNote();
-                                nantaNote.StopNoteMethod();
-                                nantaNote.IncreaseHitText();
-                                //HitText();
-                                nantaNote.HitNoteCheck();
-                                NantaHit?.Invoke();
+                                if(!nantaNote.Slay)
+                                {
+                                    nantaNote.NantaStart();
+                                    nantaNote.HitNantaNote();
+                                    nantaNote.StopNoteMethod();
+                                    nantaNote.IncreaseHitText();
+                                    //HitText();
+                                    nantaNote.HitNoteCheck();
+                                    NantaHit?.Invoke(HEIGHT);
+                                }
+                               
                             }
                             else
                             {
-                                nantaNote.HitNantaNote();
-                                NantaHit?.Invoke();
-                                nantaNote.IncreaseHitText();
+
+                                if (!nantaNote.Slay)
+                                {
+                                    nantaNote.HitNantaNote();
+                                    NantaHit?.Invoke(HEIGHT);
+                                    nantaNote.IncreaseHitText();
+                                }
+
+                               
                             }
                             break;
                         }
@@ -572,8 +585,14 @@ public class Judgement : MonoBehaviour
                 {
                     collision.gameObject.SetActive(false);
 
-                    MissNoteEvent?.Invoke();
+                    if(!longnotePress)
+                    {
+                        MissNoteEvent?.Invoke();
+                    }
+
+                    
                     Miss();
+                    PlayManager.Instance.MissNote();
                 }
             }
 

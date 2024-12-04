@@ -56,8 +56,8 @@ public class TutorialPageInfo : MonoBehaviour
             Debug.Log("¿€µø");
 
             pageCount--;
-            NowImage.sprite = tutorialImageList[(pageCount - 1)];
-            InitializePageColor(); PageCircle[pageCount - 1].color = Color.white;
+            NowImage.sprite = tutorialImageList[(pageCount)];
+            InitializePageColor(); PageCircle[pageCount].color = Color.white;
         }
     }
 

@@ -7,11 +7,15 @@ using TMPro;
 public class NantaNote : Note
 {
     public GameObject End;
+    public GameObject Monster_Rig;
 
     public Animator Effect;
+    public Animator Text_Effect;
 
     public Animator MonsterAnimator;
 
+
+    public GameObject HitUI;
     public TMP_Text HitText;
 
     
@@ -20,8 +24,11 @@ public class NantaNote : Note
     public int MaxhitCount;
     int hitCount;
 
+    public float DecreaseAmount = 0.5f;
+
 
     bool hitStart = false;
+    public bool Slay = false;
     public bool IsConnect = false;
 
 
@@ -51,62 +58,81 @@ public class NantaNote : Note
         {
             if (transform.position.x >= End.transform.position.x)
             {
-                gameObject.SetActive(false);
+                if(!Slay)
+                {
+                    StartCoroutine(SizeUPHitText());
+                }
+                
+                Slay = true;
             }
             
         }
-
-            if (hitStart)
-        {
-            //때릴 때 파티클도 나오면 좋을 것 같음
-            TimeCheck += Time.deltaTime;
-        }
-        if (hitinSeconds < TimeCheck)
-        {
-            Debug.Log("노트 처리 실패");
-            hitStart = false;
-        }
-
-
     }
 
-    public void HitNantaNote()
-    {
-       TimeCheck -= Time.deltaTime;
-    }
+
     
 
     public void NantaStart()
     {
-        hitStart = true;
+        Debug.Log("디버그 확인 용");
+        Camera.main.GetComponent<ResizingCamera>().Camera_Zoom();
+        StartCoroutine(DecreaseOverTime());
     }
 
    public void IncreaseHitText()
     {
-        hitCount++;
-
-        if(Effect.gameObject.activeSelf == false)
+        if (!Slay)
         {
-            Effect.gameObject.SetActive(true);
+            hitCount++;
+            if (HitUI.activeSelf == false)
+            {
+                HitUI.SetActive(true);
+                HitText.text = hitCount.ToString();
+            }
+            else
+            {
+                HitText.text = hitCount.ToString();
+            }
+            //히트 텍스트 증가
         }
 
-            Effect.Play(0); // 파티클 애니메이션 재생
-        
-
-
-        
-
-        if (HitText.gameObject.activeSelf == false)
-        {
-            HitText.gameObject.SetActive(true);
-            HitText.text = hitCount.ToString();
-        }
-        else
-        {
-            HitText.text = hitCount.ToString();
-        }
-        //히트 텍스트 증가
     }
+
+
+    private IEnumerator DecreaseOverTime()
+    {
+        while (TimeCheck > 0)
+        {
+            yield return new WaitForSeconds(1f); // 1초 주기
+            TimeCheck += 1f; // 시간 증가
+            Debug.Log($"시간 증가: {TimeCheck}");
+        }
+        Debug.Log("노트 처리 실패");
+    }
+
+    public void HitNantaNote()
+    {
+        TimeCheck -= DecreaseAmount;
+        TimeCheck = Mathf.Max(0, TimeCheck);
+        Debug.Log($"현재 시간: {TimeCheck}");
+    }
+
+    private IEnumerator SizeUPHitText()
+    {
+        Camera.main.GetComponent<ResizingCamera>().Camera_ZoomOut();
+
+        Text_Effect.Play("HitTextSizeUP");
+        Monster_Rig.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(1f);
+
+        gameObject.SetActive(false);
+    }
+
+
+
+
+
 
 
 

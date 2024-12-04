@@ -27,4 +27,21 @@ public class ResizingCamera : MonoBehaviour
         camera.rect = viewportRect;
 
     }
+
+
+    public void Camera_Zoom()
+    {
+        //카메라 애니메이터 실행
+        Animator animator = GetComponent<Animator>();
+        animator.Play("CameraZoomIn");
+
+    }
+
+    public void Camera_ZoomOut()
+    {
+        Animator animator = GetComponent<Animator>();
+        animator.Play("CameraZoomOut");
+    }
+
+
 }
