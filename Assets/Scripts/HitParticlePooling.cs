@@ -16,7 +16,7 @@ public class HitParticlePooling : MonoBehaviour
     [SerializeField] private ParticleSystem LongAttackParticle;
 
 
-    [SerializeField] private int NormalNormalParticleQueuesize = 100;
+    [SerializeField] private int NormalNormalParticleQueuesize = 50;
     //[SerializeField] private int LongNoteParticleQueuesize = 3;
 
     //[SerializeField] private int NormalNormalParticleQueuesize_Down = 20;

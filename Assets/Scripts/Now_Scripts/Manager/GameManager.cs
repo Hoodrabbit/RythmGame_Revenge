@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -54,6 +55,9 @@ public class GameManager : Singleton<GameManager>
     public int NowSelectValue = 0; //임시로 여기서 선택한 곡 보관 나중에 다른 스크립트에서 옮길 예정
 
     public int SongDelayTime = 4;
+
+    public bool GodMode; //무적모드
+
 
 
     protected override void Awake()

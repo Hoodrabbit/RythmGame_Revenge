@@ -52,27 +52,7 @@ public class LongNoteScript : MonoBehaviour
 
                 }
             }
-            else
-            {
-                if (transform.position.x == Tail.transform.position.x)
-                {
-                    newWidth = Vector3.Distance(transform.position, Tail.transform.position);
-
-                    if (Body_SR.drawMode == SpriteDrawMode.Sliced || Body_SR.drawMode == SpriteDrawMode.Tiled)
-                    {
-                        // 현재 SpriteRenderer의 size를 가져와서 width만 변경
-                        //Vector2 newSize = Body_SR.size;
-
-                        //newSize.x = newWidth;
-
-                     
-
-                        //newSize.y = ChangeHeight;
-                        //Body_SR.size = newSize;
-                        //Body.transform.localPosition = new Vector3(newSize.x, 0);
-                    }
-                }
-            }
+           
         }
         else
         {
@@ -80,19 +60,10 @@ public class LongNoteScript : MonoBehaviour
             if (Vector3.Distance(transform.position, Tail.transform.position) <= 1.3f || transform.position.x >= Tail.transform.position.x)
                 {
                     Debug.Log("꺼짐");
-                Delete = true;
+                    Delete = true;
                 //gameObject.SetActive(false);
 
             }
-                else
-                {
-                    newWidth = Vector3.Distance(transform.position, Tail.transform.position);
-
-                    if (Body_SR.drawMode == SpriteDrawMode.Sliced || Body_SR.drawMode == SpriteDrawMode.Tiled)
-                    {
-
-                }
-                }
             
         }
 
@@ -119,9 +90,9 @@ public class LongNoteScript : MonoBehaviour
         Tail.GetComponent<Note>().enabled = true;
 
 
-        float value = Mathf.Abs((float)songTime - GameManager.Instance.MainAudio.time);
+        //float value = Mathf.Abs((float)songTime - GameManager.Instance.MainAudio.time);
 
-        StartCoroutine(MovetoJudge(value));
+        //StartCoroutine(MovetoJudge(value));
         //x가 0의 위치로 서서히 이동학도록 만들어주는 코루틴을 추가해줘야 함
 
     }
@@ -132,17 +103,17 @@ public class LongNoteScript : MonoBehaviour
         {
             n_Y.enabled = true;
             Tail.GetComponent<Note>().enabled = false;
-            UnenabledLongNote();
+            //UnenabledLongNote();
         }
     }
 
-    public void UnenabledLongNote()
-    {
-        //아예 판정선에서 누르지 못했을 경우도 발동해줘야함
+    //public void UnenabledLongNote()
+    //{
+    //    //아예 판정선에서 누르지 못했을 경우도 발동해줘야함
 
-        //HeadCollider.enabled = false;
-        HeadSR.color = new Color(159, 0, 255, 50);
-    }
+    //    //HeadCollider.enabled = false;
+    //    HeadSR.color = new Color(159, 0, 255, 50);
+    //}
 
     public void ChangeSprite()
     {
@@ -161,22 +132,22 @@ public class LongNoteScript : MonoBehaviour
 
 
     //매개변수로 현재 시간과 노래의 시간을 받음 해당 노래의 차이 값
-    IEnumerator MovetoJudge(float DifferTime)
-    {
-        float startTime = 0;
+    //IEnumerator MovetoJudge(float DifferTime)
+    //{
+    //    float startTime = 0;
 
 
-        while(startTime < DifferTime) 
-        {
-            Debug.Log("작동되는 중");
+    //    while(startTime < DifferTime) 
+    //    {
+    //        Debug.Log("작동되는 중");
 
 
-            transform.position = Vector3.Lerp(transform.position, new Vector3(0, transform.position.y), startTime/DifferTime);
-            startTime += Time.deltaTime;
-            yield return null;
-        }
-        transform.position = new Vector3(0, transform.position.y);
-    }
+    //        transform.position = Vector3.Lerp(transform.position, new Vector3(0, transform.position.y), startTime/DifferTime);
+    //        startTime += Time.deltaTime;
+    //        yield return null;
+    //    }
+    //    transform.position = new Vector3(0, transform.position.y);
+    //}
 
 
 

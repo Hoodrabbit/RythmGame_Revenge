@@ -90,10 +90,10 @@ public class PlayerAnimationController : MonoBehaviour
         transform.position = position;
 
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            PlayerAttack();
-        }
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //    PlayerAttack();
+        //}
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
         {

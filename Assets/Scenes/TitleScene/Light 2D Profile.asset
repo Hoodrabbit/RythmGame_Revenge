@@ -154,16 +154,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
   m_Name: LiftGammaGain
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   lift:
-    m_OverrideState: 0
-    m_Value: {x: 0.8429729, y: 1, z: 0.9480578, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 0.7504676, y: 1, z: 0.9859701, w: -0.034052297}
   gamma:
-    m_OverrideState: 0
-    m_Value: {x: 0.9450417, y: 0.76213396, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.3057984, z: 0.9631461, w: -0.056753684}
   gain:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 0.6994294, z: 0.39104283, w: 0.11746279}
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.54264736, z: 0.74437237, w: 0.11746279}
 --- !u!114 &6295734306457659417
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -268,7 +268,7 @@ MonoBehaviour:
     m_Value: 65476.6
   tint:
     m_OverrideState: 1
-    m_Value: {r: 0.50279653, g: 1, b: 0.033018887, a: 1}
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
   highQualityFiltering:
     m_OverrideState: 1
     m_Value: 0

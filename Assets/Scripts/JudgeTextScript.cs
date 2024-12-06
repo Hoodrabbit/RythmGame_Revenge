@@ -44,7 +44,7 @@ public class JudgeTextScript : MonoBehaviour
             {
                 if (Time.timeScale == 1)
                 {
-                rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y + 0.5f);
+                rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y + 0.8f);
                 TTIme += Time.deltaTime;
                 
                 }

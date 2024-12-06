@@ -236,15 +236,15 @@ public class Note : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if(gameObject.CompareTag("Note"))
-        {
+        //if(gameObject.CompareTag("Note"))
+        //{
             if (collision.CompareTag("Finish"))
             {
-                Debug.Log("노트 제거");
+                
                 PlayManager.Instance.MissNote();
                 gameObject.SetActive(false);
             }
-        }
+        //}
 
 
     }
