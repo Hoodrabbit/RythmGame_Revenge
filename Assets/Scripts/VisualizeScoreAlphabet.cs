@@ -15,19 +15,19 @@ public class VisualizeScoreAlphabet : MonoBehaviour
     {
         AlphabetImg.enabled = true;
 
-        if (Accuracy >= 85)
+        if (Accuracy >= 0.85)
         {
             AlphabetImg.sprite = Alphabet[3];
         }
-        else if(Accuracy >=70)
+        else if(Accuracy >=0.8)
         {
             AlphabetImg.sprite = Alphabet[2];
         }
-        else if(Accuracy < 70)
+        else if(Accuracy >=0.7)
         {
             AlphabetImg.sprite = Alphabet[1];
         }
-        else
+        else if(Accuracy <0.7)
         {
             AlphabetImg.sprite= Alphabet[0];
         }

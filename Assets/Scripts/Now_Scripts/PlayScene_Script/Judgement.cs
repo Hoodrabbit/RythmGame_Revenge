@@ -448,7 +448,7 @@ public class Judgement : MonoBehaviour
 
 
             //정확한 판정을 켰을 경우
-            if (f_time <= 0.05)
+            if (f_time <= 0.08)
             {
 
 
@@ -477,7 +477,7 @@ public class Judgement : MonoBehaviour
             //return true;
 
 
-            else if (f_time > 0.05)
+            else if (f_time > 0.08)
             {
 
                 Color32 Left_UP = HexToColor32("#0047b1");
