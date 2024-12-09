@@ -75,7 +75,7 @@ public class Judgement : MonoBehaviour
 
 
     public SharedNoteList sharedList;
-
+    public CameraShake camshake;
 
     public List<Note> notes;
     Note LongNote;
@@ -189,6 +189,9 @@ public class Judgement : MonoBehaviour
                                     //HitText();
                                     nantaNote.HitNoteCheck();
                                     NantaHit?.Invoke(HEIGHT);
+                                    PlayManager.Instance.HitNantaNote();
+                                    camshake.Nanta_Hit();
+                                
                                 }
                                
                             }
@@ -200,6 +203,8 @@ public class Judgement : MonoBehaviour
                                     nantaNote.HitNantaNote();
                                     NantaHit?.Invoke(HEIGHT);
                                     nantaNote.IncreaseHitText();
+                                    PlayManager.Instance.HitNantaNote();
+                                    camshake.Nanta_Hit();
                                 }
 
                                
@@ -217,6 +222,7 @@ public class Judgement : MonoBehaviour
                             sharedList.DeleteBossNote();
                             //NantaHit?.Invoke();
                             notes.Remove(note);
+                            camshake.Normal_Hit();
                         }
                         else if (BossNote == null && LScript == null)
                         {
@@ -240,7 +246,7 @@ public class Judgement : MonoBehaviour
                                 PressEvent_Hit?.Invoke(HEIGHT);
                                 Instantiate_JudgeText(offsetValue);
                                 PlayManager.Instance.HitNote(note, ScoreDecrease);
-                                //songtimes.Add(GameManager.Instance.MainAudio.time);
+                                camshake.Normal_Hit();
                             }
 
 
@@ -590,7 +596,7 @@ public class Judgement : MonoBehaviour
                         MissNoteEvent?.Invoke();
                     }
 
-                    
+                    GameManager.Instance.Increase_Miss();
                     Miss();
                     PlayManager.Instance.MissNote();
                 }

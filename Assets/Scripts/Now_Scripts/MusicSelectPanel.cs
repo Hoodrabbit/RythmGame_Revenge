@@ -33,11 +33,11 @@ public class MusicSelectPanel : MonoBehaviour
     public bool KeyHold = false;
     bool KeyPressCheck = false;
 
-
+    bool Block = false;
 
     public int NowSelect;
 
-
+   
 
 
 
@@ -75,7 +75,15 @@ public class MusicSelectPanel : MonoBehaviour
 
     private void Update()
     {
-        UpdatingMusicSlot();
+
+        //현재 다른 패널이 켜져있을 때 실행되지 않도록 막아주기
+
+        if(!Block)
+        {
+            UpdatingMusicSlot();
+        }
+
+        
     }
 
     //현재 노래 슬롯을 체크해서 반으로 나눈다음에 노래가 몇곡 정도 있는지 체크해서 정렬해주기
@@ -166,12 +174,13 @@ public class MusicSelectPanel : MonoBehaviour
         int changevalue = selectValue;
 
 
-
-        for (int i = 0; i < 6; i++)
+        if(musicCount > visualCount)
         {
-           // Debug.Log("실행됨");
-            if (i < 4)
+            for (int i = 0; i < visualCount; i++)
             {
+                // Debug.Log("실행됨");
+                if (i < 4)
+                {
                     if (changevalue == musicCount)
                     {
                         changevalue = 0;
@@ -181,43 +190,99 @@ public class MusicSelectPanel : MonoBehaviour
                     {
                         MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[changevalue++]);
                     }
-               
-            }
-            else if (i == 4)
-            {
-                int check = selectValue;
 
-
-                if (check == 0)
-                {
-                    check = musicCount - 2;
-                    MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check]);
                 }
-                else if (check == 1)
+                else if (i == 4)
                 {
-                    check = musicCount - 1;
-                    MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check]);
+                    int check = selectValue;
+
+
+                    if (check == 0)
+                    {
+                        check = musicCount - 2;
+                        MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check]);
+                    }
+                    else if (check == 1)
+                    {
+                        check = musicCount - 1;
+                        MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check]);
+                    }
+                    else
+                    {
+                        MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check - 1]);
+                    }
                 }
                 else
                 {
-                    MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check-1]);
-                }
-            }
-            else
-            {
-                int check = selectValue;
-                if (check == 0)
-                {
-                    check = musicCount - 1;
-                    MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check]);
-                }
-                else
-                {
-                    MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check - 1]);
-                }
+                    int check = selectValue;
+                    if (check == 0)
+                    {
+                        check = musicCount - 1;
+                        MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check]);
+                    }
+                    else
+                    {
+                        MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check - 1]);
+                    }
 
+                }
             }
         }
+        else
+        {
+            for (int i = 0; i < musicCount; i++)
+            {
+                // Debug.Log("실행됨");
+                if (i < 4)
+                {
+                    if (changevalue == musicCount)
+                    {
+                        changevalue = 0;
+                        MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[changevalue++]);
+                    }
+                    else
+                    {
+                        MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[changevalue++]);
+                    }
+
+                }
+                else if (i == 4)
+                {
+                    int check = selectValue;
+
+
+                    if (check == 0)
+                    {
+                        check = musicCount - 2;
+                        MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check]);
+                    }
+                    else if (check == 1)
+                    {
+                        check = musicCount - 1;
+                        MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check]);
+                    }
+                    else
+                    {
+                        MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check - 1]);
+                    }
+                }
+                else
+                {
+                    int check = selectValue;
+                    if (check == 0)
+                    {
+                        check = musicCount - 1;
+                        MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check]);
+                    }
+                    else
+                    {
+                        MusicSlots[i].SetMusic(MusicManager.Instance.musicInfos[check - 1]);
+                    }
+
+                }
+            }
+        }
+        
 
         SlotChangeCheck();
     }
@@ -279,56 +344,121 @@ public class MusicSelectPanel : MonoBehaviour
     }
 
 
+
+    public void BlockScript()
+    {
+        Block = true;
+        GameManager.Instance.MainAudio.mute = true;
+    }
+
+    public void UnBlockScript()
+    {
+        Block= false;
+        GameManager.Instance.MainAudio.mute = false;
+    }
+
+
+
     void MakingMusicSlot()
     {
         RectTransform rectTransform = GetComponent<RectTransform>();
         float centerX = rectTransform.anchoredPosition.x;
         float centerY = rectTransform.anchoredPosition.y - 30;
 
-
-        RotateAngle = (360 / 6);
-
-
-
-        float radius = rectTransform.rect.width/5;
-        for (int i = 0; i < 6; i++)
+        if(musicCount > visualCount)
         {
-
-            int angle = i * (360 / 6);
-            float angleRadians = i * (2 * Mathf.PI / /*musicCount*/6);
-            float x = radius * Mathf.Cos(angleRadians);
-            float y = radius * Mathf.Sin(angleRadians);
-
-            MusicSlot MusicSlot_ = Instantiate(MusicImage, transform.position, Quaternion.Euler(0, 0, angle), transform).GetComponent<MusicSlot>();
-            RectTransform childrect = MusicSlot_.GetComponent<RectTransform>();
-           
-            if (childrect != rectTransform)
-            {
-                childrect.anchoredPosition = new Vector3(x, y, 0);
-            }
+            RotateAngle = (360 / visualCount);
 
 
-            //기본 곡 셋팅단계 1234는 원래 순서대로의 곡들 삽입 56은 뒤에서 두곡으로 함
-            if (i < 4)
+            float radius = rectTransform.rect.width / 5;
+            for (int i = 0; i < visualCount; i++)
             {
-                MusicSlot_.SetMusic(MusicManager.Instance.musicInfos[i]);
+
+                int angle = i * (360 / visualCount);
+                float angleRadians = i * (2 * Mathf.PI / /*musicCount*/visualCount);
+                float x = radius * Mathf.Cos(angleRadians);
+                float y = radius * Mathf.Sin(angleRadians);
+
+                MusicSlot MusicSlot_ = Instantiate(MusicImage, transform.position, Quaternion.Euler(0, 0, angle), transform).GetComponent<MusicSlot>();
+                RectTransform childrect = MusicSlot_.GetComponent<RectTransform>();
+
+                if (childrect != rectTransform)
+                {
+                    childrect.anchoredPosition = new Vector3(x, y, 0);
+                }
+
+
+                //기본 곡 셋팅단계 1234는 원래 순서대로의 곡들 삽입 56은 뒤에서 두곡으로 함
+                if (i < 4)
+                {
+                    MusicSlot_.SetMusic(MusicManager.Instance.musicInfos[i]);
+                }
+                else if (i == 4)
+                {
+                    MusicSlot_.SetMusic(MusicManager.Instance.musicInfos[musicCount - 2]);
+                }
+                else
+                {
+                    MusicSlot_.SetMusic(MusicManager.Instance.musicInfos[musicCount - 1]);
+                }
+                MusicSlots.Add(MusicSlot_);
+                Image musicslotimage = MusicSlot_.GetComponent<Image>();
+                musicslotimage.SetNativeSize();
             }
-            else if (i == 4)
-            {
-                MusicSlot_.SetMusic(MusicManager.Instance.musicInfos[musicCount - 2]);
-            }
-            else
-            {
-                MusicSlot_.SetMusic(MusicManager.Instance.musicInfos[musicCount - 1]);
-            }
-            MusicSlots.Add(MusicSlot_);
-            Image musicslotimage = MusicSlot_.GetComponent<Image>();
-            musicslotimage.SetNativeSize();
+
+            MusicImage_Selected = Instantiate(MusicImage, Vector2.zero, Quaternion.Euler(0, 0, 0), transform.parent);
+            MusicImage_Selected.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+            MusicImage_Selected.SetActive(false);
+
+
         }
+        else
+        {
+            RotateAngle = (360 / musicCount);
 
-        MusicImage_Selected=Instantiate(MusicImage, Vector2.zero, Quaternion.Euler(0, 0, 0), transform.parent);
-        MusicImage_Selected.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-        MusicImage_Selected.SetActive(false);
+
+
+            float radius = rectTransform.rect.width / 5;
+            for (int i = 0; i < musicCount; i++)
+            {
+
+                int angle = i * (360 / musicCount);
+                float angleRadians = i * (2 * Mathf.PI / /*musicCount*/musicCount);
+                float x = radius * Mathf.Cos(angleRadians);
+                float y = radius * Mathf.Sin(angleRadians);
+
+                MusicSlot MusicSlot_ = Instantiate(MusicImage, transform.position, Quaternion.Euler(0, 0, angle), transform).GetComponent<MusicSlot>();
+                RectTransform childrect = MusicSlot_.GetComponent<RectTransform>();
+
+                if (childrect != rectTransform)
+                {
+                    childrect.anchoredPosition = new Vector3(x, y, 0);
+                }
+
+
+                //기본 곡 셋팅단계 1234는 원래 순서대로의 곡들 삽입 56은 뒤에서 두곡으로 함
+                if (i < 4)
+                {
+                    MusicSlot_.SetMusic(MusicManager.Instance.musicInfos[i]);
+                }
+                else if (i == 4)
+                {
+                    MusicSlot_.SetMusic(MusicManager.Instance.musicInfos[musicCount - 2]);
+                }
+                else
+                {
+                    MusicSlot_.SetMusic(MusicManager.Instance.musicInfos[musicCount - 1]);
+                }
+                MusicSlots.Add(MusicSlot_);
+                Image musicslotimage = MusicSlot_.GetComponent<Image>();
+                musicslotimage.SetNativeSize();
+            }
+
+            MusicImage_Selected = Instantiate(MusicImage, Vector2.zero, Quaternion.Euler(0, 0, 0), transform.parent);
+            MusicImage_Selected.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+            MusicImage_Selected.SetActive(false);
+        }
+       
     }
 
     IEnumerator DownRotate()

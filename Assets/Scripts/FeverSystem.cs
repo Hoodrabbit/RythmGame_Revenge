@@ -40,7 +40,7 @@ public class FeverSystem : Singleton<FeverSystem>
     // Update is called once per frame
     void Update()
     {
-        if(FeverGaugeValue == FeverGaugeMaxValue)
+        if(FeverGaugeValue >= FeverGaugeMaxValue)
         {
             IsFever = true;
             //코루틴 작동

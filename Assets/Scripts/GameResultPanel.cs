@@ -22,6 +22,9 @@ public class GameResultPanel : MonoBehaviour
 
     public VisualizeScoreAlphabet alphabet;
 
+    public DifficultViewScript difficult;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -36,23 +39,26 @@ public class GameResultPanel : MonoBehaviour
             Perfect.text = GameManager.Instance.songStatus.Perfect.ToString();
             Great.text = GameManager.Instance.songStatus.Great.ToString();
             Miss.text = GameManager.Instance.songStatus.Miss.ToString();
-            //HighScore.text = GameManager.Instance.songStatus.Score.ToString();
+
+            if (GameManager.Instance.BeforeSongRecord.Score == 0 || GameManager.Instance.BeforeSongRecord.Score < GameManager.Instance.songStatus.Score)
+            {
+                HighScore.text = "최고점수!";
+            }
+            else
+            {
+                HighScore.text = GameManager.Instance.BeforeSongRecord.Score.ToString();
+            }
+            
 
             Accuracy.text = GameManager.Instance.GetAccuracy().ToString("P2");
             alphabet.VisualizeImage(GameManager.Instance.GetAccuracy());
             SongStatusManager.instance.SaveGameResult();
         }
+        difficult.ShowDifficultState();
 
-        
 
         //콤보랑 점수는 게임 씬이 종료되기 전에 게임매니저에 저장할 변수하나 만들어줘서 거기다가 저장시켜서 들고 오도록
 
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

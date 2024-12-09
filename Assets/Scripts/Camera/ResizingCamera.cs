@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class ResizingCamera : MonoBehaviour
 {
+    Camera cam;
+    Animator animator;
+
+
     private void Awake()
     {
-        Camera camera = GetComponent<Camera>();
+        cam = GetComponent<Camera>();
+        animator = GetComponent<Animator>();
 
-        Rect viewportRect = camera.rect;
+
+        Rect viewportRect = cam.rect;
 
         float NowScreenAspectRatio = (float)Screen.width / Screen.height;
         float targetAspectRatio = 16f / 9f;
@@ -24,7 +30,7 @@ public class ResizingCamera : MonoBehaviour
             viewportRect.y = (1f - viewportRect.height) / 2f;
         }
 
-        camera.rect = viewportRect;
+        cam.rect = viewportRect;
 
     }
 
@@ -32,16 +38,19 @@ public class ResizingCamera : MonoBehaviour
     public void Camera_Zoom()
     {
         //카메라 애니메이터 실행
-        Animator animator = GetComponent<Animator>();
+        
         animator.Play("CameraZoomIn");
 
     }
 
     public void Camera_ZoomOut()
     {
-        Animator animator = GetComponent<Animator>();
         animator.Play("CameraZoomOut");
     }
+
+
+
+
 
 
 }

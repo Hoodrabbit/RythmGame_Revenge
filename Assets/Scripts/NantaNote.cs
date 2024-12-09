@@ -9,7 +9,7 @@ public class NantaNote : Note
     public GameObject End;
     public GameObject Monster_Rig;
 
-    public Animator Effect;
+
     public Animator Text_Effect;
 
     public Animator MonsterAnimator;
@@ -18,7 +18,7 @@ public class NantaNote : Note
     public GameObject HitUI;
     public TMP_Text HitText;
 
-    
+    public ParticleSystem HitParticle;
 
     //최소 히트 수 
     public int MaxhitCount;
@@ -58,7 +58,10 @@ public class NantaNote : Note
         {
             if (transform.position.x >= End.transform.position.x)
             {
-                if(!Slay)
+                HitParticle.gameObject.SetActive(false);
+                Camera.main.GetComponent<CameraShake>().Nanta_Finish();
+
+                if (!Slay)
                 {
                     StartCoroutine(SizeUPHitText());
                 }
@@ -75,7 +78,7 @@ public class NantaNote : Note
     public void NantaStart()
     {
         Debug.Log("디버그 확인 용");
-        Camera.main.GetComponent<ResizingCamera>().Camera_Zoom();
+        //Camera.main.GetComponent<ResizingCamera>().Camera_Zoom();
         StartCoroutine(DecreaseOverTime());
     }
 
@@ -112,6 +115,7 @@ public class NantaNote : Note
 
     public void HitNantaNote()
     {
+        HitParticle.Play();
         TimeCheck -= DecreaseAmount;
         TimeCheck = Mathf.Max(0, TimeCheck);
         Debug.Log($"현재 시간: {TimeCheck}");
@@ -119,7 +123,7 @@ public class NantaNote : Note
 
     private IEnumerator SizeUPHitText()
     {
-        Camera.main.GetComponent<ResizingCamera>().Camera_ZoomOut();
+       
 
         Text_Effect.Play("HitTextSizeUP");
         Monster_Rig.gameObject.SetActive(false);

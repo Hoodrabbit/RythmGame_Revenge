@@ -22,11 +22,15 @@ public class GameManager : Singleton<GameManager>
 
     public DifficultState difficultState;
 
+    public KeyPressType keyPressType;
+
 
     public AudioSource MainAudio;
 
     public MusicInfo musicInfo;
 
+
+    public SongStat BeforeSongRecord;
 
     //게임 씬 끝날 때 저장받을 변수
     public SongStat songStatus;
@@ -72,6 +76,7 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void Init_SongStat()
     {
+        BeforeSongRecord = songStatus;
         songStatus.Init();
     }
 
@@ -210,7 +215,6 @@ public class GameManager : Singleton<GameManager>
     public void SetSongValue(int num)
     {
 
-        Debug.Log("SetSongValue 작동");
 
         SongValue = num;
         DataState = GameDataState.FinishData_Load;
@@ -220,7 +224,6 @@ public class GameManager : Singleton<GameManager>
 
     public void SetSongValue(MusicInfo musicInfo)
     {
-        print("tttt");
 
         this.musicInfo = musicInfo;
         Init_SongStat();
@@ -240,20 +243,10 @@ public class GameManager : Singleton<GameManager>
 
     public void SetDifficultValue(int num)
     {
-        print("sssss");
-
         difficultState = (DifficultState)num;
         Init_SongStat();
         SongStatusManager.instance.LoadSongStat();
 
-        if(songStatus.IsEmpty())
-        {
-            print("텅빔");
-        }
-        else
-        {
-            print(songStatus.Score);
-        }
 
         SongDetailPanelScript.instance.Init_MusicInfo(this.musicInfo, songStatus);
     }

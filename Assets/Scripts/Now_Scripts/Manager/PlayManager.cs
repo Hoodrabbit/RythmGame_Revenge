@@ -176,6 +176,10 @@ public class PlayManager : Singleton<PlayManager>
         scoresystem.IncreaseScore(20);
     }
 
+    public void HitNantaNote()
+    {
+        scoresystem.IncreaseScore(20);
+    }
 
 
     public void MissNote()

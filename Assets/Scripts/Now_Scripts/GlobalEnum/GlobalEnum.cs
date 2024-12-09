@@ -46,6 +46,13 @@ public enum DifficultState
     Hard
 }
 
+public enum KeyPressType
+{
+    A_Type,
+
+    B_Type
+}
+
 
 
 public enum JudgeMentState
