@@ -65,7 +65,7 @@ public class CameraShake : MonoBehaviour
             if (!isNanata)
             {
                 Debug.Log("동작확인1");
-
+                StopAllCoroutines();
                 StartCoroutine(CameraTransition(targetPos, TargetCamSize, 0.1f, 0.2f, 0.05f));
                 
             }
@@ -86,9 +86,9 @@ public class CameraShake : MonoBehaviour
         Debug.Log("slaying");
 
         StopAllCoroutines();
+        StartCoroutine(ZoomOutCamera(StartCamSize, 0f));
         isSlay = true;
         isNanata = false;
-
         //resizeCam.Camera_ZoomOut();
         transform.position = NormalPos;
 
@@ -155,6 +155,21 @@ public class CameraShake : MonoBehaviour
         }
 
         Camera.main.orthographicSize = targetSize;
+    }
+
+    IEnumerator ZoomOutCamera(float targetsize, float duration)
+    {
+        float startSize = Camera.main.orthographicSize;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            Camera.main.orthographicSize = Mathf.Lerp(startSize, targetsize, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        Camera.main.orthographicSize = targetsize;
     }
 
 

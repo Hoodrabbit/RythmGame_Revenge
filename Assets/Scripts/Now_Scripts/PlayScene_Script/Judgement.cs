@@ -187,6 +187,7 @@ public class Judgement : MonoBehaviour
                                     nantaNote.StopNoteMethod();
                                     nantaNote.IncreaseHitText();
                                     //HitText();
+                                    audioSource.Play();
                                     nantaNote.HitNoteCheck();
                                     NantaHit?.Invoke(HEIGHT);
                                     PlayManager.Instance.HitNantaNote();
@@ -200,6 +201,7 @@ public class Judgement : MonoBehaviour
 
                                 if (!nantaNote.Slay)
                                 {
+                                    audioSource.Play();
                                     nantaNote.HitNantaNote();
                                     NantaHit?.Invoke(HEIGHT);
                                     nantaNote.IncreaseHitText();
@@ -246,7 +248,7 @@ public class Judgement : MonoBehaviour
                                 PressEvent_Hit?.Invoke(HEIGHT);
                                 Instantiate_JudgeText(offsetValue);
                                 PlayManager.Instance.HitNote(note, ScoreDecrease);
-                                camshake.Normal_Hit();
+                                //camshake.Normal_Hit();
                             }
 
 

@@ -111,26 +111,25 @@ public class SongStatusManager : MonoBehaviour
                     writer.WriteLine(GameManager.Instance.GetAccuracy());
                 }
             }
-            else
-            {
+           
 
 
-                FileStream fileStream = File.Create(SongStatsPath);
-                StreamWriter fileWriter = new StreamWriter(fileStream);
+        }
+        else
+        {
+            FileStream fileStream = File.Create(SongStatsPath);
+            StreamWriter fileWriter = new StreamWriter(fileStream);
 
-                Debug.Log("작동확인");
+            Debug.Log("작동확인");
 
-                fileWriter.WriteLine(GameManager.Instance.songStatus.Score);
-                fileWriter.WriteLine(GameManager.Instance.songStatus.Combo);
-                fileWriter.WriteLine(GameManager.Instance.songStatus.Perfect);
-                fileWriter.WriteLine(GameManager.Instance.songStatus.Great);
-                fileWriter.WriteLine(GameManager.Instance.songStatus.Miss);
-                fileWriter.WriteLine(GameManager.Instance.GetAccuracy());
+            fileWriter.WriteLine(GameManager.Instance.songStatus.Score);
+            fileWriter.WriteLine(GameManager.Instance.songStatus.Combo);
+            fileWriter.WriteLine(GameManager.Instance.songStatus.Perfect);
+            fileWriter.WriteLine(GameManager.Instance.songStatus.Great);
+            fileWriter.WriteLine(GameManager.Instance.songStatus.Miss);
+            fileWriter.WriteLine(GameManager.Instance.GetAccuracy());
 
-                fileWriter.Close();
-            }
-
-
+            fileWriter.Close();
         }
     }
 

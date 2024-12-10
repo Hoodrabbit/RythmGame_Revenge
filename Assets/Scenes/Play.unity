@@ -1066,13 +1066,13 @@ RectTransform:
   - {fileID: 2109900352}
   - {fileID: 1036315793}
   - {fileID: 906078582}
-  - {fileID: 47963925}
-  - {fileID: 512898780}
-  - {fileID: 2083404460}
   - {fileID: 324809624}
   - {fileID: 887032722}
   - {fileID: 657962965}
   - {fileID: 1804091400}
+  - {fileID: 47963925}
+  - {fileID: 512898780}
+  - {fileID: 2083404460}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1177,7 +1177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 625444987034239350, guid: 833145ea2e847df40a923526eb091bf7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 61.666668
+      value: 61.66667
       objectReference: {fileID: 0}
     - target: {fileID: 625444987034239350, guid: 833145ea2e847df40a923526eb091bf7, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1262,6 +1262,10 @@ PrefabInstance:
       propertyPath: camshake
       value: 
       objectReference: {fileID: 1857500018}
+    - target: {fileID: 1582961830201327864, guid: fb9fac15e9401ac4ca985353f893d9ac, type: 3}
+      propertyPath: melody_type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2217237536134028692, guid: fb9fac15e9401ac4ca985353f893d9ac, type: 3}
       propertyPath: m_SortingLayer
       value: 3
@@ -4559,7 +4563,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 625444987034239350, guid: 833145ea2e847df40a923526eb091bf7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 61.666668
+      value: 61.66667
       objectReference: {fileID: 0}
     - target: {fileID: 625444987034239350, guid: 833145ea2e847df40a923526eb091bf7, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -7860,6 +7864,10 @@ PrefabInstance:
       propertyPath: camshake
       value: 
       objectReference: {fileID: 1857500018}
+    - target: {fileID: 1582961830201327864, guid: fb9fac15e9401ac4ca985353f893d9ac, type: 3}
+      propertyPath: melody_type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2217237536134028692, guid: fb9fac15e9401ac4ca985353f893d9ac, type: 3}
       propertyPath: m_SortingLayer
       value: 3
