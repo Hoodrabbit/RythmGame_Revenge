@@ -491,10 +491,10 @@ class BtnController
 
         Type type = Type.GetType(buttonName);
 
-        if (type != null && interfaceType.IsAssignableFrom(type))
-        {
-            Debug.Log(type);
-        }
+        //if (type != null && interfaceType.IsAssignableFrom(type))
+        //{
+        //    //Debug.Log(type);
+        //}
 
         IButton btnGet = Activator.CreateInstance(type) as IButton;
 

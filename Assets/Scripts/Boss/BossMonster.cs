@@ -18,7 +18,7 @@ public class BossMonster : Note
     bool DashHit = false;
 
 
-    float MaxTime = 0.3f;
+    float MaxTime = 0.1f;
     float TTime = 0;
     public Vector2 startpos;
     public Vector2 endpos;
@@ -155,7 +155,7 @@ public class BossMonster : Note
 
 
 
-        if (actualMoveTime >1.5f)
+        if (actualMoveTime >1f)
         {
             bossAnimation.PlayDashAniStart();
 
@@ -168,7 +168,7 @@ public class BossMonster : Note
                 {
                     float t = elapsedTime / waitTime;
 
-                    if (t >= 0.7f)
+                    if (t >= 0.4f)
                     {
                         //spriteRenderer.color = Color.red;
                     }

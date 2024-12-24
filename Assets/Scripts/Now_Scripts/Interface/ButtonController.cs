@@ -18,7 +18,6 @@ public class ButtonController : MonoBehaviour
 
     public void Onclick(string name)
     {
-        Debug.Log(name);
         btC.SetButton(name);
         //buttonClick.SetButtonInfo()
     }

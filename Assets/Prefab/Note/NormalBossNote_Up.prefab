@@ -224,8 +224,8 @@ MonoBehaviour:
   AlreadyHit: 0
   Startpos: {x: 0, y: 0}
   Endpos: {x: 0, y: 5.5}
-  StartRotation: 0
-  DelayTime: 0.6
+  StartRotation: -30
+  DelayTime: 0.5
   Effect: {fileID: 1510727471227341905}
 --- !u!50 &6156122219607569584
 Rigidbody2D:

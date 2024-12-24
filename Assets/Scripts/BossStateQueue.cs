@@ -66,20 +66,27 @@ public class BossStateQueue : MonoBehaviour
     {
         if (BossDashTime.Count > 0)
         {
+            // 큐가 2개 이상인지 확인
+            if (BossDashTime.Count > 1)
+            {
+                // 큐 복사를 통해 마지막 노트의 정보를 얻음
+                DashEventNoteInfo[] tempArray = BossDashTime.ToArray(); // 큐를 배열로 변환
+                DashEventNoteInfo lastNote = tempArray[tempArray.Length - 1]; // 마지막 요소 참조
 
+                // 마지막 노트의 시간 정보 확인
+                if (lastNote.GetSongTime() > 1f)
+                {
+                    Debug.Log($"마지막 노트의 시간이 1보다 큼: {lastNote.GetSongTime()}");
+                }
+                else
+                {
+                    Debug.Log($"마지막 노트의 시간이 1 이하임: {lastNote.GetSongTime()}");
+                }
+            }
+
+            // 대쉬 시작 로직
             DashEventNoteInfo info = BossDashTime.Dequeue();
-            //if (info.GetSongTime() < 1.6f)
-            //{
-            //    bossMonster.bossAnimation.PlayDashAniEnd();
-            //}
-            //else
-            //{
-            //    bossMonster.bossAnimation.PlayDashAniStart();
-            //}
-
-
             bossMonster.BossDash(info.GetEventNotetransform(), info.GetSongTime());
-            //보스 스크립트에 해당 시간을 매개변수로 한 함수 전달함
         }
         else
         {

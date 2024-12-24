@@ -120,7 +120,7 @@ public class SongStatusManager : MonoBehaviour
             FileStream fileStream = File.Create(SongStatsPath);
             StreamWriter fileWriter = new StreamWriter(fileStream);
 
-            Debug.Log("작동확인");
+            //Debug.Log("작동확인");
 
             fileWriter.WriteLine(GameManager.Instance.songStatus.Score);
             fileWriter.WriteLine(GameManager.Instance.songStatus.Combo);
@@ -141,15 +141,6 @@ public class SongStatusManager : MonoBehaviour
 
             SongStat songStat = new SongStat();
 
-            print("Load DataPath : " + SongStatsPath);
-            if (File.Exists(SongStatsPath))
-            {
-                Debug.Log("있는거 확ㅇ니");
-
-            }
-
-
-
             try
             {
                 using (StreamReader reader = new StreamReader(SongStatsPath))
@@ -167,22 +158,22 @@ public class SongStatusManager : MonoBehaviour
 
 
                 }
-                Debug.Log(songStat.Score + " , " + songStat.Combo + " , " + songStat.Perfect + " , " + songStat.Great);
+                //Debug.Log(songStat.Score + " , " + songStat.Combo + " , " + songStat.Perfect + " , " + songStat.Great);
                 GameManager.Instance.SetSongStat(songStat);
 
 
             }
             catch (FileNotFoundException ex)
             {
-                Debug.LogError($"File not found: {SongStatsPath}\n{ex.Message}");
+                //Debug.LogError($"File not found: {SongStatsPath}\n{ex.Message}");
             }
             catch (FormatException ex)
             {
-                Debug.LogError($"Data parsing error in file: {SongStatsPath}\n{ex.Message}");
+                //Debug.LogError($"Data parsing error in file: {SongStatsPath}\n{ex.Message}");
             }
             catch (Exception ex)
             {
-                Debug.LogError($"Unexpected error while reading file: {SongStatsPath}\n{ex.Message}");
+                //Debug.LogError($"Unexpected error while reading file: {SongStatsPath}\n{ex.Message}");
             }
         }
 

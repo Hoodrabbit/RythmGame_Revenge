@@ -41,7 +41,7 @@ public class SongDetailPanelScript : MonoBehaviour
 
         if(stat.IsEmpty())
         {
-            Debug.Log("없음");
+           // Debug.Log("없음");
 
 
             MaxScore.text = "없음";
@@ -52,7 +52,7 @@ public class SongDetailPanelScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("있음");
+            //Debug.Log("있음");
 
             MaxScore.text = stat.Score.ToString();
             MaxComboInfo.text = stat.Combo.ToString();

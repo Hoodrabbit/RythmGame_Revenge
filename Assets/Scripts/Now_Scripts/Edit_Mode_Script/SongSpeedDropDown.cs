@@ -9,9 +9,9 @@ public class SongSpeedDropDown : MonoBehaviour
 {
     TMP_Dropdown SSdropdown;
 
-    int StartIndex = 2;
+    int StartIndex = 3;
 
-    readonly List<string> Speed = new List<string>{ "0.25", "0.5", "1", "1.5", "2" };
+    readonly List<string> Speed = new List<string>{ "0.25", "0.5","0.75", "1", "1.5", "2" };
 
 
     // Start is called before the first frame update
@@ -43,14 +43,18 @@ public class SongSpeedDropDown : MonoBehaviour
                 GameManager.Instance.MainAudio.pitch = 0.5f;
                 break;
             case 2:
-                GameManager.Instance.MainAudio.pitch = 1f;
+                GameManager.Instance.MainAudio.pitch = 0.75f;
                 break;
             case 3:
-                GameManager.Instance.MainAudio.pitch = 1.5f;
+                GameManager.Instance.MainAudio.pitch = 1f;
                 break;
             case 4:
+                GameManager.Instance.MainAudio.pitch = 1.5f;
+                break;
+            case 5:
                 GameManager.Instance.MainAudio.pitch = 2f;
                 break;
+
         }
     }
 }

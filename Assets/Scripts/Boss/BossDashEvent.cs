@@ -30,43 +30,31 @@ public class BossDashEvent : NoteEventScript
     protected override void Update()
     {
 
-        if(boss != null)
+        if (boss != null)
         {
             if (!Hit)
             {
             }
             else
             {
-                    
+                boss_Real.transform.parent = null;
 
-                    boss_Real.transform.parent = null;
+                boss.Turnback();
+                boss.VisualizeBoss();
 
-                    boss.Turnback();
-                    boss.VisualizeBoss();
-
-                    spriteRenderer.color = Color.clear;
-                    gameObject.SetActive(false);
-                
-
-
-
-                //gameObject.SetActive(false);
+                spriteRenderer.color = Color.clear;
+                gameObject.SetActive(false);
             }
         }
-        
-
-
-        //transform.position = new Vector2(transform.position.x - 5 * Time.deltaTime, transform.position.y);
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("BossEventConverter"))
+        if (collision.CompareTag("BossEventConverter"))
         {
             Debug.Log("วาด็");
             collision.GetComponent<BossStateQueue>().EnqueueInBossQueue(transform, (float)note.SongTime);
-        }   
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
