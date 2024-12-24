@@ -155,7 +155,7 @@ public class BossMonster : Note
 
 
 
-        if (actualMoveTime >1.5f)
+        if (actualMoveTime >0.5f)
         {
             bossAnimation.PlayDashAniStart();
 
@@ -166,12 +166,6 @@ public class BossMonster : Note
 
                 while (elapsedTime < waitTime)
                 {
-                    float t = elapsedTime / waitTime;
-
-                    if (t >= 0.7f)
-                    {
-                        //spriteRenderer.color = Color.red;
-                    }
                     elapsedTime += Time.deltaTime;
                     yield return null;
 
