@@ -115,6 +115,7 @@ public class CameraShake : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        Debug.Log("¾Æ´Ï ¿Ö ¾ÈµÊ222");
 
         isNanata = true;
         transform.position = targetPosition;
