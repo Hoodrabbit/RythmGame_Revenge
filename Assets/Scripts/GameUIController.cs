@@ -30,12 +30,14 @@ public class GameUIController : MonoBehaviour
 
                     CoroutineOn = true;
 
+                    GameManager.Instance.PauseAudio();
+
                     buttonAudio.Play();
                 }
                 else
                 {
                     CloseButtonClick(MainMenuPanel);
-
+                    GameManager.Instance.PauseAudio();
                     buttonAudio.Play();
                 }
 
